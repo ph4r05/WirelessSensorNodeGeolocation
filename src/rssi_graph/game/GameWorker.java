@@ -7,8 +7,11 @@ package rssi_graph.game;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.HashMap;
 import java.util.Set;
+import javax.swing.JFrame;
 import net.tinyos.message.MessageListener;
 import net.tinyos.message.MoteIF;
 import rssi_graph.JPannelLoggerLogElement;
@@ -35,6 +38,8 @@ public class GameWorker extends WorkerBase implements MessageListener, WorkerInt
     private boolean multiplayer=true;
     private rssi_graph.game.Player player1=null;
     private rssi_graph.game.Player player2=null;
+    
+    protected JFrameScreen screen = null;
 
     public GameWorker(MoteIF mi) {
         // init mote interface
@@ -103,6 +108,25 @@ public class GameWorker extends WorkerBase implements MessageListener, WorkerInt
             this.mainPanel.setGameWorker(this);
             this.refreshMainWindow();
         }
+        
+        // screen frame initialization
+        if (this.screen == null){
+            JFrame mainFrame = RSSI_graphApp.getApplication().getMainFrame();
+            screen = new JFrameScreen();
+            screen.setLocationRelativeTo(mainFrame);
+            screen.setParentPanel(this.mainPanel);
+            screen.setGameWorker(this);
+            screen.setTitle("Závod");
+            screen.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            
+            // set dispose window listener
+            screen.addWindowListener(new WindowAdapter() {
+                @Override
+                public void windowClosing(WindowEvent e) {
+                    screenDisposed();
+                }
+            });
+        }
 //
 //        // fetch settings data from settings panel
 //        boolean success = this.reFetchSettings();
@@ -118,6 +142,10 @@ public class GameWorker extends WorkerBase implements MessageListener, WorkerInt
         this.logToTextarea("Module GAME registered and turned on. Listening to messages.", JPannelLoggerLogElement.SEVERITY_INFO);
     }
 
+    /**
+     * Module identification
+     * @return text id
+     */
     @Override
     public String toString() {
         return "Game module";
@@ -163,14 +191,21 @@ public class GameWorker extends WorkerBase implements MessageListener, WorkerInt
         // player names
         if (this.player1 instanceof Player){
             this.player1.setName(this.mainPanel.GetPlayerName(1));
+            
+            // update screen
+            this.screen.setPlayerName(1, this.player1.getName());
         }
         
         if (this.player2 instanceof Player){
-            this.player2.setName(this.mainPanel.GetPlayerName(2));
+            this.player2.setName(this.mainPanel.GetPlayerName(2));            
+            
+            // update screen
+            this.screen.setPlayerName(2, this.player2.getName());
         }
         
         // multiplayer assert
         this.setMultiplayer(this.player1 instanceof Player && this.player2 instanceof Player);
+        this.screen.setMultiplayer(this.isMultiplayer());
     }
     
     /**
@@ -179,6 +214,23 @@ public class GameWorker extends WorkerBase implements MessageListener, WorkerInt
      */
     public void accept(NodeRegisterEvent evt) {
         this.refreshMainWindow();
+    }
+    
+    /**
+     * event triggered when game screen is disposed
+     */
+    public void screenDisposed(){
+        // inform parent panel that screen was disposed
+        this.mainPanel.screenDisposed();
+    }
+    
+    /**
+     * Controls screen visibility
+     * 
+     * @param visible 
+     */
+    public void setScreenVisible(boolean visible){
+        this.screen.setVisible(visible);
     }
 
     public HashMap<Integer, LocalizationEstimate> getLocalizationHistory() {

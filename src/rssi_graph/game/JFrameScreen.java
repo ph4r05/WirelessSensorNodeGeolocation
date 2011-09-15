@@ -10,6 +10,10 @@
  */
 package rssi_graph.game;
 
+import java.awt.Dimension;
+import java.awt.Rectangle;
+import javax.swing.JPanel;
+
 /**
  * Represents online status of game visible for users.
  * Usually displayed on separate screen.
@@ -18,11 +22,99 @@ package rssi_graph.game;
  */
 public class JFrameScreen extends javax.swing.JFrame {
 
+    protected JPanelGame parentPanel = null;
+    protected GameWorker gameWorker = null;
+    
+    /**
+     * Flag indicating current state of window sizing for multiplayer.
+     * TRUE by default = window is split at 2 parts
+     */
+    protected boolean currentMultiplayer=true;
+    
     /** Creates new form JFrameScreen */
     public JFrameScreen() {
         initComponents();
     }
 
+    /**
+     * Set player name for frames & labels
+     * @param player 
+     */
+    public void setPlayerName(int player, String playername){
+        if (player==1){
+            jPanelPlayer1.setBorder(javax.swing.BorderFactory.createTitledBorder(playername));
+            jLabelPlayer1Name.setText(playername);
+        } else if (player==2){
+            jPanelPlayer2.setBorder(javax.swing.BorderFactory.createTitledBorder(playername));
+            jLabelPlayer2Name.setText(playername);
+        }
+    }
+    
+    /**
+     * Set multiplayer mode.
+     * Disable second viewer, expand first to the full size/split half
+     */
+    public void setMultiplayer(boolean multiplayer){
+        // if nothing changed, leave it
+        if (multiplayer==currentMultiplayer) return;
+        
+        Rectangle bounds2 = this.jPanelPlayer2.getBounds();
+        Dimension preferredSize2 = this.jPanelPlayer2.getPreferredSize();
+        
+        Rectangle bounds1 = this.jPanelPlayer1.getBounds();
+        Dimension preferredSize1 = this.jPanelPlayer1.getPreferredSize();
+        
+        if (multiplayer==true){
+            // here => now IS NOT multiplayer screen, but should be => split
+            this.jPanelPlayer2.setVisible(true);
+            this.jPanelPlayer1.setBounds(new Rectangle(bounds1.x, bounds1.y, bounds1.width - bounds2.width, bounds1.height));
+            this.jPanelPlayer1.setPreferredSize(new Dimension(preferredSize1.width - preferredSize2.width, preferredSize1.height));
+        } else {
+            // here => now IS multiplayer screen, but shouldn't be => extend
+            this.jPanelPlayer2.setVisible(false);
+            this.jPanelPlayer1.setBounds(new Rectangle(bounds1.x, bounds1.y, bounds1.width + bounds2.width, bounds1.height));
+            this.jPanelPlayer1.setPreferredSize(new Dimension(preferredSize1.width + preferredSize2.width, preferredSize1.height));
+        }
+        
+        // update current state
+        currentMultiplayer = multiplayer;
+    }
+    
+    public JPanelGame getParentPanel() {
+        return parentPanel;
+    }
+
+    public void setParentPanel(JPanelGame parentPanel) {
+        this.parentPanel = parentPanel;
+    }
+
+    public GameWorker getGameWorker() {
+        return gameWorker;
+    }
+
+    public void setGameWorker(GameWorker gameWorker) {
+        this.gameWorker = gameWorker;
+    }
+
+    public JPanel getjPanelPlayer1() {
+        return jPanelPlayer1;
+    }
+
+    public void setjPanelPlayer1(JPanel jPanelPlayer1) {
+        this.jPanelPlayer1 = jPanelPlayer1;
+    }
+
+    public JPanel getjPanelPlayer2() {
+        return jPanelPlayer2;
+    }
+
+    public void setjPanelPlayer2(JPanel jPanelPlayer2) {
+        this.jPanelPlayer2 = jPanelPlayer2;
+    }
+    
+    
+    
+    
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -33,29 +125,85 @@ public class JFrameScreen extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setName("Form"); // NOI18N
+        jPanelPlayer1 = new javax.swing.JPanel();
+        jLabelPlayer1Name = new javax.swing.JLabel();
+        jPanelPlayer2 = new javax.swing.JPanel();
+        jLabelPlayer2Name = new javax.swing.JLabel();
 
         org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(rssi_graph.RSSI_graphApp.class).getContext().getResourceMap(JFrameScreen.class);
         jLabel1.setText(resourceMap.getString("jLabel1.text")); // NOI18N
         jLabel1.setName("jLabel1"); // NOI18N
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setName("Form"); // NOI18N
+
+        jPanelPlayer1.setBorder(javax.swing.BorderFactory.createTitledBorder(resourceMap.getString("jPanelPlayer1.border.title"))); // NOI18N
+        jPanelPlayer1.setName("jPanelPlayer1"); // NOI18N
+
+        jLabelPlayer1Name.setFont(new java.awt.Font("DejaVu Sans", 1, 24)); // NOI18N
+        jLabelPlayer1Name.setForeground(resourceMap.getColor("jLabelPlayer1Name.foreground")); // NOI18N
+        jLabelPlayer1Name.setText(resourceMap.getString("jLabelPlayer1Name.text")); // NOI18N
+        jLabelPlayer1Name.setName("jLabelPlayer1Name"); // NOI18N
+
+        javax.swing.GroupLayout jPanelPlayer1Layout = new javax.swing.GroupLayout(jPanelPlayer1);
+        jPanelPlayer1.setLayout(jPanelPlayer1Layout);
+        jPanelPlayer1Layout.setHorizontalGroup(
+            jPanelPlayer1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelPlayer1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabelPlayer1Name)
+                .addContainerGap(180, Short.MAX_VALUE))
+        );
+        jPanelPlayer1Layout.setVerticalGroup(
+            jPanelPlayer1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelPlayer1Layout.createSequentialGroup()
+                .addComponent(jLabelPlayer1Name)
+                .addContainerGap(226, Short.MAX_VALUE))
+        );
+
+        jPanelPlayer2.setBorder(javax.swing.BorderFactory.createTitledBorder(resourceMap.getString("jPanelPlayer2.border.title"))); // NOI18N
+        jPanelPlayer2.setName("jPanelPlayer2"); // NOI18N
+
+        jLabelPlayer2Name.setFont(new java.awt.Font("DejaVu Sans", 1, 24)); // NOI18N
+        jLabelPlayer2Name.setForeground(resourceMap.getColor("jLabelPlayer2Name.foreground")); // NOI18N
+        jLabelPlayer2Name.setText(resourceMap.getString("jLabelPlayer2Name.text")); // NOI18N
+        jLabelPlayer2Name.setName("jLabelPlayer2Name"); // NOI18N
+
+        javax.swing.GroupLayout jPanelPlayer2Layout = new javax.swing.GroupLayout(jPanelPlayer2);
+        jPanelPlayer2.setLayout(jPanelPlayer2Layout);
+        jPanelPlayer2Layout.setHorizontalGroup(
+            jPanelPlayer2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelPlayer2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabelPlayer2Name)
+                .addContainerGap(180, Short.MAX_VALUE))
+        );
+        jPanelPlayer2Layout.setVerticalGroup(
+            jPanelPlayer2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelPlayer2Layout.createSequentialGroup()
+                .addComponent(jLabelPlayer2Name)
+                .addContainerGap(226, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(171, 171, 171)
-                .addComponent(jLabel1)
-                .addContainerGap(184, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(jPanelPlayer1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(12, 12, 12)
+                .addComponent(jPanelPlayer2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(62, 62, 62)
-                .addComponent(jLabel1)
-                .addContainerGap(221, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanelPlayer2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanelPlayer1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
@@ -74,5 +222,9 @@ public class JFrameScreen extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabelPlayer1Name;
+    private javax.swing.JLabel jLabelPlayer2Name;
+    private javax.swing.JPanel jPanelPlayer1;
+    private javax.swing.JPanel jPanelPlayer2;
     // End of variables declaration//GEN-END:variables
 }

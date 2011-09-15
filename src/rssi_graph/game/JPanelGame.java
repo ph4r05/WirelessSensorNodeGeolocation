@@ -10,6 +10,7 @@
  */
 package rssi_graph.game;
 
+import java.awt.event.ItemEvent;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
@@ -117,6 +118,14 @@ public class JPanelGame extends javax.swing.JPanel {
         this.refreshMobileNodes(3);
     }
     
+    /**
+     * Event fired when game screen is disposed.
+     * Correct toggle button state
+     */
+    public void screenDisposed(){
+        this.jToggleDisplayScreen.setSelected(false);
+    }
+    
     public String GetPlayerName(int player){
         return player==1 ? this.jTextPlayer1Name.getText() : this.jTextPlayer2Name.getText();
     }
@@ -132,7 +141,7 @@ public class JPanelGame extends javax.swing.JPanel {
     public void setGameWorker(GameWorker gameWorker) {
         this.gameWorker = gameWorker;
     }
-
+    
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -150,6 +159,7 @@ public class JPanelGame extends javax.swing.JPanel {
         jTextPlayer1Name = new javax.swing.JTextField();
         jTextPlayer2Name = new javax.swing.JTextField();
         jButtonSubmitPlayerSettings = new javax.swing.JButton();
+        jToggleDisplayScreen = new javax.swing.JToggleButton();
 
         setName("Form"); // NOI18N
 
@@ -233,13 +243,23 @@ public class JPanelGame extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
+        jToggleDisplayScreen.setText(resourceMap.getString("jToggleDisplayScreen.text")); // NOI18N
+        jToggleDisplayScreen.setName("jToggleDisplayScreen"); // NOI18N
+        jToggleDisplayScreen.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jToggleDisplayScreenItemStateChanged(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jToggleDisplayScreen))
                 .addContainerGap(55, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -247,7 +267,9 @@ public class JPanelGame extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(164, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jToggleDisplayScreen)
+                .addContainerGap(129, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -301,6 +323,20 @@ public class JPanelGame extends javax.swing.JPanel {
         this.refreshMobileNodes(1);
     }//GEN-LAST:event_jComboPlayer2NodeActionPerformed
 
+    /**
+     * react on toggle button - display screen
+     * @param evt 
+     */
+    private void jToggleDisplayScreenItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jToggleDisplayScreenItemStateChanged
+        if (evt.getStateChange() == ItemEvent.SELECTED){
+            // selected - set visible
+            this.gameWorker.setScreenVisible(true);
+        } else {
+            // deselected - dispose
+            this.gameWorker.setScreenVisible(false);
+        }
+    }//GEN-LAST:event_jToggleDisplayScreenItemStateChanged
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonSubmitPlayerSettings;
     private javax.swing.JComboBox jComboPlayer1Node;
@@ -310,5 +346,6 @@ public class JPanelGame extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField jTextPlayer1Name;
     private javax.swing.JTextField jTextPlayer2Name;
+    private javax.swing.JToggleButton jToggleDisplayScreen;
     // End of variables declaration//GEN-END:variables
 }
