@@ -17,13 +17,14 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedList;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 
 /**
  * Logger window
  *
  * @author ph4r05
  */
-public class JPanelLogger extends javax.swing.JPanel {
+public class JPanelLogger extends javax.swing.JPanel implements Cloneable {
 
     /**
      * Do auto scroll?
@@ -56,6 +57,11 @@ public class JPanelLogger extends javax.swing.JPanel {
      * Panel ID for global hash map
      */
     private String panelID=null;
+    
+    /**
+     * Log window to mirror sent log messages
+     */
+    protected JPanelLogger logMirror = null;
 
     /** Creates new form JPanelLogger */
     public JPanelLogger() {
@@ -103,6 +109,10 @@ public class JPanelLogger extends javax.swing.JPanel {
     public synchronized void clearData(){
         this.lines.clear();
         this.clearArea();
+        
+        if (this.logMirror instanceof JPanelLogger){
+            this.logMirror.clearData();
+        }
     }
 
     /**
@@ -110,6 +120,10 @@ public class JPanelLogger extends javax.swing.JPanel {
      */
     public void clearArea(){
         this.jTextArea1.setText("");
+        
+        if (this.logMirror instanceof JPanelLogger){
+            this.logMirror.clearArea();
+        }
     }
 
     /**
@@ -125,6 +139,10 @@ public class JPanelLogger extends javax.swing.JPanel {
 
             // filtering here!
             this.appendLog(it.next());
+        }
+        
+        if (this.logMirror instanceof JPanelLogger){
+            this.logMirror.rewrite();
         }
     }
 
@@ -150,6 +168,10 @@ public class JPanelLogger extends javax.swing.JPanel {
         this.appendLog(a);
         this.jTextArea1.repaint();
         this.jTextArea1.revalidate();
+        
+        if (this.logMirror instanceof JPanelLogger){
+            this.logMirror.addLogEntry(a);
+        }
     }
 
     /**
@@ -181,6 +203,14 @@ public class JPanelLogger extends javax.swing.JPanel {
     public synchronized void append(String s){
         this.appendStr(s + RSSI_graphApp.getLineSeparator());
     }
+    
+    /**
+     * Returns raw log output
+     * @return 
+     */
+    public synchronized String getLogRaw(){
+        return this.jTextArea1.getText();
+    }
 
     /**
      * Append string to log window without separator
@@ -193,6 +223,10 @@ public class JPanelLogger extends javax.swing.JPanel {
         if (this.isAutoscroll()){
             this.jTextArea1.setCaretPosition(this.jTextArea1.getText().length());
         }
+    }
+
+    public JPanelLogger clone() throws CloneNotSupportedException {
+        return (JPanelLogger) super.clone();
     }
 
 
@@ -224,7 +258,45 @@ public class JPanelLogger extends javax.swing.JPanel {
         return panelID;
     }
 
+    public Date getDate() {
+        return date;
+    }
 
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public DateFormat getDateFormat() {
+        return dateFormat;
+    }
+
+    public void setDateFormat(DateFormat dateFormat) {
+        this.dateFormat = dateFormat;
+    }
+
+    public JTextArea getjTextArea1() {
+        return jTextArea1;
+    }
+
+    public void setjTextArea1(JTextArea jTextArea1) {
+        this.jTextArea1 = jTextArea1;
+    }
+
+    public LinkedList<JPannelLoggerLogElement> getLines() {
+        return lines;
+    }
+
+    public void setLines(LinkedList<JPannelLoggerLogElement> lines) {
+        this.lines = lines;
+    }
+
+    public JPanelLogger getLogMirror() {
+        return logMirror;
+    }
+
+    public void setLogMirror(JPanelLogger logMirror) {
+        this.logMirror = logMirror;
+    }
 
     /**
      * =========================================================================

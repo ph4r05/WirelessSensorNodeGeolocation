@@ -5,6 +5,10 @@
 package rssi_graph;
 
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Rectangle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JComboBox;
 import javax.swing.JProgressBar;
 import javax.swing.JTable;
@@ -243,6 +247,12 @@ public class RSSI_graphView extends FrameView {
             jframeLog.setParentPanel(this);
             jframeLog.setTitle(this.getFrame().getTitle() +  " - Log");
             
+            // set mirroring from small log
+            jframeLog.getjPanelLogger1().clearData();
+            jframeLog.getjPanelLogger1().setLines(jPanelLogger1.getLines());
+            jframeLog.getjPanelLogger1().append(jPanelLogger1.getLogRaw());
+            this.jPanelLogger1.setLogMirror(jframeLog.getjPanelLogger1());
+            
             // set dispose window listener
             jframeLog.addWindowListener(new WindowAdapter() {
                 @Override
@@ -254,6 +264,11 @@ public class RSSI_graphView extends FrameView {
         
         // set visibility according to current selected value
         jframeLog.setVisible(jCheckExternalLog.isSelected());
+        
+//        // synchronize content
+//        jframeLog.getjPanelLogger1().clearData();
+//        jframeLog.getjPanelLogger1().setLines(jPanelLogger1.getLines());
+//        jframeLog.getjPanelLogger1().append(jPanelLogger1.getLogRaw());
         this.changedExternalLogVisibility(jCheckExternalLog.isSelected());
     }
     
@@ -273,6 +288,24 @@ public class RSSI_graphView extends FrameView {
      */
     public void changedExternalLogVisibility(boolean visible){
         this.jPanelLogger1.setVisible(!visible);
+        
+        Rectangle bounds = this.jPanelLogger1.getBounds();
+        Rectangle boundsTab = this.jTabbedPaneMain.getBounds();
+        System.err.println("Height of disabled log window: " + bounds.getHeight());
+        if (visible){
+            Dimension preferredSize = this.jTabbedPaneMain.getPreferredSize();
+            this.jTabbedPaneMain.setPreferredSize(
+                    new Dimension((int) Math.floor(preferredSize.getWidth()), (int) Math.floor(preferredSize.getHeight() + bounds.getHeight()))
+                    );
+            this.jTabbedPaneMain.setBounds(new Rectangle(boundsTab.x, boundsTab.y, boundsTab.width, (int) Math.floor(preferredSize.getHeight() + bounds.getHeight())));
+        } else {
+            // resize back
+            Dimension preferredSize = this.jTabbedPaneMain.getPreferredSize();
+            this.jTabbedPaneMain.setPreferredSize(
+                    new Dimension((int) Math.floor(preferredSize.getWidth()), (int) Math.floor(preferredSize.getHeight() - bounds.getHeight()))
+                    );
+            this.jTabbedPaneMain.setBounds(new Rectangle(boundsTab.x, boundsTab.y, boundsTab.width, (int) Math.floor(preferredSize.getHeight() - bounds.getHeight())));
+        }
     }
     
     /**
@@ -1579,10 +1612,10 @@ public class RSSI_graphView extends FrameView {
         mainPanelLayout.setVerticalGroup(
             mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(mainPanelLayout.createSequentialGroup()
-                .addComponent(jTabbedPaneMain, javax.swing.GroupLayout.PREFERRED_SIZE, 571, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTabbedPaneMain, javax.swing.GroupLayout.DEFAULT_SIZE, 571, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanelLogger1, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         menuBar.setName("menuBar"); // NOI18N

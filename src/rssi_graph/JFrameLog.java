@@ -46,6 +46,8 @@ public class JFrameLog extends javax.swing.JFrame {
 
     public void setjPanelLogger1(JPanelLogger jPanelLogger1) {
         this.jPanelLogger1 = jPanelLogger1;
+        this.repaint();
+        this.validate();
     }
 
     
