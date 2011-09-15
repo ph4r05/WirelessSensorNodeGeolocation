@@ -265,16 +265,13 @@ public class RSSI_graphView extends FrameView {
         
         // set visibility according to current selected value
         jframeLog.setVisible(jCheckExternalLog.isSelected());
-        
-//        // synchronize content
-//        jframeLog.getjPanelLogger1().clearData();
-//        jframeLog.getjPanelLogger1().setLines(jPanelLogger1.getLines());
-//        jframeLog.getjPanelLogger1().append(jPanelLogger1.getLogRaw());
         this.changedExternalLogVisibility(jCheckExternalLog.isSelected());
     }
     
     /**
-     * Called by external window when log window is disposed
+     * Called by external window when log window is disposed.
+     * Corrects check box state in menu according to current state.
+     * Set visible internal log window, Resize main window components.
      */
     public void externalLogDisposed() {
         // disable checked button in menu
@@ -283,7 +280,11 @@ public class RSSI_graphView extends FrameView {
     }
     
     /**
-     * Called to maintenance external log window
+     * Called to maintenance external log window.
+     * When is visibility of external window changed, main window is accordingly resized.
+     * 
+     * Idea: when is visible external log window, internal log window is hidden and
+     * rest of the main window is resized to the full size of main window (without hidden logpanel).
      * 
      * @param visible 
      */
@@ -292,8 +293,8 @@ public class RSSI_graphView extends FrameView {
         
         Rectangle bounds = this.jPanelLogger1.getBounds();
         Rectangle boundsTab = this.jTabbedPaneMain.getBounds();
-        System.err.println("Height of disabled log window: " + bounds.getHeight());
         if (visible){
+            // resize rest of visible main pannel 
             Dimension preferredSize = this.jTabbedPaneMain.getPreferredSize();
             this.jTabbedPaneMain.setPreferredSize(
                     new Dimension((int) Math.floor(preferredSize.getWidth()), (int) Math.floor(preferredSize.getHeight() + bounds.getHeight()))
