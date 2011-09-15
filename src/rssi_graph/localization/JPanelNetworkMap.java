@@ -1231,10 +1231,12 @@ public class JPanelNetworkMap extends javax.swing.JPanel implements NodeRegister
             RSSI_graphApp.getApplication().show(this.settingsDialog);
 
             // what happened if settings are finished?
-        }
-        else if ("Redraw".equalsIgnoreCase(actionCommand)){
+        } else if ("Redraw".equalsIgnoreCase(actionCommand)){
             // redraw if some timer is fired
             redraw();
+        } else if ("attach".equalsIgnoreCase(actionCommand)){
+            // attach/detach this panel to new window
+            
         }
     }
     

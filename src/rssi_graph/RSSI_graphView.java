@@ -31,6 +31,8 @@ import org.jdesktop.application.TaskMonitor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.Enumeration;
 import javax.swing.Timer;
 import javax.swing.Icon;
@@ -225,6 +227,52 @@ public class RSSI_graphView extends FrameView {
             aboutBox.setLocationRelativeTo(mainFrame);
         }
         RSSI_graphApp.getApplication().show(aboutBox);
+    }
+    
+    /**
+     * Set external log panel
+     */
+    @Action
+    public void setExternalLog() {
+        
+        // initialize new window if not
+        if (jframeLog == null) {
+            JFrame mainFrame = RSSI_graphApp.getApplication().getMainFrame();
+            jframeLog = new JFrameLog();
+            jframeLog.setLocationRelativeTo(mainFrame);
+            jframeLog.setParentPanel(this);
+            jframeLog.setTitle(this.getFrame().getTitle() +  " - Log");
+            
+            // set dispose window listener
+            jframeLog.addWindowListener(new WindowAdapter() {
+                @Override
+                public void windowClosing(WindowEvent e) {
+                    externalLogDisposed();
+                }
+            });
+        }
+        
+        // set visibility according to current selected value
+        jframeLog.setVisible(jCheckExternalLog.isSelected());
+        this.changedExternalLogVisibility(jCheckExternalLog.isSelected());
+    }
+    
+    /**
+     * Called by external window when log window is disposed
+     */
+    public void externalLogDisposed() {
+        // disable checked button in menu
+        this.jCheckExternalLog.setSelected(false);
+        this.changedExternalLogVisibility(false);
+    }
+    
+    /**
+     * Called to maintenance external log window
+     * 
+     * @param visible 
+     */
+    public void changedExternalLogVisibility(boolean visible){
+        this.jPanelLogger1.setVisible(!visible);
     }
     
     /**
@@ -569,6 +617,7 @@ public class RSSI_graphView extends FrameView {
         menuBar = new javax.swing.JMenuBar();
         javax.swing.JMenu fileMenu = new javax.swing.JMenu();
         javax.swing.JMenuItem exitMenuItem = new javax.swing.JMenuItem();
+        jCheckExternalLog = new javax.swing.JCheckBoxMenuItem();
         javax.swing.JMenu helpMenu = new javax.swing.JMenu();
         javax.swing.JMenuItem aboutMenuItem = new javax.swing.JMenuItem();
         statusPanel = new javax.swing.JPanel();
@@ -1546,6 +1595,12 @@ public class RSSI_graphView extends FrameView {
         exitMenuItem.setName("exitMenuItem"); // NOI18N
         fileMenu.add(exitMenuItem);
 
+        jCheckExternalLog.setAction(actionMap.get("setExternalLog")); // NOI18N
+        jCheckExternalLog.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        jCheckExternalLog.setText(resourceMap.getString("jCheckExternalLog.text")); // NOI18N
+        jCheckExternalLog.setName("jCheckExternalLog"); // NOI18N
+        fileMenu.add(jCheckExternalLog);
+
         menuBar.add(fileMenu);
 
         helpMenu.setText(resourceMap.getString("helpMenu.text")); // NOI18N
@@ -1710,6 +1765,7 @@ public class RSSI_graphView extends FrameView {
     private javax.swing.JButton jButton_comm_setReportGap;
     private javax.swing.JButton jButton_drop;
     private javax.swing.JButton jButton_save;
+    private javax.swing.JCheckBoxMenuItem jCheckExternalLog;
     private javax.swing.JCheckBox jCheck_R2D_resetBeforeRound;
     private javax.swing.JCheckBox jCheck_com_randomizedThresholding;
     private javax.swing.JCheckBox jCheck_comm_autoNodeDiscovery;
@@ -1799,4 +1855,6 @@ public class RSSI_graphView extends FrameView {
     private int busyIconIndex = 0;
 
     private JDialog aboutBox;
+    
+    private JFrameLog jframeLog;
 }
