@@ -36,7 +36,13 @@ public interface GenericNode extends Serializable, Cloneable{
 
     public double getTemperature();
     public void setTemperature(double  temperature);
+    
+    public double getHumidity();
+    public void setHumidity(double humidity);
 
+    public double getLightIntensity();
+    public void setLightIntensity(double lightIntensity);
+    
     public NodePlatform getPlatform();
     public void setPlatform(NodePlatform platform);
     

@@ -219,7 +219,7 @@ public class RSSI_graphApp extends SingleFrameApplication {
             // if base station was found, use it
             if (bs_found){
                 source = "serial@" + path + ":micaz";
-                System.err.println("Base station autodetection was successfull. Using mote on: " + path);
+                System.err.println("Base station autodetection was successfull. Using mote: " + source);
             }
             else {
                 // source is null => base station is not connected, application will work in limited mode

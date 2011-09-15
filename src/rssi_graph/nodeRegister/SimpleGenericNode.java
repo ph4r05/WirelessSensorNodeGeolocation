@@ -59,6 +59,16 @@ public class SimpleGenericNode implements GenericNode {
     private int lastMyCounter=0;
     private int lastItsCounter=0;
     private double temperature = Integer.MIN_VALUE;
+    
+    /**
+     * Light intensity from sensor
+     */
+    private double lightIntensity = Integer.MIN_VALUE;
+    
+    /**
+     * Humidity from sensor
+     */
+    private double humidity = Integer.MIN_VALUE;
 
     /**
      * Node platform
@@ -347,8 +357,24 @@ public class SimpleGenericNode implements GenericNode {
     public double getNormalizedRssi(double rssi, int txlevel) {
         return rssi + this.getRssiNormalizingConstant();
     }
-    
-    
 
+    public double getHumidity() {
+        return humidity;
+    }
+
+    public void setHumidity(double humidity) {
+        this.humidity = humidity;
+    }
+
+    public double getLightIntensity() {
+        return lightIntensity;
+    }
+
+    public void setLightIntensity(double lightIntensity) {
+        this.lightIntensity = lightIntensity;
+    }
+    
+    
+    
     
 }
