@@ -1512,6 +1512,18 @@
                 </Constraint>
               </Constraints>
             </Component>
+            <Component class="rssi_graph.game.JPanelGame" name="jPanelGame1">
+              <Properties>
+                <Property name="name" type="java.lang.String" value="jPanelGame1" noResource="true"/>
+              </Properties>
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
+                  <JTabbedPaneConstraints tabName="Game">
+                    <Property name="tabTitle" type="java.lang.String" resourceKey="jPanelGame1.TabConstraints.tabTitle"/>
+                  </JTabbedPaneConstraints>
+                </Constraint>
+              </Constraints>
+            </Component>
           </SubComponents>
         </Container>
         <Component class="rssi_graph.JPanelLogger" name="jPanelLogger1">
@@ -1556,9 +1568,6 @@
               <Properties>
                 <Property name="action" type="javax.swing.Action" editor="org.netbeans.modules.swingapp.ActionEditor">
                   <action class="rssi_graph.RSSI_graphView" id="setExternalLog" methodName="setExternalLog"/>
-                </Property>
-                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
-                  <KeyStroke key="Shift+Ctrl+L"/>
                 </Property>
                 <Property name="text" type="java.lang.String" resourceKey="jCheckExternalLog.text"/>
                 <Property name="name" type="java.lang.String" value="jCheckExternalLog" noResource="true"/>

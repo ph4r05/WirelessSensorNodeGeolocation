@@ -81,8 +81,6 @@ public class WorkerBase implements MessageListener, WorkerInterface, ActionListe
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-
-
     /**
      * Returns msg sender thread
      * @return

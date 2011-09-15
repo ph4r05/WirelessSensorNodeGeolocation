@@ -13,6 +13,7 @@ import javax.swing.JComboBox;
 import javax.swing.JProgressBar;
 import javax.swing.JTable;
 import org.jdesktop.application.Task;
+import rssi_graph.game.JPanelGame;
 import rssi_graph.localization.JPanelLocalizationMain;
 import rssi_graph.localization.JPanelTXpowerSelector;
 import rssi_graph.nodeRegister.JPanelNodeRegisterMain;
@@ -510,6 +511,12 @@ public class RSSI_graphView extends FrameView {
         return jPanelLocalizationMain1;
     }
 
+    public JPanelGame getjPanelGame1() {
+        return jPanelGame1;
+    }
+    
+    
+
     public JPanelNodeSelector getjPanel_comm_NodeSelector() {
         return jPanel_comm_NodeSelector1;
     }
@@ -646,6 +653,7 @@ public class RSSI_graphView extends FrameView {
         jField_com_period = new javax.swing.JFormattedTextField();
         jRadio_com_humidity = new javax.swing.JRadioButton();
         jPanelNodeRegisterMain1 = new rssi_graph.nodeRegister.JPanelNodeRegisterMain();
+        jPanelGame1 = new rssi_graph.game.JPanelGame();
         jPanelLogger1 = new rssi_graph.JPanelLogger();
         menuBar = new javax.swing.JMenuBar();
         javax.swing.JMenu fileMenu = new javax.swing.JMenu();
@@ -1595,6 +1603,9 @@ public class RSSI_graphView extends FrameView {
         jPanelNodeRegisterMain1.setName("jPanelNodeRegisterMain1"); // NOI18N
         jTabbedPaneMain.addTab(resourceMap.getString("jPanelNodeRegisterMain1.TabConstraints.tabTitle"), jPanelNodeRegisterMain1); // NOI18N
 
+        jPanelGame1.setName("jPanelGame1"); // NOI18N
+        jTabbedPaneMain.addTab(resourceMap.getString("jPanelGame1.TabConstraints.tabTitle"), jPanelGame1); // NOI18N
+
         jPanelLogger1.setName("jPanelLogger1"); // NOI18N
 
         javax.swing.GroupLayout mainPanelLayout = new javax.swing.GroupLayout(mainPanel);
@@ -1629,7 +1640,6 @@ public class RSSI_graphView extends FrameView {
         fileMenu.add(exitMenuItem);
 
         jCheckExternalLog.setAction(actionMap.get("setExternalLog")); // NOI18N
-        jCheckExternalLog.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
         jCheckExternalLog.setText(resourceMap.getString("jCheckExternalLog.text")); // NOI18N
         jCheckExternalLog.setName("jCheckExternalLog"); // NOI18N
         fileMenu.add(jCheckExternalLog);
@@ -1837,6 +1847,7 @@ public class RSSI_graphView extends FrameView {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanelComm;
+    private rssi_graph.game.JPanelGame jPanelGame1;
     private rssi_graph.localization.JPanelLocalizationMain jPanelLocalizationMain1;
     private rssi_graph.JPanelLogger jPanelLogger1;
     private rssi_graph.nodeRegister.JPanelNodeRegisterMain jPanelNodeRegisterMain1;

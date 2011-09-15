@@ -35,6 +35,7 @@ import org.jdesktop.application.SingleFrameApplication;
 import net.tinyos.message.*;
 import net.tinyos.packet.*;
 import net.tinyos.util.*;
+import rssi_graph.game.GameWorker;
 import rssi_graph.motecom.MessageSender;
 import rssi_graph.motecom.NodeDiscovery;
 
@@ -308,6 +309,7 @@ public class RSSI_graphApp extends SingleFrameApplication {
         this.workers[0] = new WorkerLocalization(moteInterface);
         this.workers[1] = new WorkerR2D(moteInterface);
         this.workers[2] = new WorkerCommands(moteInterface);
+        this.workers[3] = new GameWorker(moteInterface);
 
         // start msgSender thread
         this.msgSender.start();
