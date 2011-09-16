@@ -662,6 +662,14 @@ public class GameWorker extends WorkerBase implements MessageListener, WorkerInt
     public void setWatchdogThreshold(int watchdogThreshold) {
         this.watchdogThreshold = watchdogThreshold;
     }
+
+    public double getSmoothingSensor() {
+        return smoothingSensor;
+    }
+
+    public void setSmoothingSensor(double smoothingSensor) {
+        this.smoothingSensor = smoothingSensor;
+    }
     
     
     
