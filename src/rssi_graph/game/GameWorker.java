@@ -31,6 +31,7 @@ import rssi_graph.nodeRegister.GenericNode;
 import rssi_graph.nodeRegister.MobileNodeManager;
 import rssi_graph.nodeRegister.NodeRegisterEvent;
 import rssi_graph.nodeRegister.NodeRegisterEventListener;
+import rssi_graph.utils.DataSmoother;
 
 
 /**
@@ -66,6 +67,11 @@ public class GameWorker extends WorkerBase implements MessageListener, WorkerInt
      * Is watchdog enabled?
      */
     protected boolean watchdogEnabled;
+    
+    /**
+     * Smoothing constant for light sensor averaging
+     */
+    protected double smoothingSensor=0.2;
     
 //    protected boolean[] playerDoGuiUpdate = { true, true };
 
@@ -410,8 +416,11 @@ public class GameWorker extends WorkerBase implements MessageListener, WorkerInt
                 GenericNode node = this.nodeRegister.getNode(source);
                 if (Message.get_command_data_next() != null
                         && Message.get_command_data_next()[0] == 2){
+                    
+                    int lightSensorOutput = Message.get_command_data();
+                    
                     // set light intensity
-                    node.setLightIntensity(Message.get_command_data());
+                    node.setLightIntensity(lightSensorOutput);
                     // to keep fit
                     node.setLastSeen(currentTimeMillis);
 
@@ -422,11 +431,15 @@ public class GameWorker extends WorkerBase implements MessageListener, WorkerInt
                     // reflect change to player node
                     if (this.player1 instanceof Player && this.player1.getNode() == source){
                         // set no need to do watchdog
-                        this.player1.setLight(Message.get_command_data());
+                        double light = this.player1.getLight();
+                        
+                        this.player1.setLight(DataSmoother.getSmoothed(light, lightSensorOutput, this.smoothingSensor));
                         this.player1.setLastResponseTime(currentTimeMillis);
                     } else if (this.player2 instanceof Player && this.player2.getNode() == source) {
+                        double light = this.player2.getLight();
+                        
                         // set no need to do watchdog
-                        this.player2.setLight(Message.get_command_data());
+                        this.player2.setLight(DataSmoother.getSmoothed(light, lightSensorOutput, this.smoothingSensor));
                         this.player2.setLastResponseTime(currentTimeMillis);
                     }
                     
@@ -531,8 +544,7 @@ public class GameWorker extends WorkerBase implements MessageListener, WorkerInt
     public void updateGuiEvent(ActionEvent e){
         // @BUG:
         this.mainPanel.updateGuiTimerFired();
-        
-        
+        this.screen.updateGuiTimerFired();
     }
     
     /**

@@ -22,9 +22,9 @@
           <Component id="jToolBar1" alignment="0" pref="1215" max="32767" attributes="0"/>
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+              <Group type="103" groupAlignment="1" attributes="0">
+                  <Component id="jPanel1" min="-2" max="-2" attributes="1"/>
                   <Component id="jPanelOptions" max="32767" attributes="1"/>
-                  <Component id="jPanel1" alignment="0" max="32767" attributes="1"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jPanelPlayer1" min="-2" max="-2" attributes="1"/>
@@ -781,10 +781,12 @@
                       <Group type="102" alignment="1" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="jLabel17" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel19" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel18" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace pref="78" max="32767" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                              <Component id="jTextSmoothingSensor" max="32767" attributes="1"/>
                               <Component id="jTextWatchdogThreshold" alignment="0" max="32767" attributes="1"/>
                               <Component id="jTextRequestTimeout" alignment="0" pref="79" max="32767" attributes="1"/>
                           </Group>
@@ -802,11 +804,16 @@
                       <Component id="jTextRequestTimeout" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jLabel18" min="-2" max="-2" attributes="0"/>
-                      <Component id="jTextWatchdogThreshold" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="jTextWatchdogThreshold" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabel18" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="21" max="32767" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="jTextSmoothingSensor" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabel19" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace pref="48" max="32767" attributes="0"/>
                   <Component id="jButtonOptionsApply" min="-2" pref="29" max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -844,6 +851,18 @@
           <Properties>
             <Property name="text" type="java.lang.String" resourceKey="jTextWatchdogThreshold.text"/>
             <Property name="name" type="java.lang.String" value="jTextWatchdogThreshold" noResource="true"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel19">
+          <Properties>
+            <Property name="text" type="java.lang.String" resourceKey="jLabel19.text"/>
+            <Property name="name" type="java.lang.String" value="jLabel19" noResource="true"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="jTextSmoothingSensor">
+          <Properties>
+            <Property name="text" type="java.lang.String" resourceKey="jTextSmoothingSensor.text"/>
+            <Property name="name" type="java.lang.String" value="jTextSmoothingSensor" noResource="true"/>
           </Properties>
         </Component>
       </SubComponents>

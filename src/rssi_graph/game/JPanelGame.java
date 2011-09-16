@@ -74,12 +74,12 @@ public class JPanelGame extends javax.swing.JPanel {
     public void playerModel2View(int player, Player curplayer){
         if (player == 1){
             this.jTextEnergy1.setText(String.valueOf(curplayer.getEnergy()));
-            this.jTextEnergyExpression1.setText(curplayer.getEnergyExpression());
+            //this.jTextEnergyExpression1.setText(curplayer.getEnergyExpression());
             this.jTextLight1.setText(String.valueOf(curplayer.getLight()));
             this.jTextResponse1.setText(String.valueOf(curplayer.getLastResponse()));
         } else if (player == 2){
             this.jTextEnergy2.setText(String.valueOf(curplayer.getEnergy()));
-            this.jTextEnergyExpression2.setText(curplayer.getEnergyExpression());
+            //this.jTextEnergyExpression2.setText(curplayer.getEnergyExpression());
             this.jTextLight2.setText(String.valueOf(curplayer.getLight()));
             this.jTextResponse2.setText(String.valueOf(curplayer.getLastResponse()));
         }
@@ -339,6 +339,8 @@ public class JPanelGame extends javax.swing.JPanel {
         jButtonOptionsApply = new javax.swing.JButton();
         jLabel18 = new javax.swing.JLabel();
         jTextWatchdogThreshold = new javax.swing.JTextField();
+        jLabel19 = new javax.swing.JLabel();
+        jTextSmoothingSensor = new javax.swing.JTextField();
 
         setName("Form"); // NOI18N
 
@@ -855,6 +857,12 @@ public class JPanelGame extends javax.swing.JPanel {
         jTextWatchdogThreshold.setText(resourceMap.getString("jTextWatchdogThreshold.text")); // NOI18N
         jTextWatchdogThreshold.setName("jTextWatchdogThreshold"); // NOI18N
 
+        jLabel19.setText(resourceMap.getString("jLabel19.text")); // NOI18N
+        jLabel19.setName("jLabel19"); // NOI18N
+
+        jTextSmoothingSensor.setText(resourceMap.getString("jTextSmoothingSensor.text")); // NOI18N
+        jTextSmoothingSensor.setName("jTextSmoothingSensor"); // NOI18N
+
         javax.swing.GroupLayout jPanelOptionsLayout = new javax.swing.GroupLayout(jPanelOptions);
         jPanelOptions.setLayout(jPanelOptionsLayout);
         jPanelOptionsLayout.setHorizontalGroup(
@@ -866,11 +874,13 @@ public class JPanelGame extends javax.swing.JPanel {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelOptionsLayout.createSequentialGroup()
                         .addGroup(jPanelOptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel17)
+                            .addComponent(jLabel19)
                             .addComponent(jLabel18))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 78, Short.MAX_VALUE)
-                        .addGroup(jPanelOptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextWatchdogThreshold)
-                            .addComponent(jTextRequestTimeout, javax.swing.GroupLayout.DEFAULT_SIZE, 79, Short.MAX_VALUE))))
+                        .addGroup(jPanelOptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jTextSmoothingSensor)
+                            .addComponent(jTextWatchdogThreshold, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTextRequestTimeout, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 79, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         jPanelOptionsLayout.setVerticalGroup(
@@ -880,10 +890,14 @@ public class JPanelGame extends javax.swing.JPanel {
                     .addComponent(jLabel17)
                     .addComponent(jTextRequestTimeout, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanelOptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel18)
-                    .addComponent(jTextWatchdogThreshold, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
+                .addGroup(jPanelOptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextWatchdogThreshold, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel18))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanelOptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextSmoothingSensor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel19))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
                 .addComponent(jButtonOptionsApply, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -894,9 +908,9 @@ public class JPanelGame extends javax.swing.JPanel {
             .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 1215, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanelOptions, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanelOptions, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanelPlayer1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1125,6 +1139,7 @@ public class JPanelGame extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -1152,6 +1167,7 @@ public class JPanelGame extends javax.swing.JPanel {
     private javax.swing.JTextField jTextRequestTimeout;
     private javax.swing.JTextField jTextResponse1;
     private javax.swing.JTextField jTextResponse2;
+    private javax.swing.JTextField jTextSmoothingSensor;
     private javax.swing.JTextField jTextWatchdogThreshold;
     private javax.swing.JTextField jTextX1;
     private javax.swing.JTextField jTextX2;
