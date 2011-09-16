@@ -10,6 +10,7 @@ import java.awt.event.ItemEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 import java.util.logging.Level;
@@ -54,12 +55,12 @@ public class GameWorker extends WorkerBase implements MessageListener, WorkerInt
     /**
      * Timeout between sensor reading from sensor
      */
-    protected int requestTimeout=200;
+    protected int requestTimeout=500;
     
     /**
      * Threshold of node unresponsivity to watchdog reaction (HW reset, send request)
      */
-    protected int watchdogThreshold=5000;
+    protected int watchdogThreshold=10000;
     
     /**
      * Is watchdog enabled?
@@ -361,7 +362,27 @@ public class GameWorker extends WorkerBase implements MessageListener, WorkerInt
      */
     public void accept(NodeRegisterEvent evt) {
         if (evt!=null && evt.getEventType() != NodeRegisterEvent.EVENT_TYPE_DATA_CHANGED) return;
-        this.refreshMainWindow();
+        
+        // no changes - do it
+        if (evt.changes==null){
+            this.refreshMainWindow();
+            return;
+        }
+        
+        // do not refresh on each data change - light intensity is not interesting for us for instance
+        boolean doRefresh = false;
+        Iterator<Integer> iterator = evt.changes.keySet().iterator();
+        while(iterator.hasNext()){
+            String curChange = evt.changes.get(iterator.next());
+            if (curChange==null){
+                doRefresh=true;
+                break;
+            }
+        }
+        
+        if (doRefresh){
+            this.refreshMainWindow();
+        }
     }
 
     /**
