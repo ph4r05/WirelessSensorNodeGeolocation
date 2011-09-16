@@ -71,7 +71,7 @@ public class GameWorker extends WorkerBase implements MessageListener, WorkerInt
     /**
      * Smoothing constant for light sensor averaging
      */
-    protected double smoothingSensor=0.2;
+    protected double smoothingSensor=0.5;
     
 //    protected boolean[] playerDoGuiUpdate = { true, true };
 
