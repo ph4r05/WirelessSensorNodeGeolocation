@@ -1,0 +1,3607 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurationDescriptor version="79">
+  <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
+    <df name="nesC" root=".">
+      <df name="_backupBS_working_hang">
+        <df name="InterceptBase">
+          <in>BaseStationC.nc</in>
+          <in>BaseStationP.nc</in>
+        </df>
+        <df name="RssiBase">
+          <in>ApplicationDefinitions.h</in>
+          <in>RssiBaseAppC.nc</in>
+          <in>RssiBaseC.nc</in>
+        </df>
+        <in>RssiDemoMessages.h</in>
+      </df>
+      <df name="InterceptBase">
+        <in>BaseStationC.nc</in>
+        <in>BaseStationP.nc</in>
+        <in>Reset.h</in>
+        <in>Reset.nc</in>
+        <in>ResetC.nc</in>
+        <in>platform.h</in>
+      </df>
+      <df name="ReportMote">
+        <in>ApplicationDefinitions.h</in>
+        <in>Reset.h</in>
+        <in>Reset.nc</in>
+        <in>ResetC.nc</in>
+        <in>SendingMoteAppC.nc</in>
+        <in>SendingMoteC.nc</in>
+        <in>platform.h</in>
+      </df>
+      <df name="RssiBase">
+        <df name="simbuild">
+          <df name="iris">
+          </df>
+        </df>
+        <in>ApplicationDefinitions.h</in>
+        <in>RssiBaseAppC.nc</in>
+        <in>RssiBaseC.nc</in>
+      </df>
+      <in>RssiDemoMessages.h</in>
+    </df>
+    <df name="tinyos-2.x" root="/opt/tinyos-2.x">
+      <df name="apps">
+        <df name="AntiTheft">
+          <df name="java">
+          </df>
+          <df name="Nodes">
+            <in>AntiTheftAppC.nc</in>
+            <in>AntiTheftC.nc</in>
+            <in>antitheft.h</in>
+          </df>
+          <df name="Root">
+            <in>AntiTheftRootAppC.nc</in>
+            <in>AntiTheftRootC.nc</in>
+          </df>
+        </df>
+        <df name="BaseStation">
+          <in>BaseStationC.nc</in>
+          <in>BaseStationP.nc</in>
+        </df>
+        <df name="BaseStation15.4">
+          <in>BaseStationC.nc</in>
+          <in>BaseStationP.nc</in>
+          <in>seriallisten15-4.c</in>
+        </df>
+        <df name="Blink">
+          <in>BlinkAppC.nc</in>
+          <in>BlinkC.nc</in>
+        </df>
+        <df name="IPBaseStation">
+          <in>BaseStationC.nc</in>
+          <in>BaseStationP.nc</in>
+          <in>Reset.h</in>
+          <in>Reset.nc</in>
+          <in>ResetC.nc</in>
+        </df>
+        <df name="MultihopOscilloscope">
+          <df name="java">
+          </df>
+          <in>MultihopOscilloscope.h</in>
+          <in>MultihopOscilloscopeAppC.nc</in>
+          <in>MultihopOscilloscopeC.nc</in>
+        </df>
+        <df name="MultihopOscilloscopeLqi">
+          <df name="java">
+          </df>
+          <in>MultihopOscilloscope.h</in>
+          <in>MultihopOscilloscopeAppC.nc</in>
+          <in>MultihopOscilloscopeC.nc</in>
+        </df>
+        <df name="MViz">
+          <in>MViz.h</in>
+          <in>MVizAppC.nc</in>
+          <in>MVizC.nc</in>
+          <in>MVizSensorC.nc</in>
+        </df>
+        <df name="Null">
+          <in>NullAppC.nc</in>
+          <in>NullC.nc</in>
+        </df>
+        <df name="Oscilloscope">
+          <df name="java">
+          </df>
+          <in>Oscilloscope.h</in>
+          <in>OscilloscopeAppC.nc</in>
+          <in>OscilloscopeC.nc</in>
+        </df>
+        <df name="Powerup">
+          <in>PowerupAppC.nc</in>
+          <in>PowerupC.nc</in>
+        </df>
+        <df name="RadioCountToLeds">
+          <in>RadioCountToLeds.h</in>
+          <in>RadioCountToLedsAppC.nc</in>
+          <in>RadioCountToLedsC.nc</in>
+        </df>
+        <df name="RadioSenseToLeds">
+          <in>RadioSenseToLeds.h</in>
+          <in>RadioSenseToLedsAppC.nc</in>
+          <in>RadioSenseToLedsC.nc</in>
+        </df>
+        <df name="Sense">
+          <in>SenseAppC.nc</in>
+          <in>SenseC.nc</in>
+        </df>
+        <df name="TCPEcho">
+          <in>HttpdP.nc</in>
+          <in>TCPEchoC.nc</in>
+          <in>TCPEchoP.nc</in>
+          <in>UDPReport.h</in>
+        </df>
+        <df name="tosthreads">
+          <df name="apps">
+            <df name="BaseStation">
+              <in>BaseSendReceiveP.nc</in>
+              <in>BaseStationAppC.nc</in>
+              <in>BaseStationC.nc</in>
+              <in>base_station.h</in>
+              <in>stack.h</in>
+            </df>
+            <df name="Blink">
+              <in>BlinkAppC.nc</in>
+              <in>BlinkC.nc</in>
+            </df>
+            <df name="Blink_DynamicThreads">
+              <in>BlinkAppC.nc</in>
+              <in>BlinkC.nc</in>
+            </df>
+            <df name="Bounce">
+              <in>BarrierBounceAppC.nc</in>
+              <in>BarrierBounceC.nc</in>
+              <in>barrier_bounce.h</in>
+              <in>stack.h</in>
+            </df>
+            <df name="RadioStress">
+              <in>RadioStressAppC.nc</in>
+              <in>RadioStressC.nc</in>
+            </df>
+            <df name="TestBasicsbSensors">
+              <in>TestBasicsbSensorsAppC.nc</in>
+              <in>TestBasicsbSensorsC.nc</in>
+            </df>
+            <df name="TestBlockStorage">
+              <in>TestBlockStorageAppC.nc</in>
+              <in>TestBlockStorageP.nc</in>
+            </df>
+            <df name="TestCollection">
+              <df name="java">
+              </df>
+              <in>MultihopOscilloscope.h</in>
+              <in>TestCollectionAppC.nc</in>
+              <in>TestCollectionC.nc</in>
+            </df>
+            <df name="TestJoin">
+              <in>TestJoinAppC.nc</in>
+              <in>TestJoinC.nc</in>
+            </df>
+            <df name="TestPrintf">
+              <in>TestPrintfAppC.nc</in>
+              <in>TestPrintfC.nc</in>
+            </df>
+            <df name="TestSineSensor">
+              <in>TestSineSensorAppC.nc</in>
+              <in>TestSineSensorC.nc</in>
+            </df>
+          </df>
+          <df name="capps">
+            <df name="BaseStation">
+              <in>BaseStation.c</in>
+            </df>
+            <df name="Blink">
+              <in>Blink.c</in>
+              <in>stack.h</in>
+            </df>
+            <df name="Bounce">
+              <in>Bounce.c</in>
+            </df>
+            <df name="Null">
+              <in>Null.c</in>
+            </df>
+            <df name="RadioStress">
+              <in>RadioStress.c</in>
+            </df>
+            <df name="SenseAndSend">
+              <in>SenseAndSend.c</in>
+            </df>
+            <df name="SenseStoreAndForward">
+              <in>SenseStoreAndForward.c</in>
+            </df>
+            <df name="TestCollection">
+              <df name="java">
+              </df>
+              <in>MultihopOscilloscope.h</in>
+              <in>TestCollection.c</in>
+            </df>
+            <df name="TestJoin">
+              <in>TestJoin.c</in>
+              <in>stack.h</in>
+            </df>
+            <df name="TestLogStorage">
+              <in>TestLogStorage.c</in>
+            </df>
+            <df name="TestPrintf">
+              <in>TestPrintf.c</in>
+            </df>
+            <df name="TestSineSensor">
+              <in>TestSineSensor.c</in>
+            </df>
+            <df name="ThreadStress">
+              <in>ThreadStress.c</in>
+            </df>
+          </df>
+          <df name="tinyld">
+            <df name="LoadFromRAM">
+              <in>LoadFromRAMAppC.nc</in>
+              <in>LoadFromRAMP.nc</in>
+            </df>
+            <df name="SerialLoader">
+              <in>SerialLoader.h</in>
+              <in>SerialLoaderAppC.nc</in>
+              <in>SerialLoaderP.nc</in>
+            </df>
+            <df name="SerialLoaderFlash">
+              <in>FlashVolumeManager.h</in>
+              <in>FlashVolumeManagerC.nc</in>
+              <in>FlashVolumeManagerP.nc</in>
+              <in>SerialLoaderFlashAppC.nc</in>
+            </df>
+          </df>
+        </df>
+        <df name="tutorials">
+          <df name="BlinkConfig">
+            <in>BlinkConfigAppC.nc</in>
+            <in>BlinkConfigC.nc</in>
+          </df>
+          <df name="BlinkFail">
+            <in>BlinkFailAppC.nc</in>
+            <in>BlinkFailC.nc</in>
+          </df>
+          <df name="BlinkTask">
+            <in>BlinkTaskAppC.nc</in>
+            <in>BlinkTaskC.nc</in>
+          </df>
+          <df name="BlinkToRadio">
+            <in>BlinkToRadio.h</in>
+            <in>BlinkToRadioAppC.nc</in>
+            <in>BlinkToRadioC.nc</in>
+          </df>
+          <df name="LowPowerSensing">
+            <df name="Base">
+              <in>LowPowerSensingBaseAppC.nc</in>
+              <in>LowPowerSensingBaseC.nc</in>
+            </df>
+            <df name="java">
+            </df>
+            <df name="sampleLog">
+              <in>GenericSensorSample.h</in>
+              <in>PeriodicSampleLogger16C.nc</in>
+              <in>PeriodicSampleLoggerP.nc</in>
+              <in>SampleLogRead.nc</in>
+              <in>SampleLogReaderC.nc</in>
+              <in>SampleLogReaderP.nc</in>
+              <in>SampleNxConverter.nc</in>
+            </df>
+            <df name="Sampler">
+              <in>LowPowerSensingPeriodicSamplerAppC.nc</in>
+              <in>LowPowerSensingPeriodicSamplerC.nc</in>
+            </df>
+            <df name="tmote_onboard_sensors">
+              <in>SampleNxConverterC.nc</in>
+              <in>SamplePeriodicLogC.nc</in>
+              <in>SensorSample.h</in>
+            </df>
+            <df name="universal_sensors">
+              <in>SampleNxConverterC.nc</in>
+              <in>SamplePeriodicLogC.nc</in>
+              <in>SensorSample.h</in>
+            </df>
+            <in>LowPowerSensingConstants.h</in>
+            <in>LowPowerSensingMsgs.h</in>
+          </df>
+          <df name="PacketParrot">
+            <in>PacketParrotC.nc</in>
+            <in>PacketParrotP.nc</in>
+          </df>
+          <df name="Printf">
+            <in>TestPrintfAppC.nc</in>
+            <in>TestPrintfC.nc</in>
+          </df>
+          <df name="RssiDemo">
+            <df name="InterceptBase">
+              <in>BaseStationC.nc</in>
+              <in>BaseStationP.nc</in>
+            </df>
+            <df name="java">
+            </df>
+            <df name="RssiBase">
+              <in>ApplicationDefinitions.h</in>
+              <in>RssiBaseAppC.nc</in>
+              <in>RssiBaseC.nc</in>
+            </df>
+            <df name="SendingMote">
+              <in>ApplicationDefinitions.h</in>
+              <in>SendingMoteAppC.nc</in>
+              <in>SendingMoteC.nc</in>
+            </df>
+            <in>RssiDemoMessages.h</in>
+          </df>
+          <df name="SharedResourceDemo">
+            <in>ResourceOperations.nc</in>
+            <in>ResourceP.nc</in>
+            <in>SharedResourceC.nc</in>
+            <in>SharedResourceDemoAppC.nc</in>
+            <in>SharedResourceDemoC.nc</in>
+            <in>SharedResourceImplP.nc</in>
+            <in>SharedResourceP.nc</in>
+          </df>
+        </df>
+        <df name="UDPEcho">
+          <df name="NodeConnectivity">
+            <in>NodeConnectivity.nc</in>
+            <in>TestbedConnectivityM.nc</in>
+          </df>
+          <df name="util">
+          </df>
+          <in>UDPEchoC.nc</in>
+          <in>UDPEchoP.nc</in>
+          <in>UDPReport.h</in>
+        </df>
+      </df>
+      <df name="licenses">
+      </df>
+      <df name="support">
+        <df name="make">
+          <df name="avr">
+          </df>
+          <df name="epic">
+          </df>
+          <df name="m16c62p">
+            <in>crt.S</in>
+          </df>
+          <df name="msp">
+          </df>
+          <df name="null">
+          </df>
+          <df name="pxa27x">
+          </df>
+          <df name="tinynode">
+          </df>
+        </df>
+        <df name="sdk">
+          <df name="c">
+            <df name="6lowpan">
+              <df name="serial_tun">
+                <in>6lowpan.h</in>
+                <in>serial_tun.c</in>
+                <in>tun_dev.c</in>
+                <in>tun_dev.h</in>
+              </df>
+            </df>
+            <df name="blip">
+              <df name="driver">
+                <df name="radvd-1.0">
+                  <in>defaults.h</in>
+                  <in>device-bsd44.c</in>
+                  <in>device-common.c</in>
+                  <in>device-linux.c</in>
+                  <in>gram.c</in>
+                  <in>gram.h</in>
+                  <in>includes.h</in>
+                  <in>interface.c</in>
+                  <in>log.c</in>
+                  <in>pathnames.h</in>
+                  <in>process.c</in>
+                  <in>radvd.c</in>
+                  <in>radvd.h</in>
+                  <in>radvdump.c</in>
+                  <in>recv.c</in>
+                  <in>scanner.c</in>
+                  <in>send.c</in>
+                  <in>socket.c</in>
+                  <in>timer.c</in>
+                  <in>util.c</in>
+                </df>
+                <df name="vty">
+                  <in>test_srv.c</in>
+                  <in>vty-util.c</in>
+                  <in>vty.c</in>
+                  <in>vty.h</in>
+                </df>
+                <in>config.c</in>
+                <in>config.h</in>
+                <in>hashtable.c</in>
+                <in>hashtable.h</in>
+                <in>hashtable_private.h</in>
+                <in>logging.c</in>
+                <in>logging.h</in>
+                <in>mcast.c</in>
+                <in>mcast.h</in>
+                <in>netlink.c</in>
+                <in>netlink.h</in>
+                <in>nwstate.c</in>
+                <in>nwstate.h</in>
+                <in>radvd-wrapper.c</in>
+                <in>routing.c</in>
+                <in>routing.h</in>
+                <in>serial_tun.c</in>
+                <in>tun_dev.c</in>
+                <in>tun_dev.h</in>
+                <in>tunnel.c</in>
+              </df>
+              <df name="lib6lowpan">
+                <in>6lowpan.h</in>
+                <in>IEEE154Packet.h</in>
+                <in>TrackFlows.h</in>
+                <in>blip-platform.h</in>
+                <in>devconf.h</in>
+                <in>in_cksum.c</in>
+                <in>in_cksum.h</in>
+                <in>ip.h</in>
+                <in>ip_malloc.c</in>
+                <in>ip_malloc.h</in>
+                <in>lib6lowpan.c</in>
+                <in>lib6lowpan.h</in>
+                <in>lib6lowpanFrag.c</in>
+                <in>lib6lowpanIP.c</in>
+                <in>nwbyte.h</in>
+                <in>printpacket.c</in>
+              </df>
+              <df name="libtcp">
+                <in>circ.c</in>
+                <in>circ.h</in>
+                <in>tcplib.c</in>
+                <in>tcplib.h</in>
+                <in>test_circ.c</in>
+                <in>test_server.c</in>
+              </df>
+            </df>
+            <df name="sf">
+              <in>autoconf.h</in>
+              <in>message.c</in>
+              <in>message.h</in>
+              <in>prettylisten.c</in>
+              <in>seriallisten.c</in>
+              <in>serialsend.c</in>
+              <in>serialsource.c</in>
+              <in>serialsource.h</in>
+              <in>sf.c</in>
+              <in>sflisten.c</in>
+              <in>sfsend.c</in>
+              <in>sfsource.c</in>
+              <in>sfsource.h</in>
+            </df>
+          </df>
+          <df name="cpp">
+            <df name="sf">
+              <in>basecomm.cpp</in>
+              <in>basecomm.h</in>
+              <in>packetbuffer.cpp</in>
+              <in>packetbuffer.h</in>
+              <in>serialcomm.cpp</in>
+              <in>serialcomm.h</in>
+              <in>serialprotocol.h</in>
+              <in>sf.cpp</in>
+              <in>sfcontrol.cpp</in>
+              <in>sfcontrol.h</in>
+              <in>sfpacket.cpp</in>
+              <in>sfpacket.h</in>
+              <in>sharedinfo.h</in>
+              <in>tcpcomm.cpp</in>
+              <in>tcpcomm.h</in>
+            </df>
+          </df>
+          <df name="java">
+            <df name="net">
+              <df name="tinyos">
+                <df name="comm">
+                </df>
+                <df name="message">
+                </df>
+                <df name="mviz">
+                  <df name="images">
+                  </df>
+                </df>
+                <df name="packet">
+                </df>
+                <df name="sf">
+                </df>
+                <df name="sim">
+                </df>
+                <df name="tools">
+                </df>
+                <df name="util">
+                </df>
+              </df>
+            </df>
+          </df>
+          <df name="python">
+            <df name="tinyos">
+              <df name="message">
+              </df>
+              <df name="packet">
+              </df>
+              <df name="tossim">
+              </df>
+              <df name="utils">
+              </df>
+            </df>
+          </df>
+        </df>
+      </df>
+      <df name="tos">
+        <df name="chips">
+          <df name="ad5200">
+            <in>AD5200C.nc</in>
+            <in>AD5200P.nc</in>
+            <in>AD5200SpiC.nc</in>
+            <in>Pot.nc</in>
+            <in>PotC.nc</in>
+          </df>
+          <df name="at45db">
+            <in>At45db.h</in>
+            <in>At45db.nc</in>
+            <in>At45dbBlockConfig.nc</in>
+            <in>At45dbC.nc</in>
+            <in>At45dbP.nc</in>
+            <in>At45dbStorageManagerC.nc</in>
+            <in>At45dbVolume.nc</in>
+            <in>BlockStorageC.nc</in>
+            <in>BlockStorageP.nc</in>
+            <in>ConfigStorageC.nc</in>
+            <in>ConfigStorageP.nc</in>
+            <in>HplAt45db.h</in>
+            <in>HplAt45db.nc</in>
+            <in>HplAt45dbByte.nc</in>
+            <in>HplAt45dbByteC.nc</in>
+            <in>LogStorageC.nc</in>
+            <in>LogStorageP.nc</in>
+            <in>Storage_chip.h</in>
+            <in>WireBlockStorageP.nc</in>
+            <in>WireConfigStorageP.nc</in>
+            <in>WireLogStorageP.nc</in>
+          </df>
+          <df name="atm128">
+            <df name="adc">
+              <in>Adc.h</in>
+              <in>AdcP.nc</in>
+              <in>AdcReadClientC.nc</in>
+              <in>AdcReadNowClientC.nc</in>
+              <in>AdcReadStreamClientC.nc</in>
+              <in>AdcStreamP.nc</in>
+              <in>Atm128Adc.h</in>
+              <in>Atm128AdcC.nc</in>
+              <in>Atm128AdcConfig.nc</in>
+              <in>Atm128AdcMultiple.nc</in>
+              <in>Atm128AdcP.nc</in>
+              <in>Atm128AdcSingle.nc</in>
+              <in>HplAtm128Adc.nc</in>
+              <in>HplAtm128AdcC.nc</in>
+              <in>HplAtm128AdcP.nc</in>
+              <in>WireAdcP.nc</in>
+              <in>WireAdcStreamP.nc</in>
+            </df>
+            <df name="i2c">
+              <in>Atm128I2C.h</in>
+              <in>Atm128I2C.nc</in>
+              <in>Atm128I2CMaster.nc</in>
+              <in>Atm128I2CMasterC.nc</in>
+              <in>Atm128I2CMasterImplP.nc</in>
+              <in>Atm128I2CMasterP.nc</in>
+              <in>Atm128I2CMasterPacketP.nc</in>
+              <in>HplAtm128I2CBus.nc</in>
+              <in>HplAtm128I2CBusC.nc</in>
+              <in>HplAtm128I2CBusP.nc</in>
+            </df>
+            <df name="pins">
+              <df name="sim">
+                <in>HplAtm128GeneralIOC.nc</in>
+                <in>HplAtm128GeneralIOPinP.nc</in>
+              </df>
+              <in>Atm128GpioInterruptC.nc</in>
+              <in>Atm128Interrupt.h</in>
+              <in>Atm128InterruptC.nc</in>
+              <in>HplAtm128GeneralIOC.nc</in>
+              <in>HplAtm128GeneralIOPinP.nc</in>
+              <in>HplAtm128GeneralIOPortP.nc</in>
+              <in>HplAtm128GeneralIOSlowPinP.nc</in>
+              <in>HplAtm128Interrupt.nc</in>
+              <in>HplAtm128InterruptC.nc</in>
+              <in>HplAtm128InterruptPinP.nc</in>
+              <in>HplAtm128InterruptSig.nc</in>
+              <in>HplAtm128InterruptSigP.nc</in>
+            </df>
+            <df name="sim">
+              <in>McuSleepC.nc</in>
+              <in>atm128_sim.h</in>
+              <in>atm128const.h</in>
+              <in>atm128hardware.h</in>
+              <in>crc.h</in>
+            </df>
+            <df name="spi">
+              <df name="sim">
+                <in>Atm128SpiC.nc</in>
+              </df>
+              <in>Atm128Spi.h</in>
+              <in>Atm128Spi.nc</in>
+              <in>Atm128SpiC.nc</in>
+              <in>Atm128SpiP.nc</in>
+              <in>HplAtm128SpiC.nc</in>
+              <in>HplAtm128SpiP.nc</in>
+            </df>
+            <df name="timer">
+              <df name="sim">
+                <in>HplAtm128CompareC.nc</in>
+                <in>HplAtm128Counter0C.nc</in>
+                <in>HplAtm128Counter2C.nc</in>
+                <in>HplAtm128Timer0AsyncC.nc</in>
+                <in>HplAtm128Timer0AsyncP.nc</in>
+                <in>HplAtm128Timer2C.nc</in>
+                <in>HplAtm128TimerNotify.nc</in>
+              </df>
+              <in>Atm128AlarmAsyncC.nc</in>
+              <in>Atm128AlarmAsyncP.nc</in>
+              <in>Atm128AlarmC.nc</in>
+              <in>Atm128Calibrate.nc</in>
+              <in>Atm128CaptureC.nc</in>
+              <in>Atm128CounterC.nc</in>
+              <in>Atm128GpioCaptureC.nc</in>
+              <in>Atm128Timer.h</in>
+              <in>Atm128TimerInitC.nc</in>
+              <in>HplAtm128Capture.nc</in>
+              <in>HplAtm128Compare.nc</in>
+              <in>HplAtm128Timer.nc</in>
+              <in>HplAtm128Timer0AsyncC.nc</in>
+              <in>HplAtm128Timer0AsyncP.nc</in>
+              <in>HplAtm128Timer1C.nc</in>
+              <in>HplAtm128Timer1P.nc</in>
+              <in>HplAtm128Timer2C.nc</in>
+              <in>HplAtm128Timer3C.nc</in>
+              <in>HplAtm128Timer3P.nc</in>
+              <in>HplAtm128TimerAsync.nc</in>
+              <in>HplAtm128TimerCtrl16.nc</in>
+              <in>HplAtm128TimerCtrl8.nc</in>
+            </df>
+            <in>Atm128Clock.h</in>
+            <in>Atm128I2C.h</in>
+            <in>Atm128Power.h</in>
+            <in>Atm128Uart.h</in>
+            <in>Atm128Uart0C.nc</in>
+            <in>Atm128UartP.nc</in>
+            <in>HplAtm128Uart.nc</in>
+            <in>HplAtm128UartC.nc</in>
+            <in>HplAtm128UartP.nc</in>
+            <in>McuSleepC.nc</in>
+            <in>atm128const.h</in>
+            <in>atm128hardware.h</in>
+            <in>crc.h</in>
+          </df>
+          <df name="atm1281">
+            <df name="adc">
+              <in>Atm128Adc.h</in>
+              <in>Atm128AdcP.nc</in>
+              <in>HplAtm128AdcP.nc</in>
+            </df>
+            <df name="timer">
+              <in>Atm1281AlarmAsyncP.nc</in>
+              <in>Atm128AlarmAsyncC.nc</in>
+              <in>Atm128Timer.h</in>
+              <in>HplAtm1281Timer1P.nc</in>
+              <in>HplAtm1281Timer2AsyncC.nc</in>
+              <in>HplAtm1281Timer2AsyncP.nc</in>
+              <in>HplAtm1281Timer3P.nc</in>
+              <in>HplAtm128Timer1C.nc</in>
+              <in>HplAtm128Timer3C.nc</in>
+              <in>HplAtm128TimerAsync.nc</in>
+              <in>HplAtm128TimerCtrl16.nc</in>
+              <in>HplAtm128TimerCtrl8.nc</in>
+            </df>
+            <in>HplAtm128UartP.nc</in>
+            <in>McuSleepC.nc</in>
+            <in>atm128hardware.h</in>
+          </df>
+          <df name="cc1000">
+            <in>ByteRadio.nc</in>
+            <in>CC1000ActiveMessageC.nc</in>
+            <in>CC1000ActiveMessageP.nc</in>
+            <in>CC1000Const.h</in>
+            <in>CC1000Control.nc</in>
+            <in>CC1000ControlP.nc</in>
+            <in>CC1000CsmaP.nc</in>
+            <in>CC1000CsmaRadioC.nc</in>
+            <in>CC1000Msg.h</in>
+            <in>CC1000RssiP.nc</in>
+            <in>CC1000SendReceiveP.nc</in>
+            <in>CC1000Squelch.nc</in>
+            <in>CC1000SquelchP.nc</in>
+            <in>CC1000TimeSyncMessage.h</in>
+            <in>CC1000TimeSyncMessageC.nc</in>
+            <in>CC1000TimeSyncMessageP.nc</in>
+            <in>CsmaControl.nc</in>
+            <in>HplCC1000.nc</in>
+            <in>HplCC1000Spi.nc</in>
+            <in>PacketTimeSyncOffset.nc</in>
+          </df>
+          <df name="cc2420">
+            <df name="alarm">
+              <in>AlarmMultiplexC.nc</in>
+            </df>
+            <df name="control">
+              <in>CC2420ControlC.nc</in>
+              <in>CC2420ControlP.nc</in>
+            </df>
+            <df name="csma">
+              <in>CC2420CsmaC.nc</in>
+              <in>CC2420CsmaP.nc</in>
+            </df>
+            <df name="interfaces">
+              <in>CC2420Config.nc</in>
+              <in>CC2420Fifo.nc</in>
+              <in>CC2420Keys.nc</in>
+              <in>CC2420Packet.nc</in>
+              <in>CC2420PacketBody.nc</in>
+              <in>CC2420Power.nc</in>
+              <in>CC2420Ram.nc</in>
+              <in>CC2420Receive.nc</in>
+              <in>CC2420Register.nc</in>
+              <in>CC2420SecurityMode.nc</in>
+              <in>CC2420Strobe.nc</in>
+              <in>CC2420Transmit.nc</in>
+              <in>ChipSpiResource.nc</in>
+              <in>PacketTimeSyncOffset.nc</in>
+              <in>PowerCycle.nc</in>
+              <in>RadioBackoff.nc</in>
+              <in>ReceiveIndicator.nc</in>
+            </df>
+            <df name="link">
+              <in>PacketLinkC.nc</in>
+              <in>PacketLinkDummyC.nc</in>
+              <in>PacketLinkDummyP.nc</in>
+              <in>PacketLinkP.nc</in>
+            </df>
+            <df name="lowpan">
+              <in>CC2420TinyosNetworkC.nc</in>
+              <in>CC2420TinyosNetworkP.nc</in>
+            </df>
+            <df name="lpl">
+              <in>DefaultLpl.h</in>
+              <in>DefaultLplC.nc</in>
+              <in>DefaultLplP.nc</in>
+              <in>DummyLplC.nc</in>
+              <in>DummyLplP.nc</in>
+              <in>PowerCycleC.nc</in>
+              <in>PowerCycleP.nc</in>
+            </df>
+            <df name="packet">
+              <in>CC2420PacketC.nc</in>
+              <in>CC2420PacketP.nc</in>
+            </df>
+            <df name="receive">
+              <in>CC2420ReceiveC.nc</in>
+              <in>CC2420ReceiveP.nc</in>
+            </df>
+            <df name="security">
+              <in>CC2420KeysC.nc</in>
+              <in>CC2420KeysP.nc</in>
+              <in>SecAMSenderC.nc</in>
+              <in>SecAMSenderP.nc</in>
+            </df>
+            <df name="spi">
+              <in>CC2420SpiC.nc</in>
+              <in>CC2420SpiP.nc</in>
+              <in>CC2420SpiWireC.nc</in>
+            </df>
+            <df name="transmit">
+              <in>CC2420TransmitC.nc</in>
+              <in>CC2420TransmitP.nc</in>
+            </df>
+            <df name="unique">
+              <in>UniqueReceiveC.nc</in>
+              <in>UniqueReceiveP.nc</in>
+              <in>UniqueSendC.nc</in>
+              <in>UniqueSendP.nc</in>
+            </df>
+            <in>CC2420.h</in>
+            <in>CC2420ActiveMessageC.nc</in>
+            <in>CC2420ActiveMessageP.nc</in>
+            <in>CC2420Ieee154MessageC.nc</in>
+            <in>CC2420Ieee154MessageP.nc</in>
+            <in>CC2420RadioC.nc</in>
+            <in>CC2420TimeSyncMessage.h</in>
+            <in>CC2420TimeSyncMessageC.nc</in>
+            <in>CC2420TimeSyncMessageP.nc</in>
+            <in>IEEE802154.h</in>
+          </df>
+          <df name="cc2420_tkn154">
+            <in>CC2420AsyncSplitControl.nc</in>
+            <in>CC2420Config.nc</in>
+            <in>CC2420ControlP.nc</in>
+            <in>CC2420ControlTransmitC.nc</in>
+            <in>CC2420Power.nc</in>
+            <in>CC2420Receive.nc</in>
+            <in>CC2420ReceiveC.nc</in>
+            <in>CC2420ReceiveP.nc</in>
+            <in>CC2420Rx.nc</in>
+            <in>CC2420TKN154C.nc</in>
+            <in>CC2420TKN154P.nc</in>
+            <in>CC2420TransmitP.nc</in>
+            <in>CC2420Tx.nc</in>
+            <in>CaptureTime.nc</in>
+            <in>ReferenceTime.nc</in>
+            <in>ReliableWait.nc</in>
+            <in>TKN154_PHY.h</in>
+            <in>Timestamp.nc</in>
+          </df>
+          <df name="ds2401">
+            <in>CachedIeeeEui64P.nc</in>
+            <in>Ds2401.h</in>
+            <in>Ds2401ToIeeeEui64C.nc</in>
+            <in>HplDs2401.nc</in>
+            <in>HplDs2401C.nc</in>
+            <in>OneWireMaster.nc</in>
+            <in>OneWireMasterC.nc</in>
+          </df>
+          <df name="ds2745">
+            <in>DS2745.h</in>
+            <in>HplDS2745.nc</in>
+            <in>HplDS2745LogicP.nc</in>
+          </df>
+          <df name="ds2782">
+            <in>DS2782.h</in>
+            <in>HplDS2782.nc</in>
+            <in>HplDS2782LogicP.nc</in>
+          </df>
+          <df name="lis3l02dq">
+            <in>HalLIS3L02DQAdvanced.nc</in>
+            <in>HalLIS3L02DQControlP.nc</in>
+            <in>HalLIS3L02DQReaderP.nc</in>
+            <in>HplLIS3L02DQ.nc</in>
+            <in>HplLIS3L02DQLogicSPIP.nc</in>
+            <in>LIS3L02DQ.h</in>
+          </df>
+          <df name="m16c62p">
+            <df name="adc">
+              <in>Adc.h</in>
+              <in>AdcP.nc</in>
+              <in>AdcReadClientC.nc</in>
+              <in>AdcReadNowClientC.nc</in>
+              <in>AdcReadStreamClientC.nc</in>
+              <in>AdcStreamP.nc</in>
+              <in>HplM16c62pAdc.nc</in>
+              <in>HplM16c62pAdcC.nc</in>
+              <in>HplM16c62pAdcP.nc</in>
+              <in>M16c62pAdc.h</in>
+              <in>M16c62pAdcC.nc</in>
+              <in>M16c62pAdcConfig.nc</in>
+              <in>M16c62pAdcMultiple.nc</in>
+              <in>M16c62pAdcP.nc</in>
+              <in>M16c62pAdcPlatform.nc</in>
+              <in>M16c62pAdcSingle.nc</in>
+              <in>WireAdcP.nc</in>
+              <in>WireAdcStreamP.nc</in>
+            </df>
+            <df name="control">
+              <in>M16c62pControl.h</in>
+              <in>M16c62pControl.nc</in>
+              <in>M16c62pControlC.nc</in>
+              <in>M16c62pControlP.nc</in>
+              <in>M16c62pControlPlatform.nc</in>
+              <in>StopModeControl.nc</in>
+              <in>StopModeControlC.nc</in>
+              <in>SystemClockControl.nc</in>
+              <in>SystemClockControlC.nc</in>
+            </df>
+            <df name="dac">
+              <in>HplM16c62pDac.nc</in>
+              <in>HplM16c62pDacC.nc</in>
+              <in>HplM16c62pDacP.nc</in>
+            </df>
+            <df name="pins">
+              <in>HplM16c62pGeneralIOC.nc</in>
+              <in>HplM16c62pGeneralIOPinP.nc</in>
+              <in>HplM16c62pGeneralIOPinPRC2P.nc</in>
+              <in>HplM16c62pGeneralIOPortP.nc</in>
+              <in>HplM16c62pInterrupt.nc</in>
+              <in>HplM16c62pInterruptC.nc</in>
+              <in>HplM16c62pInterruptPinP.nc</in>
+              <in>HplM16c62pInterruptSig.nc</in>
+              <in>HplM16c62pInterruptSigP.nc</in>
+              <in>M16c62pInterruptC.nc</in>
+              <in>M16c62pPin.h</in>
+            </df>
+            <df name="printf">
+              <in>elib.c</in>
+              <in>m16c62p_printf.h</in>
+            </df>
+            <df name="timer">
+              <in>HplM16c62pTimer.nc</in>
+              <in>HplM16c62pTimerACtrl.nc</in>
+              <in>HplM16c62pTimerACtrlP.nc</in>
+              <in>HplM16c62pTimerBCtrl.nc</in>
+              <in>HplM16c62pTimerBCtrlP.nc</in>
+              <in>HplM16c62pTimerC.nc</in>
+              <in>HplM16c62pTimerInterrupt.nc</in>
+              <in>HplM16c62pTimerInterruptP.nc</in>
+              <in>HplM16c62pTimerP.nc</in>
+              <in>M16c62pAlarm16C.nc</in>
+              <in>M16c62pAlarm32C.nc</in>
+              <in>M16c62pCounter16C.nc</in>
+              <in>M16c62pCounter32C.nc</in>
+              <in>M16c62pTimer.h</in>
+              <in>M16c62pTimerAInitC.nc</in>
+              <in>M16c62pTimerBInitC.nc</in>
+            </df>
+            <df name="uart">
+              <in>HplM16c62pUart.nc</in>
+              <in>HplM16c62pUartC.nc</in>
+              <in>HplM16c62pUartInterrupt.nc</in>
+              <in>HplM16c62pUartInterruptP.nc</in>
+              <in>HplM16c62pUartP.nc</in>
+              <in>M16c62pUart.h</in>
+              <in>M16c62pUartC.nc</in>
+              <in>M16c62pUartP.nc</in>
+            </df>
+            <in>McuSleepC.nc</in>
+            <in>McuSleepP.nc</in>
+            <in>bits.h</in>
+            <in>interrupts.h</in>
+            <in>iom16c62p.h</in>
+            <in>m16c62phardware.h</in>
+          </df>
+          <df name="max136x">
+            <in>HalMAX136xAdvanced.nc</in>
+            <in>HalMAX136xControlP.nc</in>
+            <in>HalMAX136xReaderP.nc</in>
+            <in>HplMAX136x.nc</in>
+            <in>HplMAX136xLogicP.nc</in>
+            <in>MAX136x.h</in>
+          </df>
+          <df name="mm74hc595">
+            <in>MM74HC595C.nc</in>
+            <in>MM74HC595ImplP.nc</in>
+            <in>MM74HC595P.nc</in>
+          </df>
+          <df name="mma7261qt">
+            <in>HplMMA7261QT.h</in>
+            <in>HplMMA7261QTControl.nc</in>
+            <in>HplMMA7261QTControlC.nc</in>
+            <in>HplMMA7261QTControlP.nc</in>
+            <in>HplMMA7261QTReaderC.nc</in>
+          </df>
+          <df name="msp430">
+            <df name="adc12">
+              <in>AdcP.nc</in>
+              <in>AdcReadClientC.nc</in>
+              <in>AdcReadNowClientC.nc</in>
+              <in>AdcReadStreamClientC.nc</in>
+              <in>AdcStreamP.nc</in>
+              <in>HplAdc12.nc</in>
+              <in>HplAdc12P.nc</in>
+              <in>Msp430Adc12.h</in>
+              <in>Msp430Adc12ClientAutoDMAC.nc</in>
+              <in>Msp430Adc12ClientAutoDMA_RVGC.nc</in>
+              <in>Msp430Adc12ClientAutoRVGC.nc</in>
+              <in>Msp430Adc12ClientC.nc</in>
+              <in>Msp430Adc12ConfAlertC.nc</in>
+              <in>Msp430Adc12DMAP.nc</in>
+              <in>Msp430Adc12DMAWireC.nc</in>
+              <in>Msp430Adc12ImplP.nc</in>
+              <in>Msp430Adc12MultiChannel.nc</in>
+              <in>Msp430Adc12Overflow.nc</in>
+              <in>Msp430Adc12P.nc</in>
+              <in>Msp430Adc12SingleChannel.nc</in>
+              <in>Msp430RefVoltArbiterImplP.nc</in>
+              <in>Msp430RefVoltArbiterP.nc</in>
+              <in>Msp430RefVoltGenerator.h</in>
+              <in>Msp430RefVoltGeneratorP.nc</in>
+              <in>WireAdcStreamP.nc</in>
+            </df>
+            <df name="dma">
+              <in>HplMsp430DmaC.nc</in>
+              <in>HplMsp430DmaChannel.nc</in>
+              <in>HplMsp430DmaControl.nc</in>
+              <in>HplMsp430DmaInterrupt.nc</in>
+              <in>HplMsp430DmaP.nc</in>
+              <in>HplMsp430DmaXP.nc</in>
+              <in>Msp430Dma.h</in>
+              <in>Msp430DmaC.nc</in>
+              <in>Msp430DmaChannel.nc</in>
+              <in>Msp430DmaChannelP.nc</in>
+              <in>Msp430DmaControl.nc</in>
+              <in>Msp430DmaControlP.nc</in>
+            </df>
+            <df name="pins">
+              <in>HplMsp430GeneralIO.nc</in>
+              <in>HplMsp430GeneralIOC.nc</in>
+              <in>HplMsp430GeneralIOP.nc</in>
+              <in>HplMsp430Interrupt.nc</in>
+              <in>HplMsp430InterruptC.nc</in>
+              <in>HplMsp430InterruptNMIC.nc</in>
+              <in>HplMsp430InterruptNMIP.nc</in>
+              <in>HplMsp430InterruptP.nc</in>
+              <in>Msp430GpioC.nc</in>
+              <in>Msp430InterruptC.nc</in>
+            </df>
+            <df name="sensors">
+              <in>Msp430InternalTemperatureC.nc</in>
+              <in>Msp430InternalTemperatureP.nc</in>
+              <in>Msp430InternalVoltageC.nc</in>
+              <in>Msp430InternalVoltageP.nc</in>
+            </df>
+            <df name="timer">
+              <in>Alarm32khz16C.nc</in>
+              <in>Alarm32khz32C.nc</in>
+              <in>AlarmMilli16C.nc</in>
+              <in>AlarmMilli32C.nc</in>
+              <in>BusyWait32khzC.nc</in>
+              <in>BusyWaitMicroC.nc</in>
+              <in>Counter32khz16C.nc</in>
+              <in>Counter32khz32C.nc</in>
+              <in>CounterMilli16C.nc</in>
+              <in>CounterMilli32C.nc</in>
+              <in>GpioCaptureC.nc</in>
+              <in>HilTimerMilliC.nc</in>
+              <in>Msp430AlarmC.nc</in>
+              <in>Msp430Capture.nc</in>
+              <in>Msp430ClockC.nc</in>
+              <in>Msp430ClockInit.nc</in>
+              <in>Msp430ClockP.nc</in>
+              <in>Msp430Compare.nc</in>
+              <in>Msp430Counter32khzC.nc</in>
+              <in>Msp430CounterC.nc</in>
+              <in>Msp430CounterMicroC.nc</in>
+              <in>Msp430DcoCalibC.nc</in>
+              <in>Msp430DcoCalibP.nc</in>
+              <in>Msp430DcoSpec.h</in>
+              <in>Msp430Timer.h</in>
+              <in>Msp430Timer.nc</in>
+              <in>Msp430Timer32khzC.nc</in>
+              <in>Msp430Timer32khzMapC.nc</in>
+              <in>Msp430TimerC.nc</in>
+              <in>Msp430TimerCapComP.nc</in>
+              <in>Msp430TimerCommonP.nc</in>
+              <in>Msp430TimerControl.nc</in>
+              <in>Msp430TimerEvent.nc</in>
+              <in>Msp430TimerP.nc</in>
+            </df>
+            <df name="usart">
+              <in>HplMsp430I2C.nc</in>
+              <in>HplMsp430I2C0C.nc</in>
+              <in>HplMsp430I2C0P.nc</in>
+              <in>HplMsp430I2CInterrupts.nc</in>
+              <in>HplMsp430Usart.nc</in>
+              <in>HplMsp430Usart0C.nc</in>
+              <in>HplMsp430Usart0P.nc</in>
+              <in>HplMsp430Usart1C.nc</in>
+              <in>HplMsp430Usart1P.nc</in>
+              <in>HplMsp430UsartInterrupts.nc</in>
+              <in>Msp430I2C0P.nc</in>
+              <in>Msp430I2CC.nc</in>
+              <in>Msp430I2CConfigure.nc</in>
+              <in>Msp430I2CP.nc</in>
+              <in>Msp430Spi0C.nc</in>
+              <in>Msp430Spi1C.nc</in>
+              <in>Msp430SpiConfigure.nc</in>
+              <in>Msp430SpiDma0P.nc</in>
+              <in>Msp430SpiDma1P.nc</in>
+              <in>Msp430SpiDmaP.nc</in>
+              <in>Msp430SpiNoDma0P.nc</in>
+              <in>Msp430SpiNoDma1P.nc</in>
+              <in>Msp430SpiNoDmaP.nc</in>
+              <in>Msp430Uart0C.nc</in>
+              <in>Msp430Uart0P.nc</in>
+              <in>Msp430Uart1C.nc</in>
+              <in>Msp430Uart1P.nc</in>
+              <in>Msp430UartConfigure.nc</in>
+              <in>Msp430UartP.nc</in>
+              <in>Msp430Usart0C.nc</in>
+              <in>Msp430Usart1C.nc</in>
+              <in>Msp430UsartShare0P.nc</in>
+              <in>Msp430UsartShare1P.nc</in>
+              <in>Msp430UsartShareP.nc</in>
+              <in>msp430usart.h</in>
+            </df>
+            <in>McuSleepC.nc</in>
+            <in>msp430hardware.h</in>
+            <in>msp430regtypes.h</in>
+          </df>
+          <df name="pxa27x">
+            <df name="cif">
+              <in>HplPXA27XQuickCaptInt.nc</in>
+              <in>HplPXA27XQuickCaptIntC.nc</in>
+              <in>HplPXA27XQuickCaptIntM.nc</in>
+              <in>PXA27XQuickCaptInt.h</in>
+              <in>dmaArray.h</in>
+              <in>dmaArray.nc</in>
+              <in>dmaArrayC.nc</in>
+              <in>dmaArrayM.nc</in>
+            </df>
+            <df name="dma">
+              <in>DMA.h</in>
+              <in>HalPXA27xDMAChannel.nc</in>
+              <in>HalPXA27xDMAChannelC.nc</in>
+              <in>HalPXA27xDMAChannelM.nc</in>
+              <in>HplPXA27xDMAC.nc</in>
+              <in>HplPXA27xDMAChnl.nc</in>
+              <in>HplPXA27xDMACntl.nc</in>
+              <in>HplPXA27xDMAInfo.nc</in>
+              <in>HplPXA27xDMAInfoC.nc</in>
+              <in>HplPXA27xDMAM.nc</in>
+            </df>
+            <df name="gpio">
+              <in>GeneralIOC.nc</in>
+              <in>HalPXA27xGeneralIOM.nc</in>
+              <in>HalPXA27xGpioCapture.nc</in>
+              <in>HalPXA27xGpioInterrupt.nc</in>
+              <in>HalPXA27xSoftCaptureC.nc</in>
+              <in>HalPXA27xSoftCaptureP.nc</in>
+              <in>HplPXA27xGPIO.nc</in>
+              <in>HplPXA27xGPIOC.nc</in>
+              <in>HplPXA27xGPIOM.nc</in>
+              <in>HplPXA27xGPIOPin.nc</in>
+            </df>
+            <df name="i2c">
+              <in>HalPXA27xI2CMasterC.nc</in>
+              <in>HalPXA27xI2CMasterP.nc</in>
+              <in>HplPXA27xI2C.nc</in>
+              <in>HplPXA27xI2CC.nc</in>
+              <in>HplPXA27xI2CP.nc</in>
+              <in>HplPXA27xPI2CC.nc</in>
+            </df>
+            <df name="p30">
+              <in>Flash.nc</in>
+              <in>FlashC.nc</in>
+              <in>HalP30C.nc</in>
+              <in>HalP30P.nc</in>
+              <in>HplP30.nc</in>
+              <in>HplP30P.nc</in>
+              <in>P30.h</in>
+              <in>P30BlockC.nc</in>
+              <in>P30BlockP.nc</in>
+              <in>P30ConfigC.nc</in>
+              <in>P30ConfigP.nc</in>
+              <in>P30LogC.nc</in>
+              <in>P30LogCircularP.nc</in>
+              <in>P30LogP.nc</in>
+              <in>Storage_chip.h</in>
+            </df>
+            <df name="ssp">
+              <in>HalPXA27xPSPDMAC.nc</in>
+              <in>HalPXA27xPSPPioC.nc</in>
+              <in>HalPXA27xSSPCntl.nc</in>
+              <in>HalPXA27xSSPControlP.nc</in>
+              <in>HalPXA27xSSPDMAC.nc</in>
+              <in>HalPXA27xSSPPioC.nc</in>
+              <in>HalPXA27xSpiDMAC.nc</in>
+              <in>HalPXA27xSpiDMAM.nc</in>
+              <in>HalPXA27xSpiPioC.nc</in>
+              <in>HalPXA27xSpiPioM.nc</in>
+              <in>HalPXA27xuWireDMAC.nc</in>
+              <in>HalPXA27xuWirePioC.nc</in>
+              <in>HplPXA27xSSP.nc</in>
+              <in>HplPXA27xSSP1C.nc</in>
+              <in>HplPXA27xSSP2C.nc</in>
+              <in>HplPXA27xSSP3C.nc</in>
+              <in>HplPXA27xSSPP.nc</in>
+              <in>SSP.h</in>
+            </df>
+            <df name="timer">
+              <in>Alarm32khzC.nc</in>
+              <in>AlarmMilliC.nc</in>
+              <in>BusyWait32khzC.nc</in>
+              <in>BusyWaitMicroC.nc</in>
+              <in>Counter32khz32C.nc</in>
+              <in>Counter32khzC.nc</in>
+              <in>CounterMilliC.nc</in>
+              <in>HalPXA27xAlarmM.nc</in>
+              <in>HalPXA27xBusyWaitM.nc</in>
+              <in>HalPXA27xCounterM.nc</in>
+              <in>HalPXA27xOSTimerMapC.nc</in>
+              <in>HalPXA27xSleep.nc</in>
+              <in>HalPXA27xSleepC.nc</in>
+              <in>HalPXA27xSleepM.nc</in>
+              <in>HalPXA27xWatchdog.nc</in>
+              <in>HalPXA27xWatchdogC.nc</in>
+              <in>HalPXA27xWatchdogM.nc</in>
+              <in>HplPXA27xOSTimer.nc</in>
+              <in>HplPXA27xOSTimerC.nc</in>
+              <in>HplPXA27xOSTimerM.nc</in>
+              <in>HplPXA27xOSTimerWatchdog.nc</in>
+              <in>HplPXA27xPower.nc</in>
+              <in>HplPXA27xPowerM.nc</in>
+              <in>HplPXA27xRTC.nc</in>
+              <in>HplPXA27xRTCM.nc</in>
+            </df>
+            <df name="uart">
+              <in>HalPXA27xSerialCntl.nc</in>
+              <in>HalPXA27xSerialP.nc</in>
+              <in>HalPXA27xSerialPacket.nc</in>
+              <in>HplPXA27xBTUARTC.nc</in>
+              <in>HplPXA27xFFUARTC.nc</in>
+              <in>HplPXA27xSTUARTC.nc</in>
+              <in>HplPXA27xUART.nc</in>
+              <in>HplPXA27xUARTP.nc</in>
+              <in>PXA27X_UARTREG.h</in>
+              <in>pxa27x_serial.h</in>
+            </df>
+            <in>HplPXA27xInterrupt.nc</in>
+            <in>HplPXA27xInterruptCntl.nc</in>
+            <in>HplPXA27xInterruptM.nc</in>
+            <in>McuSleepC.nc</in>
+            <in>arm_defs.h</in>
+            <in>inttypes.h</in>
+            <in>pxa27x_registers.h</in>
+            <in>pxa27x_util.s</in>
+            <in>pxa27xhardware.h</in>
+          </df>
+          <df name="rf2xx">
+            <df name="layers">
+              <in>ActiveMessageConfig.nc</in>
+              <in>ActiveMessageLayer.h</in>
+              <in>ActiveMessageLayerC.nc</in>
+              <in>ActiveMessageLayerP.nc</in>
+              <in>AutoResourceAcquireLayerC.nc</in>
+              <in>CsmaConfig.nc</in>
+              <in>CsmaLayerC.nc</in>
+              <in>CsmaLayerP.nc</in>
+              <in>DummyConfig.nc</in>
+              <in>DummyLayerC.nc</in>
+              <in>Ieee154MessageLayerC.nc</in>
+              <in>Ieee154PacketLayer.h</in>
+              <in>Ieee154PacketLayer.nc</in>
+              <in>Ieee154PacketLayerC.nc</in>
+              <in>Ieee154PacketLayerP.nc</in>
+              <in>LowPowerListeningConfig.nc</in>
+              <in>LowPowerListeningDummyC.nc</in>
+              <in>LowPowerListeningDummyP.nc</in>
+              <in>LowPowerListeningLayer.h</in>
+              <in>LowPowerListeningLayerC.nc</in>
+              <in>LowPowerListeningLayerP.nc</in>
+              <in>MessageBufferLayerC.nc</in>
+              <in>MessageBufferLayerP.nc</in>
+              <in>MetadataFlagsLayer.h</in>
+              <in>MetadataFlagsLayerC.nc</in>
+              <in>PacketLinkLayer.h</in>
+              <in>PacketLinkLayerC.nc</in>
+              <in>PacketLinkLayerP.nc</in>
+              <in>RandomCollisionConfig.nc</in>
+              <in>RandomCollisionLayerC.nc</in>
+              <in>RandomCollisionLayerP.nc</in>
+              <in>SlottedCollisionConfig.nc</in>
+              <in>SlottedCollisionLayerC.nc</in>
+              <in>SlottedCollisionLayerP.nc</in>
+              <in>SoftwareAckConfig.nc</in>
+              <in>SoftwareAckLayerC.nc</in>
+              <in>SoftwareAckLayerP.nc</in>
+              <in>TimeStampingLayer.h</in>
+              <in>TimeStampingLayerC.nc</in>
+              <in>TimeStampingLayerP.nc</in>
+              <in>TimeSyncMessageLayer.h</in>
+              <in>TimeSyncMessageLayerC.nc</in>
+              <in>TimeSyncMessageLayerP.nc</in>
+              <in>TinyosNetworkLayer.h</in>
+              <in>TinyosNetworkLayerC.nc</in>
+              <in>TrafficMonitorConfig.nc</in>
+              <in>TrafficMonitorLayerC.nc</in>
+              <in>TrafficMonitorLayerP.nc</in>
+              <in>UniqueConfig.nc</in>
+              <in>UniqueLayerC.nc</in>
+              <in>UniqueLayerP.nc</in>
+            </df>
+            <df name="rf212">
+              <in>RF212ActiveMessageC.nc</in>
+              <in>RF212DriverConfig.nc</in>
+              <in>RF212DriverLayer.h</in>
+              <in>RF212DriverLayerC.nc</in>
+              <in>RF212DriverLayerP.nc</in>
+              <in>RF212Ieee154MessageC.nc</in>
+              <in>RF212Radio.h</in>
+              <in>RF212RadioC.nc</in>
+              <in>RF212RadioP.nc</in>
+              <in>RF212TimeSyncMessageC.nc</in>
+            </df>
+            <df name="rf230">
+              <in>RF230ActiveMessageC.nc</in>
+              <in>RF230DriverConfig.nc</in>
+              <in>RF230DriverHwAckC.nc</in>
+              <in>RF230DriverHwAckP.nc</in>
+              <in>RF230DriverLayer.h</in>
+              <in>RF230DriverLayerC.nc</in>
+              <in>RF230DriverLayerP.nc</in>
+              <in>RF230Ieee154MessageC.nc</in>
+              <in>RF230Radio.h</in>
+              <in>RF230RadioC.nc</in>
+              <in>RF230RadioP.nc</in>
+              <in>RF230TimeSyncMessageC.nc</in>
+            </df>
+            <df name="util">
+              <in>BareReceive.nc</in>
+              <in>BareSend.nc</in>
+              <in>MetadataFlagC.nc</in>
+              <in>Neighborhood.h</in>
+              <in>Neighborhood.nc</in>
+              <in>NeighborhoodC.nc</in>
+              <in>NeighborhoodFlag.nc</in>
+              <in>NeighborhoodFlagC.nc</in>
+              <in>NeighborhoodP.nc</in>
+              <in>PacketField.nc</in>
+              <in>PacketFlag.nc</in>
+              <in>RadioAlarm.nc</in>
+              <in>RadioAlarmC.nc</in>
+              <in>RadioAlarmP.nc</in>
+              <in>RadioAssert.h</in>
+              <in>RadioCCA.nc</in>
+              <in>RadioChannel.nc</in>
+              <in>RadioPacket.nc</in>
+              <in>RadioReceive.nc</in>
+              <in>RadioSend.nc</in>
+              <in>RadioState.nc</in>
+              <in>Tasklet.h</in>
+              <in>Tasklet.nc</in>
+              <in>TaskletC.nc</in>
+            </df>
+          </df>
+          <df name="sht11">
+            <in>HalSht11Advanced.nc</in>
+            <in>HalSht11ControlP.nc</in>
+            <in>SensirionSht11.h</in>
+            <in>SensirionSht11.nc</in>
+            <in>SensirionSht11LogicP.nc</in>
+            <in>SensirionSht11ReaderP.nc</in>
+          </df>
+          <df name="stm25p">
+            <in>BlockStorageC.nc</in>
+            <in>ConfigStorageC.nc</in>
+            <in>LogStorageC.nc</in>
+            <in>Stm25p.h</in>
+            <in>Stm25pBinderP.nc</in>
+            <in>Stm25pBlockP.nc</in>
+            <in>Stm25pConfigP.nc</in>
+            <in>Stm25pLogConfigP.nc</in>
+            <in>Stm25pLogP.nc</in>
+            <in>Stm25pSector.nc</in>
+            <in>Stm25pSectorC.nc</in>
+            <in>Stm25pSectorP.nc</in>
+            <in>Stm25pSpi.nc</in>
+            <in>Stm25pSpiC.nc</in>
+            <in>Stm25pSpiP.nc</in>
+            <in>Stm25pVolume.nc</in>
+            <in>StorageMap.nc</in>
+            <in>Storage_chip.h</in>
+          </df>
+          <df name="tda5250">
+            <df name="mac">
+              <in>ChannelCongestion.nc</in>
+              <in>CsmaMacC.nc</in>
+              <in>CsmaMacP.nc</in>
+              <in>Duplicate.h</in>
+              <in>Duplicate.nc</in>
+              <in>DuplicateC.nc</in>
+              <in>DuplicateP.nc</in>
+              <in>RedMac.h</in>
+              <in>RedMacC.nc</in>
+              <in>RedMacP.nc</in>
+              <in>Sleeptime.nc</in>
+              <in>SpeckMacDC.nc</in>
+              <in>SpeckMacDP.nc</in>
+              <in>Teamgeist.nc</in>
+              <in>TimeDiff.nc</in>
+              <in>TimeDiff16.nc</in>
+              <in>TimeDiff32.nc</in>
+              <in>TimeDiffC.nc</in>
+            </df>
+            <in>ClkDiv.nc</in>
+            <in>HplTda5250Config.nc</in>
+            <in>HplTda5250ConfigC.nc</in>
+            <in>HplTda5250ConfigP.nc</in>
+            <in>HplTda5250Data.nc</in>
+            <in>HplTda5250DataC.nc</in>
+            <in>HplTda5250DataControl.nc</in>
+            <in>HplTda5250DataP.nc</in>
+            <in>RfPower.nc</in>
+            <in>Tda5250ActiveMessageC.nc</in>
+            <in>Tda5250ActiveMessageP.nc</in>
+            <in>Tda5250Control.nc</in>
+            <in>Tda5250Packet.nc</in>
+            <in>Tda5250RadioC.nc</in>
+            <in>Tda5250RadioP.nc</in>
+            <in>Tda5250ReadReg.nc</in>
+            <in>Tda5250RegComm.nc</in>
+            <in>Tda5250RegCommP.nc</in>
+            <in>Tda5250RegistersC.nc</in>
+            <in>Tda5250RegistersP.nc</in>
+            <in>Tda5250WriteReg.nc</in>
+            <in>tda5250Const.h</in>
+            <in>tda5250Control.h</in>
+            <in>tda5250RegDefaultsSettings.h</in>
+            <in>tda5250RegTypes.h</in>
+            <in>tda5250_message.h</in>
+          </df>
+          <df name="tmp175">
+            <in>HalTMP175Advanced.nc</in>
+            <in>HalTMP175ControlP.nc</in>
+            <in>HalTMP175ReaderP.nc</in>
+            <in>HplTMP175.nc</in>
+            <in>HplTMP175LogicP.nc</in>
+            <in>TMP175.h</in>
+          </df>
+          <df name="tsl2561">
+            <in>HalTsl2561Advanced.nc</in>
+            <in>HalTsl2561ControlP.nc</in>
+            <in>HalTsl2561ReaderP.nc</in>
+            <in>HplTSL2561LogicP.nc</in>
+            <in>HplTSL256x.nc</in>
+            <in>TSL256x.h</in>
+          </df>
+          <df name="xe1205">
+            <df name="conf">
+              <in>XE1205IrqConf.nc</in>
+              <in>XE1205IrqConfC.nc</in>
+              <in>XE1205IrqConfP.nc</in>
+              <in>XE1205PatternConf.nc</in>
+              <in>XE1205PatternConfC.nc</in>
+              <in>XE1205PatternConfP.nc</in>
+              <in>XE1205PhyConf.nc</in>
+              <in>XE1205PhyRssiConfC.nc</in>
+              <in>XE1205PhyRssiConfP.nc</in>
+              <in>XE1205Register.nc</in>
+              <in>XE1205RssiConf.nc</in>
+            </df>
+            <df name="phy">
+              <in>XE1205PhyC.nc</in>
+              <in>XE1205PhyP.nc</in>
+              <in>XE1205PhyRssi.nc</in>
+              <in>XE1205PhyRxTx.nc</in>
+              <in>XE1205PhySwitch.nc</in>
+              <in>XE1205PhySwitchC.nc</in>
+              <in>XE1205PhySwitchP.nc</in>
+            </df>
+            <in>AckSendReceive.nc</in>
+            <in>CsmaControl.nc</in>
+            <in>LPLControl.nc</in>
+            <in>LowPowerListening.nc</in>
+            <in>XE1205.h</in>
+            <in>XE1205ActiveMessageC.nc</in>
+            <in>XE1205ActiveMessageP.nc</in>
+            <in>XE1205CsmaP.nc</in>
+            <in>XE1205CsmaRadioC.nc</in>
+            <in>XE1205Fifo.nc</in>
+            <in>XE1205LowPowerListening.h</in>
+            <in>XE1205LowPowerListeningC.nc</in>
+            <in>XE1205LowPowerListeningP.nc</in>
+            <in>XE1205PacketC.nc</in>
+            <in>XE1205SendReceiveC.nc</in>
+            <in>XE1205SendReceiveP.nc</in>
+            <in>XE1205SpiC.nc</in>
+            <in>XE1205SpiImplP.nc</in>
+            <in>XE1205SpiP.nc</in>
+            <in>crc.h</in>
+            <in>xe1205debug.h</in>
+          </df>
+        </df>
+        <df name="interfaces">
+          <in>AMPacket.nc</in>
+          <in>AMSend.nc</in>
+          <in>ActiveMessageAddress.nc</in>
+          <in>AdcConfigure.nc</in>
+          <in>ArbiterInfo.nc</in>
+          <in>AsyncStdControl.nc</in>
+          <in>BigQueue.nc</in>
+          <in>BitVector.nc</in>
+          <in>BlockRead.nc</in>
+          <in>BlockWrite.nc</in>
+          <in>Boot.nc</in>
+          <in>Cache.nc</in>
+          <in>ConfigStorage.nc</in>
+          <in>Crc.nc</in>
+          <in>CsmaBackoff.nc</in>
+          <in>DeviceMetadata.nc</in>
+          <in>FastSpiByte.nc</in>
+          <in>GeneralIO.nc</in>
+          <in>Get.nc</in>
+          <in>GetNow.nc</in>
+          <in>GetSet.nc</in>
+          <in>GpioCapture.nc</in>
+          <in>GpioInterrupt.nc</in>
+          <in>I2CPacket.nc</in>
+          <in>Ieee154Packet.nc</in>
+          <in>Ieee154Send.nc</in>
+          <in>Init.nc</in>
+          <in>Intercept.nc</in>
+          <in>InternalFlash.nc</in>
+          <in>Leds.nc</in>
+          <in>LinkPacketMetadata.nc</in>
+          <in>LocalIeeeEui64.nc</in>
+          <in>LogRead.nc</in>
+          <in>LogWrite.nc</in>
+          <in>LowPowerListening.nc</in>
+          <in>McuPowerOverride.nc</in>
+          <in>McuPowerState.nc</in>
+          <in>McuSleep.nc</in>
+          <in>Mount.nc</in>
+          <in>Notify.nc</in>
+          <in>Packet.nc</in>
+          <in>PacketAcknowledgements.nc</in>
+          <in>PacketLink.nc</in>
+          <in>PacketTimeStamp.nc</in>
+          <in>ParameterInit.nc</in>
+          <in>Pool.nc</in>
+          <in>Queue.nc</in>
+          <in>RadioTimeStamping.nc</in>
+          <in>Random.nc</in>
+          <in>Read.nc</in>
+          <in>ReadNow.nc</in>
+          <in>ReadRef.nc</in>
+          <in>ReadStream.nc</in>
+          <in>Receive.nc</in>
+          <in>Resource.nc</in>
+          <in>ResourceConfigure.nc</in>
+          <in>ResourceDefaultOwner.nc</in>
+          <in>ResourceQueue.nc</in>
+          <in>ResourceRequested.nc</in>
+          <in>Scheduler.nc</in>
+          <in>Send.nc</in>
+          <in>SendNotifier.nc</in>
+          <in>Set.nc</in>
+          <in>SetNow.nc</in>
+          <in>SpiByte.nc</in>
+          <in>SpiPacket.nc</in>
+          <in>SplitControl.nc</in>
+          <in>State.nc</in>
+          <in>StdControl.nc</in>
+          <in>SystemLowPowerListening.nc</in>
+          <in>TaskBasic.nc</in>
+          <in>TimeSyncAMSend.nc</in>
+          <in>TimeSyncPacket.nc</in>
+          <in>UartByte.nc</in>
+          <in>UartControl.nc</in>
+          <in>UartStream.nc</in>
+        </df>
+        <df name="lib">
+          <df name="byte_radio">
+            <in>ChannelMonitor.nc</in>
+            <in>ChannelMonitorControl.nc</in>
+            <in>ChannelMonitorData.nc</in>
+            <in>LinkLayerC.nc</in>
+            <in>LinkLayerP.nc</in>
+            <in>MacReceive.nc</in>
+            <in>MacSend.nc</in>
+            <in>PacketAck.h</in>
+            <in>PacketSerializerP.nc</in>
+            <in>PhyPacketRx.nc</in>
+            <in>PhyPacketTx.nc</in>
+            <in>PhyReceive.nc</in>
+            <in>PhySend.nc</in>
+            <in>RadioByteComm.nc</in>
+            <in>UartPhyControl.nc</in>
+            <in>flagfunctions.h</in>
+            <in>manchester.h</in>
+            <in>radiopacketfunctions.h</in>
+            <in>shellsort.h</in>
+          </df>
+          <df name="diagmsg">
+            <in>Assert.h</in>
+            <in>AssertC.nc</in>
+            <in>AssertP.nc</in>
+            <in>DiagMsg.nc</in>
+            <in>DiagMsgC.nc</in>
+            <in>DiagMsgP.nc</in>
+            <in>NoDiagMsgC.nc</in>
+          </df>
+          <df name="ftsp">
+            <in>GlobalTime.nc</in>
+            <in>TimeSync32kC.nc</in>
+            <in>TimeSyncC.nc</in>
+            <in>TimeSyncInfo.nc</in>
+            <in>TimeSyncMode.nc</in>
+            <in>TimeSyncMsg.h</in>
+            <in>TimeSyncNotify.nc</in>
+            <in>TimeSyncP.nc</in>
+          </df>
+          <df name="gpio">
+            <in>SoftCaptureC.nc</in>
+            <in>SoftCaptureP.nc</in>
+            <in>SoftIrqC.nc</in>
+            <in>SoftIrqP.nc</in>
+          </df>
+          <df name="mac">
+            <df name="tkn154">
+              <df name="dummies">
+                <in>NoAssociateP.nc</in>
+                <in>NoBeaconSynchronizeP.nc</in>
+                <in>NoBeaconTransmitP.nc</in>
+                <in>NoCoordBroadcastP.nc</in>
+                <in>NoCoordCfpP.nc</in>
+                <in>NoCoordRealignmentP.nc</in>
+                <in>NoDeviceCfpP.nc</in>
+                <in>NoDisassociateP.nc</in>
+                <in>NoDispatchQueueP.nc</in>
+                <in>NoDispatchSlottedCsmaP.nc</in>
+                <in>NoPromiscuousModeP.nc</in>
+                <in>NoRxEnableP.nc</in>
+                <in>NoScanP.nc</in>
+              </df>
+              <df name="interfaces">
+                <df name="MCPS">
+                  <in>MCPS_DATA.nc</in>
+                  <in>MCPS_PURGE.nc</in>
+                </df>
+                <df name="MLME">
+                  <in>MLME_ASSOCIATE.nc</in>
+                  <in>MLME_BEACON_NOTIFY.nc</in>
+                  <in>MLME_COMM_STATUS.nc</in>
+                  <in>MLME_DISASSOCIATE.nc</in>
+                  <in>MLME_GET.nc</in>
+                  <in>MLME_GTS.nc</in>
+                  <in>MLME_ORPHAN.nc</in>
+                  <in>MLME_POLL.nc</in>
+                  <in>MLME_RESET.nc</in>
+                  <in>MLME_RX_ENABLE.nc</in>
+                  <in>MLME_SCAN.nc</in>
+                  <in>MLME_SET.nc</in>
+                  <in>MLME_START.nc</in>
+                  <in>MLME_SYNC.nc</in>
+                  <in>MLME_SYNC_LOSS.nc</in>
+                </df>
+                <df name="private">
+                  <in>DataRequest.nc</in>
+                  <in>EnergyDetection.nc</in>
+                  <in>FrameExtracted.nc</in>
+                  <in>FrameRx.nc</in>
+                  <in>FrameTx.nc</in>
+                  <in>FrameTxNow.nc</in>
+                  <in>FrameUtility.nc</in>
+                  <in>Purge.nc</in>
+                  <in>RadioOff.nc</in>
+                  <in>RadioRx.nc</in>
+                  <in>RadioTx.nc</in>
+                  <in>SlottedCsmaCa.nc</in>
+                  <in>SuperframeStructure.nc</in>
+                  <in>TimeCalc.nc</in>
+                  <in>TransferableResource.nc</in>
+                  <in>UnslottedCsmaCa.nc</in>
+                  <in>WriteBeaconField.nc</in>
+                </df>
+                <df name="public">
+                  <in>IEEE154BeaconFrame.nc</in>
+                  <in>IEEE154Frame.nc</in>
+                  <in>IEEE154TxBeaconPayload.nc</in>
+                </df>
+              </df>
+              <in>AssociateP.nc</in>
+              <in>BackupP.nc</in>
+              <in>BeaconRequestRxP.nc</in>
+              <in>BeaconSynchronizeP.nc</in>
+              <in>BeaconTransmitP.nc</in>
+              <in>CoordBroadcastP.nc</in>
+              <in>CoordRealignmentP.nc</in>
+              <in>DataP.nc</in>
+              <in>DebugC.nc</in>
+              <in>DebugP.nc</in>
+              <in>DisassociateP.nc</in>
+              <in>DispatchQueueP.nc</in>
+              <in>DispatchSlottedCsmaP.nc</in>
+              <in>DispatchUnslottedCsmaP.nc</in>
+              <in>IndirectTxP.nc</in>
+              <in>PibP.nc</in>
+              <in>PollP.nc</in>
+              <in>PromiscuousModeP.nc</in>
+              <in>RadioClientC.nc</in>
+              <in>RadioControlImplP.nc</in>
+              <in>RadioControlP.nc</in>
+              <in>RxEnableP.nc</in>
+              <in>ScanP.nc</in>
+              <in>SimpleTransferArbiterP.nc</in>
+              <in>TKN154.h</in>
+              <in>TKN154BeaconEnabledP.nc</in>
+              <in>TKN154NonBeaconEnabledP.nc</in>
+              <in>TKN154_MAC.h</in>
+              <in>TKN154_PIB.h</in>
+            </df>
+          </df>
+          <df name="net">
+            <df name="4bitle">
+              <in>LinkEstimator.h</in>
+              <in>LinkEstimator.nc</in>
+              <in>LinkEstimatorC.nc</in>
+              <in>LinkEstimatorP.nc</in>
+            </df>
+            <df name="6lowpan">
+              <in>IP.h</in>
+              <in>IP.nc</in>
+              <in>IPC.nc</in>
+              <in>IPP.nc</in>
+              <in>IP_internal.h</in>
+              <in>UDPClient.nc</in>
+            </df>
+            <df name="blip">
+              <df name="doc">
+              </df>
+              <df name="interfaces">
+                <in>ICMP.nc</in>
+                <in>ICMPPing.nc</in>
+                <in>IP.nc</in>
+                <in>IPAddress.nc</in>
+                <in>IPExtensions.nc</in>
+                <in>IPRouting.nc</in>
+                <in>InternalIPExtension.nc</in>
+                <in>ReadLqi.nc</in>
+                <in>Statistics.nc</in>
+                <in>TLVHeader.nc</in>
+                <in>Tcp.nc</in>
+                <in>UDP.nc</in>
+              </df>
+              <df name="nwprog">
+                <in>BootImage.nc</in>
+                <in>Deluge.h</in>
+                <in>DelugePatch.nc</in>
+                <in>DelugePatchC.nc</in>
+                <in>DelugePatchClientC.nc</in>
+                <in>DelugePatchP.nc</in>
+                <in>DelugeReadIdent.nc</in>
+                <in>DelugeReadIdentC.nc</in>
+                <in>DelugeReadIdentClientC.nc</in>
+                <in>DelugeReadIdentP.nc</in>
+                <in>DelugeVerify.nc</in>
+                <in>DelugeVerifyC.nc</in>
+                <in>DelugeVerifyClientC.nc</in>
+                <in>DelugeVerifyP.nc</in>
+                <in>NWProgC.nc</in>
+                <in>NWProgP.nc</in>
+              </df>
+              <df name="platform">
+                <in>CC2420ReadLqiC.nc</in>
+                <in>RF230ReadLqiC.nc</in>
+              </df>
+              <df name="serial">
+                <in>SerialDevConf.h</in>
+                <in>SerialDevConfC.nc</in>
+                <in>SerialPacketInfoDevConfP.nc</in>
+              </df>
+              <df name="shell">
+                <in>FlashShellC.nc</in>
+                <in>FlashShellP.nc</in>
+                <in>RegisterShellCommand.nc</in>
+                <in>Shell.h</in>
+                <in>ShellCommand.nc</in>
+                <in>ShellCommandC.nc</in>
+                <in>ShellCommandP.nc</in>
+                <in>UDPShellC.nc</in>
+                <in>UDPShellP.nc</in>
+              </df>
+              <in>ICMP.h</in>
+              <in>ICMPResponderC.nc</in>
+              <in>ICMPResponderP.nc</in>
+              <in>IPAddressC.nc</in>
+              <in>IPAddressP.nc</in>
+              <in>IPDispatch.h</in>
+              <in>IPDispatchC.nc</in>
+              <in>IPDispatchP.nc</in>
+              <in>IPExtensionP.nc</in>
+              <in>IPExtensionsP.nc</in>
+              <in>IPRoutingP.nc</in>
+              <in>PrintfUART.h</in>
+              <in>ReadLqiC.nc</in>
+              <in>ResourceSendP.nc</in>
+              <in>Statistics.h</in>
+              <in>TcpC.nc</in>
+              <in>TcpP.nc</in>
+              <in>TcpSocketC.nc</in>
+              <in>TrackFlowsC.nc</in>
+              <in>TrackFlowsP.nc</in>
+              <in>UdpC.nc</in>
+              <in>UdpP.nc</in>
+              <in>UdpSocketC.nc</in>
+              <in>table.c</in>
+              <in>table.h</in>
+            </df>
+            <df name="ctp">
+              <in>Collection.h</in>
+              <in>CollectionC.nc</in>
+              <in>CollectionSenderC.nc</in>
+              <in>CollectionSenderP.nc</in>
+              <in>CompareBit.nc</in>
+              <in>Ctp.h</in>
+              <in>CtpCongestion.nc</in>
+              <in>CtpDebug.nc</in>
+              <in>CtpDebugMsg.h</in>
+              <in>CtpForwardingEngine.h</in>
+              <in>CtpForwardingEngineP.nc</in>
+              <in>CtpInfo.nc</in>
+              <in>CtpP.nc</in>
+              <in>CtpPacket.nc</in>
+              <in>CtpRoutingEngineP.nc</in>
+              <in>CtpRoutingPacket.nc</in>
+              <in>CtpSenderC.nc</in>
+              <in>CtpSenderP.nc</in>
+              <in>DummyActiveMessageP.nc</in>
+              <in>LruCtpMsgCacheC.nc</in>
+              <in>LruCtpMsgCacheP.nc</in>
+              <in>TreeRouting.h</in>
+            </df>
+            <df name="Deluge">
+              <df name="BlockStorageManager">
+                <in>BlockReaderC.nc</in>
+                <in>BlockStorageLockC.nc</in>
+                <in>BlockStorageLockClientC.nc</in>
+                <in>BlockStorageManager.h</in>
+                <in>BlockStorageManagerC.nc</in>
+                <in>BlockStorageManagerP.nc</in>
+                <in>BlockWriterC.nc</in>
+                <in>VolumeId.nc</in>
+                <in>VolumeIdC.nc</in>
+              </df>
+              <df name="extra">
+                <df name="avr">
+                  <in>InternalFlashC.nc</in>
+                </df>
+                <df name="epic">
+                  <in>TOSBoot_platform.h</in>
+                </df>
+                <df name="iris">
+                  <in>NetProgC.nc</in>
+                  <in>NetProgM.nc</in>
+                </df>
+                <df name="m16c62p">
+                  <in>HplM16c62pFlash.nc</in>
+                  <in>HplM16c62pFlashC.nc</in>
+                  <in>InternalFlashC.nc</in>
+                  <in>InternalFlashP.nc</in>
+                  <in>M16c62pFlash.h</in>
+                </df>
+                <df name="mica2">
+                  <in>NetProg_platform.h</in>
+                </df>
+                <df name="micaz">
+                  <in>InternalFlash.h</in>
+                  <in>ReprogramGuardC.nc</in>
+                  <in>ReprogramGuardP.nc</in>
+                  <in>TOSBoot_platform.h</in>
+                </df>
+                <df name="msp430">
+                  <in>InternalFlashC.nc</in>
+                </df>
+                <df name="mulle">
+                  <in>NetProg_platform.h</in>
+                  <in>ReprogramGuardC.nc</in>
+                  <in>ReprogramGuardP.nc</in>
+                  <in>TOSBoot_platform.h</in>
+                </df>
+                <df name="telos">
+                  <in>NetProg_platform.h</in>
+                  <in>ReprogramGuardC.nc</in>
+                  <in>ReprogramGuardP.nc</in>
+                </df>
+                <df name="telosb">
+                  <in>ReprogramGuardC.nc</in>
+                  <in>ReprogramGuardP.nc</in>
+                  <in>TOSBoot_platform.h</in>
+                </df>
+                <df name="tinynode">
+                  <in>NetProg_platform.h</in>
+                  <in>ReprogramGuardC.nc</in>
+                  <in>ReprogramGuardP.nc</in>
+                  <in>TOSBoot_platform.h</in>
+                </df>
+                <in>NetProg.h</in>
+                <in>NetProg.nc</in>
+                <in>NetProgC.nc</in>
+                <in>NetProgM.nc</in>
+                <in>TOSBoot.h</in>
+              </df>
+              <df name="FlashVolumeManager">
+                <in>FlashVolumeManagerC.nc</in>
+                <in>FlashVolumeManagerP.nc</in>
+              </df>
+              <in>AutoStarterC.nc</in>
+              <in>AutoStarterP.nc</in>
+              <in>BitVecUtils.h</in>
+              <in>BitVecUtils.nc</in>
+              <in>BitVecUtilsC.nc</in>
+              <in>Deluge.h</in>
+              <in>DelugeC.nc</in>
+              <in>DelugeManagerC.nc</in>
+              <in>DelugeManagerP.nc</in>
+              <in>DelugeMetadata.nc</in>
+              <in>DelugeMetadataC.nc</in>
+              <in>DelugeMetadataClientC.nc</in>
+              <in>DelugeMetadataP.nc</in>
+              <in>DelugeMsgs.h</in>
+              <in>DelugeP.nc</in>
+              <in>DelugePageTransfer.h</in>
+              <in>DelugePageTransfer.nc</in>
+              <in>DelugePageTransferC.nc</in>
+              <in>DelugePageTransferP.nc</in>
+              <in>DelugeVolumeManager.nc</in>
+              <in>DelugeVolumeManagerC.nc</in>
+              <in>DelugeVolumeManagerClientC.nc</in>
+              <in>DelugeVolumeManagerP.nc</in>
+              <in>FakeBlockReaderC.nc</in>
+              <in>FakeBlockWriterC.nc</in>
+              <in>FakeBlockWriterP.nc</in>
+              <in>Globals.nc</in>
+              <in>GlobalsC.nc</in>
+              <in>ObjectTransfer.nc</in>
+              <in>ObjectTransferC.nc</in>
+              <in>ObjectTransferP.nc</in>
+              <in>ReprogramGuard.nc</in>
+              <in>SerialStarterC.nc</in>
+              <in>StatsCollector.nc</in>
+              <in>StatsCollectorC.nc</in>
+              <in>StatsCollectorP.nc</in>
+              <in>StorageMap.nc</in>
+              <in>imgNum2volumeId.h</in>
+            </df>
+            <df name="dhv">
+              <df name="interfaces">
+                <in>DhvCache.nc</in>
+                <in>DhvDecision.nc</in>
+                <in>DhvEstimates.nc</in>
+                <in>DhvHelp.nc</in>
+                <in>DhvLogic.nc</in>
+                <in>DhvNeighbour.nc</in>
+                <in>DhvReceive.nc</in>
+                <in>DhvSend.nc</in>
+                <in>DhvStateLogic.nc</in>
+                <in>DhvTrickleTimer.nc</in>
+                <in>DhvVersion.nc</in>
+              </df>
+              <in>AMDhvC.nc</in>
+              <in>AMDhvP.nc</in>
+              <in>Dhv.h</in>
+              <in>DhvDataC.nc</in>
+              <in>DhvDataP.nc</in>
+              <in>DhvHSumC.nc</in>
+              <in>DhvHSumP.nc</in>
+              <in>DhvLogicC.nc</in>
+              <in>DhvLogicP.nc</in>
+              <in>DhvSummaryC.nc</in>
+              <in>DhvSummaryP.nc</in>
+              <in>DhvTrickleMilliC.nc</in>
+              <in>DhvTrickleMilliP.nc</in>
+              <in>DhvVBitC.nc</in>
+              <in>DhvVBitP.nc</in>
+              <in>DhvVectorC.nc</in>
+              <in>DhvVectorP.nc</in>
+              <in>DhvVersionC.nc</in>
+              <in>DhvVersionP.nc</in>
+              <in>DisseminationC.nc</in>
+              <in>DisseminatorC.nc</in>
+              <in>DisseminatorP.nc</in>
+            </df>
+            <df name="dip">
+              <df name="interfaces">
+                <in>DipDecision.nc</in>
+                <in>DipEstimates.nc</in>
+                <in>DipHelp.nc</in>
+                <in>DipReceive.nc</in>
+                <in>DipSend.nc</in>
+                <in>DipTrickleTimer.nc</in>
+                <in>DipVersion.nc</in>
+              </df>
+              <in>AMDipC.nc</in>
+              <in>AMDipP.nc</in>
+              <in>Dip.h</in>
+              <in>DipDataC.nc</in>
+              <in>DipDataP.nc</in>
+              <in>DipLogicC.nc</in>
+              <in>DipLogicP.nc</in>
+              <in>DipSummaryC.nc</in>
+              <in>DipSummaryP.nc</in>
+              <in>DipTrickleMilliC.nc</in>
+              <in>DipTrickleMilliP.nc</in>
+              <in>DipVectorC.nc</in>
+              <in>DipVectorP.nc</in>
+              <in>DipVersionC.nc</in>
+              <in>DipVersionP.nc</in>
+              <in>DisseminationC.nc</in>
+              <in>DisseminatorC.nc</in>
+              <in>DisseminatorP.nc</in>
+              <in>qsort.c</in>
+            </df>
+            <df name="drip">
+              <in>DisseminationC.nc</in>
+              <in>DisseminationCache.nc</in>
+              <in>DisseminationEngine.h</in>
+              <in>DisseminationEngineImplP.nc</in>
+              <in>DisseminationEngineP.nc</in>
+              <in>DisseminationTimerP.nc</in>
+              <in>DisseminatorC.nc</in>
+              <in>DisseminatorP.nc</in>
+            </df>
+            <df name="le">
+              <in>LinkEstimator.h</in>
+              <in>LinkEstimator.nc</in>
+              <in>LinkEstimatorC.nc</in>
+              <in>LinkEstimatorP.nc</in>
+            </df>
+            <df name="lqi">
+              <in>Collection.h</in>
+              <in>CollectionC.nc</in>
+              <in>CollectionSenderC.nc</in>
+              <in>CollectionSenderP.nc</in>
+              <in>LqiForwardingEngineP.nc</in>
+              <in>LqiRouteStats.nc</in>
+              <in>LqiRoutingEngineP.nc</in>
+              <in>MultiHopEngineM.nc</in>
+              <in>MultiHopLqi.h</in>
+              <in>MultiHopLqiP.nc</in>
+              <in>RouteControl.nc</in>
+              <in>RouteSelect.nc</in>
+            </df>
+            <in>CollectionDebug.nc</in>
+            <in>CollectionDebugMsg.h</in>
+            <in>CollectionId.nc</in>
+            <in>CollectionIdP.nc</in>
+            <in>CollectionPacket.nc</in>
+            <in>DisseminationUpdate.nc</in>
+            <in>DisseminationValue.nc</in>
+            <in>NeighborTableEviction.nc</in>
+            <in>RootControl.nc</in>
+            <in>SendVirtualizerP.nc</in>
+            <in>TrickleTimer.nc</in>
+            <in>TrickleTimerImplP.nc</in>
+            <in>TrickleTimerMilliC.nc</in>
+            <in>UARTDebugSenderP.nc</in>
+            <in>UnicastNameFreeRouting.nc</in>
+          </df>
+          <df name="power">
+            <in>AsyncDeferredPowerManagerP.nc</in>
+            <in>AsyncPowerManagerP.nc</in>
+            <in>AsyncStdControlDeferredPowerManagerC.nc</in>
+            <in>AsyncStdControlPowerManagerC.nc</in>
+            <in>DeferredPowerManagerP.nc</in>
+            <in>InfiniteRetryPowerManagerP.nc</in>
+            <in>PowerDownCleanup.nc</in>
+            <in>PowerManagerP.nc</in>
+            <in>SplitControlDeferredPowerManagerC.nc</in>
+            <in>SplitControlPowerManagerC.nc</in>
+            <in>StdControlDeferredPowerManagerC.nc</in>
+            <in>StdControlPowerManagerC.nc</in>
+          </df>
+          <df name="printf">
+            <df name="2_0_2">
+              <in>PrintfC.nc</in>
+              <in>PrintfFlush.nc</in>
+              <in>PrintfP.nc</in>
+              <in>avr_stdio.h</in>
+              <in>printf.h</in>
+            </df>
+            <in>MainC.nc</in>
+            <in>PrintfC.nc</in>
+            <in>PrintfP.nc</in>
+            <in>avr_stdio.h</in>
+            <in>printf.h</in>
+          </df>
+          <df name="safe">
+            <df name="include">
+              <df name="deputy">
+                <in>checks.h</in>
+              </df>
+              <in>annots_stage1.h</in>
+            </df>
+            <in>SafeFailureHandlerC.nc</in>
+            <in>SafeFailureHandlerP.nc</in>
+          </df>
+          <df name="serial">
+            <in>HdlcTranslateC.nc</in>
+            <in>ReceiveBytePacket.nc</in>
+            <in>SendBytePacket.nc</in>
+            <in>Serial.h</in>
+            <in>Serial802_15_4C.nc</in>
+            <in>SerialAMQueueP.nc</in>
+            <in>SerialAMReceiverC.nc</in>
+            <in>SerialAMSenderC.nc</in>
+            <in>SerialActiveMessageC.nc</in>
+            <in>SerialActiveMessageP.nc</in>
+            <in>SerialByteComm.nc</in>
+            <in>SerialDispatcherC.nc</in>
+            <in>SerialDispatcherP.nc</in>
+            <in>SerialFlush.nc</in>
+            <in>SerialFrameComm.nc</in>
+            <in>SerialP.nc</in>
+            <in>SerialPacketInfo.nc</in>
+            <in>SerialPacketInfo802_15_4P.nc</in>
+            <in>SerialPacketInfoActiveMessageP.nc</in>
+            <in>SerialQueueP.nc</in>
+          </df>
+          <df name="timer">
+            <in>Alarm.nc</in>
+            <in>AlarmToTimerC.nc</in>
+            <in>BusyWait.nc</in>
+            <in>BusyWaitCounterC.nc</in>
+            <in>Counter.nc</in>
+            <in>CounterToLocalTimeC.nc</in>
+            <in>LocalTime.nc</in>
+            <in>Timer.h</in>
+            <in>Timer.nc</in>
+            <in>TransformAlarmC.nc</in>
+            <in>TransformAlarmCounterC.nc</in>
+            <in>TransformCounterC.nc</in>
+            <in>VirtualizeAlarmC.nc</in>
+            <in>VirtualizeTimerC.nc</in>
+          </df>
+          <df name="tosboot">
+            <df name="at45db">
+              <in>ExtFlashC.nc</in>
+            </df>
+            <df name="avr">
+              <in>HardwareC.nc</in>
+              <in>InternalFlashC.nc</in>
+              <in>ProgFlashC.nc</in>
+            </df>
+            <df name="epic">
+              <in>ExtFlashC.nc</in>
+              <in>ExtFlashP.nc</in>
+              <in>hardware.h</in>
+            </df>
+            <df name="iris">
+              <in>HardwareC.nc</in>
+              <in>ProgFlashC.nc</in>
+              <in>VoltageC.nc</in>
+            </df>
+            <df name="lib">
+              <in>ExecC.nc</in>
+              <in>LedsC.nc</in>
+            </df>
+            <df name="m16c62p">
+              <in>HardwareC.nc</in>
+              <in>ProgFlashC.nc</in>
+              <in>ProgFlashP.nc</in>
+            </df>
+            <df name="micaz">
+              <in>ExecC.nc</in>
+              <in>InternalFlash.h</in>
+              <in>PluginC.nc</in>
+              <in>TOSBoot_platform.h</in>
+              <in>VoltageC.nc</in>
+              <in>avrhardware.h</in>
+              <in>hardware.h</in>
+            </df>
+            <df name="msp430">
+              <in>HardwareC.nc</in>
+              <in>HplUsart0C.nc</in>
+              <in>HplUsartControl.nc</in>
+              <in>InternalFlashC.nc</in>
+              <in>ProgFlashC.nc</in>
+              <in>VoltageC.nc</in>
+            </df>
+            <df name="msp430f1611">
+              <in>PluginC.nc</in>
+              <in>PowerOffC.nc</in>
+              <in>TOSBoot_platform.h</in>
+            </df>
+            <df name="mulle">
+              <in>ExecC.nc</in>
+              <in>PluginC.nc</in>
+              <in>VoltageC.nc</in>
+              <in>hardware.h</in>
+              <in>m16chardware.h</in>
+            </df>
+            <df name="stm25p">
+              <in>ExtFlashC.nc</in>
+              <in>ExtFlashP.nc</in>
+            </df>
+            <df name="telosb">
+              <in>hardware.h</in>
+            </df>
+            <df name="tinynode">
+              <in>ExecC.nc</in>
+              <in>ExtFlashC.nc</in>
+              <in>PowerOffC.nc</in>
+              <in>TOSBoot_platform.h</in>
+              <in>VoltageC.nc</in>
+              <in>hardware.h</in>
+            </df>
+            <in>Exec.nc</in>
+            <in>ExtFlash.nc</in>
+            <in>Hardware.nc</in>
+            <in>Leds.nc</in>
+            <in>ProgFlash.nc</in>
+            <in>TosBoot.h</in>
+            <in>TosBootC.nc</in>
+            <in>TosBootP.nc</in>
+            <in>Voltage.nc</in>
+            <in>crc.h</in>
+          </df>
+          <df name="tossim">
+            <df name="examples">
+            </df>
+            <df name="gain">
+            </df>
+            <df name="noise">
+            </df>
+            <df name="sf">
+              <df name="examples">
+                <in>TestSerial.c</in>
+              </df>
+              <df name="sim">
+                <in>MainC.nc</in>
+                <in>SerialActiveMessageC.nc</in>
+                <in>tos.h</in>
+              </df>
+              <in>SerialForwarder.c</in>
+              <in>SerialForwarder.h</in>
+              <in>SerialForwarder.i</in>
+              <in>SerialPacket.c</in>
+              <in>SerialPacket.h</in>
+              <in>SerialPacket.i</in>
+              <in>Throttle.cpp</in>
+              <in>Throttle.h</in>
+              <in>Throttle.i</in>
+              <in>sim_serial_forwarder.c</in>
+              <in>sim_serial_forwarder.h</in>
+              <in>sim_serial_packet.c</in>
+              <in>sim_serial_packet.h</in>
+              <in>tossim.c</in>
+              <in>tossim.h</in>
+              <in>tossim.i</in>
+              <in>tossim_wrap.cxx</in>
+            </df>
+            <df name="topologies">
+            </df>
+            <in>ActiveMessageAddressC.nc</in>
+            <in>ActiveMessageC.nc</in>
+            <in>BinaryInterferenceModelC.nc</in>
+            <in>CpmModelC.nc</in>
+            <in>DemoSensorC.nc</in>
+            <in>Driver.c</in>
+            <in>GainRadioModel.nc</in>
+            <in>MainC.nc</in>
+            <in>PlatformC.nc</in>
+            <in>SerialActiveMessageC.nc</in>
+            <in>SimMainP.nc</in>
+            <in>SimMote.nc</in>
+            <in>SimMoteP.nc</in>
+            <in>SimSchedulerBasicP.nc</in>
+            <in>SimpleRadioModel.nc</in>
+            <in>TinySchedulerC.nc</in>
+            <in>TossimActiveMessageC.nc</in>
+            <in>TossimPacket.nc</in>
+            <in>TossimPacketModel.nc</in>
+            <in>TossimPacketModelC.nc</in>
+            <in>TossimRadioMsg.h</in>
+            <in>UscGainInterferenceModelC.nc</in>
+            <in>csma.c</in>
+            <in>csma.h</in>
+            <in>hardware.h</in>
+            <in>hashtable.c</in>
+            <in>hashtable.h</in>
+            <in>hashtable_private.h</in>
+            <in>heap.c</in>
+            <in>heap.h</in>
+            <in>mac.c</in>
+            <in>mac.h</in>
+            <in>mac.i</in>
+            <in>packet.c</in>
+            <in>packet.h</in>
+            <in>packet.i</in>
+            <in>platform_message.h</in>
+            <in>radio.c</in>
+            <in>radio.h</in>
+            <in>radio.i</in>
+            <in>randomlib.c</in>
+            <in>randomlib.h</in>
+            <in>sim_binary.c</in>
+            <in>sim_binary.h</in>
+            <in>sim_csma.c</in>
+            <in>sim_csma.h</in>
+            <in>sim_event_queue.c</in>
+            <in>sim_event_queue.h</in>
+            <in>sim_gain.c</in>
+            <in>sim_gain.h</in>
+            <in>sim_log.c</in>
+            <in>sim_log.h</in>
+            <in>sim_mac.c</in>
+            <in>sim_mote.h</in>
+            <in>sim_noise.c</in>
+            <in>sim_noise.h</in>
+            <in>sim_packet.c</in>
+            <in>sim_packet.h</in>
+            <in>sim_tossim.c</in>
+            <in>sim_tossim.h</in>
+            <in>tos.h</in>
+            <in>tossim.c</in>
+            <in>tossim.h</in>
+            <in>tossim.i</in>
+            <in>tossim_wrap.cxx</in>
+          </df>
+          <df name="tosthreads">
+            <df name="chips">
+              <df name="atm128">
+                <df name="adc">
+                  <in>BlockingAdcP.nc</in>
+                  <in>BlockingAdcReadClientC.nc</in>
+                  <in>BlockingAdcReadStreamClientC.nc</in>
+                </df>
+                <df name="sim">
+                  <in>HplAtm128CompareC.nc</in>
+                  <in>HplAtm128Counter0C.nc</in>
+                  <in>HplAtm128Counter2C.nc</in>
+                  <in>HplAtm128Timer0AsyncC.nc</in>
+                  <in>HplAtm128Timer0AsyncP.nc</in>
+                  <in>HplAtm128Timer2C.nc</in>
+                </df>
+                <in>HplAtm128AdcC.nc</in>
+                <in>HplAtm128AdcP.nc</in>
+                <in>HplAtm128I2CBusC.nc</in>
+                <in>HplAtm128I2CBusP.nc</in>
+                <in>HplAtm128InterruptC.nc</in>
+                <in>HplAtm128InterruptSigP.nc</in>
+                <in>HplAtm128SpiC.nc</in>
+                <in>HplAtm128SpiP.nc</in>
+                <in>HplAtm128Timer0AsyncC.nc</in>
+                <in>HplAtm128Timer0AsyncP.nc</in>
+                <in>HplAtm128Timer1C.nc</in>
+                <in>HplAtm128Timer1P.nc</in>
+                <in>HplAtm128Timer2C.nc</in>
+                <in>HplAtm128Timer3C.nc</in>
+                <in>HplAtm128Timer3P.nc</in>
+                <in>HplAtm128UartC.nc</in>
+                <in>HplAtm128UartP.nc</in>
+                <in>chip_thread.h</in>
+              </df>
+              <df name="atm1281">
+                <in>HplAtm1281Timer1P.nc</in>
+                <in>HplAtm1281Timer2AsyncC.nc</in>
+                <in>HplAtm1281Timer2AsyncP.nc</in>
+                <in>HplAtm1281Timer3P.nc</in>
+                <in>HplAtm128AdcP.nc</in>
+                <in>HplAtm128Timer1C.nc</in>
+                <in>HplAtm128Timer3C.nc</in>
+                <in>HplAtm128UartP.nc</in>
+              </df>
+              <df name="cc1000">
+                <in>CC1000ActiveMessageC.nc</in>
+                <in>CC1000ActiveMessageP.nc</in>
+              </df>
+              <df name="cc2420">
+                <in>CC2420ActiveMessageC.nc</in>
+                <in>CC2420ActiveMessageP.nc</in>
+              </df>
+              <df name="msp430">
+                <df name="adc12">
+                  <in>BlockingAdcP.nc</in>
+                  <in>BlockingAdcReadClientC.nc</in>
+                  <in>BlockingAdcReadStreamClientC.nc</in>
+                </df>
+                <df name="sensors">
+                  <in>BlockingMsp430InternalTemperatureC.nc</in>
+                  <in>BlockingMsp430InternalVoltageC.nc</in>
+                </df>
+                <in>HplAdc12P.nc</in>
+                <in>HplMsp430DmaC.nc</in>
+                <in>HplMsp430DmaP.nc</in>
+                <in>HplMsp430InterruptC.nc</in>
+                <in>HplMsp430InterruptNMIC.nc</in>
+                <in>HplMsp430InterruptNMIP.nc</in>
+                <in>HplMsp430InterruptP.nc</in>
+                <in>HplMsp430Usart0C.nc</in>
+                <in>HplMsp430Usart0P.nc</in>
+                <in>HplMsp430Usart1C.nc</in>
+                <in>HplMsp430Usart1P.nc</in>
+                <in>Msp430Adc12P.nc</in>
+                <in>Msp430TimerC.nc</in>
+                <in>Msp430TimerCommonP.nc</in>
+                <in>chip_thread.h</in>
+              </df>
+              <df name="pxa27x">
+                <in>HplPXA27xInterruptImplM.nc</in>
+                <in>HplPXA27xInterruptM.nc</in>
+                <in>chip_thread.h</in>
+              </df>
+              <df name="rf230">
+                <in>ActiveMessageLayerC.nc</in>
+                <in>ActiveMessageLayerP.nc</in>
+                <in>RF230ActiveMessageC.nc</in>
+                <in>RF230RadioC.nc</in>
+              </df>
+              <df name="tda5250">
+                <in>Tda5250ActiveMessageC.nc</in>
+                <in>Tda5250ActiveMessageP.nc</in>
+              </df>
+              <df name="xe1205">
+                <in>XE1205ActiveMessageC.nc</in>
+                <in>XE1205ActiveMessageP.nc</in>
+              </df>
+            </df>
+            <df name="csystem">
+              <in>CAMRadioC.nc</in>
+              <in>CAMRadioP.nc</in>
+              <in>CAMSerialC.nc</in>
+              <in>CAMSerialP.nc</in>
+              <in>CBlockStorageC.nc</in>
+              <in>CBlockStorageP.nc</in>
+              <in>CConfigStorageC.nc</in>
+              <in>CConfigStorageP.nc</in>
+              <in>CLedsC.nc</in>
+              <in>CLedsP.nc</in>
+              <in>CLinkedListC.nc</in>
+              <in>CLinkedListP.nc</in>
+              <in>CLogStorageC.nc</in>
+              <in>CLogStorageP.nc</in>
+              <in>CQueueC.nc</in>
+              <in>CRandomC.nc</in>
+              <in>CRandomP.nc</in>
+              <in>CThreadC.nc</in>
+              <in>CThreadP.nc</in>
+              <in>CThreadSynchronizationC.nc</in>
+              <in>CThreadSynchronizationP.nc</in>
+              <in>TinyOSEntryPointC.nc</in>
+              <in>TinyOSEntryPointP.nc</in>
+              <in>TosThreadApiC.nc</in>
+              <in>VolumeMapC.nc</in>
+              <in>VolumeMapP.nc</in>
+              <in>tosthread.h</in>
+              <in>tosthread_amradio.h</in>
+              <in>tosthread_amserial.h</in>
+              <in>tosthread_barrier.h</in>
+              <in>tosthread_blockstorage.h</in>
+              <in>tosthread_condvar.h</in>
+              <in>tosthread_configstorage.h</in>
+              <in>tosthread_leds.h</in>
+              <in>tosthread_linked_list.h</in>
+              <in>tosthread_logstorage.h</in>
+              <in>tosthread_mutex.h</in>
+              <in>tosthread_queue.h</in>
+              <in>tosthread_random.h</in>
+              <in>tosthread_refcounter.h</in>
+              <in>tosthread_semaphore.h</in>
+              <in>tosthread_threadsync.h</in>
+            </df>
+            <df name="interfaces">
+              <in>Barrier.nc</in>
+              <in>BitArrayUtils.nc</in>
+              <in>BlockingAMSend.nc</in>
+              <in>BlockingBlock.nc</in>
+              <in>BlockingConfig.nc</in>
+              <in>BlockingLog.nc</in>
+              <in>BlockingMount.nc</in>
+              <in>BlockingRead.nc</in>
+              <in>BlockingReadStream.nc</in>
+              <in>BlockingReceive.nc</in>
+              <in>BlockingResource.nc</in>
+              <in>BlockingSend.nc</in>
+              <in>BlockingStdControl.nc</in>
+              <in>ConditionVariable.nc</in>
+              <in>DynamicThread.nc</in>
+              <in>LinkedList.nc</in>
+              <in>Malloc.nc</in>
+              <in>Mutex.nc</in>
+              <in>PlatformInterrupt.nc</in>
+              <in>PoolThread.nc</in>
+              <in>ReferenceCounter.nc</in>
+              <in>Semaphore.nc</in>
+              <in>SystemCall.nc</in>
+              <in>SystemCallQueue.nc</in>
+              <in>TaskScheduler.nc</in>
+              <in>Thread.nc</in>
+              <in>ThreadCleanup.nc</in>
+              <in>ThreadFunction.nc</in>
+              <in>ThreadInfo.nc</in>
+              <in>ThreadNotification.nc</in>
+              <in>ThreadQueue.nc</in>
+              <in>ThreadScheduler.nc</in>
+              <in>ThreadSleep.nc</in>
+            </df>
+            <df name="lib">
+              <df name="net">
+                <df name="ctp">
+                  <in>BlockingCollectionSenderC.nc</in>
+                  <in>BlockingCollectionSenderImplP.nc</in>
+                  <in>BlockingCollectionSenderP.nc</in>
+                  <in>CCollectionC.nc</in>
+                  <in>CCollectionIdP.nc</in>
+                  <in>CCollectionP.nc</in>
+                  <in>ccollection.h</in>
+                </df>
+                <df name="lqi">
+                  <in>BlockingCollectionSenderC.nc</in>
+                  <in>BlockingCollectionSenderImplP.nc</in>
+                  <in>BlockingCollectionSenderP.nc</in>
+                  <in>CCollectionC.nc</in>
+                  <in>CCollectionIdP.nc</in>
+                  <in>CCollectionP.nc</in>
+                  <in>ccollection.h</in>
+                </df>
+                <in>BlockingCollectionControlC.nc</in>
+                <in>BlockingCollectionControlP.nc</in>
+                <in>BlockingCollectionReceiverC.nc</in>
+                <in>BlockingCollectionReceiverP.nc</in>
+                <in>BlockingCollectionSnooperC.nc</in>
+                <in>BlockingCollectionSnooperP.nc</in>
+                <in>CCollectionId.nc</in>
+                <in>tosthread_collection.h</in>
+              </df>
+              <df name="printf">
+                <in>PrintfC.nc</in>
+                <in>PrintfP.nc</in>
+                <in>avr_stdio.h</in>
+                <in>printf.h</in>
+              </df>
+              <df name="serial">
+                <in>SerialActiveMessageC.nc</in>
+                <in>SerialActiveMessageP.nc</in>
+              </df>
+              <df name="tinyld">
+                <in>BigCrc.nc</in>
+                <in>BigCrcC.nc</in>
+                <in>BigCrcP.nc</in>
+                <in>DynamicLoader.h</in>
+                <in>DynamicLoader.nc</in>
+                <in>DynamicLoaderC.nc</in>
+                <in>DynamicLoaderP.nc</in>
+                <in>LoadSourceMapC.nc</in>
+                <in>LoadSourceMapP.nc</in>
+                <in>MemoryStorageC.nc</in>
+                <in>MemoryStorageP.nc</in>
+                <in>NullVolumeMapC.nc</in>
+                <in>PMManager.nc</in>
+                <in>PMManagerC.nc</in>
+                <in>PMManagerP.nc</in>
+                <in>TosThreadApiC.nc</in>
+                <in>UserButton.nc</in>
+                <in>UserButtonC.nc</in>
+                <in>UserButtonP.nc</in>
+                <in>slcs_types.h</in>
+                <in>tosthread_slcs_types.h</in>
+              </df>
+            </df>
+            <df name="platforms">
+              <df name="epic">
+                <in>ActiveMessageC.nc</in>
+                <in>TelosSerialP.nc</in>
+              </df>
+              <df name="eyesIFX">
+                <in>ActiveMessageC.nc</in>
+                <in>ActiveMessageFilterC.nc</in>
+              </df>
+              <df name="iris">
+                <in>ActiveMessageC.nc</in>
+              </df>
+              <df name="mica2">
+                <df name="chips">
+                  <df name="cc1000">
+                    <in>HplCC1000InitP.nc</in>
+                    <in>HplCC1000SpiP.nc</in>
+                  </df>
+                </df>
+                <in>ActiveMessageC.nc</in>
+              </df>
+              <df name="mica2dot">
+                <df name="chips">
+                  <df name="cc1000">
+                    <in>HplCC1000InitP.nc</in>
+                  </df>
+                </df>
+              </df>
+              <df name="micaz">
+                <in>ActiveMessageC.nc</in>
+              </df>
+              <df name="shimmer">
+                <in>ActiveMessageC.nc</in>
+              </df>
+              <df name="telosa">
+                <in>ActiveMessageC.nc</in>
+                <in>TelosSerialP.nc</in>
+              </df>
+              <df name="tinynode">
+                <in>ActiveMessageC.nc</in>
+              </df>
+            </df>
+            <df name="sensorboards">
+              <df name="basicsb">
+                <in>BlockingPhotoC.nc</in>
+                <in>BlockingPhotoStreamC.nc</in>
+                <in>BlockingTempC.nc</in>
+                <in>BlockingTempStreamC.nc</in>
+                <in>CPhotoC.nc</in>
+                <in>CPhotoP.nc</in>
+                <in>CTempC.nc</in>
+                <in>CTempP.nc</in>
+                <in>basicsb_sensors.h</in>
+                <in>tosthread_photo.h</in>
+                <in>tosthread_temp.h</in>
+              </df>
+              <df name="tmote_onboard">
+                <in>BlockingHamamatsuS10871TsrC.nc</in>
+                <in>BlockingHamamatsuS1087ParC.nc</in>
+                <in>BlockingSensirionSht11C.nc</in>
+                <in>BlockingSensirionSht11ReaderImplP.nc</in>
+                <in>BlockingSensirionSht11ReaderP.nc</in>
+                <in>CHamamatsuS10871TsrC.nc</in>
+                <in>CHamamatsuS10871TsrP.nc</in>
+                <in>CHamamatsuS1087ParC.nc</in>
+                <in>CHamamatsuS1087ParP.nc</in>
+                <in>CSensirionSht11C.nc</in>
+                <in>CSensirionSht11P.nc</in>
+                <in>tmote_onboard_sensors.h</in>
+                <in>tosthread_hamamatsuS1087.h</in>
+                <in>tosthread_hamamatsuS10871.h</in>
+                <in>tosthread_sensirionSht11.h</in>
+              </df>
+              <df name="universal">
+                <in>BlockingSineSensorC.nc</in>
+                <in>BlockingSineSensorP.nc</in>
+                <in>CSineSensorC.nc</in>
+                <in>CSineSensorP.nc</in>
+                <in>tosthread_sinesensor.h</in>
+                <in>universal_sensors.h</in>
+              </df>
+            </df>
+            <df name="system">
+              <in>BarrierC.nc</in>
+              <in>BarrierP.nc</in>
+              <in>BitArrayUtilsC.nc</in>
+              <in>BlockingAMReceiverC.nc</in>
+              <in>BlockingAMReceiverImplP.nc</in>
+              <in>BlockingAMReceiverP.nc</in>
+              <in>BlockingAMSenderC.nc</in>
+              <in>BlockingAMSenderImplP.nc</in>
+              <in>BlockingAMSenderP.nc</in>
+              <in>BlockingAMSnooperC.nc</in>
+              <in>BlockingAMSnooperP.nc</in>
+              <in>BlockingActiveMessageC.nc</in>
+              <in>BlockingBlockStorageC.nc</in>
+              <in>BlockingBlockStorageImplP.nc</in>
+              <in>BlockingBlockStorageP.nc</in>
+              <in>BlockingBootC.nc</in>
+              <in>BlockingBootP.nc</in>
+              <in>BlockingConfigStorageC.nc</in>
+              <in>BlockingConfigStorageImplP.nc</in>
+              <in>BlockingConfigStorageP.nc</in>
+              <in>BlockingLogStorageC.nc</in>
+              <in>BlockingLogStorageImplP.nc</in>
+              <in>BlockingLogStorageP.nc</in>
+              <in>BlockingReadP.nc</in>
+              <in>BlockingReadStreamP.nc</in>
+              <in>BlockingResourceC.nc</in>
+              <in>BlockingResourceP.nc</in>
+              <in>BlockingSendC.nc</in>
+              <in>BlockingSendImplP.nc</in>
+              <in>BlockingSendP.nc</in>
+              <in>BlockingSerialAMReceiverC.nc</in>
+              <in>BlockingSerialAMReceiverP.nc</in>
+              <in>BlockingSerialAMSenderC.nc</in>
+              <in>BlockingSerialAMSenderP.nc</in>
+              <in>BlockingSerialActiveMessageC.nc</in>
+              <in>BlockingStdControlC.nc</in>
+              <in>BlockingStdControlImplP.nc</in>
+              <in>BlockingStdControlP.nc</in>
+              <in>ConditionVariableC.nc</in>
+              <in>ConditionVariableP.nc</in>
+              <in>DynamicThreadC.nc</in>
+              <in>DynamicThreadP.nc</in>
+              <in>LinkedListC.nc</in>
+              <in>MainC.nc</in>
+              <in>MutexC.nc</in>
+              <in>MutexP.nc</in>
+              <in>PlatformInterruptC.nc</in>
+              <in>PoolThreadC.nc</in>
+              <in>PoolThreadP.nc</in>
+              <in>RealMainImplP.nc</in>
+              <in>RealMainP.nc</in>
+              <in>ReferenceCounterC.nc</in>
+              <in>ReferenceCounterP.nc</in>
+              <in>SchedulerBasicP.nc</in>
+              <in>SemaphoreC.nc</in>
+              <in>SemaphoreP.nc</in>
+              <in>StaticThreadC.nc</in>
+              <in>StaticThreadP.nc</in>
+              <in>SystemCallC.nc</in>
+              <in>SystemCallP.nc</in>
+              <in>SystemCallQueueC.nc</in>
+              <in>SystemCallQueueP.nc</in>
+              <in>TOSThreadsInterruptP.nc</in>
+              <in>ThreadC.nc</in>
+              <in>ThreadInfoMapP.nc</in>
+              <in>ThreadInfoP.nc</in>
+              <in>ThreadMapC.nc</in>
+              <in>ThreadMapP.nc</in>
+              <in>ThreadQueueC.nc</in>
+              <in>ThreadQueueP.nc</in>
+              <in>ThreadSleepC.nc</in>
+              <in>ThreadSleepP.nc</in>
+              <in>ThreadSynchronizationC.nc</in>
+              <in>ThreadTimersC.nc</in>
+              <in>TinyOSMainP.nc</in>
+              <in>TinyTaskSchedulerC.nc</in>
+              <in>TinyThreadSchedulerC.nc</in>
+              <in>TinyThreadSchedulerP.nc</in>
+              <in>TosMallocC.nc</in>
+            </df>
+            <df name="types">
+              <in>barrier.h</in>
+              <in>condvar.h</in>
+              <in>linked_list.h</in>
+              <in>mutex.h</in>
+              <in>poolthread.h</in>
+              <in>queue.h</in>
+              <in>refcounter.h</in>
+              <in>semaphore.h</in>
+              <in>syscall_queue.h</in>
+              <in>thread.h</in>
+              <in>thread_queue.h</in>
+            </df>
+          </df>
+        </df>
+        <df name="platforms">
+          <df name="epic">
+            <df name="chips">
+              <df name="at45db">
+                <in>HplAt45dbC.nc</in>
+                <in>HplAt45dbP.nc</in>
+                <in>HplAt45db_chip.h</in>
+              </df>
+            </df>
+            <in>DemoSensorC.nc</in>
+            <in>DemoSensorNowC.nc</in>
+            <in>DemoSensorStreamC.nc</in>
+            <in>HplUserButtonC.nc</in>
+            <in>Ieee154MessageC.nc</in>
+            <in>MoteClockC.nc</in>
+            <in>MoteClockP.nc</in>
+            <in>MotePlatformC.nc</in>
+            <in>PlatformC.nc</in>
+            <in>PlatformLedsC.nc</in>
+            <in>PlatformP.nc</in>
+            <in>UserButton.h</in>
+            <in>UserButtonC.nc</in>
+            <in>UserButtonP.nc</in>
+            <in>VoltageC.nc</in>
+            <in>VoltageStreamC.nc</in>
+            <in>hardware.h</in>
+            <in>platform.h</in>
+            <in>platform_message.h</in>
+          </df>
+          <df name="eyesIFX">
+            <df name="byte_radio">
+              <in>RssiFixedThresholdCMC.nc</in>
+              <in>RssiFixedThresholdCMP.nc</in>
+              <in>Uart4b6bPhyC.nc</in>
+              <in>Uart4b6bPhyP.nc</in>
+              <in>UartManchPhyC.nc</in>
+              <in>UartManchPhyP.nc</in>
+              <in>code4b6b.h</in>
+              <in>manchester.h</in>
+            </df>
+            <df name="chips">
+              <df name="ad5200">
+                <in>AD5200PotIOC.nc</in>
+              </df>
+              <df name="msp430">
+                <in>Msp430DcoSpec.h</in>
+                <in>Msp430Timer32khzMapC.nc</in>
+              </df>
+              <df name="tda5250">
+                <in>HplTda5250DataIOC.nc</in>
+                <in>HplTda5250DataIOP.nc</in>
+                <in>Tda5250ASKNFSKFakePinP.nc</in>
+                <in>Tda5250RadioIOC.nc</in>
+                <in>Tda5250RadioInterruptC.nc</in>
+                <in>Tda5250RegCommC.nc</in>
+                <in>eyesIFXBaudrates.h</in>
+                <in>tda5250BusResourceSettings.h</in>
+                <in>tda5250RegDefaultSettings.h</in>
+              </df>
+            </df>
+            <df name="eyesIFXv1">
+              <in>hardware.h</in>
+            </df>
+            <df name="eyesIFXv2">
+              <df name="chips">
+                <df name="at45db">
+                  <in>HplAt45dbC.nc</in>
+                  <in>HplAt45dbP.nc</in>
+                  <in>HplAt45db_chip.h</in>
+                </df>
+              </df>
+              <in>hardware.h</in>
+            </df>
+            <df name="net">
+              <df name="lqi">
+                <in>CC2420ActiveMessageC.nc</in>
+                <in>CC2420Packet.nc</in>
+              </df>
+            </df>
+            <df name="sensors">
+              <in>BatteryLevel.nc</in>
+              <in>BatteryLevelSensorC.nc</in>
+              <in>CoulombCounter.nc</in>
+              <in>CoulombCounterC.nc</in>
+              <in>CoulombCounterP.nc</in>
+              <in>DemoSensorC.nc</in>
+              <in>DemoSensorNowC.nc</in>
+              <in>DemoSensorStreamC.nc</in>
+              <in>PhotoSensorC.nc</in>
+              <in>ReadNowShiftC.nc</in>
+              <in>ReadShiftC.nc</in>
+              <in>ReadStreamShiftC.nc</in>
+              <in>RssiSensorC.nc</in>
+              <in>RssiSensorVccC.nc</in>
+              <in>SensorSettingsC.nc</in>
+              <in>TempExtSensorC.nc</in>
+              <in>TempExtSensorP.nc</in>
+              <in>sensors.h</in>
+            </df>
+            <in>ActiveMessageC.nc</in>
+            <in>ActiveMessageFilterC.nc</in>
+            <in>DummySleepP.nc</in>
+            <in>LedsP.nc</in>
+            <in>LocalTimeC.nc</in>
+            <in>LocalTimeP.nc</in>
+            <in>LplC.nc</in>
+            <in>LplP.nc</in>
+            <in>PacketStampC.nc</in>
+            <in>PacketStampP.nc</in>
+            <in>PlatformC.nc</in>
+            <in>PlatformLedsC.nc</in>
+            <in>PlatformP.nc</in>
+            <in>PlatformSerialC.nc</in>
+            <in>RadioDataLinkC.nc</in>
+            <in>SmclkManagerC.nc</in>
+            <in>SmclkManagerP.nc</in>
+            <in>TimeSyncMessageC.nc</in>
+            <in>TimeSyncMessageP.nc</in>
+            <in>WhiteBitAccessorC.nc</in>
+            <in>WideLocalTime.nc</in>
+            <in>crc.h</in>
+            <in>eyesIFXSerialP.nc</in>
+            <in>lf-crc.h</in>
+            <in>platform.h</in>
+            <in>platform_message.h</in>
+            <in>table-crc.h</in>
+          </df>
+          <df name="intelmote2">
+            <df name="chips">
+              <df name="cc2420">
+                <in>HplCC2420AlarmC.nc</in>
+                <in>HplCC2420InterruptsC.nc</in>
+                <in>HplCC2420PinsC.nc</in>
+                <in>HplCC2420SpiC.nc</in>
+                <in>IM2CC2420InitSpiP.nc</in>
+                <in>IM2CC2420SpiP.nc</in>
+              </df>
+              <df name="da9030">
+                <in>PMIC.nc</in>
+                <in>PMICC.nc</in>
+                <in>PMICM.nc</in>
+                <in>pmic.h</in>
+              </df>
+              <df name="ds2745">
+                <in>DS2745InternalC.nc</in>
+                <in>DS2745InternalP.nc</in>
+              </df>
+            </df>
+            <in>ActiveMessageC.nc</in>
+            <in>BlockStorageC.nc</in>
+            <in>ConfigStorageC.nc</in>
+            <in>DemoSensorC.nc</in>
+            <in>DemoSensorP.nc</in>
+            <in>HilTimerMilliC.nc</in>
+            <in>IM2InitSerialP.nc</in>
+            <in>LogStorageC.nc</in>
+            <in>PlatformC.nc</in>
+            <in>PlatformLedsC.nc</in>
+            <in>PlatformP.nc</in>
+            <in>PlatformReset.nc</in>
+            <in>PlatformResetC.nc</in>
+            <in>PlatformSerialC.nc</in>
+            <in>TimeSyncMessageC.nc</in>
+            <in>hardware.h</in>
+            <in>platform.h</in>
+            <in>platform_message.h</in>
+            <in>toscrt0.s</in>
+          </df>
+          <df name="iris">
+            <df name="chips">
+              <df name="at45db">
+                <in>HplAt45dbIOC.nc</in>
+                <in>HplAt45dbIOP.nc</in>
+              </df>
+              <df name="ds2401">
+                <in>PlatformIeeeEui64.h</in>
+              </df>
+              <df name="rf230">
+                <in>HplRF230C.nc</in>
+                <in>HplRF230P.nc</in>
+                <in>RadioConfig.h</in>
+              </df>
+            </df>
+            <df name="sim">
+            </df>
+            <in>ActiveMessageC.nc</in>
+            <in>Ieee154MessageC.nc</in>
+            <in>LocalTimeMicroC.nc</in>
+            <in>MeasureClockC.nc</in>
+            <in>MicaTimer.h</in>
+            <in>TimeSyncMessageC.nc</in>
+            <in>platform.h</in>
+            <in>platform_message.h</in>
+          </df>
+          <df name="mica">
+            <df name="chips">
+              <df name="at45db">
+                <in>HplAt45dbC.nc</in>
+              </df>
+            </df>
+            <df name="sim">
+              <in>HilTimerMilliC.nc</in>
+              <in>MeasureClockC.nc</in>
+              <in>PlatformC.nc</in>
+            </df>
+            <in>Alarm32khz32C.nc</in>
+            <in>AlarmCounterMilliP.nc</in>
+            <in>AlarmMicro32C.nc</in>
+            <in>AlarmOne16C.nc</in>
+            <in>AlarmThree16C.nc</in>
+            <in>BusyWaitMicroC.nc</in>
+            <in>Counter32khz32C.nc</in>
+            <in>CounterMicro32C.nc</in>
+            <in>CounterOne16C.nc</in>
+            <in>CounterThree16C.nc</in>
+            <in>HilTimerMilliC.nc</in>
+            <in>InitOneP.nc</in>
+            <in>InitThreeP.nc</in>
+            <in>MeasureClockC.nc</in>
+            <in>MicaBusAdc.nc</in>
+            <in>MicaBusC.nc</in>
+            <in>MicaBusP.nc</in>
+            <in>MicaTimer.h</in>
+            <in>PlatformC.nc</in>
+            <in>PlatformLedsC.nc</in>
+            <in>PlatformP.nc</in>
+            <in>PlatformSerialC.nc</in>
+            <in>VoltageC.nc</in>
+            <in>VoltageNowC.nc</in>
+            <in>VoltageP.nc</in>
+            <in>VoltageStreamC.nc</in>
+            <in>platform.h</in>
+          </df>
+          <df name="mica2">
+            <df name="chips">
+              <df name="at45db">
+                <in>HplAt45dbIOC.nc</in>
+                <in>HplAt45dbIOP.nc</in>
+                <in>HplAt45db_chip.h</in>
+              </df>
+              <df name="cc1000">
+                <in>HplCC1000C.nc</in>
+                <in>HplCC1000InitP.nc</in>
+                <in>HplCC1000P.nc</in>
+                <in>HplCC1000SpiP.nc</in>
+              </df>
+              <df name="ds2401">
+                <in>CachedIeeeEui64C.nc</in>
+                <in>LocalIeeeEui64C.nc</in>
+              </df>
+            </df>
+            <in>ActiveMessageC.nc</in>
+            <in>DemoSensorC.nc</in>
+            <in>DemoSensorNowC.nc</in>
+            <in>DemoSensorStreamC.nc</in>
+            <in>MotePlatformC.nc</in>
+            <in>MotePlatformP.nc</in>
+            <in>NestedResourceC.nc</in>
+            <in>TimeSyncMessageC.nc</in>
+            <in>hardware.h</in>
+            <in>platform.h</in>
+            <in>platform_message.h</in>
+          </df>
+          <df name="mica2dot">
+            <df name="chips">
+              <df name="at45db">
+                <in>HplAt45dbIOC.nc</in>
+                <in>HplAt45dbIOP.nc</in>
+              </df>
+              <df name="cc1000">
+                <in>HplCC1000InitP.nc</in>
+              </df>
+            </df>
+            <in>DemoSensorC.nc</in>
+            <in>DemoSensorNowC.nc</in>
+            <in>DemoSensorStreamC.nc</in>
+            <in>MotePlatformC.nc</in>
+            <in>PlatformLedsC.nc</in>
+            <in>TempC.nc</in>
+            <in>TempDeviceP.nc</in>
+            <in>TempNowC.nc</in>
+            <in>TempP.nc</in>
+            <in>TempStreamC.nc</in>
+            <in>hardware.h</in>
+            <in>platform.h</in>
+          </df>
+          <df name="micaz">
+            <df name="chips">
+              <df name="cc2420">
+                <df name="sim">
+                  <in>SimAtm128SpiDeviceC.nc</in>
+                  <in>SimCC2420C.nc</in>
+                </df>
+                <in>HplCC2420AlarmC.nc</in>
+                <in>HplCC2420InterruptsC.nc</in>
+                <in>HplCC2420InterruptsP.nc</in>
+                <in>HplCC2420PinsC.nc</in>
+                <in>HplCC2420SpiC.nc</in>
+                <in>HplCC2420SpiP.nc</in>
+              </df>
+            </df>
+            <df name="mac">
+              <df name="tkn154">
+                <in>TKN154TimingP.nc</in>
+                <in>TKN154_platform.h</in>
+                <in>platform_message.h</in>
+              </df>
+            </df>
+            <df name="sim">
+              <in>platform_hardware.h</in>
+            </df>
+            <in>ActiveMessageC.nc</in>
+            <in>BusyWaitMicroC.nc</in>
+            <in>DemoSensorC.nc</in>
+            <in>DemoSensorNowC.nc</in>
+            <in>DemoSensorStreamC.nc</in>
+            <in>Ieee154MessageC.nc</in>
+            <in>MotePlatformC.nc</in>
+            <in>MotePlatformP.nc</in>
+            <in>TimeSyncMessageC.nc</in>
+            <in>hardware.h</in>
+            <in>platform.h</in>
+            <in>platform_message.h</in>
+          </df>
+          <df name="mulle">
+            <df name="button">
+              <in>HplUserButtonC.nc</in>
+              <in>UserButton.h</in>
+              <in>UserButtonC.nc</in>
+              <in>UserButtonP.nc</in>
+            </df>
+            <df name="chips">
+              <df name="at45db">
+                <in>At45dbSpi.h</in>
+                <in>HplAt45dbC.nc</in>
+                <in>HplAt45dbP.nc</in>
+                <in>HplAt45db_chip.h</in>
+                <in>SoftSpiAt45dbC.nc</in>
+                <in>SoftSpiAt45dbP.nc</in>
+              </df>
+              <df name="ds2782">
+                <in>DS2782InternalC.nc</in>
+              </df>
+              <df name="m16c62p">
+                <in>M16c62pAdcPlatformC.nc</in>
+                <in>M16c62pAdcPlatformP.nc</in>
+                <in>M16c62pControlPlatformC.nc</in>
+              </df>
+              <df name="mma7261qt">
+                <in>HplMMA7261QTC.nc</in>
+                <in>HplMMA7261QTP.nc</in>
+              </df>
+              <df name="rf230">
+                <in>HplRF230C.nc</in>
+                <in>HplRF230P.nc</in>
+                <in>Mulle_RF230Spi.h</in>
+                <in>RF230SplitControlP.nc</in>
+                <in>RadioConfig.h</in>
+                <in>SoftSpiRF230C.nc</in>
+                <in>SoftSpiRF230P.nc</in>
+              </df>
+              <df name="rv8564">
+                <in>RV8564.nc</in>
+                <in>RV8564C.nc</in>
+                <in>RV8564P.nc</in>
+                <in>rv8564.h</in>
+              </df>
+            </df>
+            <df name="debug">
+              <in>m_printf.h</in>
+            </df>
+            <df name="softwarei2c">
+              <in>MulleI2C.h</in>
+              <in>SoftI2CBatteryMonitorRTCC.nc</in>
+              <in>SoftI2CBatteryMonitorRTCP.nc</in>
+              <in>SoftI2CBus.nc</in>
+              <in>SoftI2CBusP.nc</in>
+              <in>SoftI2CMasterImplP.nc</in>
+              <in>SoftI2CMasterP.nc</in>
+              <in>SoftI2CMasterPacketP.nc</in>
+            </df>
+            <df name="softwarespi">
+              <in>SoftSpiBus.nc</in>
+              <in>SoftSpiBusP.nc</in>
+              <in>SoftSpiMasterImplP.nc</in>
+              <in>SoftSpiMasterP.nc</in>
+              <in>SoftSpiMasterPacketP.nc</in>
+            </df>
+            <df name="system">
+              <in>LedsP.nc</in>
+            </df>
+            <df name="timers">
+              <df name="rf230">
+                <in>AlarmRF23016C.nc</in>
+                <in>CounterRF23016C.nc</in>
+              </df>
+              <df name="stop">
+                <in>RV8564AlarmCounterMilli32C.nc</in>
+                <in>RV8564AlarmCounterMilli32P.nc</in>
+              </df>
+              <df name="wait">
+                <in>AlarmCounterMilli32C.nc</in>
+              </df>
+              <in>AlarmMicro16C.nc</in>
+              <in>AlarmMicro32C.nc</in>
+              <in>BusyWaitMicroC.nc</in>
+              <in>CounterMicro16C.nc</in>
+              <in>CounterMicro32C.nc</in>
+              <in>HilTimerMilliC.nc</in>
+              <in>LocalTimeMicroC.nc</in>
+              <in>TimerConfig.h</in>
+            </df>
+            <in>ActiveMessageC.nc</in>
+            <in>DemoSensorC.nc</in>
+            <in>DemoSensorNowC.nc</in>
+            <in>DemoSensorP.nc</in>
+            <in>DemoSensorStreamC.nc</in>
+            <in>Ieee154MessageC.nc</in>
+            <in>PlatformC.nc</in>
+            <in>PlatformLedsC.nc</in>
+            <in>PlatformP.nc</in>
+            <in>PlatformSerialC.nc</in>
+            <in>PlatformSerialP.nc</in>
+            <in>TimeSyncMessageC.nc</in>
+            <in>hardware.h</in>
+            <in>platform.h</in>
+            <in>platform_message.h</in>
+          </df>
+          <df name="null">
+            <in>ActiveMessageC.nc</in>
+            <in>BlockStorageC.nc</in>
+            <in>DemoSensorC.nc</in>
+            <in>DemoSensorNowC.nc</in>
+            <in>HilTimerMilliC.nc</in>
+            <in>McuSleepC.nc</in>
+            <in>PlatformC.nc</in>
+            <in>PlatformLedsC.nc</in>
+            <in>PlatformSerialC.nc</in>
+            <in>Storage_chip.h</in>
+            <in>hardware.h</in>
+            <in>platform.h</in>
+            <in>platform_message.h</in>
+          </df>
+          <df name="shimmer">
+            <df name="chips">
+              <df name="bluetooth">
+                <in>Bluetooth.nc</in>
+                <in>RovingNetworks.h</in>
+                <in>RovingNetworksC.nc</in>
+                <in>RovingNetworksP.nc</in>
+              </df>
+              <df name="cc2420">
+                <in>HplCC2420AlarmC.nc</in>
+                <in>HplCC2420InterruptsC.nc</in>
+                <in>HplCC2420PinsC.nc</in>
+                <in>HplCC2420SpiC.nc</in>
+              </df>
+              <df name="mma7260">
+                <in>Mma7260.h</in>
+                <in>Mma7260.nc</in>
+                <in>Mma7260P.nc</in>
+              </df>
+              <df name="msp430">
+                <in>msp430hardware.h</in>
+              </df>
+              <df name="sd">
+                <in>SD.h</in>
+                <in>SD.nc</in>
+                <in>SDC.nc</in>
+                <in>SDP.nc</in>
+                <in>Storage_chip.h</in>
+              </df>
+            </df>
+            <in>ActiveMessageC.nc</in>
+            <in>DemoSensorC.nc</in>
+            <in>DemoSensorNowC.nc</in>
+            <in>DemoSensorStreamC.nc</in>
+            <in>HplUserButtonC.nc</in>
+            <in>Ieee154MessageC.nc</in>
+            <in>MoteClockC.nc</in>
+            <in>MotePlatformC.nc</in>
+            <in>Msp430Timer32khzMapC.nc</in>
+            <in>PlatformC.nc</in>
+            <in>PlatformLedsC.nc</in>
+            <in>PlatformP.nc</in>
+            <in>PlatformSerialC.nc</in>
+            <in>ShimmerSerialP.nc</in>
+            <in>SwitchToggleC.nc</in>
+            <in>TimeSyncMessageC.nc</in>
+            <in>UserButton.h</in>
+            <in>UserButtonC.nc</in>
+            <in>UserButtonP.nc</in>
+            <in>VoltageC.nc</in>
+            <in>VoltageStreamC.nc</in>
+            <in>hardware.h</in>
+            <in>platform.h</in>
+            <in>platform_message.h</in>
+            <in>shimmerMessage.h</in>
+          </df>
+          <df name="shimmer2">
+            <df name="chips">
+              <df name="cc2420">
+                <in>HplCC2420AlarmC.nc</in>
+                <in>HplCC2420InterruptsC.nc</in>
+                <in>HplCC2420InterruptsP.nc</in>
+                <in>HplCC2420PinsC.nc</in>
+                <in>HplCC2420SpiC.nc</in>
+              </df>
+            </df>
+            <in>ActiveMessageC.nc</in>
+            <in>HplUserButtonC.nc</in>
+            <in>Leds.nc</in>
+            <in>LedsC.nc</in>
+            <in>LedsP.nc</in>
+            <in>MoteClockC.nc</in>
+            <in>MotePlatformC.nc</in>
+            <in>Msp430Timer32khzMapC.nc</in>
+            <in>NoLedsC.nc</in>
+            <in>PlatformC.nc</in>
+            <in>PlatformLedsC.nc</in>
+            <in>PlatformP.nc</in>
+            <in>PlatformSerialC.nc</in>
+            <in>ShimmerSerialP.nc</in>
+            <in>hardware.h</in>
+            <in>platform.h</in>
+            <in>platform_message.h</in>
+          </df>
+          <df name="telosa">
+            <df name="chips">
+              <df name="at45db">
+                <in>HplAt45dbC.nc</in>
+                <in>HplAt45dbP.nc</in>
+                <in>HplAt45db_chip.h</in>
+              </df>
+              <df name="cc2420">
+                <in>HplCC2420AlarmC.nc</in>
+                <in>HplCC2420InterruptsC.nc</in>
+                <in>HplCC2420PinsC.nc</in>
+                <in>HplCC2420SpiC.nc</in>
+              </df>
+              <df name="s1087">
+                <in>HamamatsuS1087ParC.nc</in>
+                <in>HamamatsuS1087ParP.nc</in>
+              </df>
+              <df name="s10871">
+                <in>HamamatsuS10871TsrC.nc</in>
+                <in>HamamatsuS10871TsrP.nc</in>
+              </df>
+              <df name="sht11">
+                <in>HalSensirionSht11C.nc</in>
+                <in>HplSensirionSht11C.nc</in>
+                <in>HplSensirionSht11P.nc</in>
+                <in>SensirionSht11C.nc</in>
+              </df>
+            </df>
+            <in>ActiveMessageC.nc</in>
+            <in>DemoSensorC.nc</in>
+            <in>DemoSensorNowC.nc</in>
+            <in>DemoSensorStreamC.nc</in>
+            <in>Ieee154MessageC.nc</in>
+            <in>MSP430ADC12ChannelConfigM.nc</in>
+            <in>MoteClockC.nc</in>
+            <in>MotePlatformC.nc</in>
+            <in>Msp430Timer32khzMapC.nc</in>
+            <in>PlatformC.nc</in>
+            <in>PlatformLedsC.nc</in>
+            <in>PlatformP.nc</in>
+            <in>PlatformSerialC.nc</in>
+            <in>TelosSerialP.nc</in>
+            <in>TimeSyncMessageC.nc</in>
+            <in>VoltageC.nc</in>
+            <in>VoltageStreamC.nc</in>
+            <in>hardware.h</in>
+            <in>platform.h</in>
+            <in>platform_message.h</in>
+          </df>
+          <df name="telosb">
+            <df name="chips">
+              <df name="stm25p">
+                <in>HplStm25pPinsC.nc</in>
+                <in>HplStm25pSpiC.nc</in>
+              </df>
+            </df>
+            <df name="mac">
+              <df name="tkn154">
+                <df name="timer">
+                  <in>Alarm32khz32VirtualizedP.nc</in>
+                  <in>Alarm32khzTo62500hzTransformC.nc</in>
+                  <in>Alarm62500hz32C.nc</in>
+                  <in>Alarm62500hz32P.nc</in>
+                  <in>Alarm62500hz32VirtualizedC.nc</in>
+                  <in>HilTimer62500hzC.nc</in>
+                  <in>LocalTime62500hzC.nc</in>
+                  <in>LocalTime62500hzP.nc</in>
+                  <in>Timer62500C.nc</in>
+                  <in>Timer62500P.nc</in>
+                  <in>Timer62500hz.h</in>
+                </df>
+                <in>Ieee802154BeaconEnabledC.nc</in>
+                <in>Ieee802154NonBeaconEnabledC.nc</in>
+                <in>TKN154TimingP.nc</in>
+                <in>TKN154_platform.h</in>
+                <in>platform_message.h</in>
+              </df>
+            </df>
+            <in>DemoSensorC.nc</in>
+            <in>DemoSensorNowC.nc</in>
+            <in>DemoSensorStreamC.nc</in>
+            <in>HplUserButtonC.nc</in>
+            <in>MoteClockC.nc</in>
+            <in>MoteClockP.nc</in>
+            <in>MotePlatformC.nc</in>
+            <in>SwitchToggleC.nc</in>
+            <in>UserButton.h</in>
+            <in>UserButtonC.nc</in>
+            <in>UserButtonP.nc</in>
+            <in>VoltageC.nc</in>
+            <in>VoltageStreamC.nc</in>
+            <in>hardware.h</in>
+            <in>platform.h</in>
+          </df>
+          <df name="tinynode">
+            <df name="chips">
+              <df name="at45db">
+                <in>HplAt45dbC.nc</in>
+                <in>HplAt45dbP.nc</in>
+                <in>HplAt45db_chip.h</in>
+              </df>
+              <df name="xe1205">
+                <in>HplXE1205InterruptsC.nc</in>
+                <in>HplXE1205PinsC.nc</in>
+                <in>HplXE1205SpiC.nc</in>
+                <in>Xe1205Spi0C.nc</in>
+                <in>Xe1205SpiNoDma0P.nc</in>
+                <in>Xe1205SpiNoDmaP.nc</in>
+              </df>
+            </df>
+            <in>ActiveMessageC.nc</in>
+            <in>DemoSensorC.nc</in>
+            <in>DemoSensorNowC.nc</in>
+            <in>DemoSensorStreamC.nc</in>
+            <in>LedsP.nc</in>
+            <in>PlatformC.nc</in>
+            <in>PlatformLedsC.nc</in>
+            <in>PlatformP.nc</in>
+            <in>PlatformSerialC.nc</in>
+            <in>TinyNodeSerialP.nc</in>
+            <in>VoltageC.nc</in>
+            <in>VoltageStreamC.nc</in>
+            <in>hardware.h</in>
+            <in>platform.h</in>
+            <in>platform_message.h</in>
+          </df>
+        </df>
+        <df name="sensorboards">
+          <df name="basicsb">
+            <in>DemoSensorC.nc</in>
+            <in>DemoSensorStreamC.nc</in>
+            <in>PhotoC.nc</in>
+            <in>PhotoDeviceP.nc</in>
+            <in>PhotoP.nc</in>
+            <in>PhotoStreamC.nc</in>
+            <in>TempC.nc</in>
+            <in>TempDeviceP.nc</in>
+            <in>TempP.nc</in>
+            <in>TempStreamC.nc</in>
+            <in>basicsb.h</in>
+          </df>
+          <df name="im2sb">
+            <df name="examples">
+              <df name="TestLis3l02dq">
+                <in>TestSensorC.nc</in>
+                <in>TestSensorM.nc</in>
+              </df>
+              <df name="TestMax136">
+                <in>TestSensorC.nc</in>
+                <in>TestSensorM.nc</in>
+              </df>
+              <df name="TestSht11">
+                <in>TestSensorC.nc</in>
+                <in>TestSensorM.nc</in>
+              </df>
+              <df name="TestTmp175">
+                <in>TestSensorC.nc</in>
+                <in>TestSensorM.nc</in>
+              </df>
+              <df name="TestTsl2561">
+                <in>TestSensorC.nc</in>
+                <in>TestSensorM.nc</in>
+              </df>
+              <in>TestSensor.h</in>
+            </df>
+            <in>HalSensirionSht11C.nc</in>
+            <in>HplSensirionSht11C.nc</in>
+            <in>HplSensirionSht11P.nc</in>
+            <in>LIS3L02DQC.nc</in>
+            <in>LIS3L02DQInternalC.nc</in>
+            <in>LIS3L02DQInternalP.nc</in>
+            <in>MAX136xC.nc</in>
+            <in>MAX136xInternalC.nc</in>
+            <in>MAX136xInternalP.nc</in>
+            <in>SensirionSht11C.nc</in>
+            <in>TMP175C.nc</in>
+            <in>TMP175InternalC.nc</in>
+            <in>TMP175InternalP.nc</in>
+            <in>Tsl2561C.nc</in>
+            <in>Tsl2561InternalC.nc</in>
+            <in>Tsl2561InternalP.nc</in>
+            <in>im2sb.h</in>
+          </df>
+          <df name="mda100">
+            <df name="ca">
+              <in>TempImplP.nc</in>
+            </df>
+            <df name="cb">
+              <in>TempImplP.nc</in>
+            </df>
+            <in>ArbitratedPhotoDeviceP.nc</in>
+            <in>ArbitratedTempDeviceP.nc</in>
+            <in>DemoSensorC.nc</in>
+            <in>PhotoC.nc</in>
+            <in>PhotoImplP.nc</in>
+            <in>PhotoTempConfigC.nc</in>
+            <in>PhotoTempConfigP.nc</in>
+            <in>SharedAnalogDeviceC.nc</in>
+            <in>SharedAnalogDeviceP.nc</in>
+            <in>TempC.nc</in>
+            <in>mda100.h</in>
+          </df>
+          <df name="mts300">
+            <in>AccelConfigP.nc</in>
+            <in>AccelP.nc</in>
+            <in>AccelReadP.nc</in>
+            <in>AccelReadStreamP.nc</in>
+            <in>AccelXC.nc</in>
+            <in>AccelXStreamC.nc</in>
+            <in>AccelYC.nc</in>
+            <in>AccelYStreamC.nc</in>
+            <in>ArbitratedPhotoDeviceP.nc</in>
+            <in>ArbitratedTempDeviceP.nc</in>
+            <in>DemoSensorC.nc</in>
+            <in>DemoSensorStreamC.nc</in>
+            <in>Mag.nc</in>
+            <in>MagConfigP.nc</in>
+            <in>MagP.nc</in>
+            <in>MagReadP.nc</in>
+            <in>MagReadStreamP.nc</in>
+            <in>MagXC.nc</in>
+            <in>MagXStreamC.nc</in>
+            <in>MagYC.nc</in>
+            <in>MagYStreamC.nc</in>
+            <in>MicC.nc</in>
+            <in>MicDeviceP.nc</in>
+            <in>MicP.nc</in>
+            <in>MicReadP.nc</in>
+            <in>MicReadStreamP.nc</in>
+            <in>MicSetting.nc</in>
+            <in>MicStreamC.nc</in>
+            <in>Mts300Sounder.nc</in>
+            <in>PhotoC.nc</in>
+            <in>PhotoTempControlP.nc</in>
+            <in>PhotoTempDeviceC.nc</in>
+            <in>PhotoTempP.nc</in>
+            <in>SensorMts300C.nc</in>
+            <in>SounderC.nc</in>
+            <in>SounderP.nc</in>
+            <in>TempC.nc</in>
+            <in>mts300.h</in>
+          </df>
+        </df>
+        <df name="system">
+          <in>AMQueueEntryP.nc</in>
+          <in>AMQueueImplP.nc</in>
+          <in>AMQueueP.nc</in>
+          <in>AMReceiverC.nc</in>
+          <in>AMSenderC.nc</in>
+          <in>AMSnooperC.nc</in>
+          <in>AMSnoopingReceiverC.nc</in>
+          <in>ActiveMessageAddressC.nc</in>
+          <in>ActiveMessageImplP.nc</in>
+          <in>ArbiterP.nc</in>
+          <in>ArbitratedReadC.nc</in>
+          <in>ArbitratedReadNowC.nc</in>
+          <in>ArbitratedReadStreamC.nc</in>
+          <in>BigQueueC.nc</in>
+          <in>BitVectorC.nc</in>
+          <in>ConstantSensorC.nc</in>
+          <in>CrcC.nc</in>
+          <in>DirectAMSenderC.nc</in>
+          <in>FcfsArbiterC.nc</in>
+          <in>FcfsPriorityArbiterC.nc</in>
+          <in>FcfsResourceQueueC.nc</in>
+          <in>LedsC.nc</in>
+          <in>LedsP.nc</in>
+          <in>LocalTimeMilliC.nc</in>
+          <in>LplAMSenderC.nc</in>
+          <in>LplAMSenderP.nc</in>
+          <in>LruIntCacheC.nc</in>
+          <in>LruIntCacheP.nc</in>
+          <in>MainC.nc</in>
+          <in>MultiplexedReadC.nc</in>
+          <in>NoArbiterC.nc</in>
+          <in>NoInitC.nc</in>
+          <in>NoLedsC.nc</in>
+          <in>NoPinC.nc</in>
+          <in>PoolC.nc</in>
+          <in>PoolP.nc</in>
+          <in>QueueC.nc</in>
+          <in>RandomC.nc</in>
+          <in>RandomLfsrC.nc</in>
+          <in>RandomMlcgC.nc</in>
+          <in>RealMainP.nc</in>
+          <in>RoundRobinArbiterC.nc</in>
+          <in>RoundRobinResourceQueueC.nc</in>
+          <in>SchedulerBasicP.nc</in>
+          <in>SimpleArbiterP.nc</in>
+          <in>SimpleFcfsArbiterC.nc</in>
+          <in>SimpleRoundRobinArbiterC.nc</in>
+          <in>SineSensorC.nc</in>
+          <in>StateC.nc</in>
+          <in>StateImplC.nc</in>
+          <in>StateImplP.nc</in>
+          <in>SystemLowPowerListeningC.nc</in>
+          <in>SystemLowPowerListeningP.nc</in>
+          <in>TimerMilliC.nc</in>
+          <in>TimerMilliP.nc</in>
+          <in>TinySchedulerC.nc</in>
+          <in>crc.h</in>
+          <in>dbg.h</in>
+          <in>scale.h</in>
+          <in>tos.h</in>
+        </df>
+        <df name="types">
+          <in>AM.h</in>
+          <in>I2C.h</in>
+          <in>Ieee154.h</in>
+          <in>IeeeEui64.h</in>
+          <in>Leds.h</in>
+          <in>Lpl.h</in>
+          <in>Resource.h</in>
+          <in>State.h</in>
+          <in>Storage.h</in>
+          <in>TinyError.h</in>
+          <in>message.h</in>
+        </df>
+      </df>
+    </df>
+    <logicalFolder name="ExternalFiles"
+                   displayName="Important Files"
+                   projectFiles="false"
+                   kind="IMPORTANT_FILES_FOLDER">
+      <itemPath>Makefile</itemPath>
+      <itemPath>Makefile-nesC.mk</itemPath>
+    </logicalFolder>
+  </logicalFolder>
+  <sourceRootList>
+    <Elem>.</Elem>
+    <Elem>/opt/tinyos-2.x</Elem>
+  </sourceRootList>
+  <projectmakefile>Makefile-nesC.mk</projectmakefile>
+  <confs>
+    <conf name="Default" type="0">
+      <toolsSet>
+        <remote-sources-mode>LOCAL_SOURCES</remote-sources-mode>
+        <compilerSet>GNU|GNU</compilerSet>
+      </toolsSet>
+      <makefileType>
+        <makeTool>
+          <buildCommandWorkingDir>.</buildCommandWorkingDir>
+          <buildCommand>$(MAKE) -f Makefile</buildCommand>
+          <cleanCommand>$(MAKE) -f Makefile clean</cleanCommand>
+          <executablePath></executablePath>
+        </makeTool>
+      </makefileType>
+    </conf>
+  </confs>
+</configurationDescriptor>

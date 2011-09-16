@@ -1,0 +1,5 @@
+com.thoughtworks.xstream.tools.benchmark
+com.thoughtworks.xstream.tools.benchmark.metrics
+com.thoughtworks.xstream.tools.benchmark.products
+com.thoughtworks.xstream.tools.benchmark.reporters
+com.thoughtworks.xstream.tools.benchmark.targets

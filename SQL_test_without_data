@@ -1,0 +1,1 @@
+SELECT * FROM rssi2dist_measurement_data WHERE source=1

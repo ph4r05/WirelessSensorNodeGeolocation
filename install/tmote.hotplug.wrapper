@@ -1,0 +1,40 @@
+#!/bin/sh
+#
+# Tmote Sky Udev hotplug wrapper
+# should set permissions on 0666 for all newly connected motes
+
+PATH=/usr/sbin:$PATH
+export PATH
+
+if [ -n "$USBAUTO" ]; then
+  [ "$USBAUTO" = "true" ] || exit 0
+fi
+
+#if [ "$ACTION" = "remove" ] ; then
+#  if echo $DEVLINKS | grep -q /dev/tmote; then
+  # unsuported operation now
+  #  exec /lib/udev/gpsd.hotplug "$ACTION" "$DEVNAME"
+#  fi
+#  exit 0
+#fi
+
+# This was formerly in /lib/udev/hotplug.functions
+wait_for_file() {
+    [ -e "$1" ] && return 0
+    local count=0
+    while sleep 1; do
+        count=$(( $count + 1 ))
+         [ -e "$1" ] && return 0
+        if [ $count -gt 60 ]; then
+            return 1
+        fi
+    done
+}
+
+# do chmod now
+chmod 0666 "$DEVNAME" 2>&1 | logger -p local0.notice -t tmote
+
+# wait for /usr & /var to be mounted
+#wait_for_file /usr/bin/python && \
+#wait_for_file /var/run && \
+#  exec sudo chmod 0666 "$DEVNAME" >> /tmp/tmote.udev

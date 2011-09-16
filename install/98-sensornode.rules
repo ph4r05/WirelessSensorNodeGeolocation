@@ -1,0 +1,13 @@
+# udev rules for tmote
+#
+# This file is Copyright (c) 2010 by the GPSD project
+# BSD terms apply: see the file COPYING in the distribution root for details.
+SUBSYSTEM!="tty", GOTO="gpsd_rules_end"
+
+# ph4r05: tmote sky c
+# prevent modem-manager to access this device
+ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6001", SYMLINK+="tmote_sky_%n", ENV{ID_MM_DEVICE_IGNORE}="1", RUN+="/usr/local/bin/tmote.hotplug.wrapper"
+
+#ACTION=="remove", RUN+="/lib/udev/gpsd.hotplug.wrapper"
+
+LABEL="gpsd_rules_end"

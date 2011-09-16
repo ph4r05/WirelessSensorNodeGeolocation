@@ -1,0 +1,961 @@
+<HTML>
+<BODY BGCOLOR="white">
+<PRE>
+<FONT color="green">001</FONT>    /* ========================================================================<a name="line.1"></a>
+<FONT color="green">002</FONT>     * JCommon : a free general purpose class library for the Java(tm) platform<a name="line.2"></a>
+<FONT color="green">003</FONT>     * ========================================================================<a name="line.3"></a>
+<FONT color="green">004</FONT>     *<a name="line.4"></a>
+<FONT color="green">005</FONT>     * (C) Copyright 2000-2006, by Object Refinery Limited and Contributors.<a name="line.5"></a>
+<FONT color="green">006</FONT>     *<a name="line.6"></a>
+<FONT color="green">007</FONT>     * Project Info:  http://www.jfree.org/jcommon/index.html<a name="line.7"></a>
+<FONT color="green">008</FONT>     *<a name="line.8"></a>
+<FONT color="green">009</FONT>     * This library is free software; you can redistribute it and/or modify it<a name="line.9"></a>
+<FONT color="green">010</FONT>     * under the terms of the GNU Lesser General Public License as published by<a name="line.10"></a>
+<FONT color="green">011</FONT>     * the Free Software Foundation; either version 2.1 of the License, or<a name="line.11"></a>
+<FONT color="green">012</FONT>     * (at your option) any later version.<a name="line.12"></a>
+<FONT color="green">013</FONT>     *<a name="line.13"></a>
+<FONT color="green">014</FONT>     * This library is distributed in the hope that it will be useful, but<a name="line.14"></a>
+<FONT color="green">015</FONT>     * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY<a name="line.15"></a>
+<FONT color="green">016</FONT>     * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public<a name="line.16"></a>
+<FONT color="green">017</FONT>     * License for more details.<a name="line.17"></a>
+<FONT color="green">018</FONT>     *<a name="line.18"></a>
+<FONT color="green">019</FONT>     * You should have received a copy of the GNU Lesser General Public<a name="line.19"></a>
+<FONT color="green">020</FONT>     * License along with this library; if not, write to the Free Software<a name="line.20"></a>
+<FONT color="green">021</FONT>     * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,<a name="line.21"></a>
+<FONT color="green">022</FONT>     * USA.<a name="line.22"></a>
+<FONT color="green">023</FONT>     *<a name="line.23"></a>
+<FONT color="green">024</FONT>     * [Java is a trademark or registered trademark of Sun Microsystems, Inc.<a name="line.24"></a>
+<FONT color="green">025</FONT>     * in the United States and other countries.]<a name="line.25"></a>
+<FONT color="green">026</FONT>     *<a name="line.26"></a>
+<FONT color="green">027</FONT>     * ------------------<a name="line.27"></a>
+<FONT color="green">028</FONT>     * TextUtilities.java<a name="line.28"></a>
+<FONT color="green">029</FONT>     * ------------------<a name="line.29"></a>
+<FONT color="green">030</FONT>     * (C) Copyright 2004-2006, by Object Refinery Limited and Contributors.<a name="line.30"></a>
+<FONT color="green">031</FONT>     *<a name="line.31"></a>
+<FONT color="green">032</FONT>     * Original Author:  David Gilbert (for Object Refinery Limited);<a name="line.32"></a>
+<FONT color="green">033</FONT>     * Contributor(s):   -;<a name="line.33"></a>
+<FONT color="green">034</FONT>     *<a name="line.34"></a>
+<FONT color="green">035</FONT>     * $Id: TextUtilities.java,v 1.24 2008/09/10 09:15:43 mungady Exp $<a name="line.35"></a>
+<FONT color="green">036</FONT>     *<a name="line.36"></a>
+<FONT color="green">037</FONT>     * Changes<a name="line.37"></a>
+<FONT color="green">038</FONT>     * -------<a name="line.38"></a>
+<FONT color="green">039</FONT>     * 07-Jan-2004 : Version 1 (DG);<a name="line.39"></a>
+<FONT color="green">040</FONT>     * 24-Mar-2004 : Added 'paint' argument to createTextBlock() method (DG);<a name="line.40"></a>
+<FONT color="green">041</FONT>     * 07-Apr-2004 : Added getTextBounds() method and useFontMetricsGetStringBounds<a name="line.41"></a>
+<FONT color="green">042</FONT>     *               flag (DG);<a name="line.42"></a>
+<FONT color="green">043</FONT>     * 08-Apr-2004 : Changed word break iterator to line break iterator in the<a name="line.43"></a>
+<FONT color="green">044</FONT>     *               createTextBlock() method - see bug report 926074 (DG);<a name="line.44"></a>
+<FONT color="green">045</FONT>     * 03-Sep-2004 : Updated createTextBlock() method to add ellipses when limit<a name="line.45"></a>
+<FONT color="green">046</FONT>     *               is reached (DG);<a name="line.46"></a>
+<FONT color="green">047</FONT>     * 30-Sep-2004 : Modified bounds returned by drawAlignedString() method (DG);<a name="line.47"></a>
+<FONT color="green">048</FONT>     * 10-Nov-2004 : Added new createTextBlock() method that works with<a name="line.48"></a>
+<FONT color="green">049</FONT>     *               newlines (DG);<a name="line.49"></a>
+<FONT color="green">050</FONT>     * 19-Apr-2005 : Changed default value of useFontMetricsGetStringBounds (DG);<a name="line.50"></a>
+<FONT color="green">051</FONT>     * 17-May-2005 : createTextBlock() now recognises '\n' (DG);<a name="line.51"></a>
+<FONT color="green">052</FONT>     * 27-Jun-2005 : Added code to getTextBounds() method to work around Sun's bug<a name="line.52"></a>
+<FONT color="green">053</FONT>     *               parade item 6183356 (DG);<a name="line.53"></a>
+<FONT color="green">054</FONT>     * 06-Jan-2006 : Reformatted (DG);<a name="line.54"></a>
+<FONT color="green">055</FONT>     *<a name="line.55"></a>
+<FONT color="green">056</FONT>     */<a name="line.56"></a>
+<FONT color="green">057</FONT>    <a name="line.57"></a>
+<FONT color="green">058</FONT>    package org.jfree.text;<a name="line.58"></a>
+<FONT color="green">059</FONT>    <a name="line.59"></a>
+<FONT color="green">060</FONT>    import java.awt.Font;<a name="line.60"></a>
+<FONT color="green">061</FONT>    import java.awt.FontMetrics;<a name="line.61"></a>
+<FONT color="green">062</FONT>    import java.awt.Graphics2D;<a name="line.62"></a>
+<FONT color="green">063</FONT>    import java.awt.Paint;<a name="line.63"></a>
+<FONT color="green">064</FONT>    import java.awt.Shape;<a name="line.64"></a>
+<FONT color="green">065</FONT>    import java.awt.font.FontRenderContext;<a name="line.65"></a>
+<FONT color="green">066</FONT>    import java.awt.font.LineMetrics;<a name="line.66"></a>
+<FONT color="green">067</FONT>    import java.awt.font.TextLayout;<a name="line.67"></a>
+<FONT color="green">068</FONT>    import java.awt.geom.AffineTransform;<a name="line.68"></a>
+<FONT color="green">069</FONT>    import java.awt.geom.Rectangle2D;<a name="line.69"></a>
+<FONT color="green">070</FONT>    import java.text.BreakIterator;<a name="line.70"></a>
+<FONT color="green">071</FONT>    <a name="line.71"></a>
+<FONT color="green">072</FONT>    import org.jfree.base.BaseBoot;<a name="line.72"></a>
+<FONT color="green">073</FONT>    import org.jfree.ui.TextAnchor;<a name="line.73"></a>
+<FONT color="green">074</FONT>    import org.jfree.util.Log;<a name="line.74"></a>
+<FONT color="green">075</FONT>    import org.jfree.util.LogContext;<a name="line.75"></a>
+<FONT color="green">076</FONT>    import org.jfree.util.ObjectUtilities;<a name="line.76"></a>
+<FONT color="green">077</FONT>    <a name="line.77"></a>
+<FONT color="green">078</FONT>    /**<a name="line.78"></a>
+<FONT color="green">079</FONT>     * Some utility methods for working with text.<a name="line.79"></a>
+<FONT color="green">080</FONT>     *<a name="line.80"></a>
+<FONT color="green">081</FONT>     * @author David Gilbert<a name="line.81"></a>
+<FONT color="green">082</FONT>     */<a name="line.82"></a>
+<FONT color="green">083</FONT>    public class TextUtilities {<a name="line.83"></a>
+<FONT color="green">084</FONT>    <a name="line.84"></a>
+<FONT color="green">085</FONT>        /** Access to logging facilities. */<a name="line.85"></a>
+<FONT color="green">086</FONT>        protected static final LogContext logger = Log.createContext(<a name="line.86"></a>
+<FONT color="green">087</FONT>                TextUtilities.class);<a name="line.87"></a>
+<FONT color="green">088</FONT>    <a name="line.88"></a>
+<FONT color="green">089</FONT>        /**<a name="line.89"></a>
+<FONT color="green">090</FONT>         * A flag that controls whether or not the rotated string workaround is<a name="line.90"></a>
+<FONT color="green">091</FONT>         * used.<a name="line.91"></a>
+<FONT color="green">092</FONT>         */<a name="line.92"></a>
+<FONT color="green">093</FONT>        private static boolean useDrawRotatedStringWorkaround;<a name="line.93"></a>
+<FONT color="green">094</FONT>    <a name="line.94"></a>
+<FONT color="green">095</FONT>        /**<a name="line.95"></a>
+<FONT color="green">096</FONT>         * A flag that controls whether the FontMetrics.getStringBounds() method<a name="line.96"></a>
+<FONT color="green">097</FONT>         * is used or a workaround is applied.<a name="line.97"></a>
+<FONT color="green">098</FONT>         */<a name="line.98"></a>
+<FONT color="green">099</FONT>        private static boolean useFontMetricsGetStringBounds;<a name="line.99"></a>
+<FONT color="green">100</FONT>    <a name="line.100"></a>
+<FONT color="green">101</FONT>        static {<a name="line.101"></a>
+<FONT color="green">102</FONT>          try<a name="line.102"></a>
+<FONT color="green">103</FONT>          {<a name="line.103"></a>
+<FONT color="green">104</FONT>            final boolean isJava14 = ObjectUtilities.isJDK14();<a name="line.104"></a>
+<FONT color="green">105</FONT>    <a name="line.105"></a>
+<FONT color="green">106</FONT>            final String configRotatedStringWorkaround =<a name="line.106"></a>
+<FONT color="green">107</FONT>                  BaseBoot.getInstance().getGlobalConfig().getConfigProperty(<a name="line.107"></a>
+<FONT color="green">108</FONT>                          "org.jfree.text.UseDrawRotatedStringWorkaround", "auto");<a name="line.108"></a>
+<FONT color="green">109</FONT>            if (configRotatedStringWorkaround.equals("auto")) {<a name="line.109"></a>
+<FONT color="green">110</FONT>               useDrawRotatedStringWorkaround = (isJava14 == false);<a name="line.110"></a>
+<FONT color="green">111</FONT>            }<a name="line.111"></a>
+<FONT color="green">112</FONT>            else {<a name="line.112"></a>
+<FONT color="green">113</FONT>                useDrawRotatedStringWorkaround<a name="line.113"></a>
+<FONT color="green">114</FONT>                        = configRotatedStringWorkaround.equals("true");<a name="line.114"></a>
+<FONT color="green">115</FONT>            }<a name="line.115"></a>
+<FONT color="green">116</FONT>    <a name="line.116"></a>
+<FONT color="green">117</FONT>            final String configFontMetricsStringBounds<a name="line.117"></a>
+<FONT color="green">118</FONT>                    = BaseBoot.getInstance().getGlobalConfig().getConfigProperty(<a name="line.118"></a>
+<FONT color="green">119</FONT>                            "org.jfree.text.UseFontMetricsGetStringBounds", "auto");<a name="line.119"></a>
+<FONT color="green">120</FONT>            if (configFontMetricsStringBounds.equals("auto")) {<a name="line.120"></a>
+<FONT color="green">121</FONT>                useFontMetricsGetStringBounds = (isJava14 == true);<a name="line.121"></a>
+<FONT color="green">122</FONT>            }<a name="line.122"></a>
+<FONT color="green">123</FONT>            else {<a name="line.123"></a>
+<FONT color="green">124</FONT>                useFontMetricsGetStringBounds<a name="line.124"></a>
+<FONT color="green">125</FONT>                        = configFontMetricsStringBounds.equals("true");<a name="line.125"></a>
+<FONT color="green">126</FONT>            }<a name="line.126"></a>
+<FONT color="green">127</FONT>          }<a name="line.127"></a>
+<FONT color="green">128</FONT>          catch (Exception e)<a name="line.128"></a>
+<FONT color="green">129</FONT>          {<a name="line.129"></a>
+<FONT color="green">130</FONT>            // ignore everything.<a name="line.130"></a>
+<FONT color="green">131</FONT>            useDrawRotatedStringWorkaround = true;<a name="line.131"></a>
+<FONT color="green">132</FONT>            useFontMetricsGetStringBounds = true;<a name="line.132"></a>
+<FONT color="green">133</FONT>          }<a name="line.133"></a>
+<FONT color="green">134</FONT>        }<a name="line.134"></a>
+<FONT color="green">135</FONT>    <a name="line.135"></a>
+<FONT color="green">136</FONT>        /**<a name="line.136"></a>
+<FONT color="green">137</FONT>         * Private constructor prevents object creation.<a name="line.137"></a>
+<FONT color="green">138</FONT>         */<a name="line.138"></a>
+<FONT color="green">139</FONT>        private TextUtilities() {<a name="line.139"></a>
+<FONT color="green">140</FONT>        }<a name="line.140"></a>
+<FONT color="green">141</FONT>    <a name="line.141"></a>
+<FONT color="green">142</FONT>        /**<a name="line.142"></a>
+<FONT color="green">143</FONT>         * Creates a {@link TextBlock} from a &lt;code&gt;String&lt;/code&gt;.  Line breaks<a name="line.143"></a>
+<FONT color="green">144</FONT>         * are added where the &lt;code&gt;String&lt;/code&gt; contains '\n' characters.<a name="line.144"></a>
+<FONT color="green">145</FONT>         *<a name="line.145"></a>
+<FONT color="green">146</FONT>         * @param text  the text.<a name="line.146"></a>
+<FONT color="green">147</FONT>         * @param font  the font.<a name="line.147"></a>
+<FONT color="green">148</FONT>         * @param paint  the paint.<a name="line.148"></a>
+<FONT color="green">149</FONT>         *<a name="line.149"></a>
+<FONT color="green">150</FONT>         * @return A text block.<a name="line.150"></a>
+<FONT color="green">151</FONT>         */<a name="line.151"></a>
+<FONT color="green">152</FONT>        public static TextBlock createTextBlock(final String text, final Font font,<a name="line.152"></a>
+<FONT color="green">153</FONT>                                                final Paint paint) {<a name="line.153"></a>
+<FONT color="green">154</FONT>            if (text == null) {<a name="line.154"></a>
+<FONT color="green">155</FONT>                throw new IllegalArgumentException("Null 'text' argument.");<a name="line.155"></a>
+<FONT color="green">156</FONT>            }<a name="line.156"></a>
+<FONT color="green">157</FONT>            final TextBlock result = new TextBlock();<a name="line.157"></a>
+<FONT color="green">158</FONT>            String input = text;<a name="line.158"></a>
+<FONT color="green">159</FONT>            boolean moreInputToProcess = (text.length() &gt; 0);<a name="line.159"></a>
+<FONT color="green">160</FONT>            final int start = 0;<a name="line.160"></a>
+<FONT color="green">161</FONT>            while (moreInputToProcess) {<a name="line.161"></a>
+<FONT color="green">162</FONT>                final int index = input.indexOf("\n");<a name="line.162"></a>
+<FONT color="green">163</FONT>                if (index &gt; start) {<a name="line.163"></a>
+<FONT color="green">164</FONT>                    final String line = input.substring(start, index);<a name="line.164"></a>
+<FONT color="green">165</FONT>                    if (index &lt; input.length() - 1) {<a name="line.165"></a>
+<FONT color="green">166</FONT>                        result.addLine(line, font, paint);<a name="line.166"></a>
+<FONT color="green">167</FONT>                        input = input.substring(index + 1);<a name="line.167"></a>
+<FONT color="green">168</FONT>                    }<a name="line.168"></a>
+<FONT color="green">169</FONT>                    else {<a name="line.169"></a>
+<FONT color="green">170</FONT>                        moreInputToProcess = false;<a name="line.170"></a>
+<FONT color="green">171</FONT>                    }<a name="line.171"></a>
+<FONT color="green">172</FONT>                }<a name="line.172"></a>
+<FONT color="green">173</FONT>                else if (index == start) {<a name="line.173"></a>
+<FONT color="green">174</FONT>                    if (index &lt; input.length() - 1) {<a name="line.174"></a>
+<FONT color="green">175</FONT>                        input = input.substring(index + 1);<a name="line.175"></a>
+<FONT color="green">176</FONT>                    }<a name="line.176"></a>
+<FONT color="green">177</FONT>                    else {<a name="line.177"></a>
+<FONT color="green">178</FONT>                        moreInputToProcess = false;<a name="line.178"></a>
+<FONT color="green">179</FONT>                    }<a name="line.179"></a>
+<FONT color="green">180</FONT>                }<a name="line.180"></a>
+<FONT color="green">181</FONT>                else {<a name="line.181"></a>
+<FONT color="green">182</FONT>                    result.addLine(input, font, paint);<a name="line.182"></a>
+<FONT color="green">183</FONT>                    moreInputToProcess = false;<a name="line.183"></a>
+<FONT color="green">184</FONT>                }<a name="line.184"></a>
+<FONT color="green">185</FONT>            }<a name="line.185"></a>
+<FONT color="green">186</FONT>            return result;<a name="line.186"></a>
+<FONT color="green">187</FONT>        }<a name="line.187"></a>
+<FONT color="green">188</FONT>    <a name="line.188"></a>
+<FONT color="green">189</FONT>        /**<a name="line.189"></a>
+<FONT color="green">190</FONT>         * Creates a new text block from the given string, breaking the<a name="line.190"></a>
+<FONT color="green">191</FONT>         * text into lines so that the &lt;code&gt;maxWidth&lt;/code&gt; value is<a name="line.191"></a>
+<FONT color="green">192</FONT>         * respected.<a name="line.192"></a>
+<FONT color="green">193</FONT>         *<a name="line.193"></a>
+<FONT color="green">194</FONT>         * @param text  the text.<a name="line.194"></a>
+<FONT color="green">195</FONT>         * @param font  the font.<a name="line.195"></a>
+<FONT color="green">196</FONT>         * @param paint  the paint.<a name="line.196"></a>
+<FONT color="green">197</FONT>         * @param maxWidth  the maximum width for each line.<a name="line.197"></a>
+<FONT color="green">198</FONT>         * @param measurer  the text measurer.<a name="line.198"></a>
+<FONT color="green">199</FONT>         *<a name="line.199"></a>
+<FONT color="green">200</FONT>         * @return A text block.<a name="line.200"></a>
+<FONT color="green">201</FONT>         */<a name="line.201"></a>
+<FONT color="green">202</FONT>        public static TextBlock createTextBlock(final String text, final Font font,<a name="line.202"></a>
+<FONT color="green">203</FONT>                final Paint paint, final float maxWidth,<a name="line.203"></a>
+<FONT color="green">204</FONT>                final TextMeasurer measurer) {<a name="line.204"></a>
+<FONT color="green">205</FONT>    <a name="line.205"></a>
+<FONT color="green">206</FONT>            return createTextBlock(text, font, paint, maxWidth, Integer.MAX_VALUE,<a name="line.206"></a>
+<FONT color="green">207</FONT>                    measurer);<a name="line.207"></a>
+<FONT color="green">208</FONT>        }<a name="line.208"></a>
+<FONT color="green">209</FONT>    <a name="line.209"></a>
+<FONT color="green">210</FONT>        /**<a name="line.210"></a>
+<FONT color="green">211</FONT>         * Creates a new text block from the given string, breaking the<a name="line.211"></a>
+<FONT color="green">212</FONT>         * text into lines so that the &lt;code&gt;maxWidth&lt;/code&gt; value is<a name="line.212"></a>
+<FONT color="green">213</FONT>         * respected.<a name="line.213"></a>
+<FONT color="green">214</FONT>         *<a name="line.214"></a>
+<FONT color="green">215</FONT>         * @param text  the text.<a name="line.215"></a>
+<FONT color="green">216</FONT>         * @param font  the font.<a name="line.216"></a>
+<FONT color="green">217</FONT>         * @param paint  the paint.<a name="line.217"></a>
+<FONT color="green">218</FONT>         * @param maxWidth  the maximum width for each line.<a name="line.218"></a>
+<FONT color="green">219</FONT>         * @param maxLines  the maximum number of lines.<a name="line.219"></a>
+<FONT color="green">220</FONT>         * @param measurer  the text measurer.<a name="line.220"></a>
+<FONT color="green">221</FONT>         *<a name="line.221"></a>
+<FONT color="green">222</FONT>         * @return A text block.<a name="line.222"></a>
+<FONT color="green">223</FONT>         */<a name="line.223"></a>
+<FONT color="green">224</FONT>        public static TextBlock createTextBlock(final String text, final Font font,<a name="line.224"></a>
+<FONT color="green">225</FONT>                final Paint paint, final float maxWidth, final int maxLines,<a name="line.225"></a>
+<FONT color="green">226</FONT>                final TextMeasurer measurer) {<a name="line.226"></a>
+<FONT color="green">227</FONT>    <a name="line.227"></a>
+<FONT color="green">228</FONT>            final TextBlock result = new TextBlock();<a name="line.228"></a>
+<FONT color="green">229</FONT>            final BreakIterator iterator = BreakIterator.getLineInstance();<a name="line.229"></a>
+<FONT color="green">230</FONT>            iterator.setText(text);<a name="line.230"></a>
+<FONT color="green">231</FONT>            int current = 0;<a name="line.231"></a>
+<FONT color="green">232</FONT>            int lines = 0;<a name="line.232"></a>
+<FONT color="green">233</FONT>            final int length = text.length();<a name="line.233"></a>
+<FONT color="green">234</FONT>            while (current &lt; length &amp;&amp; lines &lt; maxLines) {<a name="line.234"></a>
+<FONT color="green">235</FONT>                final int next = nextLineBreak(text, current, maxWidth, iterator,<a name="line.235"></a>
+<FONT color="green">236</FONT>                        measurer);<a name="line.236"></a>
+<FONT color="green">237</FONT>                if (next == BreakIterator.DONE) {<a name="line.237"></a>
+<FONT color="green">238</FONT>                    result.addLine(text.substring(current), font, paint);<a name="line.238"></a>
+<FONT color="green">239</FONT>                    return result;<a name="line.239"></a>
+<FONT color="green">240</FONT>                }<a name="line.240"></a>
+<FONT color="green">241</FONT>                result.addLine(text.substring(current, next), font, paint);<a name="line.241"></a>
+<FONT color="green">242</FONT>                lines++;<a name="line.242"></a>
+<FONT color="green">243</FONT>                current = next;<a name="line.243"></a>
+<FONT color="green">244</FONT>                while (current &lt; text.length()&amp;&amp; text.charAt(current) == '\n') {<a name="line.244"></a>
+<FONT color="green">245</FONT>                    current++;<a name="line.245"></a>
+<FONT color="green">246</FONT>                }<a name="line.246"></a>
+<FONT color="green">247</FONT>            }<a name="line.247"></a>
+<FONT color="green">248</FONT>            if (current &lt; length) {<a name="line.248"></a>
+<FONT color="green">249</FONT>                final TextLine lastLine = result.getLastLine();<a name="line.249"></a>
+<FONT color="green">250</FONT>                final TextFragment lastFragment = lastLine.getLastTextFragment();<a name="line.250"></a>
+<FONT color="green">251</FONT>                final String oldStr = lastFragment.getText();<a name="line.251"></a>
+<FONT color="green">252</FONT>                String newStr = "...";<a name="line.252"></a>
+<FONT color="green">253</FONT>                if (oldStr.length() &gt; 3) {<a name="line.253"></a>
+<FONT color="green">254</FONT>                    newStr = oldStr.substring(0, oldStr.length() - 3) + "...";<a name="line.254"></a>
+<FONT color="green">255</FONT>                }<a name="line.255"></a>
+<FONT color="green">256</FONT>    <a name="line.256"></a>
+<FONT color="green">257</FONT>                lastLine.removeFragment(lastFragment);<a name="line.257"></a>
+<FONT color="green">258</FONT>                final TextFragment newFragment = new TextFragment(newStr,<a name="line.258"></a>
+<FONT color="green">259</FONT>                        lastFragment.getFont(), lastFragment.getPaint());<a name="line.259"></a>
+<FONT color="green">260</FONT>                lastLine.addFragment(newFragment);<a name="line.260"></a>
+<FONT color="green">261</FONT>            }<a name="line.261"></a>
+<FONT color="green">262</FONT>            return result;<a name="line.262"></a>
+<FONT color="green">263</FONT>        }<a name="line.263"></a>
+<FONT color="green">264</FONT>    <a name="line.264"></a>
+<FONT color="green">265</FONT>        /**<a name="line.265"></a>
+<FONT color="green">266</FONT>         * Returns the character index of the next line break.<a name="line.266"></a>
+<FONT color="green">267</FONT>         *<a name="line.267"></a>
+<FONT color="green">268</FONT>         * @param text  the text.<a name="line.268"></a>
+<FONT color="green">269</FONT>         * @param start  the start index.<a name="line.269"></a>
+<FONT color="green">270</FONT>         * @param width  the target display width.<a name="line.270"></a>
+<FONT color="green">271</FONT>         * @param iterator  the word break iterator.<a name="line.271"></a>
+<FONT color="green">272</FONT>         * @param measurer  the text measurer.<a name="line.272"></a>
+<FONT color="green">273</FONT>         *<a name="line.273"></a>
+<FONT color="green">274</FONT>         * @return The index of the next line break.<a name="line.274"></a>
+<FONT color="green">275</FONT>         */<a name="line.275"></a>
+<FONT color="green">276</FONT>        private static int nextLineBreak(final String text, final int start,<a name="line.276"></a>
+<FONT color="green">277</FONT>                final float width, final BreakIterator iterator,<a name="line.277"></a>
+<FONT color="green">278</FONT>                final TextMeasurer measurer) {<a name="line.278"></a>
+<FONT color="green">279</FONT>    <a name="line.279"></a>
+<FONT color="green">280</FONT>            // this method is (loosely) based on code in JFreeReport's<a name="line.280"></a>
+<FONT color="green">281</FONT>            // TextParagraph class<a name="line.281"></a>
+<FONT color="green">282</FONT>            int current = start;<a name="line.282"></a>
+<FONT color="green">283</FONT>            int end;<a name="line.283"></a>
+<FONT color="green">284</FONT>            float x = 0.0f;<a name="line.284"></a>
+<FONT color="green">285</FONT>            boolean firstWord = true;<a name="line.285"></a>
+<FONT color="green">286</FONT>            int newline = text.indexOf('\n', start);<a name="line.286"></a>
+<FONT color="green">287</FONT>            if (newline &lt; 0) {<a name="line.287"></a>
+<FONT color="green">288</FONT>                newline = Integer.MAX_VALUE;<a name="line.288"></a>
+<FONT color="green">289</FONT>            }<a name="line.289"></a>
+<FONT color="green">290</FONT>            while (((end = iterator.next()) != BreakIterator.DONE)) {<a name="line.290"></a>
+<FONT color="green">291</FONT>                if (end &gt; newline) {<a name="line.291"></a>
+<FONT color="green">292</FONT>                    return newline;<a name="line.292"></a>
+<FONT color="green">293</FONT>                }<a name="line.293"></a>
+<FONT color="green">294</FONT>                x += measurer.getStringWidth(text, current, end);<a name="line.294"></a>
+<FONT color="green">295</FONT>                if (x &gt; width) {<a name="line.295"></a>
+<FONT color="green">296</FONT>                    if (firstWord) {<a name="line.296"></a>
+<FONT color="green">297</FONT>                        while (measurer.getStringWidth(text, start, end) &gt; width) {<a name="line.297"></a>
+<FONT color="green">298</FONT>                            end--;<a name="line.298"></a>
+<FONT color="green">299</FONT>                            if (end &lt;= start) {<a name="line.299"></a>
+<FONT color="green">300</FONT>                                return end;<a name="line.300"></a>
+<FONT color="green">301</FONT>                            }<a name="line.301"></a>
+<FONT color="green">302</FONT>                        }<a name="line.302"></a>
+<FONT color="green">303</FONT>                        return end;<a name="line.303"></a>
+<FONT color="green">304</FONT>                    }<a name="line.304"></a>
+<FONT color="green">305</FONT>                    else {<a name="line.305"></a>
+<FONT color="green">306</FONT>                        end = iterator.previous();<a name="line.306"></a>
+<FONT color="green">307</FONT>                        return end;<a name="line.307"></a>
+<FONT color="green">308</FONT>                    }<a name="line.308"></a>
+<FONT color="green">309</FONT>                }<a name="line.309"></a>
+<FONT color="green">310</FONT>                // we found at least one word that fits ...<a name="line.310"></a>
+<FONT color="green">311</FONT>                firstWord = false;<a name="line.311"></a>
+<FONT color="green">312</FONT>                current = end;<a name="line.312"></a>
+<FONT color="green">313</FONT>            }<a name="line.313"></a>
+<FONT color="green">314</FONT>            return BreakIterator.DONE;<a name="line.314"></a>
+<FONT color="green">315</FONT>        }<a name="line.315"></a>
+<FONT color="green">316</FONT>    <a name="line.316"></a>
+<FONT color="green">317</FONT>        /**<a name="line.317"></a>
+<FONT color="green">318</FONT>         * Returns the bounds for the specified text.<a name="line.318"></a>
+<FONT color="green">319</FONT>         *<a name="line.319"></a>
+<FONT color="green">320</FONT>         * @param text  the text (&lt;code&gt;null&lt;/code&gt; permitted).<a name="line.320"></a>
+<FONT color="green">321</FONT>         * @param g2  the graphics context (not &lt;code&gt;null&lt;/code&gt;).<a name="line.321"></a>
+<FONT color="green">322</FONT>         * @param fm  the font metrics (not &lt;code&gt;null&lt;/code&gt;).<a name="line.322"></a>
+<FONT color="green">323</FONT>         *<a name="line.323"></a>
+<FONT color="green">324</FONT>         * @return The text bounds (&lt;code&gt;null&lt;/code&gt; if the &lt;code&gt;text&lt;/code&gt;<a name="line.324"></a>
+<FONT color="green">325</FONT>         *         argument is &lt;code&gt;null&lt;/code&gt;).<a name="line.325"></a>
+<FONT color="green">326</FONT>         */<a name="line.326"></a>
+<FONT color="green">327</FONT>        public static Rectangle2D getTextBounds(final String text,<a name="line.327"></a>
+<FONT color="green">328</FONT>                final Graphics2D g2, final FontMetrics fm) {<a name="line.328"></a>
+<FONT color="green">329</FONT>    <a name="line.329"></a>
+<FONT color="green">330</FONT>            final Rectangle2D bounds;<a name="line.330"></a>
+<FONT color="green">331</FONT>            if (TextUtilities.useFontMetricsGetStringBounds) {<a name="line.331"></a>
+<FONT color="green">332</FONT>                bounds = fm.getStringBounds(text, g2);<a name="line.332"></a>
+<FONT color="green">333</FONT>                // getStringBounds() can return incorrect height for some Unicode<a name="line.333"></a>
+<FONT color="green">334</FONT>                // characters...see bug parade 6183356, let's replace it with<a name="line.334"></a>
+<FONT color="green">335</FONT>                // something correct<a name="line.335"></a>
+<FONT color="green">336</FONT>                LineMetrics lm = fm.getFont().getLineMetrics(text,<a name="line.336"></a>
+<FONT color="green">337</FONT>                        g2.getFontRenderContext());<a name="line.337"></a>
+<FONT color="green">338</FONT>                bounds.setRect(bounds.getX(), bounds.getY(), bounds.getWidth(),<a name="line.338"></a>
+<FONT color="green">339</FONT>                        lm.getHeight());<a name="line.339"></a>
+<FONT color="green">340</FONT>            }<a name="line.340"></a>
+<FONT color="green">341</FONT>            else {<a name="line.341"></a>
+<FONT color="green">342</FONT>                final double width = fm.stringWidth(text);<a name="line.342"></a>
+<FONT color="green">343</FONT>                final double height = fm.getHeight();<a name="line.343"></a>
+<FONT color="green">344</FONT>                if (logger.isDebugEnabled()) {<a name="line.344"></a>
+<FONT color="green">345</FONT>                    logger.debug("Height = " + height);<a name="line.345"></a>
+<FONT color="green">346</FONT>                }<a name="line.346"></a>
+<FONT color="green">347</FONT>                bounds = new Rectangle2D.Double(0.0, -fm.getAscent(), width,<a name="line.347"></a>
+<FONT color="green">348</FONT>                        height);<a name="line.348"></a>
+<FONT color="green">349</FONT>            }<a name="line.349"></a>
+<FONT color="green">350</FONT>            return bounds;<a name="line.350"></a>
+<FONT color="green">351</FONT>        }<a name="line.351"></a>
+<FONT color="green">352</FONT>    <a name="line.352"></a>
+<FONT color="green">353</FONT>        /**<a name="line.353"></a>
+<FONT color="green">354</FONT>         * Draws a string such that the specified anchor point is aligned to the<a name="line.354"></a>
+<FONT color="green">355</FONT>         * given (x, y) location.<a name="line.355"></a>
+<FONT color="green">356</FONT>         *<a name="line.356"></a>
+<FONT color="green">357</FONT>         * @param text  the text.<a name="line.357"></a>
+<FONT color="green">358</FONT>         * @param g2  the graphics device.<a name="line.358"></a>
+<FONT color="green">359</FONT>         * @param x  the x coordinate (Java 2D).<a name="line.359"></a>
+<FONT color="green">360</FONT>         * @param y  the y coordinate (Java 2D).<a name="line.360"></a>
+<FONT color="green">361</FONT>         * @param anchor  the anchor location.<a name="line.361"></a>
+<FONT color="green">362</FONT>         *<a name="line.362"></a>
+<FONT color="green">363</FONT>         * @return The text bounds (adjusted for the text position).<a name="line.363"></a>
+<FONT color="green">364</FONT>         */<a name="line.364"></a>
+<FONT color="green">365</FONT>        public static Rectangle2D drawAlignedString(final String text,<a name="line.365"></a>
+<FONT color="green">366</FONT>                final Graphics2D g2, final float x, final float y,<a name="line.366"></a>
+<FONT color="green">367</FONT>                final TextAnchor anchor) {<a name="line.367"></a>
+<FONT color="green">368</FONT>    <a name="line.368"></a>
+<FONT color="green">369</FONT>            final Rectangle2D textBounds = new Rectangle2D.Double();<a name="line.369"></a>
+<FONT color="green">370</FONT>            final float[] adjust = deriveTextBoundsAnchorOffsets(g2, text, anchor,<a name="line.370"></a>
+<FONT color="green">371</FONT>                    textBounds);<a name="line.371"></a>
+<FONT color="green">372</FONT>            // adjust text bounds to match string position<a name="line.372"></a>
+<FONT color="green">373</FONT>            textBounds.setRect(x + adjust[0], y + adjust[1] + adjust[2],<a name="line.373"></a>
+<FONT color="green">374</FONT>                textBounds.getWidth(), textBounds.getHeight());<a name="line.374"></a>
+<FONT color="green">375</FONT>            g2.drawString(text, x + adjust[0], y + adjust[1]);<a name="line.375"></a>
+<FONT color="green">376</FONT>            return textBounds;<a name="line.376"></a>
+<FONT color="green">377</FONT>        }<a name="line.377"></a>
+<FONT color="green">378</FONT>    <a name="line.378"></a>
+<FONT color="green">379</FONT>        /**<a name="line.379"></a>
+<FONT color="green">380</FONT>         * A utility method that calculates the anchor offsets for a string.<a name="line.380"></a>
+<FONT color="green">381</FONT>         * Normally, the (x, y) coordinate for drawing text is a point on the<a name="line.381"></a>
+<FONT color="green">382</FONT>         * baseline at the left of the text string.  If you add these offsets to<a name="line.382"></a>
+<FONT color="green">383</FONT>         * (x, y) and draw the string, then the anchor point should coincide with<a name="line.383"></a>
+<FONT color="green">384</FONT>         * the (x, y) point.<a name="line.384"></a>
+<FONT color="green">385</FONT>         *<a name="line.385"></a>
+<FONT color="green">386</FONT>         * @param g2  the graphics device (not &lt;code&gt;null&lt;/code&gt;).<a name="line.386"></a>
+<FONT color="green">387</FONT>         * @param text  the text.<a name="line.387"></a>
+<FONT color="green">388</FONT>         * @param anchor  the anchor point.<a name="line.388"></a>
+<FONT color="green">389</FONT>         * @param textBounds  the text bounds (if not &lt;code&gt;null&lt;/code&gt;, this<a name="line.389"></a>
+<FONT color="green">390</FONT>         *                    object will be updated by this method to match the<a name="line.390"></a>
+<FONT color="green">391</FONT>         *                    string bounds).<a name="line.391"></a>
+<FONT color="green">392</FONT>         *<a name="line.392"></a>
+<FONT color="green">393</FONT>         * @return  The offsets.<a name="line.393"></a>
+<FONT color="green">394</FONT>         */<a name="line.394"></a>
+<FONT color="green">395</FONT>        private static float[] deriveTextBoundsAnchorOffsets(final Graphics2D g2,<a name="line.395"></a>
+<FONT color="green">396</FONT>                final String text, final TextAnchor anchor,<a name="line.396"></a>
+<FONT color="green">397</FONT>                final Rectangle2D textBounds) {<a name="line.397"></a>
+<FONT color="green">398</FONT>    <a name="line.398"></a>
+<FONT color="green">399</FONT>            final float[] result = new float[3];<a name="line.399"></a>
+<FONT color="green">400</FONT>            final FontRenderContext frc = g2.getFontRenderContext();<a name="line.400"></a>
+<FONT color="green">401</FONT>            final Font f = g2.getFont();<a name="line.401"></a>
+<FONT color="green">402</FONT>            final FontMetrics fm = g2.getFontMetrics(f);<a name="line.402"></a>
+<FONT color="green">403</FONT>            final Rectangle2D bounds = TextUtilities.getTextBounds(text, g2, fm);<a name="line.403"></a>
+<FONT color="green">404</FONT>            final LineMetrics metrics = f.getLineMetrics(text, frc);<a name="line.404"></a>
+<FONT color="green">405</FONT>            final float ascent = metrics.getAscent();<a name="line.405"></a>
+<FONT color="green">406</FONT>            result[2] = -ascent;<a name="line.406"></a>
+<FONT color="green">407</FONT>            final float halfAscent = ascent / 2.0f;<a name="line.407"></a>
+<FONT color="green">408</FONT>            final float descent = metrics.getDescent();<a name="line.408"></a>
+<FONT color="green">409</FONT>            final float leading = metrics.getLeading();<a name="line.409"></a>
+<FONT color="green">410</FONT>            float xAdj = 0.0f;<a name="line.410"></a>
+<FONT color="green">411</FONT>            float yAdj = 0.0f;<a name="line.411"></a>
+<FONT color="green">412</FONT>    <a name="line.412"></a>
+<FONT color="green">413</FONT>            if (anchor == TextAnchor.TOP_CENTER<a name="line.413"></a>
+<FONT color="green">414</FONT>                    || anchor == TextAnchor.CENTER<a name="line.414"></a>
+<FONT color="green">415</FONT>                    || anchor == TextAnchor.BOTTOM_CENTER<a name="line.415"></a>
+<FONT color="green">416</FONT>                    || anchor == TextAnchor.BASELINE_CENTER<a name="line.416"></a>
+<FONT color="green">417</FONT>                    || anchor == TextAnchor.HALF_ASCENT_CENTER) {<a name="line.417"></a>
+<FONT color="green">418</FONT>    <a name="line.418"></a>
+<FONT color="green">419</FONT>                xAdj = (float) -bounds.getWidth() / 2.0f;<a name="line.419"></a>
+<FONT color="green">420</FONT>    <a name="line.420"></a>
+<FONT color="green">421</FONT>            }<a name="line.421"></a>
+<FONT color="green">422</FONT>            else if (anchor == TextAnchor.TOP_RIGHT<a name="line.422"></a>
+<FONT color="green">423</FONT>                    || anchor == TextAnchor.CENTER_RIGHT<a name="line.423"></a>
+<FONT color="green">424</FONT>                    || anchor == TextAnchor.BOTTOM_RIGHT<a name="line.424"></a>
+<FONT color="green">425</FONT>                    || anchor == TextAnchor.BASELINE_RIGHT<a name="line.425"></a>
+<FONT color="green">426</FONT>                    || anchor == TextAnchor.HALF_ASCENT_RIGHT) {<a name="line.426"></a>
+<FONT color="green">427</FONT>    <a name="line.427"></a>
+<FONT color="green">428</FONT>                xAdj = (float) -bounds.getWidth();<a name="line.428"></a>
+<FONT color="green">429</FONT>    <a name="line.429"></a>
+<FONT color="green">430</FONT>            }<a name="line.430"></a>
+<FONT color="green">431</FONT>    <a name="line.431"></a>
+<FONT color="green">432</FONT>            if (anchor == TextAnchor.TOP_LEFT<a name="line.432"></a>
+<FONT color="green">433</FONT>                    || anchor == TextAnchor.TOP_CENTER<a name="line.433"></a>
+<FONT color="green">434</FONT>                    || anchor == TextAnchor.TOP_RIGHT) {<a name="line.434"></a>
+<FONT color="green">435</FONT>    <a name="line.435"></a>
+<FONT color="green">436</FONT>                yAdj = -descent - leading + (float) bounds.getHeight();<a name="line.436"></a>
+<FONT color="green">437</FONT>    <a name="line.437"></a>
+<FONT color="green">438</FONT>            }<a name="line.438"></a>
+<FONT color="green">439</FONT>            else if (anchor == TextAnchor.HALF_ASCENT_LEFT<a name="line.439"></a>
+<FONT color="green">440</FONT>                    || anchor == TextAnchor.HALF_ASCENT_CENTER<a name="line.440"></a>
+<FONT color="green">441</FONT>                    || anchor == TextAnchor.HALF_ASCENT_RIGHT) {<a name="line.441"></a>
+<FONT color="green">442</FONT>    <a name="line.442"></a>
+<FONT color="green">443</FONT>                yAdj = halfAscent;<a name="line.443"></a>
+<FONT color="green">444</FONT>    <a name="line.444"></a>
+<FONT color="green">445</FONT>            }<a name="line.445"></a>
+<FONT color="green">446</FONT>            else if (anchor == TextAnchor.CENTER_LEFT<a name="line.446"></a>
+<FONT color="green">447</FONT>                    || anchor == TextAnchor.CENTER<a name="line.447"></a>
+<FONT color="green">448</FONT>                    || anchor == TextAnchor.CENTER_RIGHT) {<a name="line.448"></a>
+<FONT color="green">449</FONT>    <a name="line.449"></a>
+<FONT color="green">450</FONT>                yAdj = -descent - leading + (float) (bounds.getHeight() / 2.0);<a name="line.450"></a>
+<FONT color="green">451</FONT>    <a name="line.451"></a>
+<FONT color="green">452</FONT>            }<a name="line.452"></a>
+<FONT color="green">453</FONT>            else if (anchor == TextAnchor.BASELINE_LEFT<a name="line.453"></a>
+<FONT color="green">454</FONT>                    || anchor == TextAnchor.BASELINE_CENTER<a name="line.454"></a>
+<FONT color="green">455</FONT>                    || anchor == TextAnchor.BASELINE_RIGHT) {<a name="line.455"></a>
+<FONT color="green">456</FONT>    <a name="line.456"></a>
+<FONT color="green">457</FONT>                yAdj = 0.0f;<a name="line.457"></a>
+<FONT color="green">458</FONT>    <a name="line.458"></a>
+<FONT color="green">459</FONT>            }<a name="line.459"></a>
+<FONT color="green">460</FONT>            else if (anchor == TextAnchor.BOTTOM_LEFT<a name="line.460"></a>
+<FONT color="green">461</FONT>                    || anchor == TextAnchor.BOTTOM_CENTER<a name="line.461"></a>
+<FONT color="green">462</FONT>                    || anchor == TextAnchor.BOTTOM_RIGHT) {<a name="line.462"></a>
+<FONT color="green">463</FONT>    <a name="line.463"></a>
+<FONT color="green">464</FONT>                yAdj = -metrics.getDescent() - metrics.getLeading();<a name="line.464"></a>
+<FONT color="green">465</FONT>    <a name="line.465"></a>
+<FONT color="green">466</FONT>            }<a name="line.466"></a>
+<FONT color="green">467</FONT>            if (textBounds != null) {<a name="line.467"></a>
+<FONT color="green">468</FONT>                textBounds.setRect(bounds);<a name="line.468"></a>
+<FONT color="green">469</FONT>            }<a name="line.469"></a>
+<FONT color="green">470</FONT>            result[0] = xAdj;<a name="line.470"></a>
+<FONT color="green">471</FONT>            result[1] = yAdj;<a name="line.471"></a>
+<FONT color="green">472</FONT>            return result;<a name="line.472"></a>
+<FONT color="green">473</FONT>    <a name="line.473"></a>
+<FONT color="green">474</FONT>        }<a name="line.474"></a>
+<FONT color="green">475</FONT>    <a name="line.475"></a>
+<FONT color="green">476</FONT>        /**<a name="line.476"></a>
+<FONT color="green">477</FONT>         * Sets the flag that controls whether or not a workaround is used for<a name="line.477"></a>
+<FONT color="green">478</FONT>         * drawing rotated strings.  The related bug is on Sun's bug parade<a name="line.478"></a>
+<FONT color="green">479</FONT>         * (id 4312117) and the workaround involves using a &lt;code&gt;TextLayout&lt;/code&gt;<a name="line.479"></a>
+<FONT color="green">480</FONT>         * instance to draw the text instead of calling the<a name="line.480"></a>
+<FONT color="green">481</FONT>         * &lt;code&gt;drawString()&lt;/code&gt; method in the &lt;code&gt;Graphics2D&lt;/code&gt; class.<a name="line.481"></a>
+<FONT color="green">482</FONT>         *<a name="line.482"></a>
+<FONT color="green">483</FONT>         * @param use  the new flag value.<a name="line.483"></a>
+<FONT color="green">484</FONT>         */<a name="line.484"></a>
+<FONT color="green">485</FONT>        public static void setUseDrawRotatedStringWorkaround(final boolean use) {<a name="line.485"></a>
+<FONT color="green">486</FONT>            useDrawRotatedStringWorkaround = use;<a name="line.486"></a>
+<FONT color="green">487</FONT>        }<a name="line.487"></a>
+<FONT color="green">488</FONT>    <a name="line.488"></a>
+<FONT color="green">489</FONT>        /**<a name="line.489"></a>
+<FONT color="green">490</FONT>         * A utility method for drawing rotated text.<a name="line.490"></a>
+<FONT color="green">491</FONT>         * &lt;P&gt;<a name="line.491"></a>
+<FONT color="green">492</FONT>         * A common rotation is -Math.PI/2 which draws text 'vertically' (with the<a name="line.492"></a>
+<FONT color="green">493</FONT>         * top of the characters on the left).<a name="line.493"></a>
+<FONT color="green">494</FONT>         *<a name="line.494"></a>
+<FONT color="green">495</FONT>         * @param text  the text.<a name="line.495"></a>
+<FONT color="green">496</FONT>         * @param g2  the graphics device.<a name="line.496"></a>
+<FONT color="green">497</FONT>         * @param angle  the angle of the (clockwise) rotation (in radians).<a name="line.497"></a>
+<FONT color="green">498</FONT>         * @param x  the x-coordinate.<a name="line.498"></a>
+<FONT color="green">499</FONT>         * @param y  the y-coordinate.<a name="line.499"></a>
+<FONT color="green">500</FONT>         */<a name="line.500"></a>
+<FONT color="green">501</FONT>        public static void drawRotatedString(final String text, final Graphics2D g2,<a name="line.501"></a>
+<FONT color="green">502</FONT>                final double angle, final float x, final float y) {<a name="line.502"></a>
+<FONT color="green">503</FONT>            drawRotatedString(text, g2, x, y, angle, x, y);<a name="line.503"></a>
+<FONT color="green">504</FONT>        }<a name="line.504"></a>
+<FONT color="green">505</FONT>    <a name="line.505"></a>
+<FONT color="green">506</FONT>        /**<a name="line.506"></a>
+<FONT color="green">507</FONT>         * A utility method for drawing rotated text.<a name="line.507"></a>
+<FONT color="green">508</FONT>         * &lt;P&gt;<a name="line.508"></a>
+<FONT color="green">509</FONT>         * A common rotation is -Math.PI/2 which draws text 'vertically' (with the<a name="line.509"></a>
+<FONT color="green">510</FONT>         * top of the characters on the left).<a name="line.510"></a>
+<FONT color="green">511</FONT>         *<a name="line.511"></a>
+<FONT color="green">512</FONT>         * @param text  the text.<a name="line.512"></a>
+<FONT color="green">513</FONT>         * @param g2  the graphics device.<a name="line.513"></a>
+<FONT color="green">514</FONT>         * @param textX  the x-coordinate for the text (before rotation).<a name="line.514"></a>
+<FONT color="green">515</FONT>         * @param textY  the y-coordinate for the text (before rotation).<a name="line.515"></a>
+<FONT color="green">516</FONT>         * @param angle  the angle of the (clockwise) rotation (in radians).<a name="line.516"></a>
+<FONT color="green">517</FONT>         * @param rotateX  the point about which the text is rotated.<a name="line.517"></a>
+<FONT color="green">518</FONT>         * @param rotateY  the point about which the text is rotated.<a name="line.518"></a>
+<FONT color="green">519</FONT>         */<a name="line.519"></a>
+<FONT color="green">520</FONT>        public static void drawRotatedString(final String text, final Graphics2D g2,<a name="line.520"></a>
+<FONT color="green">521</FONT>                final float textX, final float textY, final double angle,<a name="line.521"></a>
+<FONT color="green">522</FONT>                final float rotateX, final float rotateY) {<a name="line.522"></a>
+<FONT color="green">523</FONT>    <a name="line.523"></a>
+<FONT color="green">524</FONT>            if ((text == null) || (text.equals(""))) {<a name="line.524"></a>
+<FONT color="green">525</FONT>                return;<a name="line.525"></a>
+<FONT color="green">526</FONT>            }<a name="line.526"></a>
+<FONT color="green">527</FONT>    <a name="line.527"></a>
+<FONT color="green">528</FONT>            final AffineTransform saved = g2.getTransform();<a name="line.528"></a>
+<FONT color="green">529</FONT>    <a name="line.529"></a>
+<FONT color="green">530</FONT>            // apply the rotation...<a name="line.530"></a>
+<FONT color="green">531</FONT>            final AffineTransform rotate = AffineTransform.getRotateInstance(<a name="line.531"></a>
+<FONT color="green">532</FONT>                    angle, rotateX, rotateY);<a name="line.532"></a>
+<FONT color="green">533</FONT>            g2.transform(rotate);<a name="line.533"></a>
+<FONT color="green">534</FONT>    <a name="line.534"></a>
+<FONT color="green">535</FONT>            if (useDrawRotatedStringWorkaround) {<a name="line.535"></a>
+<FONT color="green">536</FONT>                // workaround for JDC bug ID 4312117 and others...<a name="line.536"></a>
+<FONT color="green">537</FONT>                final TextLayout tl = new TextLayout(text, g2.getFont(),<a name="line.537"></a>
+<FONT color="green">538</FONT>                        g2.getFontRenderContext());<a name="line.538"></a>
+<FONT color="green">539</FONT>                tl.draw(g2, textX, textY);<a name="line.539"></a>
+<FONT color="green">540</FONT>            }<a name="line.540"></a>
+<FONT color="green">541</FONT>            else {<a name="line.541"></a>
+<FONT color="green">542</FONT>                // replaces this code...<a name="line.542"></a>
+<FONT color="green">543</FONT>                g2.drawString(text, textX, textY);<a name="line.543"></a>
+<FONT color="green">544</FONT>            }<a name="line.544"></a>
+<FONT color="green">545</FONT>            g2.setTransform(saved);<a name="line.545"></a>
+<FONT color="green">546</FONT>    <a name="line.546"></a>
+<FONT color="green">547</FONT>        }<a name="line.547"></a>
+<FONT color="green">548</FONT>    <a name="line.548"></a>
+<FONT color="green">549</FONT>        /**<a name="line.549"></a>
+<FONT color="green">550</FONT>         * Draws a string that is aligned by one anchor point and rotated about<a name="line.550"></a>
+<FONT color="green">551</FONT>         * another anchor point.<a name="line.551"></a>
+<FONT color="green">552</FONT>         *<a name="line.552"></a>
+<FONT color="green">553</FONT>         * @param text  the text.<a name="line.553"></a>
+<FONT color="green">554</FONT>         * @param g2  the graphics device.<a name="line.554"></a>
+<FONT color="green">555</FONT>         * @param x  the x-coordinate for positioning the text.<a name="line.555"></a>
+<FONT color="green">556</FONT>         * @param y  the y-coordinate for positioning the text.<a name="line.556"></a>
+<FONT color="green">557</FONT>         * @param textAnchor  the text anchor.<a name="line.557"></a>
+<FONT color="green">558</FONT>         * @param angle  the rotation angle.<a name="line.558"></a>
+<FONT color="green">559</FONT>         * @param rotationX  the x-coordinate for the rotation anchor point.<a name="line.559"></a>
+<FONT color="green">560</FONT>         * @param rotationY  the y-coordinate for the rotation anchor point.<a name="line.560"></a>
+<FONT color="green">561</FONT>         */<a name="line.561"></a>
+<FONT color="green">562</FONT>        public static void drawRotatedString(final String text,<a name="line.562"></a>
+<FONT color="green">563</FONT>                final Graphics2D g2, final float x, final float y,<a name="line.563"></a>
+<FONT color="green">564</FONT>                final TextAnchor textAnchor, final double angle,<a name="line.564"></a>
+<FONT color="green">565</FONT>                final float rotationX, final float rotationY) {<a name="line.565"></a>
+<FONT color="green">566</FONT>    <a name="line.566"></a>
+<FONT color="green">567</FONT>            if (text == null || text.equals("")) {<a name="line.567"></a>
+<FONT color="green">568</FONT>                return;<a name="line.568"></a>
+<FONT color="green">569</FONT>            }<a name="line.569"></a>
+<FONT color="green">570</FONT>            final float[] textAdj = deriveTextBoundsAnchorOffsets(g2, text,<a name="line.570"></a>
+<FONT color="green">571</FONT>                    textAnchor);<a name="line.571"></a>
+<FONT color="green">572</FONT>            drawRotatedString(text, g2, x + textAdj[0], y + textAdj[1], angle,<a name="line.572"></a>
+<FONT color="green">573</FONT>                    rotationX, rotationY);<a name="line.573"></a>
+<FONT color="green">574</FONT>        }<a name="line.574"></a>
+<FONT color="green">575</FONT>    <a name="line.575"></a>
+<FONT color="green">576</FONT>        /**<a name="line.576"></a>
+<FONT color="green">577</FONT>         * Draws a string that is aligned by one anchor point and rotated about<a name="line.577"></a>
+<FONT color="green">578</FONT>         * another anchor point.<a name="line.578"></a>
+<FONT color="green">579</FONT>         *<a name="line.579"></a>
+<FONT color="green">580</FONT>         * @param text  the text.<a name="line.580"></a>
+<FONT color="green">581</FONT>         * @param g2  the graphics device.<a name="line.581"></a>
+<FONT color="green">582</FONT>         * @param x  the x-coordinate for positioning the text.<a name="line.582"></a>
+<FONT color="green">583</FONT>         * @param y  the y-coordinate for positioning the text.<a name="line.583"></a>
+<FONT color="green">584</FONT>         * @param textAnchor  the text anchor.<a name="line.584"></a>
+<FONT color="green">585</FONT>         * @param angle  the rotation angle (in radians).<a name="line.585"></a>
+<FONT color="green">586</FONT>         * @param rotationAnchor  the rotation anchor.<a name="line.586"></a>
+<FONT color="green">587</FONT>         */<a name="line.587"></a>
+<FONT color="green">588</FONT>        public static void drawRotatedString(final String text, final Graphics2D g2,<a name="line.588"></a>
+<FONT color="green">589</FONT>                final float x, final float y, final TextAnchor textAnchor,<a name="line.589"></a>
+<FONT color="green">590</FONT>                final double angle, final TextAnchor rotationAnchor) {<a name="line.590"></a>
+<FONT color="green">591</FONT>    <a name="line.591"></a>
+<FONT color="green">592</FONT>            if (text == null || text.equals("")) {<a name="line.592"></a>
+<FONT color="green">593</FONT>                return;<a name="line.593"></a>
+<FONT color="green">594</FONT>            }<a name="line.594"></a>
+<FONT color="green">595</FONT>            final float[] textAdj = deriveTextBoundsAnchorOffsets(g2, text,<a name="line.595"></a>
+<FONT color="green">596</FONT>                    textAnchor);<a name="line.596"></a>
+<FONT color="green">597</FONT>            final float[] rotateAdj = deriveRotationAnchorOffsets(g2, text,<a name="line.597"></a>
+<FONT color="green">598</FONT>                    rotationAnchor);<a name="line.598"></a>
+<FONT color="green">599</FONT>            drawRotatedString(text, g2, x + textAdj[0], y + textAdj[1],<a name="line.599"></a>
+<FONT color="green">600</FONT>                    angle, x + textAdj[0] + rotateAdj[0],<a name="line.600"></a>
+<FONT color="green">601</FONT>                    y + textAdj[1] + rotateAdj[1]);<a name="line.601"></a>
+<FONT color="green">602</FONT>    <a name="line.602"></a>
+<FONT color="green">603</FONT>        }<a name="line.603"></a>
+<FONT color="green">604</FONT>    <a name="line.604"></a>
+<FONT color="green">605</FONT>        /**<a name="line.605"></a>
+<FONT color="green">606</FONT>         * Returns a shape that represents the bounds of the string after the<a name="line.606"></a>
+<FONT color="green">607</FONT>         * specified rotation has been applied.<a name="line.607"></a>
+<FONT color="green">608</FONT>         *<a name="line.608"></a>
+<FONT color="green">609</FONT>         * @param text  the text (&lt;code&gt;null&lt;/code&gt; permitted).<a name="line.609"></a>
+<FONT color="green">610</FONT>         * @param g2  the graphics device.<a name="line.610"></a>
+<FONT color="green">611</FONT>         * @param x  the x coordinate for the anchor point.<a name="line.611"></a>
+<FONT color="green">612</FONT>         * @param y  the y coordinate for the anchor point.<a name="line.612"></a>
+<FONT color="green">613</FONT>         * @param textAnchor  the text anchor.<a name="line.613"></a>
+<FONT color="green">614</FONT>         * @param angle  the angle.<a name="line.614"></a>
+<FONT color="green">615</FONT>         * @param rotationAnchor  the rotation anchor.<a name="line.615"></a>
+<FONT color="green">616</FONT>         *<a name="line.616"></a>
+<FONT color="green">617</FONT>         * @return The bounds (possibly &lt;code&gt;null&lt;/code&gt;).<a name="line.617"></a>
+<FONT color="green">618</FONT>         */<a name="line.618"></a>
+<FONT color="green">619</FONT>        public static Shape calculateRotatedStringBounds(final String text,<a name="line.619"></a>
+<FONT color="green">620</FONT>                final Graphics2D g2, final float x, final float y,<a name="line.620"></a>
+<FONT color="green">621</FONT>                final TextAnchor textAnchor, final double angle,<a name="line.621"></a>
+<FONT color="green">622</FONT>                final TextAnchor rotationAnchor) {<a name="line.622"></a>
+<FONT color="green">623</FONT>    <a name="line.623"></a>
+<FONT color="green">624</FONT>            if (text == null || text.equals("")) {<a name="line.624"></a>
+<FONT color="green">625</FONT>                return null;<a name="line.625"></a>
+<FONT color="green">626</FONT>            }<a name="line.626"></a>
+<FONT color="green">627</FONT>            final float[] textAdj = deriveTextBoundsAnchorOffsets(g2, text,<a name="line.627"></a>
+<FONT color="green">628</FONT>                    textAnchor);<a name="line.628"></a>
+<FONT color="green">629</FONT>            if (logger.isDebugEnabled()) {<a name="line.629"></a>
+<FONT color="green">630</FONT>                logger.debug("TextBoundsAnchorOffsets = " + textAdj[0] + ", "<a name="line.630"></a>
+<FONT color="green">631</FONT>                        + textAdj[1]);<a name="line.631"></a>
+<FONT color="green">632</FONT>            }<a name="line.632"></a>
+<FONT color="green">633</FONT>            final float[] rotateAdj = deriveRotationAnchorOffsets(g2, text,<a name="line.633"></a>
+<FONT color="green">634</FONT>                    rotationAnchor);<a name="line.634"></a>
+<FONT color="green">635</FONT>            if (logger.isDebugEnabled()) {<a name="line.635"></a>
+<FONT color="green">636</FONT>                logger.debug("RotationAnchorOffsets = " + rotateAdj[0] + ", "<a name="line.636"></a>
+<FONT color="green">637</FONT>                        + rotateAdj[1]);<a name="line.637"></a>
+<FONT color="green">638</FONT>            }<a name="line.638"></a>
+<FONT color="green">639</FONT>            final Shape result = calculateRotatedStringBounds(text, g2,<a name="line.639"></a>
+<FONT color="green">640</FONT>                    x + textAdj[0], y + textAdj[1], angle,<a name="line.640"></a>
+<FONT color="green">641</FONT>                    x + textAdj[0] + rotateAdj[0], y + textAdj[1] + rotateAdj[1]);<a name="line.641"></a>
+<FONT color="green">642</FONT>            return result;<a name="line.642"></a>
+<FONT color="green">643</FONT>    <a name="line.643"></a>
+<FONT color="green">644</FONT>        }<a name="line.644"></a>
+<FONT color="green">645</FONT>    <a name="line.645"></a>
+<FONT color="green">646</FONT>        /**<a name="line.646"></a>
+<FONT color="green">647</FONT>         * A utility method that calculates the anchor offsets for a string.<a name="line.647"></a>
+<FONT color="green">648</FONT>         * Normally, the (x, y) coordinate for drawing text is a point on the<a name="line.648"></a>
+<FONT color="green">649</FONT>         * baseline at the left of the text string.  If you add these offsets to<a name="line.649"></a>
+<FONT color="green">650</FONT>         * (x, y) and draw the string, then the anchor point should coincide with<a name="line.650"></a>
+<FONT color="green">651</FONT>         * the (x, y) point.<a name="line.651"></a>
+<FONT color="green">652</FONT>         *<a name="line.652"></a>
+<FONT color="green">653</FONT>         * @param g2  the graphics device (not &lt;code&gt;null&lt;/code&gt;).<a name="line.653"></a>
+<FONT color="green">654</FONT>         * @param text  the text.<a name="line.654"></a>
+<FONT color="green">655</FONT>         * @param anchor  the anchor point.<a name="line.655"></a>
+<FONT color="green">656</FONT>         *<a name="line.656"></a>
+<FONT color="green">657</FONT>         * @return  The offsets.<a name="line.657"></a>
+<FONT color="green">658</FONT>         */<a name="line.658"></a>
+<FONT color="green">659</FONT>        private static float[] deriveTextBoundsAnchorOffsets(final Graphics2D g2,<a name="line.659"></a>
+<FONT color="green">660</FONT>                final String text, final TextAnchor anchor) {<a name="line.660"></a>
+<FONT color="green">661</FONT>    <a name="line.661"></a>
+<FONT color="green">662</FONT>            final float[] result = new float[2];<a name="line.662"></a>
+<FONT color="green">663</FONT>            final FontRenderContext frc = g2.getFontRenderContext();<a name="line.663"></a>
+<FONT color="green">664</FONT>            final Font f = g2.getFont();<a name="line.664"></a>
+<FONT color="green">665</FONT>            final FontMetrics fm = g2.getFontMetrics(f);<a name="line.665"></a>
+<FONT color="green">666</FONT>            final Rectangle2D bounds = TextUtilities.getTextBounds(text, g2, fm);<a name="line.666"></a>
+<FONT color="green">667</FONT>            final LineMetrics metrics = f.getLineMetrics(text, frc);<a name="line.667"></a>
+<FONT color="green">668</FONT>            final float ascent = metrics.getAscent();<a name="line.668"></a>
+<FONT color="green">669</FONT>            final float halfAscent = ascent / 2.0f;<a name="line.669"></a>
+<FONT color="green">670</FONT>            final float descent = metrics.getDescent();<a name="line.670"></a>
+<FONT color="green">671</FONT>            final float leading = metrics.getLeading();<a name="line.671"></a>
+<FONT color="green">672</FONT>            float xAdj = 0.0f;<a name="line.672"></a>
+<FONT color="green">673</FONT>            float yAdj = 0.0f;<a name="line.673"></a>
+<FONT color="green">674</FONT>    <a name="line.674"></a>
+<FONT color="green">675</FONT>            if (anchor == TextAnchor.TOP_CENTER<a name="line.675"></a>
+<FONT color="green">676</FONT>                    || anchor == TextAnchor.CENTER<a name="line.676"></a>
+<FONT color="green">677</FONT>                    || anchor == TextAnchor.BOTTOM_CENTER<a name="line.677"></a>
+<FONT color="green">678</FONT>                    || anchor == TextAnchor.BASELINE_CENTER<a name="line.678"></a>
+<FONT color="green">679</FONT>                    || anchor == TextAnchor.HALF_ASCENT_CENTER) {<a name="line.679"></a>
+<FONT color="green">680</FONT>    <a name="line.680"></a>
+<FONT color="green">681</FONT>                xAdj = (float) -bounds.getWidth() / 2.0f;<a name="line.681"></a>
+<FONT color="green">682</FONT>    <a name="line.682"></a>
+<FONT color="green">683</FONT>            }<a name="line.683"></a>
+<FONT color="green">684</FONT>            else if (anchor == TextAnchor.TOP_RIGHT<a name="line.684"></a>
+<FONT color="green">685</FONT>                    || anchor == TextAnchor.CENTER_RIGHT<a name="line.685"></a>
+<FONT color="green">686</FONT>                    || anchor == TextAnchor.BOTTOM_RIGHT<a name="line.686"></a>
+<FONT color="green">687</FONT>                    || anchor == TextAnchor.BASELINE_RIGHT<a name="line.687"></a>
+<FONT color="green">688</FONT>                    || anchor == TextAnchor.HALF_ASCENT_RIGHT) {<a name="line.688"></a>
+<FONT color="green">689</FONT>    <a name="line.689"></a>
+<FONT color="green">690</FONT>                xAdj = (float) -bounds.getWidth();<a name="line.690"></a>
+<FONT color="green">691</FONT>    <a name="line.691"></a>
+<FONT color="green">692</FONT>            }<a name="line.692"></a>
+<FONT color="green">693</FONT>    <a name="line.693"></a>
+<FONT color="green">694</FONT>            if (anchor == TextAnchor.TOP_LEFT<a name="line.694"></a>
+<FONT color="green">695</FONT>                    || anchor == TextAnchor.TOP_CENTER<a name="line.695"></a>
+<FONT color="green">696</FONT>                    || anchor == TextAnchor.TOP_RIGHT) {<a name="line.696"></a>
+<FONT color="green">697</FONT>    <a name="line.697"></a>
+<FONT color="green">698</FONT>                yAdj = -descent - leading + (float) bounds.getHeight();<a name="line.698"></a>
+<FONT color="green">699</FONT>    <a name="line.699"></a>
+<FONT color="green">700</FONT>            }<a name="line.700"></a>
+<FONT color="green">701</FONT>            else if (anchor == TextAnchor.HALF_ASCENT_LEFT<a name="line.701"></a>
+<FONT color="green">702</FONT>                    || anchor == TextAnchor.HALF_ASCENT_CENTER<a name="line.702"></a>
+<FONT color="green">703</FONT>                    || anchor == TextAnchor.HALF_ASCENT_RIGHT) {<a name="line.703"></a>
+<FONT color="green">704</FONT>    <a name="line.704"></a>
+<FONT color="green">705</FONT>                yAdj = halfAscent;<a name="line.705"></a>
+<FONT color="green">706</FONT>    <a name="line.706"></a>
+<FONT color="green">707</FONT>            }<a name="line.707"></a>
+<FONT color="green">708</FONT>            else if (anchor == TextAnchor.CENTER_LEFT<a name="line.708"></a>
+<FONT color="green">709</FONT>                    || anchor == TextAnchor.CENTER<a name="line.709"></a>
+<FONT color="green">710</FONT>                    || anchor == TextAnchor.CENTER_RIGHT) {<a name="line.710"></a>
+<FONT color="green">711</FONT>    <a name="line.711"></a>
+<FONT color="green">712</FONT>                yAdj = -descent - leading + (float) (bounds.getHeight() / 2.0);<a name="line.712"></a>
+<FONT color="green">713</FONT>    <a name="line.713"></a>
+<FONT color="green">714</FONT>            }<a name="line.714"></a>
+<FONT color="green">715</FONT>            else if (anchor == TextAnchor.BASELINE_LEFT<a name="line.715"></a>
+<FONT color="green">716</FONT>                    || anchor == TextAnchor.BASELINE_CENTER<a name="line.716"></a>
+<FONT color="green">717</FONT>                    || anchor == TextAnchor.BASELINE_RIGHT) {<a name="line.717"></a>
+<FONT color="green">718</FONT>    <a name="line.718"></a>
+<FONT color="green">719</FONT>                yAdj = 0.0f;<a name="line.719"></a>
+<FONT color="green">720</FONT>    <a name="line.720"></a>
+<FONT color="green">721</FONT>            }<a name="line.721"></a>
+<FONT color="green">722</FONT>            else if (anchor == TextAnchor.BOTTOM_LEFT<a name="line.722"></a>
+<FONT color="green">723</FONT>                    || anchor == TextAnchor.BOTTOM_CENTER<a name="line.723"></a>
+<FONT color="green">724</FONT>                    || anchor == TextAnchor.BOTTOM_RIGHT) {<a name="line.724"></a>
+<FONT color="green">725</FONT>    <a name="line.725"></a>
+<FONT color="green">726</FONT>                yAdj = -metrics.getDescent() - metrics.getLeading();<a name="line.726"></a>
+<FONT color="green">727</FONT>    <a name="line.727"></a>
+<FONT color="green">728</FONT>            }<a name="line.728"></a>
+<FONT color="green">729</FONT>            result[0] = xAdj;<a name="line.729"></a>
+<FONT color="green">730</FONT>            result[1] = yAdj;<a name="line.730"></a>
+<FONT color="green">731</FONT>            return result;<a name="line.731"></a>
+<FONT color="green">732</FONT>    <a name="line.732"></a>
+<FONT color="green">733</FONT>        }<a name="line.733"></a>
+<FONT color="green">734</FONT>    <a name="line.734"></a>
+<FONT color="green">735</FONT>        /**<a name="line.735"></a>
+<FONT color="green">736</FONT>         * A utility method that calculates the rotation anchor offsets for a<a name="line.736"></a>
+<FONT color="green">737</FONT>         * string.  These offsets are relative to the text starting coordinate<a name="line.737"></a>
+<FONT color="green">738</FONT>         * (BASELINE_LEFT).<a name="line.738"></a>
+<FONT color="green">739</FONT>         *<a name="line.739"></a>
+<FONT color="green">740</FONT>         * @param g2  the graphics device.<a name="line.740"></a>
+<FONT color="green">741</FONT>         * @param text  the text.<a name="line.741"></a>
+<FONT color="green">742</FONT>         * @param anchor  the anchor point.<a name="line.742"></a>
+<FONT color="green">743</FONT>         *<a name="line.743"></a>
+<FONT color="green">744</FONT>         * @return  The offsets.<a name="line.744"></a>
+<FONT color="green">745</FONT>         */<a name="line.745"></a>
+<FONT color="green">746</FONT>        private static float[] deriveRotationAnchorOffsets(final Graphics2D g2,<a name="line.746"></a>
+<FONT color="green">747</FONT>                final String text, final TextAnchor anchor) {<a name="line.747"></a>
+<FONT color="green">748</FONT>    <a name="line.748"></a>
+<FONT color="green">749</FONT>            final float[] result = new float[2];<a name="line.749"></a>
+<FONT color="green">750</FONT>            final FontRenderContext frc = g2.getFontRenderContext();<a name="line.750"></a>
+<FONT color="green">751</FONT>            final LineMetrics metrics = g2.getFont().getLineMetrics(text, frc);<a name="line.751"></a>
+<FONT color="green">752</FONT>            final FontMetrics fm = g2.getFontMetrics();<a name="line.752"></a>
+<FONT color="green">753</FONT>            final Rectangle2D bounds = TextUtilities.getTextBounds(text, g2, fm);<a name="line.753"></a>
+<FONT color="green">754</FONT>            final float ascent = metrics.getAscent();<a name="line.754"></a>
+<FONT color="green">755</FONT>            final float halfAscent = ascent / 2.0f;<a name="line.755"></a>
+<FONT color="green">756</FONT>            final float descent = metrics.getDescent();<a name="line.756"></a>
+<FONT color="green">757</FONT>            final float leading = metrics.getLeading();<a name="line.757"></a>
+<FONT color="green">758</FONT>            float xAdj = 0.0f;<a name="line.758"></a>
+<FONT color="green">759</FONT>            float yAdj = 0.0f;<a name="line.759"></a>
+<FONT color="green">760</FONT>    <a name="line.760"></a>
+<FONT color="green">761</FONT>            if (anchor == TextAnchor.TOP_LEFT<a name="line.761"></a>
+<FONT color="green">762</FONT>                    || anchor == TextAnchor.CENTER_LEFT<a name="line.762"></a>
+<FONT color="green">763</FONT>                    || anchor == TextAnchor.BOTTOM_LEFT<a name="line.763"></a>
+<FONT color="green">764</FONT>                    || anchor == TextAnchor.BASELINE_LEFT<a name="line.764"></a>
+<FONT color="green">765</FONT>                    || anchor == TextAnchor.HALF_ASCENT_LEFT) {<a name="line.765"></a>
+<FONT color="green">766</FONT>    <a name="line.766"></a>
+<FONT color="green">767</FONT>                xAdj = 0.0f;<a name="line.767"></a>
+<FONT color="green">768</FONT>    <a name="line.768"></a>
+<FONT color="green">769</FONT>            }<a name="line.769"></a>
+<FONT color="green">770</FONT>            else if (anchor == TextAnchor.TOP_CENTER<a name="line.770"></a>
+<FONT color="green">771</FONT>                    || anchor == TextAnchor.CENTER<a name="line.771"></a>
+<FONT color="green">772</FONT>                    || anchor == TextAnchor.BOTTOM_CENTER<a name="line.772"></a>
+<FONT color="green">773</FONT>                    || anchor == TextAnchor.BASELINE_CENTER<a name="line.773"></a>
+<FONT color="green">774</FONT>                    || anchor == TextAnchor.HALF_ASCENT_CENTER) {<a name="line.774"></a>
+<FONT color="green">775</FONT>    <a name="line.775"></a>
+<FONT color="green">776</FONT>                xAdj = (float) bounds.getWidth() / 2.0f;<a name="line.776"></a>
+<FONT color="green">777</FONT>    <a name="line.777"></a>
+<FONT color="green">778</FONT>            }<a name="line.778"></a>
+<FONT color="green">779</FONT>            else if (anchor == TextAnchor.TOP_RIGHT<a name="line.779"></a>
+<FONT color="green">780</FONT>                    || anchor == TextAnchor.CENTER_RIGHT<a name="line.780"></a>
+<FONT color="green">781</FONT>                    || anchor == TextAnchor.BOTTOM_RIGHT<a name="line.781"></a>
+<FONT color="green">782</FONT>                    || anchor == TextAnchor.BASELINE_RIGHT<a name="line.782"></a>
+<FONT color="green">783</FONT>                    || anchor == TextAnchor.HALF_ASCENT_RIGHT) {<a name="line.783"></a>
+<FONT color="green">784</FONT>    <a name="line.784"></a>
+<FONT color="green">785</FONT>                xAdj = (float) bounds.getWidth();<a name="line.785"></a>
+<FONT color="green">786</FONT>    <a name="line.786"></a>
+<FONT color="green">787</FONT>            }<a name="line.787"></a>
+<FONT color="green">788</FONT>    <a name="line.788"></a>
+<FONT color="green">789</FONT>            if (anchor == TextAnchor.TOP_LEFT<a name="line.789"></a>
+<FONT color="green">790</FONT>                    || anchor == TextAnchor.TOP_CENTER<a name="line.790"></a>
+<FONT color="green">791</FONT>                    || anchor == TextAnchor.TOP_RIGHT) {<a name="line.791"></a>
+<FONT color="green">792</FONT>    <a name="line.792"></a>
+<FONT color="green">793</FONT>                yAdj = descent + leading - (float) bounds.getHeight();<a name="line.793"></a>
+<FONT color="green">794</FONT>    <a name="line.794"></a>
+<FONT color="green">795</FONT>            }<a name="line.795"></a>
+<FONT color="green">796</FONT>            else if (anchor == TextAnchor.CENTER_LEFT<a name="line.796"></a>
+<FONT color="green">797</FONT>                    || anchor == TextAnchor.CENTER<a name="line.797"></a>
+<FONT color="green">798</FONT>                    || anchor == TextAnchor.CENTER_RIGHT) {<a name="line.798"></a>
+<FONT color="green">799</FONT>    <a name="line.799"></a>
+<FONT color="green">800</FONT>                yAdj = descent + leading - (float) (bounds.getHeight() / 2.0);<a name="line.800"></a>
+<FONT color="green">801</FONT>    <a name="line.801"></a>
+<FONT color="green">802</FONT>            }<a name="line.802"></a>
+<FONT color="green">803</FONT>            else if (anchor == TextAnchor.HALF_ASCENT_LEFT<a name="line.803"></a>
+<FONT color="green">804</FONT>                    || anchor == TextAnchor.HALF_ASCENT_CENTER<a name="line.804"></a>
+<FONT color="green">805</FONT>                    || anchor == TextAnchor.HALF_ASCENT_RIGHT) {<a name="line.805"></a>
+<FONT color="green">806</FONT>    <a name="line.806"></a>
+<FONT color="green">807</FONT>                yAdj = -halfAscent;<a name="line.807"></a>
+<FONT color="green">808</FONT>    <a name="line.808"></a>
+<FONT color="green">809</FONT>            }<a name="line.809"></a>
+<FONT color="green">810</FONT>            else if (anchor == TextAnchor.BASELINE_LEFT<a name="line.810"></a>
+<FONT color="green">811</FONT>                    || anchor == TextAnchor.BASELINE_CENTER<a name="line.811"></a>
+<FONT color="green">812</FONT>                    || anchor == TextAnchor.BASELINE_RIGHT) {<a name="line.812"></a>
+<FONT color="green">813</FONT>    <a name="line.813"></a>
+<FONT color="green">814</FONT>                yAdj = 0.0f;<a name="line.814"></a>
+<FONT color="green">815</FONT>    <a name="line.815"></a>
+<FONT color="green">816</FONT>            }<a name="line.816"></a>
+<FONT color="green">817</FONT>            else if (anchor == TextAnchor.BOTTOM_LEFT<a name="line.817"></a>
+<FONT color="green">818</FONT>                    || anchor == TextAnchor.BOTTOM_CENTER<a name="line.818"></a>
+<FONT color="green">819</FONT>                    || anchor == TextAnchor.BOTTOM_RIGHT) {<a name="line.819"></a>
+<FONT color="green">820</FONT>    <a name="line.820"></a>
+<FONT color="green">821</FONT>                yAdj = metrics.getDescent() + metrics.getLeading();<a name="line.821"></a>
+<FONT color="green">822</FONT>    <a name="line.822"></a>
+<FONT color="green">823</FONT>            }<a name="line.823"></a>
+<FONT color="green">824</FONT>            result[0] = xAdj;<a name="line.824"></a>
+<FONT color="green">825</FONT>            result[1] = yAdj;<a name="line.825"></a>
+<FONT color="green">826</FONT>            return result;<a name="line.826"></a>
+<FONT color="green">827</FONT>    <a name="line.827"></a>
+<FONT color="green">828</FONT>        }<a name="line.828"></a>
+<FONT color="green">829</FONT>    <a name="line.829"></a>
+<FONT color="green">830</FONT>        /**<a name="line.830"></a>
+<FONT color="green">831</FONT>         * Returns a shape that represents the bounds of the string after the<a name="line.831"></a>
+<FONT color="green">832</FONT>         * specified rotation has been applied.<a name="line.832"></a>
+<FONT color="green">833</FONT>         *<a name="line.833"></a>
+<FONT color="green">834</FONT>         * @param text  the text (&lt;code&gt;null&lt;/code&gt; permitted).<a name="line.834"></a>
+<FONT color="green">835</FONT>         * @param g2  the graphics device.<a name="line.835"></a>
+<FONT color="green">836</FONT>         * @param textX  the x coordinate for the text.<a name="line.836"></a>
+<FONT color="green">837</FONT>         * @param textY  the y coordinate for the text.<a name="line.837"></a>
+<FONT color="green">838</FONT>         * @param angle  the angle.<a name="line.838"></a>
+<FONT color="green">839</FONT>         * @param rotateX  the x coordinate for the rotation point.<a name="line.839"></a>
+<FONT color="green">840</FONT>         * @param rotateY  the y coordinate for the rotation point.<a name="line.840"></a>
+<FONT color="green">841</FONT>         *<a name="line.841"></a>
+<FONT color="green">842</FONT>         * @return The bounds (&lt;code&gt;null&lt;/code&gt; if &lt;code&gt;text&lt;/code&gt; is<a name="line.842"></a>
+<FONT color="green">843</FONT>         *         &lt;/code&gt;null&lt;/code&gt; or has zero length).<a name="line.843"></a>
+<FONT color="green">844</FONT>         */<a name="line.844"></a>
+<FONT color="green">845</FONT>        public static Shape calculateRotatedStringBounds(final String text,<a name="line.845"></a>
+<FONT color="green">846</FONT>                final Graphics2D g2, final float textX, final float textY,<a name="line.846"></a>
+<FONT color="green">847</FONT>                final double angle, final float rotateX, final float rotateY) {<a name="line.847"></a>
+<FONT color="green">848</FONT>    <a name="line.848"></a>
+<FONT color="green">849</FONT>            if ((text == null) || (text.equals(""))) {<a name="line.849"></a>
+<FONT color="green">850</FONT>                return null;<a name="line.850"></a>
+<FONT color="green">851</FONT>            }<a name="line.851"></a>
+<FONT color="green">852</FONT>            final FontMetrics fm = g2.getFontMetrics();<a name="line.852"></a>
+<FONT color="green">853</FONT>            final Rectangle2D bounds = TextUtilities.getTextBounds(text, g2, fm);<a name="line.853"></a>
+<FONT color="green">854</FONT>            final AffineTransform translate = AffineTransform.getTranslateInstance(<a name="line.854"></a>
+<FONT color="green">855</FONT>                    textX, textY);<a name="line.855"></a>
+<FONT color="green">856</FONT>            final Shape translatedBounds = translate.createTransformedShape(bounds);<a name="line.856"></a>
+<FONT color="green">857</FONT>            final AffineTransform rotate = AffineTransform.getRotateInstance(<a name="line.857"></a>
+<FONT color="green">858</FONT>                    angle, rotateX, rotateY);<a name="line.858"></a>
+<FONT color="green">859</FONT>            final Shape result = rotate.createTransformedShape(translatedBounds);<a name="line.859"></a>
+<FONT color="green">860</FONT>            return result;<a name="line.860"></a>
+<FONT color="green">861</FONT>    <a name="line.861"></a>
+<FONT color="green">862</FONT>        }<a name="line.862"></a>
+<FONT color="green">863</FONT>    <a name="line.863"></a>
+<FONT color="green">864</FONT>        /**<a name="line.864"></a>
+<FONT color="green">865</FONT>         * Returns the flag that controls whether the FontMetrics.getStringBounds()<a name="line.865"></a>
+<FONT color="green">866</FONT>         * method is used or not.  If you are having trouble with label alignment<a name="line.866"></a>
+<FONT color="green">867</FONT>         * or positioning, try changing the value of this flag.<a name="line.867"></a>
+<FONT color="green">868</FONT>         *<a name="line.868"></a>
+<FONT color="green">869</FONT>         * @return A boolean.<a name="line.869"></a>
+<FONT color="green">870</FONT>         */<a name="line.870"></a>
+<FONT color="green">871</FONT>        public static boolean getUseFontMetricsGetStringBounds() {<a name="line.871"></a>
+<FONT color="green">872</FONT>            return useFontMetricsGetStringBounds;<a name="line.872"></a>
+<FONT color="green">873</FONT>        }<a name="line.873"></a>
+<FONT color="green">874</FONT>    <a name="line.874"></a>
+<FONT color="green">875</FONT>        /**<a name="line.875"></a>
+<FONT color="green">876</FONT>         * Sets the flag that controls whether the FontMetrics.getStringBounds()<a name="line.876"></a>
+<FONT color="green">877</FONT>         * method is used or not.  If you are having trouble with label alignment<a name="line.877"></a>
+<FONT color="green">878</FONT>         * or positioning, try changing the value of this flag.<a name="line.878"></a>
+<FONT color="green">879</FONT>         *<a name="line.879"></a>
+<FONT color="green">880</FONT>         * @param use  the flag.<a name="line.880"></a>
+<FONT color="green">881</FONT>         */<a name="line.881"></a>
+<FONT color="green">882</FONT>        public static void setUseFontMetricsGetStringBounds(final boolean use) {<a name="line.882"></a>
+<FONT color="green">883</FONT>            useFontMetricsGetStringBounds = use;<a name="line.883"></a>
+<FONT color="green">884</FONT>        }<a name="line.884"></a>
+<FONT color="green">885</FONT>    <a name="line.885"></a>
+<FONT color="green">886</FONT>        /**<a name="line.886"></a>
+<FONT color="green">887</FONT>         * Returns the flag that controls whether or not a workaround is used for<a name="line.887"></a>
+<FONT color="green">888</FONT>         * drawing rotated strings.<a name="line.888"></a>
+<FONT color="green">889</FONT>         *<a name="line.889"></a>
+<FONT color="green">890</FONT>         * @return A boolean.<a name="line.890"></a>
+<FONT color="green">891</FONT>         */<a name="line.891"></a>
+<FONT color="green">892</FONT>        public static boolean isUseDrawRotatedStringWorkaround() {<a name="line.892"></a>
+<FONT color="green">893</FONT>            return useDrawRotatedStringWorkaround;<a name="line.893"></a>
+<FONT color="green">894</FONT>        }<a name="line.894"></a>
+<FONT color="green">895</FONT>    }<a name="line.895"></a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</PRE>
+</BODY>
+</HTML>

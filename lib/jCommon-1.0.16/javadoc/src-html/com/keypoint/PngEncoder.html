@@ -1,0 +1,783 @@
+<HTML>
+<BODY BGCOLOR="white">
+<PRE>
+<FONT color="green">001</FONT>    package com.keypoint;<a name="line.1"></a>
+<FONT color="green">002</FONT>    <a name="line.2"></a>
+<FONT color="green">003</FONT>    import java.awt.Image;<a name="line.3"></a>
+<FONT color="green">004</FONT>    import java.awt.image.ImageObserver;<a name="line.4"></a>
+<FONT color="green">005</FONT>    import java.awt.image.PixelGrabber;<a name="line.5"></a>
+<FONT color="green">006</FONT>    import java.io.ByteArrayOutputStream;<a name="line.6"></a>
+<FONT color="green">007</FONT>    import java.io.IOException;<a name="line.7"></a>
+<FONT color="green">008</FONT>    import java.util.zip.CRC32;<a name="line.8"></a>
+<FONT color="green">009</FONT>    import java.util.zip.Deflater;<a name="line.9"></a>
+<FONT color="green">010</FONT>    import java.util.zip.DeflaterOutputStream;<a name="line.10"></a>
+<FONT color="green">011</FONT>    <a name="line.11"></a>
+<FONT color="green">012</FONT>    /**<a name="line.12"></a>
+<FONT color="green">013</FONT>     * PngEncoder takes a Java Image object and creates a byte string which can be<a name="line.13"></a>
+<FONT color="green">014</FONT>     * saved as a PNG file.  The Image is presumed to use the DirectColorModel.<a name="line.14"></a>
+<FONT color="green">015</FONT>     *<a name="line.15"></a>
+<FONT color="green">016</FONT>     * &lt;p&gt;Thanks to Jay Denny at KeyPoint Software<a name="line.16"></a>
+<FONT color="green">017</FONT>     *    http://www.keypoint.com/<a name="line.17"></a>
+<FONT color="green">018</FONT>     * who let me develop this code on company time.&lt;/p&gt;<a name="line.18"></a>
+<FONT color="green">019</FONT>     *<a name="line.19"></a>
+<FONT color="green">020</FONT>     * &lt;p&gt;You may contact me with (probably very-much-needed) improvements,<a name="line.20"></a>
+<FONT color="green">021</FONT>     * comments, and bug fixes at:&lt;/p&gt;<a name="line.21"></a>
+<FONT color="green">022</FONT>     *<a name="line.22"></a>
+<FONT color="green">023</FONT>     *   &lt;p&gt;&lt;code&gt;david@catcode.com&lt;/code&gt;&lt;/p&gt;<a name="line.23"></a>
+<FONT color="green">024</FONT>     *<a name="line.24"></a>
+<FONT color="green">025</FONT>     * &lt;p&gt;This library is free software; you can redistribute it and/or<a name="line.25"></a>
+<FONT color="green">026</FONT>     * modify it under the terms of the GNU Lesser General Public<a name="line.26"></a>
+<FONT color="green">027</FONT>     * License as published by the Free Software Foundation; either<a name="line.27"></a>
+<FONT color="green">028</FONT>     * version 2.1 of the License, or (at your option) any later version.&lt;/p&gt;<a name="line.28"></a>
+<FONT color="green">029</FONT>     *<a name="line.29"></a>
+<FONT color="green">030</FONT>     * &lt;p&gt;This library is distributed in the hope that it will be useful,<a name="line.30"></a>
+<FONT color="green">031</FONT>     * but WITHOUT ANY WARRANTY; without even the implied warranty of<a name="line.31"></a>
+<FONT color="green">032</FONT>     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU<a name="line.32"></a>
+<FONT color="green">033</FONT>     * Lesser General Public License for more details.&lt;/p&gt;<a name="line.33"></a>
+<FONT color="green">034</FONT>     *<a name="line.34"></a>
+<FONT color="green">035</FONT>     * &lt;p&gt;You should have received a copy of the GNU Lesser General Public<a name="line.35"></a>
+<FONT color="green">036</FONT>     * License along with this library; if not, write to the Free Software<a name="line.36"></a>
+<FONT color="green">037</FONT>     * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,<a name="line.37"></a>
+<FONT color="green">038</FONT>     * USA. A copy of the GNU LGPL may be found at<a name="line.38"></a>
+<FONT color="green">039</FONT>     * &lt;code&gt;http://www.gnu.org/copyleft/lesser.html&lt;/code&gt;&lt;/p&gt;<a name="line.39"></a>
+<FONT color="green">040</FONT>     *<a name="line.40"></a>
+<FONT color="green">041</FONT>     * @author J. David Eisenberg<a name="line.41"></a>
+<FONT color="green">042</FONT>     * @version 1.5, 19 Oct 2003<a name="line.42"></a>
+<FONT color="green">043</FONT>     *<a name="line.43"></a>
+<FONT color="green">044</FONT>     * CHANGES:<a name="line.44"></a>
+<FONT color="green">045</FONT>     * --------<a name="line.45"></a>
+<FONT color="green">046</FONT>     * 19-Nov-2002 : CODING STYLE CHANGES ONLY (by David Gilbert for Object<a name="line.46"></a>
+<FONT color="green">047</FONT>     *               Refinery Limited);<a name="line.47"></a>
+<FONT color="green">048</FONT>     * 19-Sep-2003 : Fix for platforms using EBCDIC (contributed by Paulo Soares);<a name="line.48"></a>
+<FONT color="green">049</FONT>     * 19-Oct-2003 : Change private fields to protected fields so that<a name="line.49"></a>
+<FONT color="green">050</FONT>     *               PngEncoderB can inherit them (JDE)<a name="line.50"></a>
+<FONT color="green">051</FONT>     *               Fixed bug with calculation of nRows<a name="line.51"></a>
+<FONT color="green">052</FONT>     * 15-Aug-2008 : Added scrunch.end() in writeImageData() method - see<a name="line.52"></a>
+<FONT color="green">053</FONT>     *               JFreeChart bug report 2037930 (David Gilbert);<a name="line.53"></a>
+<FONT color="green">054</FONT>     */<a name="line.54"></a>
+<FONT color="green">055</FONT>    <a name="line.55"></a>
+<FONT color="green">056</FONT>    public class PngEncoder {<a name="line.56"></a>
+<FONT color="green">057</FONT>    <a name="line.57"></a>
+<FONT color="green">058</FONT>        /** Constant specifying that alpha channel should be encoded. */<a name="line.58"></a>
+<FONT color="green">059</FONT>        public static final boolean ENCODE_ALPHA = true;<a name="line.59"></a>
+<FONT color="green">060</FONT>    <a name="line.60"></a>
+<FONT color="green">061</FONT>        /** Constant specifying that alpha channel should not be encoded. */<a name="line.61"></a>
+<FONT color="green">062</FONT>        public static final boolean NO_ALPHA = false;<a name="line.62"></a>
+<FONT color="green">063</FONT>    <a name="line.63"></a>
+<FONT color="green">064</FONT>        /** Constants for filter (NONE). */<a name="line.64"></a>
+<FONT color="green">065</FONT>        public static final int FILTER_NONE = 0;<a name="line.65"></a>
+<FONT color="green">066</FONT>    <a name="line.66"></a>
+<FONT color="green">067</FONT>        /** Constants for filter (SUB). */<a name="line.67"></a>
+<FONT color="green">068</FONT>        public static final int FILTER_SUB = 1;<a name="line.68"></a>
+<FONT color="green">069</FONT>    <a name="line.69"></a>
+<FONT color="green">070</FONT>        /** Constants for filter (UP). */<a name="line.70"></a>
+<FONT color="green">071</FONT>        public static final int FILTER_UP = 2;<a name="line.71"></a>
+<FONT color="green">072</FONT>    <a name="line.72"></a>
+<FONT color="green">073</FONT>        /** Constants for filter (LAST). */<a name="line.73"></a>
+<FONT color="green">074</FONT>        public static final int FILTER_LAST = 2;<a name="line.74"></a>
+<FONT color="green">075</FONT>    <a name="line.75"></a>
+<FONT color="green">076</FONT>        /** IHDR tag. */<a name="line.76"></a>
+<FONT color="green">077</FONT>        protected static final byte[] IHDR = {73, 72, 68, 82};<a name="line.77"></a>
+<FONT color="green">078</FONT>    <a name="line.78"></a>
+<FONT color="green">079</FONT>        /** IDAT tag. */<a name="line.79"></a>
+<FONT color="green">080</FONT>        protected static final byte[] IDAT = {73, 68, 65, 84};<a name="line.80"></a>
+<FONT color="green">081</FONT>    <a name="line.81"></a>
+<FONT color="green">082</FONT>        /** IEND tag. */<a name="line.82"></a>
+<FONT color="green">083</FONT>        protected static final byte[] IEND = {73, 69, 78, 68};<a name="line.83"></a>
+<FONT color="green">084</FONT>    <a name="line.84"></a>
+<FONT color="green">085</FONT>        /** PHYS tag. */<a name="line.85"></a>
+<FONT color="green">086</FONT>        protected static final byte[] PHYS = {(byte)'p', (byte)'H', (byte)'Y',<a name="line.86"></a>
+<FONT color="green">087</FONT>            (byte)'s'};<a name="line.87"></a>
+<FONT color="green">088</FONT>    <a name="line.88"></a>
+<FONT color="green">089</FONT>        /** The png bytes. */<a name="line.89"></a>
+<FONT color="green">090</FONT>        protected byte[] pngBytes;<a name="line.90"></a>
+<FONT color="green">091</FONT>    <a name="line.91"></a>
+<FONT color="green">092</FONT>        /** The prior row. */<a name="line.92"></a>
+<FONT color="green">093</FONT>        protected byte[] priorRow;<a name="line.93"></a>
+<FONT color="green">094</FONT>    <a name="line.94"></a>
+<FONT color="green">095</FONT>        /** The left bytes. */<a name="line.95"></a>
+<FONT color="green">096</FONT>        protected byte[] leftBytes;<a name="line.96"></a>
+<FONT color="green">097</FONT>    <a name="line.97"></a>
+<FONT color="green">098</FONT>        /** The image. */<a name="line.98"></a>
+<FONT color="green">099</FONT>        protected Image image;<a name="line.99"></a>
+<FONT color="green">100</FONT>    <a name="line.100"></a>
+<FONT color="green">101</FONT>        /** The width. */<a name="line.101"></a>
+<FONT color="green">102</FONT>        protected int width;<a name="line.102"></a>
+<FONT color="green">103</FONT>    <a name="line.103"></a>
+<FONT color="green">104</FONT>        /** The height. */<a name="line.104"></a>
+<FONT color="green">105</FONT>        protected int height;<a name="line.105"></a>
+<FONT color="green">106</FONT>    <a name="line.106"></a>
+<FONT color="green">107</FONT>        /** The byte position. */<a name="line.107"></a>
+<FONT color="green">108</FONT>        protected int bytePos;<a name="line.108"></a>
+<FONT color="green">109</FONT>    <a name="line.109"></a>
+<FONT color="green">110</FONT>        /** The maximum position. */<a name="line.110"></a>
+<FONT color="green">111</FONT>        protected int maxPos;<a name="line.111"></a>
+<FONT color="green">112</FONT>    <a name="line.112"></a>
+<FONT color="green">113</FONT>        /** CRC. */<a name="line.113"></a>
+<FONT color="green">114</FONT>        protected CRC32 crc = new CRC32();<a name="line.114"></a>
+<FONT color="green">115</FONT>    <a name="line.115"></a>
+<FONT color="green">116</FONT>        /** The CRC value. */<a name="line.116"></a>
+<FONT color="green">117</FONT>        protected long crcValue;<a name="line.117"></a>
+<FONT color="green">118</FONT>    <a name="line.118"></a>
+<FONT color="green">119</FONT>        /** Encode alpha? */<a name="line.119"></a>
+<FONT color="green">120</FONT>        protected boolean encodeAlpha;<a name="line.120"></a>
+<FONT color="green">121</FONT>    <a name="line.121"></a>
+<FONT color="green">122</FONT>        /** The filter type. */<a name="line.122"></a>
+<FONT color="green">123</FONT>        protected int filter;<a name="line.123"></a>
+<FONT color="green">124</FONT>    <a name="line.124"></a>
+<FONT color="green">125</FONT>        /** The bytes-per-pixel. */<a name="line.125"></a>
+<FONT color="green">126</FONT>        protected int bytesPerPixel;<a name="line.126"></a>
+<FONT color="green">127</FONT>    <a name="line.127"></a>
+<FONT color="green">128</FONT>        /** The physical pixel dimension : number of pixels per inch on the X axis. */<a name="line.128"></a>
+<FONT color="green">129</FONT>        private int xDpi = 0;<a name="line.129"></a>
+<FONT color="green">130</FONT>    <a name="line.130"></a>
+<FONT color="green">131</FONT>        /** The physical pixel dimension : number of pixels per inch on the Y axis. */<a name="line.131"></a>
+<FONT color="green">132</FONT>        private int yDpi = 0;<a name="line.132"></a>
+<FONT color="green">133</FONT>    <a name="line.133"></a>
+<FONT color="green">134</FONT>        /** Used for conversion of DPI to Pixels per Meter. */<a name="line.134"></a>
+<FONT color="green">135</FONT>        static private float INCH_IN_METER_UNIT = 0.0254f;<a name="line.135"></a>
+<FONT color="green">136</FONT>    <a name="line.136"></a>
+<FONT color="green">137</FONT>        /**<a name="line.137"></a>
+<FONT color="green">138</FONT>         * The compression level (1 = best speed, 9 = best compression,<a name="line.138"></a>
+<FONT color="green">139</FONT>         * 0 = no compression).<a name="line.139"></a>
+<FONT color="green">140</FONT>         */<a name="line.140"></a>
+<FONT color="green">141</FONT>        protected int compressionLevel;<a name="line.141"></a>
+<FONT color="green">142</FONT>    <a name="line.142"></a>
+<FONT color="green">143</FONT>        /**<a name="line.143"></a>
+<FONT color="green">144</FONT>         * Class constructor.<a name="line.144"></a>
+<FONT color="green">145</FONT>         */<a name="line.145"></a>
+<FONT color="green">146</FONT>        public PngEncoder() {<a name="line.146"></a>
+<FONT color="green">147</FONT>            this(null, false, FILTER_NONE, 0);<a name="line.147"></a>
+<FONT color="green">148</FONT>        }<a name="line.148"></a>
+<FONT color="green">149</FONT>    <a name="line.149"></a>
+<FONT color="green">150</FONT>        /**<a name="line.150"></a>
+<FONT color="green">151</FONT>         * Class constructor specifying Image to encode, with no alpha channel<a name="line.151"></a>
+<FONT color="green">152</FONT>         * encoding.<a name="line.152"></a>
+<FONT color="green">153</FONT>         *<a name="line.153"></a>
+<FONT color="green">154</FONT>         * @param image A Java Image object which uses the DirectColorModel<a name="line.154"></a>
+<FONT color="green">155</FONT>         * @see java.awt.Image<a name="line.155"></a>
+<FONT color="green">156</FONT>         */<a name="line.156"></a>
+<FONT color="green">157</FONT>        public PngEncoder(Image image) {<a name="line.157"></a>
+<FONT color="green">158</FONT>            this(image, false, FILTER_NONE, 0);<a name="line.158"></a>
+<FONT color="green">159</FONT>        }<a name="line.159"></a>
+<FONT color="green">160</FONT>    <a name="line.160"></a>
+<FONT color="green">161</FONT>        /**<a name="line.161"></a>
+<FONT color="green">162</FONT>         * Class constructor specifying Image to encode, and whether to encode<a name="line.162"></a>
+<FONT color="green">163</FONT>         * alpha.<a name="line.163"></a>
+<FONT color="green">164</FONT>         *<a name="line.164"></a>
+<FONT color="green">165</FONT>         * @param image A Java Image object which uses the DirectColorModel<a name="line.165"></a>
+<FONT color="green">166</FONT>         * @param encodeAlpha Encode the alpha channel? false=no; true=yes<a name="line.166"></a>
+<FONT color="green">167</FONT>         * @see java.awt.Image<a name="line.167"></a>
+<FONT color="green">168</FONT>         */<a name="line.168"></a>
+<FONT color="green">169</FONT>        public PngEncoder(Image image, boolean encodeAlpha) {<a name="line.169"></a>
+<FONT color="green">170</FONT>            this(image, encodeAlpha, FILTER_NONE, 0);<a name="line.170"></a>
+<FONT color="green">171</FONT>        }<a name="line.171"></a>
+<FONT color="green">172</FONT>    <a name="line.172"></a>
+<FONT color="green">173</FONT>        /**<a name="line.173"></a>
+<FONT color="green">174</FONT>         * Class constructor specifying Image to encode, whether to encode alpha,<a name="line.174"></a>
+<FONT color="green">175</FONT>         * and filter to use.<a name="line.175"></a>
+<FONT color="green">176</FONT>         *<a name="line.176"></a>
+<FONT color="green">177</FONT>         * @param image A Java Image object which uses the DirectColorModel<a name="line.177"></a>
+<FONT color="green">178</FONT>         * @param encodeAlpha Encode the alpha channel? false=no; true=yes<a name="line.178"></a>
+<FONT color="green">179</FONT>         * @param whichFilter 0=none, 1=sub, 2=up<a name="line.179"></a>
+<FONT color="green">180</FONT>         * @see java.awt.Image<a name="line.180"></a>
+<FONT color="green">181</FONT>         */<a name="line.181"></a>
+<FONT color="green">182</FONT>        public PngEncoder(Image image, boolean encodeAlpha, int whichFilter) {<a name="line.182"></a>
+<FONT color="green">183</FONT>            this(image, encodeAlpha, whichFilter, 0);<a name="line.183"></a>
+<FONT color="green">184</FONT>        }<a name="line.184"></a>
+<FONT color="green">185</FONT>    <a name="line.185"></a>
+<FONT color="green">186</FONT>    <a name="line.186"></a>
+<FONT color="green">187</FONT>        /**<a name="line.187"></a>
+<FONT color="green">188</FONT>         * Class constructor specifying Image source to encode, whether to encode<a name="line.188"></a>
+<FONT color="green">189</FONT>         * alpha, filter to use, and compression level.<a name="line.189"></a>
+<FONT color="green">190</FONT>         *<a name="line.190"></a>
+<FONT color="green">191</FONT>         * @param image A Java Image object<a name="line.191"></a>
+<FONT color="green">192</FONT>         * @param encodeAlpha Encode the alpha channel? false=no; true=yes<a name="line.192"></a>
+<FONT color="green">193</FONT>         * @param whichFilter 0=none, 1=sub, 2=up<a name="line.193"></a>
+<FONT color="green">194</FONT>         * @param compLevel 0..9 (1 = best speed, 9 = best compression, 0 = no<a name="line.194"></a>
+<FONT color="green">195</FONT>         *        compression)<a name="line.195"></a>
+<FONT color="green">196</FONT>         * @see java.awt.Image<a name="line.196"></a>
+<FONT color="green">197</FONT>         */<a name="line.197"></a>
+<FONT color="green">198</FONT>        public PngEncoder(Image image, boolean encodeAlpha, int whichFilter,<a name="line.198"></a>
+<FONT color="green">199</FONT>                int compLevel) {<a name="line.199"></a>
+<FONT color="green">200</FONT>            this.image = image;<a name="line.200"></a>
+<FONT color="green">201</FONT>            this.encodeAlpha = encodeAlpha;<a name="line.201"></a>
+<FONT color="green">202</FONT>            setFilter(whichFilter);<a name="line.202"></a>
+<FONT color="green">203</FONT>            if (compLevel &gt;= 0 &amp;&amp; compLevel &lt;= 9) {<a name="line.203"></a>
+<FONT color="green">204</FONT>                this.compressionLevel = compLevel;<a name="line.204"></a>
+<FONT color="green">205</FONT>            }<a name="line.205"></a>
+<FONT color="green">206</FONT>        }<a name="line.206"></a>
+<FONT color="green">207</FONT>    <a name="line.207"></a>
+<FONT color="green">208</FONT>        /**<a name="line.208"></a>
+<FONT color="green">209</FONT>         * Set the image to be encoded.<a name="line.209"></a>
+<FONT color="green">210</FONT>         *<a name="line.210"></a>
+<FONT color="green">211</FONT>         * @param image A Java Image object which uses the DirectColorModel<a name="line.211"></a>
+<FONT color="green">212</FONT>         * @see java.awt.Image<a name="line.212"></a>
+<FONT color="green">213</FONT>         * @see java.awt.image.DirectColorModel<a name="line.213"></a>
+<FONT color="green">214</FONT>         */<a name="line.214"></a>
+<FONT color="green">215</FONT>        public void setImage(Image image) {<a name="line.215"></a>
+<FONT color="green">216</FONT>            this.image = image;<a name="line.216"></a>
+<FONT color="green">217</FONT>            this.pngBytes = null;<a name="line.217"></a>
+<FONT color="green">218</FONT>        }<a name="line.218"></a>
+<FONT color="green">219</FONT>    <a name="line.219"></a>
+<FONT color="green">220</FONT>        /**<a name="line.220"></a>
+<FONT color="green">221</FONT>         * Returns the image to be encoded.<a name="line.221"></a>
+<FONT color="green">222</FONT>         *<a name="line.222"></a>
+<FONT color="green">223</FONT>         * @return The image.<a name="line.223"></a>
+<FONT color="green">224</FONT>         */<a name="line.224"></a>
+<FONT color="green">225</FONT>        public Image getImage() {<a name="line.225"></a>
+<FONT color="green">226</FONT>          return this.image;<a name="line.226"></a>
+<FONT color="green">227</FONT>        }<a name="line.227"></a>
+<FONT color="green">228</FONT>    <a name="line.228"></a>
+<FONT color="green">229</FONT>      /**<a name="line.229"></a>
+<FONT color="green">230</FONT>         * Creates an array of bytes that is the PNG equivalent of the current<a name="line.230"></a>
+<FONT color="green">231</FONT>         * image, specifying whether to encode alpha or not.<a name="line.231"></a>
+<FONT color="green">232</FONT>         *<a name="line.232"></a>
+<FONT color="green">233</FONT>         * @param encodeAlpha boolean false=no alpha, true=encode alpha<a name="line.233"></a>
+<FONT color="green">234</FONT>         * @return an array of bytes, or null if there was a problem<a name="line.234"></a>
+<FONT color="green">235</FONT>         */<a name="line.235"></a>
+<FONT color="green">236</FONT>        public byte[] pngEncode(boolean encodeAlpha) {<a name="line.236"></a>
+<FONT color="green">237</FONT>            byte[]  pngIdBytes = {-119, 80, 78, 71, 13, 10, 26, 10};<a name="line.237"></a>
+<FONT color="green">238</FONT>    <a name="line.238"></a>
+<FONT color="green">239</FONT>            if (this.image == null) {<a name="line.239"></a>
+<FONT color="green">240</FONT>                return null;<a name="line.240"></a>
+<FONT color="green">241</FONT>            }<a name="line.241"></a>
+<FONT color="green">242</FONT>            this.width = this.image.getWidth(null);<a name="line.242"></a>
+<FONT color="green">243</FONT>            this.height = this.image.getHeight(null);<a name="line.243"></a>
+<FONT color="green">244</FONT>    <a name="line.244"></a>
+<FONT color="green">245</FONT>            /*<a name="line.245"></a>
+<FONT color="green">246</FONT>             * start with an array that is big enough to hold all the pixels<a name="line.246"></a>
+<FONT color="green">247</FONT>             * (plus filter bytes), and an extra 200 bytes for header info<a name="line.247"></a>
+<FONT color="green">248</FONT>             */<a name="line.248"></a>
+<FONT color="green">249</FONT>            this.pngBytes = new byte[((this.width + 1) * this.height * 3) + 200];<a name="line.249"></a>
+<FONT color="green">250</FONT>    <a name="line.250"></a>
+<FONT color="green">251</FONT>            /*<a name="line.251"></a>
+<FONT color="green">252</FONT>             * keep track of largest byte written to the array<a name="line.252"></a>
+<FONT color="green">253</FONT>             */<a name="line.253"></a>
+<FONT color="green">254</FONT>            this.maxPos = 0;<a name="line.254"></a>
+<FONT color="green">255</FONT>    <a name="line.255"></a>
+<FONT color="green">256</FONT>            this.bytePos = writeBytes(pngIdBytes, 0);<a name="line.256"></a>
+<FONT color="green">257</FONT>            //hdrPos = bytePos;<a name="line.257"></a>
+<FONT color="green">258</FONT>            writeHeader();<a name="line.258"></a>
+<FONT color="green">259</FONT>            writeResolution();<a name="line.259"></a>
+<FONT color="green">260</FONT>            //dataPos = bytePos;<a name="line.260"></a>
+<FONT color="green">261</FONT>            if (writeImageData()) {<a name="line.261"></a>
+<FONT color="green">262</FONT>                writeEnd();<a name="line.262"></a>
+<FONT color="green">263</FONT>                this.pngBytes = resizeByteArray(this.pngBytes, this.maxPos);<a name="line.263"></a>
+<FONT color="green">264</FONT>            }<a name="line.264"></a>
+<FONT color="green">265</FONT>            else {<a name="line.265"></a>
+<FONT color="green">266</FONT>                this.pngBytes = null;<a name="line.266"></a>
+<FONT color="green">267</FONT>            }<a name="line.267"></a>
+<FONT color="green">268</FONT>            return this.pngBytes;<a name="line.268"></a>
+<FONT color="green">269</FONT>        }<a name="line.269"></a>
+<FONT color="green">270</FONT>    <a name="line.270"></a>
+<FONT color="green">271</FONT>        /**<a name="line.271"></a>
+<FONT color="green">272</FONT>         * Creates an array of bytes that is the PNG equivalent of the current<a name="line.272"></a>
+<FONT color="green">273</FONT>         * image.  Alpha encoding is determined by its setting in the constructor.<a name="line.273"></a>
+<FONT color="green">274</FONT>         *<a name="line.274"></a>
+<FONT color="green">275</FONT>         * @return an array of bytes, or null if there was a problem<a name="line.275"></a>
+<FONT color="green">276</FONT>         */<a name="line.276"></a>
+<FONT color="green">277</FONT>        public byte[] pngEncode() {<a name="line.277"></a>
+<FONT color="green">278</FONT>            return pngEncode(this.encodeAlpha);<a name="line.278"></a>
+<FONT color="green">279</FONT>        }<a name="line.279"></a>
+<FONT color="green">280</FONT>    <a name="line.280"></a>
+<FONT color="green">281</FONT>        /**<a name="line.281"></a>
+<FONT color="green">282</FONT>         * Set the alpha encoding on or off.<a name="line.282"></a>
+<FONT color="green">283</FONT>         *<a name="line.283"></a>
+<FONT color="green">284</FONT>         * @param encodeAlpha  false=no, true=yes<a name="line.284"></a>
+<FONT color="green">285</FONT>         */<a name="line.285"></a>
+<FONT color="green">286</FONT>        public void setEncodeAlpha(boolean encodeAlpha) {<a name="line.286"></a>
+<FONT color="green">287</FONT>            this.encodeAlpha = encodeAlpha;<a name="line.287"></a>
+<FONT color="green">288</FONT>        }<a name="line.288"></a>
+<FONT color="green">289</FONT>    <a name="line.289"></a>
+<FONT color="green">290</FONT>        /**<a name="line.290"></a>
+<FONT color="green">291</FONT>         * Retrieve alpha encoding status.<a name="line.291"></a>
+<FONT color="green">292</FONT>         *<a name="line.292"></a>
+<FONT color="green">293</FONT>         * @return boolean false=no, true=yes<a name="line.293"></a>
+<FONT color="green">294</FONT>         */<a name="line.294"></a>
+<FONT color="green">295</FONT>        public boolean getEncodeAlpha() {<a name="line.295"></a>
+<FONT color="green">296</FONT>            return this.encodeAlpha;<a name="line.296"></a>
+<FONT color="green">297</FONT>        }<a name="line.297"></a>
+<FONT color="green">298</FONT>    <a name="line.298"></a>
+<FONT color="green">299</FONT>        /**<a name="line.299"></a>
+<FONT color="green">300</FONT>         * Set the filter to use.<a name="line.300"></a>
+<FONT color="green">301</FONT>         *<a name="line.301"></a>
+<FONT color="green">302</FONT>         * @param whichFilter from constant list<a name="line.302"></a>
+<FONT color="green">303</FONT>         */<a name="line.303"></a>
+<FONT color="green">304</FONT>        public void setFilter(int whichFilter) {<a name="line.304"></a>
+<FONT color="green">305</FONT>            this.filter = FILTER_NONE;<a name="line.305"></a>
+<FONT color="green">306</FONT>            if (whichFilter &lt;= FILTER_LAST) {<a name="line.306"></a>
+<FONT color="green">307</FONT>                this.filter = whichFilter;<a name="line.307"></a>
+<FONT color="green">308</FONT>            }<a name="line.308"></a>
+<FONT color="green">309</FONT>        }<a name="line.309"></a>
+<FONT color="green">310</FONT>    <a name="line.310"></a>
+<FONT color="green">311</FONT>        /**<a name="line.311"></a>
+<FONT color="green">312</FONT>         * Retrieve filtering scheme.<a name="line.312"></a>
+<FONT color="green">313</FONT>         *<a name="line.313"></a>
+<FONT color="green">314</FONT>         * @return int (see constant list)<a name="line.314"></a>
+<FONT color="green">315</FONT>         */<a name="line.315"></a>
+<FONT color="green">316</FONT>        public int getFilter() {<a name="line.316"></a>
+<FONT color="green">317</FONT>            return this.filter;<a name="line.317"></a>
+<FONT color="green">318</FONT>        }<a name="line.318"></a>
+<FONT color="green">319</FONT>    <a name="line.319"></a>
+<FONT color="green">320</FONT>        /**<a name="line.320"></a>
+<FONT color="green">321</FONT>         * Set the compression level to use.<a name="line.321"></a>
+<FONT color="green">322</FONT>         *<a name="line.322"></a>
+<FONT color="green">323</FONT>         * @param level the compression level (1 = best speed, 9 = best compression,<a name="line.323"></a>
+<FONT color="green">324</FONT>         *        0 = no compression)<a name="line.324"></a>
+<FONT color="green">325</FONT>         */<a name="line.325"></a>
+<FONT color="green">326</FONT>        public void setCompressionLevel(int level) {<a name="line.326"></a>
+<FONT color="green">327</FONT>            if (level &gt;= 0 &amp;&amp; level &lt;= 9) {<a name="line.327"></a>
+<FONT color="green">328</FONT>                this.compressionLevel = level;<a name="line.328"></a>
+<FONT color="green">329</FONT>            }<a name="line.329"></a>
+<FONT color="green">330</FONT>        }<a name="line.330"></a>
+<FONT color="green">331</FONT>    <a name="line.331"></a>
+<FONT color="green">332</FONT>        /**<a name="line.332"></a>
+<FONT color="green">333</FONT>         * Retrieve compression level.<a name="line.333"></a>
+<FONT color="green">334</FONT>         *<a name="line.334"></a>
+<FONT color="green">335</FONT>         * @return int (1 = best speed, 9 = best compression, 0 = no compression)<a name="line.335"></a>
+<FONT color="green">336</FONT>         */<a name="line.336"></a>
+<FONT color="green">337</FONT>        public int getCompressionLevel() {<a name="line.337"></a>
+<FONT color="green">338</FONT>            return this.compressionLevel;<a name="line.338"></a>
+<FONT color="green">339</FONT>        }<a name="line.339"></a>
+<FONT color="green">340</FONT>    <a name="line.340"></a>
+<FONT color="green">341</FONT>        /**<a name="line.341"></a>
+<FONT color="green">342</FONT>         * Increase or decrease the length of a byte array.<a name="line.342"></a>
+<FONT color="green">343</FONT>         *<a name="line.343"></a>
+<FONT color="green">344</FONT>         * @param array The original array.<a name="line.344"></a>
+<FONT color="green">345</FONT>         * @param newLength The length you wish the new array to have.<a name="line.345"></a>
+<FONT color="green">346</FONT>         * @return Array of newly desired length. If shorter than the<a name="line.346"></a>
+<FONT color="green">347</FONT>         *         original, the trailing elements are truncated.<a name="line.347"></a>
+<FONT color="green">348</FONT>         */<a name="line.348"></a>
+<FONT color="green">349</FONT>        protected byte[] resizeByteArray(byte[] array, int newLength) {<a name="line.349"></a>
+<FONT color="green">350</FONT>            byte[]  newArray = new byte[newLength];<a name="line.350"></a>
+<FONT color="green">351</FONT>            int     oldLength = array.length;<a name="line.351"></a>
+<FONT color="green">352</FONT>    <a name="line.352"></a>
+<FONT color="green">353</FONT>            System.arraycopy(array, 0, newArray, 0, Math.min(oldLength, newLength));<a name="line.353"></a>
+<FONT color="green">354</FONT>            return newArray;<a name="line.354"></a>
+<FONT color="green">355</FONT>        }<a name="line.355"></a>
+<FONT color="green">356</FONT>    <a name="line.356"></a>
+<FONT color="green">357</FONT>        /**<a name="line.357"></a>
+<FONT color="green">358</FONT>         * Write an array of bytes into the pngBytes array.<a name="line.358"></a>
+<FONT color="green">359</FONT>         * Note: This routine has the side effect of updating<a name="line.359"></a>
+<FONT color="green">360</FONT>         * maxPos, the largest element written in the array.<a name="line.360"></a>
+<FONT color="green">361</FONT>         * The array is resized by 1000 bytes or the length<a name="line.361"></a>
+<FONT color="green">362</FONT>         * of the data to be written, whichever is larger.<a name="line.362"></a>
+<FONT color="green">363</FONT>         *<a name="line.363"></a>
+<FONT color="green">364</FONT>         * @param data The data to be written into pngBytes.<a name="line.364"></a>
+<FONT color="green">365</FONT>         * @param offset The starting point to write to.<a name="line.365"></a>
+<FONT color="green">366</FONT>         * @return The next place to be written to in the pngBytes array.<a name="line.366"></a>
+<FONT color="green">367</FONT>         */<a name="line.367"></a>
+<FONT color="green">368</FONT>        protected int writeBytes(byte[] data, int offset) {<a name="line.368"></a>
+<FONT color="green">369</FONT>            this.maxPos = Math.max(this.maxPos, offset + data.length);<a name="line.369"></a>
+<FONT color="green">370</FONT>            if (data.length + offset &gt; this.pngBytes.length) {<a name="line.370"></a>
+<FONT color="green">371</FONT>                this.pngBytes = resizeByteArray(this.pngBytes, this.pngBytes.length<a name="line.371"></a>
+<FONT color="green">372</FONT>                        + Math.max(1000, data.length));<a name="line.372"></a>
+<FONT color="green">373</FONT>            }<a name="line.373"></a>
+<FONT color="green">374</FONT>            System.arraycopy(data, 0, this.pngBytes, offset, data.length);<a name="line.374"></a>
+<FONT color="green">375</FONT>            return offset + data.length;<a name="line.375"></a>
+<FONT color="green">376</FONT>        }<a name="line.376"></a>
+<FONT color="green">377</FONT>    <a name="line.377"></a>
+<FONT color="green">378</FONT>        /**<a name="line.378"></a>
+<FONT color="green">379</FONT>         * Write an array of bytes into the pngBytes array, specifying number of<a name="line.379"></a>
+<FONT color="green">380</FONT>         * bytes to write. Note: This routine has the side effect of updating<a name="line.380"></a>
+<FONT color="green">381</FONT>         * maxPos, the largest element written in the array.<a name="line.381"></a>
+<FONT color="green">382</FONT>         * The array is resized by 1000 bytes or the length<a name="line.382"></a>
+<FONT color="green">383</FONT>         * of the data to be written, whichever is larger.<a name="line.383"></a>
+<FONT color="green">384</FONT>         *<a name="line.384"></a>
+<FONT color="green">385</FONT>         * @param data The data to be written into pngBytes.<a name="line.385"></a>
+<FONT color="green">386</FONT>         * @param nBytes The number of bytes to be written.<a name="line.386"></a>
+<FONT color="green">387</FONT>         * @param offset The starting point to write to.<a name="line.387"></a>
+<FONT color="green">388</FONT>         * @return The next place to be written to in the pngBytes array.<a name="line.388"></a>
+<FONT color="green">389</FONT>         */<a name="line.389"></a>
+<FONT color="green">390</FONT>        protected int writeBytes(byte[] data, int nBytes, int offset) {<a name="line.390"></a>
+<FONT color="green">391</FONT>            this.maxPos = Math.max(this.maxPos, offset + nBytes);<a name="line.391"></a>
+<FONT color="green">392</FONT>            if (nBytes + offset &gt; this.pngBytes.length) {<a name="line.392"></a>
+<FONT color="green">393</FONT>                this.pngBytes = resizeByteArray(this.pngBytes, this.pngBytes.length<a name="line.393"></a>
+<FONT color="green">394</FONT>                        + Math.max(1000, nBytes));<a name="line.394"></a>
+<FONT color="green">395</FONT>            }<a name="line.395"></a>
+<FONT color="green">396</FONT>            System.arraycopy(data, 0, this.pngBytes, offset, nBytes);<a name="line.396"></a>
+<FONT color="green">397</FONT>            return offset + nBytes;<a name="line.397"></a>
+<FONT color="green">398</FONT>        }<a name="line.398"></a>
+<FONT color="green">399</FONT>    <a name="line.399"></a>
+<FONT color="green">400</FONT>        /**<a name="line.400"></a>
+<FONT color="green">401</FONT>         * Write a two-byte integer into the pngBytes array at a given position.<a name="line.401"></a>
+<FONT color="green">402</FONT>         *<a name="line.402"></a>
+<FONT color="green">403</FONT>         * @param n The integer to be written into pngBytes.<a name="line.403"></a>
+<FONT color="green">404</FONT>         * @param offset The starting point to write to.<a name="line.404"></a>
+<FONT color="green">405</FONT>         * @return The next place to be written to in the pngBytes array.<a name="line.405"></a>
+<FONT color="green">406</FONT>         */<a name="line.406"></a>
+<FONT color="green">407</FONT>        protected int writeInt2(int n, int offset) {<a name="line.407"></a>
+<FONT color="green">408</FONT>            byte[] temp = {(byte) ((n &gt;&gt; 8) &amp; 0xff), (byte) (n &amp; 0xff)};<a name="line.408"></a>
+<FONT color="green">409</FONT>            return writeBytes(temp, offset);<a name="line.409"></a>
+<FONT color="green">410</FONT>        }<a name="line.410"></a>
+<FONT color="green">411</FONT>    <a name="line.411"></a>
+<FONT color="green">412</FONT>        /**<a name="line.412"></a>
+<FONT color="green">413</FONT>         * Write a four-byte integer into the pngBytes array at a given position.<a name="line.413"></a>
+<FONT color="green">414</FONT>         *<a name="line.414"></a>
+<FONT color="green">415</FONT>         * @param n The integer to be written into pngBytes.<a name="line.415"></a>
+<FONT color="green">416</FONT>         * @param offset The starting point to write to.<a name="line.416"></a>
+<FONT color="green">417</FONT>         * @return The next place to be written to in the pngBytes array.<a name="line.417"></a>
+<FONT color="green">418</FONT>         */<a name="line.418"></a>
+<FONT color="green">419</FONT>        protected int writeInt4(int n, int offset) {<a name="line.419"></a>
+<FONT color="green">420</FONT>            byte[] temp = {(byte) ((n &gt;&gt; 24) &amp; 0xff),<a name="line.420"></a>
+<FONT color="green">421</FONT>                           (byte) ((n &gt;&gt; 16) &amp; 0xff),<a name="line.421"></a>
+<FONT color="green">422</FONT>                           (byte) ((n &gt;&gt; 8) &amp; 0xff),<a name="line.422"></a>
+<FONT color="green">423</FONT>                           (byte) (n &amp; 0xff)};<a name="line.423"></a>
+<FONT color="green">424</FONT>            return writeBytes(temp, offset);<a name="line.424"></a>
+<FONT color="green">425</FONT>        }<a name="line.425"></a>
+<FONT color="green">426</FONT>    <a name="line.426"></a>
+<FONT color="green">427</FONT>        /**<a name="line.427"></a>
+<FONT color="green">428</FONT>         * Write a single byte into the pngBytes array at a given position.<a name="line.428"></a>
+<FONT color="green">429</FONT>         *<a name="line.429"></a>
+<FONT color="green">430</FONT>         * @param b The integer to be written into pngBytes.<a name="line.430"></a>
+<FONT color="green">431</FONT>         * @param offset The starting point to write to.<a name="line.431"></a>
+<FONT color="green">432</FONT>         * @return The next place to be written to in the pngBytes array.<a name="line.432"></a>
+<FONT color="green">433</FONT>         */<a name="line.433"></a>
+<FONT color="green">434</FONT>        protected int writeByte(int b, int offset) {<a name="line.434"></a>
+<FONT color="green">435</FONT>            byte[] temp = {(byte) b};<a name="line.435"></a>
+<FONT color="green">436</FONT>            return writeBytes(temp, offset);<a name="line.436"></a>
+<FONT color="green">437</FONT>        }<a name="line.437"></a>
+<FONT color="green">438</FONT>    <a name="line.438"></a>
+<FONT color="green">439</FONT>        /**<a name="line.439"></a>
+<FONT color="green">440</FONT>         * Write a PNG "IHDR" chunk into the pngBytes array.<a name="line.440"></a>
+<FONT color="green">441</FONT>         */<a name="line.441"></a>
+<FONT color="green">442</FONT>        protected void writeHeader() {<a name="line.442"></a>
+<FONT color="green">443</FONT>    <a name="line.443"></a>
+<FONT color="green">444</FONT>            int startPos = this.bytePos = writeInt4(13, this.bytePos);<a name="line.444"></a>
+<FONT color="green">445</FONT>            this.bytePos = writeBytes(IHDR, this.bytePos);<a name="line.445"></a>
+<FONT color="green">446</FONT>            this.width = this.image.getWidth(null);<a name="line.446"></a>
+<FONT color="green">447</FONT>            this.height = this.image.getHeight(null);<a name="line.447"></a>
+<FONT color="green">448</FONT>            this.bytePos = writeInt4(this.width, this.bytePos);<a name="line.448"></a>
+<FONT color="green">449</FONT>            this.bytePos = writeInt4(this.height, this.bytePos);<a name="line.449"></a>
+<FONT color="green">450</FONT>            this.bytePos = writeByte(8, this.bytePos); // bit depth<a name="line.450"></a>
+<FONT color="green">451</FONT>            this.bytePos = writeByte((this.encodeAlpha) ? 6 : 2, this.bytePos);<a name="line.451"></a>
+<FONT color="green">452</FONT>                // direct model<a name="line.452"></a>
+<FONT color="green">453</FONT>            this.bytePos = writeByte(0, this.bytePos); // compression method<a name="line.453"></a>
+<FONT color="green">454</FONT>            this.bytePos = writeByte(0, this.bytePos); // filter method<a name="line.454"></a>
+<FONT color="green">455</FONT>            this.bytePos = writeByte(0, this.bytePos); // no interlace<a name="line.455"></a>
+<FONT color="green">456</FONT>            this.crc.reset();<a name="line.456"></a>
+<FONT color="green">457</FONT>            this.crc.update(this.pngBytes, startPos, this.bytePos - startPos);<a name="line.457"></a>
+<FONT color="green">458</FONT>            this.crcValue = this.crc.getValue();<a name="line.458"></a>
+<FONT color="green">459</FONT>            this.bytePos = writeInt4((int) this.crcValue, this.bytePos);<a name="line.459"></a>
+<FONT color="green">460</FONT>        }<a name="line.460"></a>
+<FONT color="green">461</FONT>    <a name="line.461"></a>
+<FONT color="green">462</FONT>        /**<a name="line.462"></a>
+<FONT color="green">463</FONT>         * Perform "sub" filtering on the given row.<a name="line.463"></a>
+<FONT color="green">464</FONT>         * Uses temporary array leftBytes to store the original values<a name="line.464"></a>
+<FONT color="green">465</FONT>         * of the previous pixels.  The array is 16 bytes long, which<a name="line.465"></a>
+<FONT color="green">466</FONT>         * will easily hold two-byte samples plus two-byte alpha.<a name="line.466"></a>
+<FONT color="green">467</FONT>         *<a name="line.467"></a>
+<FONT color="green">468</FONT>         * @param pixels The array holding the scan lines being built<a name="line.468"></a>
+<FONT color="green">469</FONT>         * @param startPos Starting position within pixels of bytes to be filtered.<a name="line.469"></a>
+<FONT color="green">470</FONT>         * @param width Width of a scanline in pixels.<a name="line.470"></a>
+<FONT color="green">471</FONT>         */<a name="line.471"></a>
+<FONT color="green">472</FONT>        protected void filterSub(byte[] pixels, int startPos, int width) {<a name="line.472"></a>
+<FONT color="green">473</FONT>            int offset = this.bytesPerPixel;<a name="line.473"></a>
+<FONT color="green">474</FONT>            int actualStart = startPos + offset;<a name="line.474"></a>
+<FONT color="green">475</FONT>            int nBytes = width * this.bytesPerPixel;<a name="line.475"></a>
+<FONT color="green">476</FONT>            int leftInsert = offset;<a name="line.476"></a>
+<FONT color="green">477</FONT>            int leftExtract = 0;<a name="line.477"></a>
+<FONT color="green">478</FONT>    <a name="line.478"></a>
+<FONT color="green">479</FONT>            for (int i = actualStart; i &lt; startPos + nBytes; i++) {<a name="line.479"></a>
+<FONT color="green">480</FONT>                this.leftBytes[leftInsert] =  pixels[i];<a name="line.480"></a>
+<FONT color="green">481</FONT>                pixels[i] = (byte) ((pixels[i] - this.leftBytes[leftExtract])<a name="line.481"></a>
+<FONT color="green">482</FONT>                         % 256);<a name="line.482"></a>
+<FONT color="green">483</FONT>                leftInsert = (leftInsert + 1) % 0x0f;<a name="line.483"></a>
+<FONT color="green">484</FONT>                leftExtract = (leftExtract + 1) % 0x0f;<a name="line.484"></a>
+<FONT color="green">485</FONT>            }<a name="line.485"></a>
+<FONT color="green">486</FONT>        }<a name="line.486"></a>
+<FONT color="green">487</FONT>    <a name="line.487"></a>
+<FONT color="green">488</FONT>        /**<a name="line.488"></a>
+<FONT color="green">489</FONT>         * Perform "up" filtering on the given row.<a name="line.489"></a>
+<FONT color="green">490</FONT>         * Side effect: refills the prior row with current row<a name="line.490"></a>
+<FONT color="green">491</FONT>         *<a name="line.491"></a>
+<FONT color="green">492</FONT>         * @param pixels The array holding the scan lines being built<a name="line.492"></a>
+<FONT color="green">493</FONT>         * @param startPos Starting position within pixels of bytes to be filtered.<a name="line.493"></a>
+<FONT color="green">494</FONT>         * @param width Width of a scanline in pixels.<a name="line.494"></a>
+<FONT color="green">495</FONT>         */<a name="line.495"></a>
+<FONT color="green">496</FONT>        protected void filterUp(byte[] pixels, int startPos, int width) {<a name="line.496"></a>
+<FONT color="green">497</FONT>    <a name="line.497"></a>
+<FONT color="green">498</FONT>            final int nBytes = width * this.bytesPerPixel;<a name="line.498"></a>
+<FONT color="green">499</FONT>    <a name="line.499"></a>
+<FONT color="green">500</FONT>            for (int i = 0; i &lt; nBytes; i++) {<a name="line.500"></a>
+<FONT color="green">501</FONT>                final byte currentByte = pixels[startPos + i];<a name="line.501"></a>
+<FONT color="green">502</FONT>                pixels[startPos + i] = (byte) ((pixels[startPos  + i]<a name="line.502"></a>
+<FONT color="green">503</FONT>                        - this.priorRow[i]) % 256);<a name="line.503"></a>
+<FONT color="green">504</FONT>                this.priorRow[i] = currentByte;<a name="line.504"></a>
+<FONT color="green">505</FONT>            }<a name="line.505"></a>
+<FONT color="green">506</FONT>        }<a name="line.506"></a>
+<FONT color="green">507</FONT>    <a name="line.507"></a>
+<FONT color="green">508</FONT>        /**<a name="line.508"></a>
+<FONT color="green">509</FONT>         * Write the image data into the pngBytes array.<a name="line.509"></a>
+<FONT color="green">510</FONT>         * This will write one or more PNG "IDAT" chunks. In order<a name="line.510"></a>
+<FONT color="green">511</FONT>         * to conserve memory, this method grabs as many rows as will<a name="line.511"></a>
+<FONT color="green">512</FONT>         * fit into 32K bytes, or the whole image; whichever is less.<a name="line.512"></a>
+<FONT color="green">513</FONT>         *<a name="line.513"></a>
+<FONT color="green">514</FONT>         *<a name="line.514"></a>
+<FONT color="green">515</FONT>         * @return true if no errors; false if error grabbing pixels<a name="line.515"></a>
+<FONT color="green">516</FONT>         */<a name="line.516"></a>
+<FONT color="green">517</FONT>        protected boolean writeImageData() {<a name="line.517"></a>
+<FONT color="green">518</FONT>            int rowsLeft = this.height;  // number of rows remaining to write<a name="line.518"></a>
+<FONT color="green">519</FONT>            int startRow = 0;       // starting row to process this time through<a name="line.519"></a>
+<FONT color="green">520</FONT>            int nRows;              // how many rows to grab at a time<a name="line.520"></a>
+<FONT color="green">521</FONT>    <a name="line.521"></a>
+<FONT color="green">522</FONT>            byte[] scanLines;       // the scan lines to be compressed<a name="line.522"></a>
+<FONT color="green">523</FONT>            int scanPos;            // where we are in the scan lines<a name="line.523"></a>
+<FONT color="green">524</FONT>            int startPos;           // where this line's actual pixels start (used<a name="line.524"></a>
+<FONT color="green">525</FONT>                                    // for filtering)<a name="line.525"></a>
+<FONT color="green">526</FONT>    <a name="line.526"></a>
+<FONT color="green">527</FONT>            byte[] compressedLines; // the resultant compressed lines<a name="line.527"></a>
+<FONT color="green">528</FONT>            int nCompressed;        // how big is the compressed area?<a name="line.528"></a>
+<FONT color="green">529</FONT>    <a name="line.529"></a>
+<FONT color="green">530</FONT>            //int depth;              // color depth ( handle only 8 or 32 )<a name="line.530"></a>
+<FONT color="green">531</FONT>    <a name="line.531"></a>
+<FONT color="green">532</FONT>            PixelGrabber pg;<a name="line.532"></a>
+<FONT color="green">533</FONT>    <a name="line.533"></a>
+<FONT color="green">534</FONT>            this.bytesPerPixel = (this.encodeAlpha) ? 4 : 3;<a name="line.534"></a>
+<FONT color="green">535</FONT>    <a name="line.535"></a>
+<FONT color="green">536</FONT>            Deflater scrunch = new Deflater(this.compressionLevel);<a name="line.536"></a>
+<FONT color="green">537</FONT>            ByteArrayOutputStream outBytes = new ByteArrayOutputStream(1024);<a name="line.537"></a>
+<FONT color="green">538</FONT>    <a name="line.538"></a>
+<FONT color="green">539</FONT>            DeflaterOutputStream compBytes = new DeflaterOutputStream(outBytes,<a name="line.539"></a>
+<FONT color="green">540</FONT>                    scrunch);<a name="line.540"></a>
+<FONT color="green">541</FONT>            try {<a name="line.541"></a>
+<FONT color="green">542</FONT>                while (rowsLeft &gt; 0) {<a name="line.542"></a>
+<FONT color="green">543</FONT>                    nRows = Math.min(32767 / (this.width<a name="line.543"></a>
+<FONT color="green">544</FONT>                            * (this.bytesPerPixel + 1)), rowsLeft);<a name="line.544"></a>
+<FONT color="green">545</FONT>                    nRows = Math.max(nRows, 1);<a name="line.545"></a>
+<FONT color="green">546</FONT>    <a name="line.546"></a>
+<FONT color="green">547</FONT>                    int[] pixels = new int[this.width * nRows];<a name="line.547"></a>
+<FONT color="green">548</FONT>    <a name="line.548"></a>
+<FONT color="green">549</FONT>                    pg = new PixelGrabber(this.image, 0, startRow,<a name="line.549"></a>
+<FONT color="green">550</FONT>                            this.width, nRows, pixels, 0, this.width);<a name="line.550"></a>
+<FONT color="green">551</FONT>                    try {<a name="line.551"></a>
+<FONT color="green">552</FONT>                        pg.grabPixels();<a name="line.552"></a>
+<FONT color="green">553</FONT>                    }<a name="line.553"></a>
+<FONT color="green">554</FONT>                    catch (Exception e) {<a name="line.554"></a>
+<FONT color="green">555</FONT>                        System.err.println("interrupted waiting for pixels!");<a name="line.555"></a>
+<FONT color="green">556</FONT>                        return false;<a name="line.556"></a>
+<FONT color="green">557</FONT>                    }<a name="line.557"></a>
+<FONT color="green">558</FONT>                    if ((pg.getStatus() &amp; ImageObserver.ABORT) != 0) {<a name="line.558"></a>
+<FONT color="green">559</FONT>                        System.err.println("image fetch aborted or errored");<a name="line.559"></a>
+<FONT color="green">560</FONT>                        return false;<a name="line.560"></a>
+<FONT color="green">561</FONT>                    }<a name="line.561"></a>
+<FONT color="green">562</FONT>    <a name="line.562"></a>
+<FONT color="green">563</FONT>                    /*<a name="line.563"></a>
+<FONT color="green">564</FONT>                     * Create a data chunk. scanLines adds "nRows" for<a name="line.564"></a>
+<FONT color="green">565</FONT>                     * the filter bytes.<a name="line.565"></a>
+<FONT color="green">566</FONT>                     */<a name="line.566"></a>
+<FONT color="green">567</FONT>                    scanLines = new byte[this.width * nRows * this.bytesPerPixel<a name="line.567"></a>
+<FONT color="green">568</FONT>                                         + nRows];<a name="line.568"></a>
+<FONT color="green">569</FONT>    <a name="line.569"></a>
+<FONT color="green">570</FONT>                    if (this.filter == FILTER_SUB) {<a name="line.570"></a>
+<FONT color="green">571</FONT>                        this.leftBytes = new byte[16];<a name="line.571"></a>
+<FONT color="green">572</FONT>                    }<a name="line.572"></a>
+<FONT color="green">573</FONT>                    if (this.filter == FILTER_UP) {<a name="line.573"></a>
+<FONT color="green">574</FONT>                        this.priorRow = new byte[this.width * this.bytesPerPixel];<a name="line.574"></a>
+<FONT color="green">575</FONT>                    }<a name="line.575"></a>
+<FONT color="green">576</FONT>    <a name="line.576"></a>
+<FONT color="green">577</FONT>                    scanPos = 0;<a name="line.577"></a>
+<FONT color="green">578</FONT>                    startPos = 1;<a name="line.578"></a>
+<FONT color="green">579</FONT>                    for (int i = 0; i &lt; this.width * nRows; i++) {<a name="line.579"></a>
+<FONT color="green">580</FONT>                        if (i % this.width == 0) {<a name="line.580"></a>
+<FONT color="green">581</FONT>                            scanLines[scanPos++] = (byte) this.filter;<a name="line.581"></a>
+<FONT color="green">582</FONT>                            startPos = scanPos;<a name="line.582"></a>
+<FONT color="green">583</FONT>                        }<a name="line.583"></a>
+<FONT color="green">584</FONT>                        scanLines[scanPos++] = (byte) ((pixels[i] &gt;&gt; 16) &amp; 0xff);<a name="line.584"></a>
+<FONT color="green">585</FONT>                        scanLines[scanPos++] = (byte) ((pixels[i] &gt;&gt;  8) &amp; 0xff);<a name="line.585"></a>
+<FONT color="green">586</FONT>                        scanLines[scanPos++] = (byte) ((pixels[i]) &amp; 0xff);<a name="line.586"></a>
+<FONT color="green">587</FONT>                        if (this.encodeAlpha) {<a name="line.587"></a>
+<FONT color="green">588</FONT>                            scanLines[scanPos++] = (byte) ((pixels[i] &gt;&gt; 24)<a name="line.588"></a>
+<FONT color="green">589</FONT>                                    &amp; 0xff);<a name="line.589"></a>
+<FONT color="green">590</FONT>                        }<a name="line.590"></a>
+<FONT color="green">591</FONT>                        if ((i % this.width == this.width - 1)<a name="line.591"></a>
+<FONT color="green">592</FONT>                                &amp;&amp; (this.filter != FILTER_NONE)) {<a name="line.592"></a>
+<FONT color="green">593</FONT>                            if (this.filter == FILTER_SUB) {<a name="line.593"></a>
+<FONT color="green">594</FONT>                                filterSub(scanLines, startPos, this.width);<a name="line.594"></a>
+<FONT color="green">595</FONT>                            }<a name="line.595"></a>
+<FONT color="green">596</FONT>                            if (this.filter == FILTER_UP) {<a name="line.596"></a>
+<FONT color="green">597</FONT>                                filterUp(scanLines, startPos, this.width);<a name="line.597"></a>
+<FONT color="green">598</FONT>                            }<a name="line.598"></a>
+<FONT color="green">599</FONT>                        }<a name="line.599"></a>
+<FONT color="green">600</FONT>                    }<a name="line.600"></a>
+<FONT color="green">601</FONT>    <a name="line.601"></a>
+<FONT color="green">602</FONT>                    /*<a name="line.602"></a>
+<FONT color="green">603</FONT>                     * Write these lines to the output area<a name="line.603"></a>
+<FONT color="green">604</FONT>                     */<a name="line.604"></a>
+<FONT color="green">605</FONT>                    compBytes.write(scanLines, 0, scanPos);<a name="line.605"></a>
+<FONT color="green">606</FONT>    <a name="line.606"></a>
+<FONT color="green">607</FONT>                    startRow += nRows;<a name="line.607"></a>
+<FONT color="green">608</FONT>                    rowsLeft -= nRows;<a name="line.608"></a>
+<FONT color="green">609</FONT>                }<a name="line.609"></a>
+<FONT color="green">610</FONT>                compBytes.close();<a name="line.610"></a>
+<FONT color="green">611</FONT>    <a name="line.611"></a>
+<FONT color="green">612</FONT>                /*<a name="line.612"></a>
+<FONT color="green">613</FONT>                 * Write the compressed bytes<a name="line.613"></a>
+<FONT color="green">614</FONT>                 */<a name="line.614"></a>
+<FONT color="green">615</FONT>                compressedLines = outBytes.toByteArray();<a name="line.615"></a>
+<FONT color="green">616</FONT>                nCompressed = compressedLines.length;<a name="line.616"></a>
+<FONT color="green">617</FONT>    <a name="line.617"></a>
+<FONT color="green">618</FONT>                this.crc.reset();<a name="line.618"></a>
+<FONT color="green">619</FONT>                this.bytePos = writeInt4(nCompressed, this.bytePos);<a name="line.619"></a>
+<FONT color="green">620</FONT>                this.bytePos = writeBytes(IDAT, this.bytePos);<a name="line.620"></a>
+<FONT color="green">621</FONT>                this.crc.update(IDAT);<a name="line.621"></a>
+<FONT color="green">622</FONT>                this.bytePos = writeBytes(compressedLines, nCompressed,<a name="line.622"></a>
+<FONT color="green">623</FONT>                        this.bytePos);<a name="line.623"></a>
+<FONT color="green">624</FONT>                this.crc.update(compressedLines, 0, nCompressed);<a name="line.624"></a>
+<FONT color="green">625</FONT>    <a name="line.625"></a>
+<FONT color="green">626</FONT>                this.crcValue = this.crc.getValue();<a name="line.626"></a>
+<FONT color="green">627</FONT>                this.bytePos = writeInt4((int) this.crcValue, this.bytePos);<a name="line.627"></a>
+<FONT color="green">628</FONT>                scrunch.finish();<a name="line.628"></a>
+<FONT color="green">629</FONT>                scrunch.end();<a name="line.629"></a>
+<FONT color="green">630</FONT>                return true;<a name="line.630"></a>
+<FONT color="green">631</FONT>            }<a name="line.631"></a>
+<FONT color="green">632</FONT>            catch (IOException e) {<a name="line.632"></a>
+<FONT color="green">633</FONT>                System.err.println(e.toString());<a name="line.633"></a>
+<FONT color="green">634</FONT>                return false;<a name="line.634"></a>
+<FONT color="green">635</FONT>            }<a name="line.635"></a>
+<FONT color="green">636</FONT>        }<a name="line.636"></a>
+<FONT color="green">637</FONT>    <a name="line.637"></a>
+<FONT color="green">638</FONT>        /**<a name="line.638"></a>
+<FONT color="green">639</FONT>         * Write a PNG "IEND" chunk into the pngBytes array.<a name="line.639"></a>
+<FONT color="green">640</FONT>         */<a name="line.640"></a>
+<FONT color="green">641</FONT>        protected void writeEnd() {<a name="line.641"></a>
+<FONT color="green">642</FONT>            this.bytePos = writeInt4(0, this.bytePos);<a name="line.642"></a>
+<FONT color="green">643</FONT>            this.bytePos = writeBytes(IEND, this.bytePos);<a name="line.643"></a>
+<FONT color="green">644</FONT>            this.crc.reset();<a name="line.644"></a>
+<FONT color="green">645</FONT>            this.crc.update(IEND);<a name="line.645"></a>
+<FONT color="green">646</FONT>            this.crcValue = this.crc.getValue();<a name="line.646"></a>
+<FONT color="green">647</FONT>            this.bytePos = writeInt4((int) this.crcValue, this.bytePos);<a name="line.647"></a>
+<FONT color="green">648</FONT>        }<a name="line.648"></a>
+<FONT color="green">649</FONT>    <a name="line.649"></a>
+<FONT color="green">650</FONT>    <a name="line.650"></a>
+<FONT color="green">651</FONT>        /**<a name="line.651"></a>
+<FONT color="green">652</FONT>         * Set the DPI for the X axis.<a name="line.652"></a>
+<FONT color="green">653</FONT>         *<a name="line.653"></a>
+<FONT color="green">654</FONT>         * @param xDpi  The number of dots per inch<a name="line.654"></a>
+<FONT color="green">655</FONT>         */<a name="line.655"></a>
+<FONT color="green">656</FONT>        public void setXDpi(int xDpi) {<a name="line.656"></a>
+<FONT color="green">657</FONT>            this.xDpi = Math.round(xDpi / INCH_IN_METER_UNIT);<a name="line.657"></a>
+<FONT color="green">658</FONT>    <a name="line.658"></a>
+<FONT color="green">659</FONT>        }<a name="line.659"></a>
+<FONT color="green">660</FONT>    <a name="line.660"></a>
+<FONT color="green">661</FONT>        /**<a name="line.661"></a>
+<FONT color="green">662</FONT>         * Get the DPI for the X axis.<a name="line.662"></a>
+<FONT color="green">663</FONT>         *<a name="line.663"></a>
+<FONT color="green">664</FONT>         * @return The number of dots per inch<a name="line.664"></a>
+<FONT color="green">665</FONT>         */<a name="line.665"></a>
+<FONT color="green">666</FONT>        public int getXDpi() {<a name="line.666"></a>
+<FONT color="green">667</FONT>            return Math.round(this.xDpi * INCH_IN_METER_UNIT);<a name="line.667"></a>
+<FONT color="green">668</FONT>        }<a name="line.668"></a>
+<FONT color="green">669</FONT>    <a name="line.669"></a>
+<FONT color="green">670</FONT>        /**<a name="line.670"></a>
+<FONT color="green">671</FONT>         * Set the DPI for the Y axis.<a name="line.671"></a>
+<FONT color="green">672</FONT>         *<a name="line.672"></a>
+<FONT color="green">673</FONT>         * @param yDpi  The number of dots per inch<a name="line.673"></a>
+<FONT color="green">674</FONT>         */<a name="line.674"></a>
+<FONT color="green">675</FONT>        public void setYDpi(int yDpi) {<a name="line.675"></a>
+<FONT color="green">676</FONT>            this.yDpi = Math.round(yDpi / INCH_IN_METER_UNIT);<a name="line.676"></a>
+<FONT color="green">677</FONT>        }<a name="line.677"></a>
+<FONT color="green">678</FONT>    <a name="line.678"></a>
+<FONT color="green">679</FONT>        /**<a name="line.679"></a>
+<FONT color="green">680</FONT>         * Get the DPI for the Y axis.<a name="line.680"></a>
+<FONT color="green">681</FONT>         *<a name="line.681"></a>
+<FONT color="green">682</FONT>         * @return The number of dots per inch<a name="line.682"></a>
+<FONT color="green">683</FONT>         */<a name="line.683"></a>
+<FONT color="green">684</FONT>        public int getYDpi() {<a name="line.684"></a>
+<FONT color="green">685</FONT>            return Math.round(this.yDpi * INCH_IN_METER_UNIT);<a name="line.685"></a>
+<FONT color="green">686</FONT>        }<a name="line.686"></a>
+<FONT color="green">687</FONT>    <a name="line.687"></a>
+<FONT color="green">688</FONT>        /**<a name="line.688"></a>
+<FONT color="green">689</FONT>         * Set the DPI resolution.<a name="line.689"></a>
+<FONT color="green">690</FONT>         *<a name="line.690"></a>
+<FONT color="green">691</FONT>         * @param xDpi  The number of dots per inch for the X axis.<a name="line.691"></a>
+<FONT color="green">692</FONT>         * @param yDpi  The number of dots per inch for the Y axis.<a name="line.692"></a>
+<FONT color="green">693</FONT>         */<a name="line.693"></a>
+<FONT color="green">694</FONT>        public void setDpi(int xDpi, int yDpi) {<a name="line.694"></a>
+<FONT color="green">695</FONT>            this.xDpi = Math.round(xDpi / INCH_IN_METER_UNIT);<a name="line.695"></a>
+<FONT color="green">696</FONT>            this.yDpi = Math.round(yDpi / INCH_IN_METER_UNIT);<a name="line.696"></a>
+<FONT color="green">697</FONT>        }<a name="line.697"></a>
+<FONT color="green">698</FONT>    <a name="line.698"></a>
+<FONT color="green">699</FONT>        /**<a name="line.699"></a>
+<FONT color="green">700</FONT>         * Write a PNG "pHYs" chunk into the pngBytes array.<a name="line.700"></a>
+<FONT color="green">701</FONT>         */<a name="line.701"></a>
+<FONT color="green">702</FONT>        protected void writeResolution() {<a name="line.702"></a>
+<FONT color="green">703</FONT>            if (this.xDpi &gt; 0 &amp;&amp; this.yDpi &gt; 0) {<a name="line.703"></a>
+<FONT color="green">704</FONT>    <a name="line.704"></a>
+<FONT color="green">705</FONT>                final int startPos = this.bytePos = writeInt4(9, this.bytePos);<a name="line.705"></a>
+<FONT color="green">706</FONT>                this.bytePos = writeBytes(PHYS, this.bytePos);<a name="line.706"></a>
+<FONT color="green">707</FONT>                this.bytePos = writeInt4(this.xDpi, this.bytePos);<a name="line.707"></a>
+<FONT color="green">708</FONT>                this.bytePos = writeInt4(this.yDpi, this.bytePos);<a name="line.708"></a>
+<FONT color="green">709</FONT>                this.bytePos = writeByte(1, this.bytePos); // unit is the meter.<a name="line.709"></a>
+<FONT color="green">710</FONT>    <a name="line.710"></a>
+<FONT color="green">711</FONT>                this.crc.reset();<a name="line.711"></a>
+<FONT color="green">712</FONT>                this.crc.update(this.pngBytes, startPos, this.bytePos - startPos);<a name="line.712"></a>
+<FONT color="green">713</FONT>                this.crcValue = this.crc.getValue();<a name="line.713"></a>
+<FONT color="green">714</FONT>                this.bytePos = writeInt4((int) this.crcValue, this.bytePos);<a name="line.714"></a>
+<FONT color="green">715</FONT>            }<a name="line.715"></a>
+<FONT color="green">716</FONT>        }<a name="line.716"></a>
+<FONT color="green">717</FONT>    }<a name="line.717"></a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</PRE>
+</BODY>
+</HTML>

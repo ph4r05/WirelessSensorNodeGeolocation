@@ -1,0 +1,377 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+package rssi_graph;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.*;
+import java.io.IOException;
+import java.text.DecimalFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.Timer;
+import net.tinyos.message.*;
+/**
+ *
+ * @author ph4r05
+ */
+public class RSSI_controller implements MessageListener, ActionListener {
+  private MoteIF moteIF;
+  private double myRssi=0;
+  private double hisRssi=0;
+  private double sumRssi=0;
+  public static final double lc2=0.11;
+
+  public static final int[] signalLevel = {31,27,23,19,15,11,7,3};
+  public static final int[] channels = null;
+
+  protected File csvFile = null;
+  protected RSSI_graphView gw = null;
+  protected int numMeassurement = 10;
+  protected Timer timer;
+  private int counter=0;
+  private BufferedWriter output=null;
+
+  private int mPhase=0;
+  protected boolean finished=true;
+  protected boolean waiting=false;
+
+  protected testManager tm;
+
+
+  /**
+   * Constructor
+   * @param moteIF mote interface
+   */
+  public RSSI_controller(MoteIF moteIF) {
+    this.moteIF = moteIF;
+    this.moteIF.registerListener(new RssiMsg(), this);
+    this.tm = new testManager();
+
+  }
+
+  @Override
+  protected void finalize() throws Throwable {
+        super.finalize();
+  }
+
+  public void setCsvFile(File fl) throws IOException{
+      this.csvFile = fl;
+      output = new BufferedWriter(new FileWriter(fl));
+  }
+
+  // @TODO: only collect data here, because this is triggered only when packet comes
+  // when is packet lost no data are written - information loss
+  // when is timer finished write lines to CSV file
+  public void messageReceived(int to, Message message) {
+    MultiPingResponseMsg msg = (MultiPingResponseMsg) message;
+    int source = message.getSerialPacket().get_header_src();
+
+    // calculate softMyRssi value
+    double rssiFromMobile = true ? msg.get_rssi() : 5;
+    double tmphissRssi = hisRssi +  (lc2) * (rssiFromMobile - hisRssi);
+
+    DecimalFormat df = new DecimalFormat("00.000000");
+    
+//
+//    String fileStr = mPhase+";"+msg.get_counter()+";"+msg.get_rssi()+";"+msg.get_rssiFromBase();
+//
+//    // get last received packet from queue
+//    // if there is space between counters
+//    // fill it with empty packets
+//    // only on non-first packet && non empty queue
+//    // lost packet count
+//    int lostPacket=0;
+//    if (msg.get_counter() > 0 && this.rssiMessageQueue.size() > 0){
+//        // last element from queue
+//        RSSIMessageQueueElement qelemTmp = this.rssiMessageQueue.getLast();
+//        // fill spaces
+//        for (int i = qelemTmp.getMsgBody().get_counter(); i < msg.get_counter(); i++, lostPacket++) {
+//            String fileStrTmp = mPhase+";"+i+";-200;-200";
+//            try {
+//                output.write(fileStrTmp);
+//                output.newLine();
+//            } catch (IOException ex) {
+//                Logger.getLogger(RSSI_controller.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//        }
+//    }
+
+    // build message data
+    RSSIMessageQueueElement qelem = new RSSIMessageQueueElement();
+    qelem.setMsgBody(msg);
+    qelem.setHisRssiSmooth(tmphissRssi);
+
+    try {
+        tm.messageReceived(qelem);
+    } catch (Exception ex) {
+        Logger.getLogger(RSSI_controller.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    
+
+//    // if we received packet
+//    try {
+//        output.write(fileStr);
+//        output.newLine();
+//    } catch (IOException ex) {
+//        Logger.getLogger(RSSI_controller.class.getName()).log(Level.SEVERE, null, ex);
+//    }
+//
+//    if (lostPacket > 0){
+//        gw.getTextArea().append("Packet lost: " + lostPacket + System.getProperty("line.separator"));
+//        System.err.println("Packet lost: " + lostPacket);
+//    }
+
+    // write to err ass well
+    if ((msg.get_counter() % 10) == 0){
+        String outStr = qelem.getFormatedOut();
+        System.err.println(outStr);
+        System.err.println(this.tm.getStatusMessage());
+
+        // write out to textarea
+        gw.getTextArea().append(outStr + System.getProperty("line.separator"));
+        gw.getTextArea().append(this.tm.getStatusMessage() + System.getProperty("line.separator"));
+    }
+
+    //System.out.println("softMyRSSI: " + tmpmyRssi + "; delta=" + (rssiFromBase - myRssi) + "; prev=" + myRssi);
+    hisRssi = tmphissRssi;
+  }
+
+    //Handle timer event. Update the loopslot (frame number) and the
+    //offset.  If it's the last frame, restart the timer to get a long
+    //pause between loops.
+    public void actionPerformed(ActionEvent e) {
+        MultiPingMsg payload = new MultiPingMsg();
+
+//        // all tests done ?
+//        if (this.tm.isDone()){
+//            timer.stop();
+//            this.finished=true;
+//            this.waiting=false;
+//
+//            // info
+//            gw.getProgressLabel().setText("Test finished");
+//
+//            try {
+//                tm.deinitTest();
+//            } catch (IOException ex) {
+//                Logger.getLogger(RSSI_controller.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//            return;
+//        }
+
+        // waiting needed ?
+        if (this.tm.waitingNeeded()){
+            // show waiting message
+            String waitMsg = this.tm.getWaitingMessage();
+
+            // info 
+            gw.getProgressLabel().setText("Waiting");
+            gw.getCommandLabel().setText(waitMsg);
+
+            // stop timer and wait
+            this.setWaiting(true);
+            timer.stop();
+            return;
+        }
+//        // are we done ?
+//        if (counter >= this.numMeassurement) {
+//            timer.stop();
+//
+//            return;
+//        }
+
+        // increment send counter
+        counter+=1;
+
+        // do one cycle
+        try {
+            // every fifth packet
+            if ((counter % 10) == 0){
+                System.err.println("Sending packet " + counter);
+            }
+
+            payload = this.tm.sendNext();
+            if (payload==null){
+                timer.stop();
+            }
+            
+            moteIF.send(MoteIF.TOS_BCAST_ADDR, payload);
+            this.tm.messageSent(payload);
+        } catch (IOException exception) {
+            System.err.println("Exception thrown when sending packets. Exiting.");
+            System.err.println(exception);
+        } catch (Exception ex) {
+            Logger.getLogger(RSSI_controller.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        // move caret of textarea
+        gw.getTextArea().setCaretPosition(gw.getTextArea().getText().length());
+    }
+
+  public void stopAction() throws IOException{
+      timer.stop();
+      this.finished=true;
+      this.waiting=false;
+      tm.deinitTest();
+
+      gw.getTextArea().append("!All Tests stopped!" + System.getProperty("line.separator"));
+  }
+
+  /**
+   * Reset button from main controller form
+   * will end all tests and flush buffers to file
+   */
+  public void resetButton() {
+      timer.stop();
+      this.finished=true;
+      this.waiting=false;
+        try {
+            tm.deinitTest();
+        } catch (IOException ex) {
+            Logger.getLogger(RSSI_controller.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+      gw.getTextArea().append("!All Tests stopped!" + System.getProperty("line.separator"));
+  }
+
+  /**
+   * Done button was pressed
+   */
+  public void doneButton(){
+    timer.stop();
+    this.finished=true;
+    this.waiting=false;
+
+    // set finished to true
+    tm.setFinished(true);
+
+    
+    try {
+        tm.deinitTest();
+    } catch (IOException ex) {
+        Logger.getLogger(RSSI_controller.class.getName()).log(Level.SEVERE, null, ex);
+    }
+
+    gw.getTextArea().append("!Test done!" + System.getProperty("line.separator"));
+  }
+
+  /**
+   * Next measurement button was pressed
+   */
+  public void actionButton(){
+      try {
+          if (isFinished()){
+//              // set timer
+//              timer = new Timer(gw.getTimeout(), this);
+//              timer.setInitialDelay(250);
+//              timer.start();
+
+              this.counter=0;
+              this.mPhase+=1;
+              this.finished = false;
+              this.waiting = false;
+
+              // deprecated, now tests control sending process
+              // this module only sits between tests and hardware
+              //this.setNumMeassurement(gw.getSamplesNumber());
+              this.tm.initTest();
+              this.tm.setSampleCount(gw.getSamplesNumber());
+              this.tm.setDelay(gw.getTimeout());
+
+              gw.getTextArea().append(System.getProperty("line.separator") + "====================================================================="
+                        + System.getProperty("line.separator") + "New meassurement" + System.getProperty("line.separator"));
+
+              gw.getProgressLabel().setText("Working; 0%");
+              return;
+          }
+
+          if (isWaiting()){
+            this.waiting=false;
+            this.tm.waitEvent();
+
+            // info
+            gw.getProgressLabel().setText("Working; pass: " + tm.msmtCur);
+
+            if (this.tm.waitingNeeded()){
+                // show waiting message
+                String waitMsg = this.tm.getWaitingMessage();
+
+                // info
+                gw.getProgressLabel().setText("Waiting");
+                gw.getCommandLabel().setText(waitMsg);
+
+                // stop timer and wait
+                this.setWaiting(true);
+                //timer.stop();
+                return;
+            }
+
+            // do one cycle
+            try {
+                counter +=1;
+                System.err.println("Sending packet " + counter);
+
+                MultiPingMsg payload = new MultiPingMsg();
+                payload = this.tm.sendNext();
+                if (payload==null){
+                    //timer.stop();
+                    gw.getTextArea().append("Dstal som prazdny payload. co teraz??? " + System.getProperty("line.separator"));
+                }
+                
+                moteIF.send(MoteIF.TOS_BCAST_ADDR, payload);
+
+                // let test manager know that message was sent sucessfully
+                this.tm.messageSent(payload);
+
+            } catch (IOException exception) {
+                // exception ?
+                System.err.println("Exception thrown when sending packets. Exiting.");
+                System.err.println(exception);
+            } catch (Exception ex) {
+                // i dont know such exception, handle in general way
+                Logger.getLogger(RSSI_controller.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            // move caret of textarea to the last printed character = autoscroll
+            gw.getTextArea().setCaretPosition(gw.getTextArea().getText().length());
+
+            return;
+          }
+
+          gw.getProgressLabel().setText("Working");
+          gw.getCommandLabel().setText("");
+
+       } catch (Exception ex) {
+            Logger.getLogger(RSSI_controller.class.getName()).log(Level.SEVERE, null, ex);
+        }
+  }
+
+    public void setGw(RSSI_graphView gw) {
+        this.gw = gw;
+    }
+
+    public int getNumMeassurement() {
+        return numMeassurement;
+    }
+
+    public void setNumMeassurement(int numMeassurement) {
+        this.numMeassurement = numMeassurement;
+    }
+
+    public boolean isWaiting() {
+        return waiting;
+    }
+
+    public void setWaiting(boolean waiting) {
+        this.waiting = waiting;
+    }
+
+    public boolean isFinished() {
+        return finished;
+    }
+    
+}

@@ -1,0 +1,10 @@
+/build/
+/dist/
+/nbproject/private/
+/nesC/nbproject/private/
+/db_backup/
+/docs/
+meassurements_sqlite_2
+meassurements_sqlite_2.ph4backup
+/libs/*/javadoc
+

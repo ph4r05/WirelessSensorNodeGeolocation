@@ -1,0 +1,1 @@
+SELECT *  FROM rssi2dist_measurement_data WHERE mid IN (SELECT mid FROM rssi2dist_measurement GROUP BY mid)

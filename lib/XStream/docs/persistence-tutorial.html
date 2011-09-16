@@ -1,0 +1,274 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<!--
+ Copyright (C) 2005, 2006 Joe Walnes.
+ Copyright (C) 2006, 2007, 2008 XStream committers.
+ All rights reserved.
+ 
+ The software in this package is published under the terms of the BSD
+ style license a copy of which has been included with this distribution in
+ the LICENSE.txt file.
+ 
+ Created on 29. January 2005 by Joe Walnes
+ -->
+    <head>
+        <title>XStream - Persistence API Tutorial</title>
+        <link rel="stylesheet" type="text/css" href="style.css"/>
+        
+    
+  
+
+        <!-- Google analytics -->
+        <script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
+        </script>
+        <script type="text/javascript">
+          _uacct = "UA-110973-2";
+          urchinTracker();
+        </script>
+
+    </head>
+    <body>
+
+        <div id="banner">
+            <a href="index.html"><img id="logo" src="logo.gif" alt="XStream"/></a>
+        </div>
+
+        <div id="center" class="Content2Column">  <!-- Content3Column for index -->
+            <div id="content">
+                <h1 class="FirstChild">Persistence API Tutorial</h1>
+
+                
+<h2 id="challenge">Challenge</h2>
+<p>Suppose that you need a easy way to persist some objects in the file system. Not just one, but a whole collection.
+The real problem arrives when you start using java.io API in order to create one output stream for each object, showing
+itself to be really painful - although simple.</p>
+<p>Imagine that you have the following Java class, a basic Author class (stolen from some other tutorial):</p>
+<div class="Source Java"><pre>package com.thoughtworks.xstream;
+
+public class Author {
+        private String name;
+        public Author(String name) {
+                this.name = name;
+        }
+        public String getName() {
+                return name;
+        }
+}</pre></div>
+<p>By using the XmlArrayList implementation of java.util.List you get an easy way to write all authors to disk</p>
+<p>The XmlArrayList (and related collections) receives a PersistenceStrategy during its construction. This Strategy decides
+what to do with each of its elements. The basic implementation - our need - is the FilePersistenceStrategy, capable of
+writing different files to a base directory.</p>
+<div class="Source Java"><pre>
+// prepares the file strategy to directory /tmp
+PersistenceStrategy strategy = new FilePersistenceStrategy(new File("/tmp"));
+</pre></div>
+<p>We can easily create an XmlArrayList from that strategy:</p>
+<div class="Source Java"><pre>
+// prepares the file strategy to directory /tmp
+PersistenceStrategy strategy = new FilePersistenceStrategy(new File("/tmp"));
+// creates the list:
+List list = new XmlArrayList(strategy);
+</pre></div>
+<h2 id="adding-elements">Adding elements</h2>
+<p>Now that we have an XmlArrayList object in our hands, we are able to add, remove and search for objects as usual.
+Let's add five authors and play around with our list:</p>
+<div class="Source Java"><pre>package org.codehaus.xstream.examples;
+
+public class AddAuthors {
+
+	public static void main(String[] args) {
+	
+		// prepares the file strategy to directory /tmp
+		PersistenceStrategy strategy = new FilePersistenceStrategy(new File("/tmp"));
+		// creates the list:
+		List list = new XmlArrayList(strategy);
+		
+		// adds four authors
+		list.add(new Author("joe walnes"));
+		list.add(new Author("joerg schaible"));
+		list.add(new Author("mauro talevi"));
+		list.add(new Author("guilherme silveira"));
+		
+		// adding an extra author
+		Author mistake = new Author("mama");
+		list.add(mistake);
+	
+	}
+}
+</pre></div>
+<p>If we check the /tmp directory, there are five files: int@1.xml, int@2.xml, int@3.xml, int@4.xml, int@5.xml, each
+one containing the XML serialized form of our authors.</p>
+<h2 id="playing">Playing around</h2>
+<p>Let's remove mama from the list and iterate over all authors:</p>
+<div class="Source Java"><pre>package org.codehaus.xstream.examples;
+
+public class RemoveMama {
+
+	public static void main(String[] args) {
+	
+		// prepares the file strategy to directory /tmp
+		PersistenceStrategy strategy = new FilePersistenceStrategy(new File("/tmp"));
+		// looks up the list:
+		List list = new XmlArrayList(strategy);
+		
+		// remember the list is still there! the files int@[1-5].xml are still in /tmp!
+		// the list was persisted!
+		
+		for(Iterator it = list.iterator(); it.hasNext(); ) {
+			Author author = (Author) it.next();
+			if(author.getName().equals("mama")) {
+				System.out.println("Removing mama...");
+				it.remove();
+			} else {
+				System.out.println("Keeping " + author.getName());
+			}
+		}
+	
+	}
+}
+</pre></div>
+<p>The result?</p>
+<div class="Source Java"><pre>Keeping joe walnes
+Keeping joerg schaible
+Keeping mauro talevi
+Keeping guilherme silveira
+Removing mama...
+</pre></div>
+<h2 id="converter">Local Converter</h2>
+<p>Another use case is to split the XML into master/detail documents by declaring a local converter for a collection
+(or map) based on the collection types in XStream's persistence package. Think about a volume grouping different type of documents:</p>
+<div class="Source Java"><pre>public abstract class AbstractDocument {
+	String title;
+} 
+public class TextDocument extends AbstractDocument {
+	List chapters = new ArrayList();
+} 
+public class ScannedDocument {
+	List images = new ArrayList();
+} 
+public Volume {
+	List documents = new ArrayList();
+}
+</pre></div>
+<p>The documents might be big (especially the ones with the scanned pages), therefore it might be nice to separate each
+document into an own file. With the help of a local converter utilizing an XmlArrayList this is straight forward:</p>
+<div class="Source Java"><pre>public final class PersistenceArrayListConverter implements Converter {
+	private XStream xstream;
+	
+	public PersistenceArrayListConverter(XStream xstream) {
+		this.xstream = xstream;
+	}
+
+	public void marshal(Object source, HierarchicalStreamWriter writer, MarshallingContext context) {
+		File dir = new File(System.getProperty("user.home"), "documents");
+		XmlArrayList list = new XmlArrayList(new FilePersistenceStrategy(dir, xstream));
+		context.convertAnother(dir);
+		list.addAll((Collection)source); // generate the external files
+	}
+
+	public Object unmarshal(HierarchicalStreamReader reader, UnmarshallingContext context) {
+		File directory = (File)context.convertAnother(null, File.class);
+		XmlArrayList persistentList = new XmlArrayList(new FilePersistenceStrategy(directory, xstream));
+		ArrayList list = new ArrayList(persistentList); // read all files
+		persistentList.clear(); // remove files
+		return list;
+	}
+
+	public boolean canConvert(Class type) {
+		return type == ArrayList.class;
+	}
+}
+</pre></div>
+<p>This converter will use a given XStream to store each element of an ArrayList into an own file located in the user's home
+directory in the folder <em>documents</em>. The <em>master</em> XML will now contain the name of the target folder
+instead of the marshalled documents. In our case those documents are destroyed if the volume is unmarshalled again. See the
+initialization of the XStream:</p>
+<div class="Source Java"><pre>XStream = new XStream();
+xstream.alias("volume", Volume.class);
+xstream.registerLocalConverter(Volume.class, "documents", new PersistenceArrayListConverter(xstream));
+
+Volume volume = new Volume();
+volume.documents.addAll(...); // add a lot of documents
+String xml = xstream.toXML(volume);
+</pre></div>
+<p>The resulting XML will be very simple:</p>
+<div class="Source XML"><pre>&lt;volume&gt;~/documents&lt;/volume&gt;
+</pre></div>
+<p>The documents can be found in individual files in the target folder with names like <em>int@&lt;index&gt;.xml</em>.</p>
+
+<h2 id="further">Going further</h2>
+<p>From this point on, you can implement different PersistentStrategy algorithms in order to generate other behaviour (e.g. 
+persisting the objects in a database) using your XmlArrayList collection, or try the other implementations: XmlSet and XmlMap
+and you may create your own local converters. As an alternative to a converter you might use the persistent collection type
+directly as member instance, the effect is similar - give it a try!</p>
+
+<p>See also <a href="http://code.google.com/p/xbird/">XBird</a> that makes usage of this XStream API to support object
+persistence.</p>
+
+  
+
+                <br/>
+
+            </div>
+        </div>
+
+        <div class="SidePanel" id="left">
+                <div class="MenuGroup">
+                    <h1>Software</h1>
+                    <ul>
+                                <li><a href="index.html">About XStream</a></li>
+                                <li><a href="news.html">News</a></li>
+                                <li><a href="changes.html">Change History</a></li>
+                                <li><a href="versioning.html">About Versioning</a></li>
+                    </ul>
+                </div>
+                <div class="MenuGroup">
+                    <h1>Evaluating XStream</h1>
+                    <ul>
+                                <li><a href="tutorial.html">Two Minute Tutorial</a></li>
+                                <li><a href="graphs.html">Object references</a></li>
+                                <li><a href="manual-tweaking-output.html">Tweaking the Output</a></li>
+                                <li><a href="license.html">License</a></li>
+                                <li><a href="download.html">Download</a></li>
+                                <li><a href="references.html">References</a></li>
+                                <li><a href="http://www.ohloh.net/projects/3459">Statistics</a></li>
+                    </ul>
+                </div>
+                <div class="MenuGroup">
+                    <h1>Using XStream</h1>
+                    <ul>
+                                <li><a href="architecture.html">Architecture Overview</a></li>
+                                <li><a href="converters.html">Converters</a></li>
+                                <li><a href="faq.html">Frequently Asked Questions</a></li>
+                                <li><a href="list-user.html">Users' Mailing List</a></li>
+                                <li><a href="javadoc/index.html">JavaDoc Core</a></li>
+                                <li><a href="benchmark-javadoc/index.html">JavaDoc Benchmark</a></li>
+                                <li><a href="issues.html">Reporting Issues</a></li>
+                    </ul>
+                </div>
+                <div class="MenuGroup">
+                    <h1>Tutorials</h1>
+                    <ul>
+                                <li><a href="tutorial.html">Two Minute Tutorial</a></li>
+                                <li><a href="alias-tutorial.html">Alias Tutorial</a></li>
+                                <li><a href="annotations-tutorial.html">Annotations Tutorial</a></li>
+                                <li><a href="converter-tutorial.html">Converter Tutorial</a></li>
+                                <li><a href="objectstream.html">Object Streams Tutorial</a></li>
+                                <li class="currentLink">Persistence API Tutorial</li>
+                                <li><a href="json-tutorial.html">JSON Tutorial</a></li>
+                    </ul>
+                </div>
+                <div class="MenuGroup">
+                    <h1>Developing XStream</h1>
+                    <ul>
+                                <li><a href="how-to-contribute.html">How to Contribute</a></li>
+                                <li><a href="list-dev.html">Developers' Mailing List</a></li>
+                                <li><a href="team.html">Development Team</a></li>
+                                <li><a href="repository.html">Source Repository</a></li>
+                                <li><a href="http://bamboo.ci.codehaus.org/browse/XSTREAM">Continuous Integration</a></li>
+                    </ul>
+                </div>
+        </div>
+
+  </body>
+</html>

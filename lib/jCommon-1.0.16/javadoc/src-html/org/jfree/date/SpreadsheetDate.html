@@ -1,0 +1,527 @@
+<HTML>
+<BODY BGCOLOR="white">
+<PRE>
+<FONT color="green">001</FONT>    /* ========================================================================<a name="line.1"></a>
+<FONT color="green">002</FONT>     * JCommon : a free general purpose class library for the Java(tm) platform<a name="line.2"></a>
+<FONT color="green">003</FONT>     * ========================================================================<a name="line.3"></a>
+<FONT color="green">004</FONT>     *<a name="line.4"></a>
+<FONT color="green">005</FONT>     * (C) Copyright 2000-2006, by Object Refinery Limited and Contributors.<a name="line.5"></a>
+<FONT color="green">006</FONT>     * <a name="line.6"></a>
+<FONT color="green">007</FONT>     * Project Info:  http://www.jfree.org/jcommon/index.html<a name="line.7"></a>
+<FONT color="green">008</FONT>     *<a name="line.8"></a>
+<FONT color="green">009</FONT>     * This library is free software; you can redistribute it and/or modify it <a name="line.9"></a>
+<FONT color="green">010</FONT>     * under the terms of the GNU Lesser General Public License as published by <a name="line.10"></a>
+<FONT color="green">011</FONT>     * the Free Software Foundation; either version 2.1 of the License, or <a name="line.11"></a>
+<FONT color="green">012</FONT>     * (at your option) any later version.<a name="line.12"></a>
+<FONT color="green">013</FONT>     *<a name="line.13"></a>
+<FONT color="green">014</FONT>     * This library is distributed in the hope that it will be useful, but <a name="line.14"></a>
+<FONT color="green">015</FONT>     * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY <a name="line.15"></a>
+<FONT color="green">016</FONT>     * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public <a name="line.16"></a>
+<FONT color="green">017</FONT>     * License for more details.<a name="line.17"></a>
+<FONT color="green">018</FONT>     *<a name="line.18"></a>
+<FONT color="green">019</FONT>     * You should have received a copy of the GNU Lesser General Public<a name="line.19"></a>
+<FONT color="green">020</FONT>     * License along with this library; if not, write to the Free Software<a name="line.20"></a>
+<FONT color="green">021</FONT>     * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, <a name="line.21"></a>
+<FONT color="green">022</FONT>     * USA.  <a name="line.22"></a>
+<FONT color="green">023</FONT>     *<a name="line.23"></a>
+<FONT color="green">024</FONT>     * [Java is a trademark or registered trademark of Sun Microsystems, Inc. <a name="line.24"></a>
+<FONT color="green">025</FONT>     * in the United States and other countries.]<a name="line.25"></a>
+<FONT color="green">026</FONT>     *<a name="line.26"></a>
+<FONT color="green">027</FONT>     * --------------------<a name="line.27"></a>
+<FONT color="green">028</FONT>     * SpreadsheetDate.java<a name="line.28"></a>
+<FONT color="green">029</FONT>     * --------------------<a name="line.29"></a>
+<FONT color="green">030</FONT>     * (C) Copyright 2000-2006, by Object Refinery Limited and Contributors.<a name="line.30"></a>
+<FONT color="green">031</FONT>     *<a name="line.31"></a>
+<FONT color="green">032</FONT>     * Original Author:  David Gilbert (for Object Refinery Limited);<a name="line.32"></a>
+<FONT color="green">033</FONT>     * Contributor(s):   -;<a name="line.33"></a>
+<FONT color="green">034</FONT>     *<a name="line.34"></a>
+<FONT color="green">035</FONT>     * $Id: SpreadsheetDate.java,v 1.10 2006/08/29 13:59:30 mungady Exp $<a name="line.35"></a>
+<FONT color="green">036</FONT>     *<a name="line.36"></a>
+<FONT color="green">037</FONT>     * Changes<a name="line.37"></a>
+<FONT color="green">038</FONT>     * -------<a name="line.38"></a>
+<FONT color="green">039</FONT>     * 11-Oct-2001 : Version 1 (DG);<a name="line.39"></a>
+<FONT color="green">040</FONT>     * 05-Nov-2001 : Added getDescription() and setDescription() methods (DG);<a name="line.40"></a>
+<FONT color="green">041</FONT>     * 12-Nov-2001 : Changed name from ExcelDate.java to SpreadsheetDate.java (DG);<a name="line.41"></a>
+<FONT color="green">042</FONT>     *               Fixed a bug in calculating day, month and year from serial <a name="line.42"></a>
+<FONT color="green">043</FONT>     *               number (DG);<a name="line.43"></a>
+<FONT color="green">044</FONT>     * 24-Jan-2002 : Fixed a bug in calculating the serial number from the day, <a name="line.44"></a>
+<FONT color="green">045</FONT>     *               month and year.  Thanks to Trevor Hills for the report (DG);<a name="line.45"></a>
+<FONT color="green">046</FONT>     * 29-May-2002 : Added equals(Object) method (SourceForge ID 558850) (DG);<a name="line.46"></a>
+<FONT color="green">047</FONT>     * 03-Oct-2002 : Fixed errors reported by Checkstyle (DG);<a name="line.47"></a>
+<FONT color="green">048</FONT>     * 13-Mar-2003 : Implemented Serializable (DG);<a name="line.48"></a>
+<FONT color="green">049</FONT>     * 04-Sep-2003 : Completed isInRange() methods (DG);<a name="line.49"></a>
+<FONT color="green">050</FONT>     * 05-Sep-2003 : Implemented Comparable (DG);<a name="line.50"></a>
+<FONT color="green">051</FONT>     * 21-Oct-2003 : Added hashCode() method (DG);<a name="line.51"></a>
+<FONT color="green">052</FONT>     * 29-Aug-2006 : Removed redundant description attribute (DG);<a name="line.52"></a>
+<FONT color="green">053</FONT>     *<a name="line.53"></a>
+<FONT color="green">054</FONT>     */<a name="line.54"></a>
+<FONT color="green">055</FONT>    <a name="line.55"></a>
+<FONT color="green">056</FONT>    package org.jfree.date;<a name="line.56"></a>
+<FONT color="green">057</FONT>    <a name="line.57"></a>
+<FONT color="green">058</FONT>    import java.util.Calendar;<a name="line.58"></a>
+<FONT color="green">059</FONT>    import java.util.Date;<a name="line.59"></a>
+<FONT color="green">060</FONT>    <a name="line.60"></a>
+<FONT color="green">061</FONT>    /**<a name="line.61"></a>
+<FONT color="green">062</FONT>     * Represents a date using an integer, in a similar fashion to the<a name="line.62"></a>
+<FONT color="green">063</FONT>     * implementation in Microsoft Excel.  The range of dates supported is<a name="line.63"></a>
+<FONT color="green">064</FONT>     * 1-Jan-1900 to 31-Dec-9999.<a name="line.64"></a>
+<FONT color="green">065</FONT>     * &lt;P&gt;<a name="line.65"></a>
+<FONT color="green">066</FONT>     * Be aware that there is a deliberate bug in Excel that recognises the year<a name="line.66"></a>
+<FONT color="green">067</FONT>     * 1900 as a leap year when in fact it is not a leap year. You can find more<a name="line.67"></a>
+<FONT color="green">068</FONT>     * information on the Microsoft website in article Q181370:<a name="line.68"></a>
+<FONT color="green">069</FONT>     * &lt;P&gt;<a name="line.69"></a>
+<FONT color="green">070</FONT>     * http://support.microsoft.com/support/kb/articles/Q181/3/70.asp<a name="line.70"></a>
+<FONT color="green">071</FONT>     * &lt;P&gt;<a name="line.71"></a>
+<FONT color="green">072</FONT>     * Excel uses the convention that 1-Jan-1900 = 1.  This class uses the<a name="line.72"></a>
+<FONT color="green">073</FONT>     * convention 1-Jan-1900 = 2.<a name="line.73"></a>
+<FONT color="green">074</FONT>     * The result is that the day number in this class will be different to the<a name="line.74"></a>
+<FONT color="green">075</FONT>     * Excel figure for January and February 1900...but then Excel adds in an extra<a name="line.75"></a>
+<FONT color="green">076</FONT>     * day (29-Feb-1900 which does not actually exist!) and from that point forward<a name="line.76"></a>
+<FONT color="green">077</FONT>     * the day numbers will match.<a name="line.77"></a>
+<FONT color="green">078</FONT>     *<a name="line.78"></a>
+<FONT color="green">079</FONT>     * @author David Gilbert<a name="line.79"></a>
+<FONT color="green">080</FONT>     */<a name="line.80"></a>
+<FONT color="green">081</FONT>    public class SpreadsheetDate extends SerialDate {<a name="line.81"></a>
+<FONT color="green">082</FONT>    <a name="line.82"></a>
+<FONT color="green">083</FONT>        /** For serialization. */<a name="line.83"></a>
+<FONT color="green">084</FONT>        private static final long serialVersionUID = -2039586705374454461L;<a name="line.84"></a>
+<FONT color="green">085</FONT>        <a name="line.85"></a>
+<FONT color="green">086</FONT>        /** <a name="line.86"></a>
+<FONT color="green">087</FONT>         * The day number (1-Jan-1900 = 2, 2-Jan-1900 = 3, ..., 31-Dec-9999 = <a name="line.87"></a>
+<FONT color="green">088</FONT>         * 2958465). <a name="line.88"></a>
+<FONT color="green">089</FONT>         */<a name="line.89"></a>
+<FONT color="green">090</FONT>        private final int serial;<a name="line.90"></a>
+<FONT color="green">091</FONT>    <a name="line.91"></a>
+<FONT color="green">092</FONT>        /** The day of the month (1 to 28, 29, 30 or 31 depending on the month). */<a name="line.92"></a>
+<FONT color="green">093</FONT>        private final int day;<a name="line.93"></a>
+<FONT color="green">094</FONT>    <a name="line.94"></a>
+<FONT color="green">095</FONT>        /** The month of the year (1 to 12). */<a name="line.95"></a>
+<FONT color="green">096</FONT>        private final int month;<a name="line.96"></a>
+<FONT color="green">097</FONT>    <a name="line.97"></a>
+<FONT color="green">098</FONT>        /** The year (1900 to 9999). */<a name="line.98"></a>
+<FONT color="green">099</FONT>        private final int year;<a name="line.99"></a>
+<FONT color="green">100</FONT>    <a name="line.100"></a>
+<FONT color="green">101</FONT>        /**<a name="line.101"></a>
+<FONT color="green">102</FONT>         * Creates a new date instance.<a name="line.102"></a>
+<FONT color="green">103</FONT>         *<a name="line.103"></a>
+<FONT color="green">104</FONT>         * @param day  the day (in the range 1 to 28/29/30/31).<a name="line.104"></a>
+<FONT color="green">105</FONT>         * @param month  the month (in the range 1 to 12).<a name="line.105"></a>
+<FONT color="green">106</FONT>         * @param year  the year (in the range 1900 to 9999).<a name="line.106"></a>
+<FONT color="green">107</FONT>         */<a name="line.107"></a>
+<FONT color="green">108</FONT>        public SpreadsheetDate(final int day, final int month, final int year) {<a name="line.108"></a>
+<FONT color="green">109</FONT>    <a name="line.109"></a>
+<FONT color="green">110</FONT>            if ((year &gt;= 1900) &amp;&amp; (year &lt;= 9999)) {<a name="line.110"></a>
+<FONT color="green">111</FONT>                this.year = year;<a name="line.111"></a>
+<FONT color="green">112</FONT>            }<a name="line.112"></a>
+<FONT color="green">113</FONT>            else {<a name="line.113"></a>
+<FONT color="green">114</FONT>                throw new IllegalArgumentException(<a name="line.114"></a>
+<FONT color="green">115</FONT>                    "The 'year' argument must be in range 1900 to 9999."<a name="line.115"></a>
+<FONT color="green">116</FONT>                );<a name="line.116"></a>
+<FONT color="green">117</FONT>            }<a name="line.117"></a>
+<FONT color="green">118</FONT>    <a name="line.118"></a>
+<FONT color="green">119</FONT>            if ((month &gt;= MonthConstants.JANUARY) <a name="line.119"></a>
+<FONT color="green">120</FONT>                    &amp;&amp; (month &lt;= MonthConstants.DECEMBER)) {<a name="line.120"></a>
+<FONT color="green">121</FONT>                this.month = month;<a name="line.121"></a>
+<FONT color="green">122</FONT>            }<a name="line.122"></a>
+<FONT color="green">123</FONT>            else {<a name="line.123"></a>
+<FONT color="green">124</FONT>                throw new IllegalArgumentException(<a name="line.124"></a>
+<FONT color="green">125</FONT>                    "The 'month' argument must be in the range 1 to 12."<a name="line.125"></a>
+<FONT color="green">126</FONT>                );<a name="line.126"></a>
+<FONT color="green">127</FONT>            }<a name="line.127"></a>
+<FONT color="green">128</FONT>    <a name="line.128"></a>
+<FONT color="green">129</FONT>            if ((day &gt;= 1) &amp;&amp; (day &lt;= SerialDate.lastDayOfMonth(month, year))) {<a name="line.129"></a>
+<FONT color="green">130</FONT>                this.day = day;<a name="line.130"></a>
+<FONT color="green">131</FONT>            }<a name="line.131"></a>
+<FONT color="green">132</FONT>            else {<a name="line.132"></a>
+<FONT color="green">133</FONT>                throw new IllegalArgumentException("Invalid 'day' argument.");<a name="line.133"></a>
+<FONT color="green">134</FONT>            }<a name="line.134"></a>
+<FONT color="green">135</FONT>    <a name="line.135"></a>
+<FONT color="green">136</FONT>            // the serial number needs to be synchronised with the day-month-year...<a name="line.136"></a>
+<FONT color="green">137</FONT>            this.serial = calcSerial(day, month, year);<a name="line.137"></a>
+<FONT color="green">138</FONT>    <a name="line.138"></a>
+<FONT color="green">139</FONT>        }<a name="line.139"></a>
+<FONT color="green">140</FONT>    <a name="line.140"></a>
+<FONT color="green">141</FONT>        /**<a name="line.141"></a>
+<FONT color="green">142</FONT>         * Standard constructor - creates a new date object representing the<a name="line.142"></a>
+<FONT color="green">143</FONT>         * specified day number (which should be in the range 2 to 2958465.<a name="line.143"></a>
+<FONT color="green">144</FONT>         *<a name="line.144"></a>
+<FONT color="green">145</FONT>         * @param serial  the serial number for the day (range: 2 to 2958465).<a name="line.145"></a>
+<FONT color="green">146</FONT>         */<a name="line.146"></a>
+<FONT color="green">147</FONT>        public SpreadsheetDate(final int serial) {<a name="line.147"></a>
+<FONT color="green">148</FONT>    <a name="line.148"></a>
+<FONT color="green">149</FONT>            if ((serial &gt;= SERIAL_LOWER_BOUND) &amp;&amp; (serial &lt;= SERIAL_UPPER_BOUND)) {<a name="line.149"></a>
+<FONT color="green">150</FONT>                this.serial = serial;<a name="line.150"></a>
+<FONT color="green">151</FONT>            }<a name="line.151"></a>
+<FONT color="green">152</FONT>            else {<a name="line.152"></a>
+<FONT color="green">153</FONT>                throw new IllegalArgumentException(<a name="line.153"></a>
+<FONT color="green">154</FONT>                    "SpreadsheetDate: Serial must be in range 2 to 2958465.");<a name="line.154"></a>
+<FONT color="green">155</FONT>            }<a name="line.155"></a>
+<FONT color="green">156</FONT>    <a name="line.156"></a>
+<FONT color="green">157</FONT>            // the day-month-year needs to be synchronised with the serial number...<a name="line.157"></a>
+<FONT color="green">158</FONT>          // get the year from the serial date<a name="line.158"></a>
+<FONT color="green">159</FONT>          final int days = this.serial - SERIAL_LOWER_BOUND;<a name="line.159"></a>
+<FONT color="green">160</FONT>          // overestimated because we ignored leap days<a name="line.160"></a>
+<FONT color="green">161</FONT>          final int overestimatedYYYY = 1900 + (days / 365);<a name="line.161"></a>
+<FONT color="green">162</FONT>          final int leaps = SerialDate.leapYearCount(overestimatedYYYY);<a name="line.162"></a>
+<FONT color="green">163</FONT>          final int nonleapdays = days - leaps;<a name="line.163"></a>
+<FONT color="green">164</FONT>          // underestimated because we overestimated years<a name="line.164"></a>
+<FONT color="green">165</FONT>          int underestimatedYYYY = 1900 + (nonleapdays / 365);<a name="line.165"></a>
+<FONT color="green">166</FONT>    <a name="line.166"></a>
+<FONT color="green">167</FONT>          if (underestimatedYYYY == overestimatedYYYY) {<a name="line.167"></a>
+<FONT color="green">168</FONT>              this.year = underestimatedYYYY;<a name="line.168"></a>
+<FONT color="green">169</FONT>          }<a name="line.169"></a>
+<FONT color="green">170</FONT>          else {<a name="line.170"></a>
+<FONT color="green">171</FONT>              int ss1 = calcSerial(1, 1, underestimatedYYYY);<a name="line.171"></a>
+<FONT color="green">172</FONT>              while (ss1 &lt;= this.serial) {<a name="line.172"></a>
+<FONT color="green">173</FONT>                  underestimatedYYYY = underestimatedYYYY + 1;<a name="line.173"></a>
+<FONT color="green">174</FONT>                  ss1 = calcSerial(1, 1, underestimatedYYYY);<a name="line.174"></a>
+<FONT color="green">175</FONT>              }<a name="line.175"></a>
+<FONT color="green">176</FONT>              this.year = underestimatedYYYY - 1;<a name="line.176"></a>
+<FONT color="green">177</FONT>          }<a name="line.177"></a>
+<FONT color="green">178</FONT>    <a name="line.178"></a>
+<FONT color="green">179</FONT>          final int ss2 = calcSerial(1, 1, this.year);<a name="line.179"></a>
+<FONT color="green">180</FONT>    <a name="line.180"></a>
+<FONT color="green">181</FONT>          int[] daysToEndOfPrecedingMonth <a name="line.181"></a>
+<FONT color="green">182</FONT>              = AGGREGATE_DAYS_TO_END_OF_PRECEDING_MONTH;<a name="line.182"></a>
+<FONT color="green">183</FONT>    <a name="line.183"></a>
+<FONT color="green">184</FONT>          if (isLeapYear(this.year)) {<a name="line.184"></a>
+<FONT color="green">185</FONT>              daysToEndOfPrecedingMonth <a name="line.185"></a>
+<FONT color="green">186</FONT>                  = LEAP_YEAR_AGGREGATE_DAYS_TO_END_OF_PRECEDING_MONTH;<a name="line.186"></a>
+<FONT color="green">187</FONT>          }<a name="line.187"></a>
+<FONT color="green">188</FONT>    <a name="line.188"></a>
+<FONT color="green">189</FONT>          // get the month from the serial date<a name="line.189"></a>
+<FONT color="green">190</FONT>          int mm = 1;<a name="line.190"></a>
+<FONT color="green">191</FONT>          int sss = ss2 + daysToEndOfPrecedingMonth[mm] - 1;<a name="line.191"></a>
+<FONT color="green">192</FONT>          while (sss &lt; this.serial) {<a name="line.192"></a>
+<FONT color="green">193</FONT>              mm = mm + 1;<a name="line.193"></a>
+<FONT color="green">194</FONT>              sss = ss2 + daysToEndOfPrecedingMonth[mm] - 1;<a name="line.194"></a>
+<FONT color="green">195</FONT>          }<a name="line.195"></a>
+<FONT color="green">196</FONT>          this.month = mm - 1;<a name="line.196"></a>
+<FONT color="green">197</FONT>    <a name="line.197"></a>
+<FONT color="green">198</FONT>          // what's left is d(+1);<a name="line.198"></a>
+<FONT color="green">199</FONT>          this.day = this.serial - ss2 <a name="line.199"></a>
+<FONT color="green">200</FONT>                     - daysToEndOfPrecedingMonth[this.month] + 1;<a name="line.200"></a>
+<FONT color="green">201</FONT>    <a name="line.201"></a>
+<FONT color="green">202</FONT>        }<a name="line.202"></a>
+<FONT color="green">203</FONT>    <a name="line.203"></a>
+<FONT color="green">204</FONT>        /**<a name="line.204"></a>
+<FONT color="green">205</FONT>         * Returns the serial number for the date, where 1 January 1900 = 2<a name="line.205"></a>
+<FONT color="green">206</FONT>         * (this corresponds, almost, to the numbering system used in Microsoft<a name="line.206"></a>
+<FONT color="green">207</FONT>         * Excel for Windows and Lotus 1-2-3).<a name="line.207"></a>
+<FONT color="green">208</FONT>         *<a name="line.208"></a>
+<FONT color="green">209</FONT>         * @return The serial number of this date.<a name="line.209"></a>
+<FONT color="green">210</FONT>         */<a name="line.210"></a>
+<FONT color="green">211</FONT>        public int toSerial() {<a name="line.211"></a>
+<FONT color="green">212</FONT>            return this.serial;<a name="line.212"></a>
+<FONT color="green">213</FONT>        }<a name="line.213"></a>
+<FONT color="green">214</FONT>    <a name="line.214"></a>
+<FONT color="green">215</FONT>        /**<a name="line.215"></a>
+<FONT color="green">216</FONT>         * Returns a &lt;code&gt;java.util.Date&lt;/code&gt; equivalent to this date.<a name="line.216"></a>
+<FONT color="green">217</FONT>         *<a name="line.217"></a>
+<FONT color="green">218</FONT>         * @return The date.<a name="line.218"></a>
+<FONT color="green">219</FONT>         */<a name="line.219"></a>
+<FONT color="green">220</FONT>        public Date toDate() {<a name="line.220"></a>
+<FONT color="green">221</FONT>            final Calendar calendar = Calendar.getInstance();<a name="line.221"></a>
+<FONT color="green">222</FONT>            calendar.set(getYYYY(), getMonth() - 1, getDayOfMonth(), 0, 0, 0);<a name="line.222"></a>
+<FONT color="green">223</FONT>            return calendar.getTime();<a name="line.223"></a>
+<FONT color="green">224</FONT>        }<a name="line.224"></a>
+<FONT color="green">225</FONT>    <a name="line.225"></a>
+<FONT color="green">226</FONT>        /**<a name="line.226"></a>
+<FONT color="green">227</FONT>         * Returns the year (assume a valid range of 1900 to 9999).<a name="line.227"></a>
+<FONT color="green">228</FONT>         *<a name="line.228"></a>
+<FONT color="green">229</FONT>         * @return The year.<a name="line.229"></a>
+<FONT color="green">230</FONT>         */<a name="line.230"></a>
+<FONT color="green">231</FONT>        public int getYYYY() {<a name="line.231"></a>
+<FONT color="green">232</FONT>            return this.year;<a name="line.232"></a>
+<FONT color="green">233</FONT>        }<a name="line.233"></a>
+<FONT color="green">234</FONT>    <a name="line.234"></a>
+<FONT color="green">235</FONT>        /**<a name="line.235"></a>
+<FONT color="green">236</FONT>         * Returns the month (January = 1, February = 2, March = 3).<a name="line.236"></a>
+<FONT color="green">237</FONT>         *<a name="line.237"></a>
+<FONT color="green">238</FONT>         * @return The month of the year.<a name="line.238"></a>
+<FONT color="green">239</FONT>         */<a name="line.239"></a>
+<FONT color="green">240</FONT>        public int getMonth() {<a name="line.240"></a>
+<FONT color="green">241</FONT>            return this.month;<a name="line.241"></a>
+<FONT color="green">242</FONT>        }<a name="line.242"></a>
+<FONT color="green">243</FONT>    <a name="line.243"></a>
+<FONT color="green">244</FONT>        /**<a name="line.244"></a>
+<FONT color="green">245</FONT>         * Returns the day of the month.<a name="line.245"></a>
+<FONT color="green">246</FONT>         *<a name="line.246"></a>
+<FONT color="green">247</FONT>         * @return The day of the month.<a name="line.247"></a>
+<FONT color="green">248</FONT>         */<a name="line.248"></a>
+<FONT color="green">249</FONT>        public int getDayOfMonth() {<a name="line.249"></a>
+<FONT color="green">250</FONT>            return this.day;<a name="line.250"></a>
+<FONT color="green">251</FONT>        }<a name="line.251"></a>
+<FONT color="green">252</FONT>    <a name="line.252"></a>
+<FONT color="green">253</FONT>        /**<a name="line.253"></a>
+<FONT color="green">254</FONT>         * Returns a code representing the day of the week.<a name="line.254"></a>
+<FONT color="green">255</FONT>         * &lt;P&gt;<a name="line.255"></a>
+<FONT color="green">256</FONT>         * The codes are defined in the {@link SerialDate} class as: <a name="line.256"></a>
+<FONT color="green">257</FONT>         * &lt;code&gt;SUNDAY&lt;/code&gt;, &lt;code&gt;MONDAY&lt;/code&gt;, &lt;code&gt;TUESDAY&lt;/code&gt;, <a name="line.257"></a>
+<FONT color="green">258</FONT>         * &lt;code&gt;WEDNESDAY&lt;/code&gt;, &lt;code&gt;THURSDAY&lt;/code&gt;, &lt;code&gt;FRIDAY&lt;/code&gt;, and <a name="line.258"></a>
+<FONT color="green">259</FONT>         * &lt;code&gt;SATURDAY&lt;/code&gt;.<a name="line.259"></a>
+<FONT color="green">260</FONT>         *<a name="line.260"></a>
+<FONT color="green">261</FONT>         * @return A code representing the day of the week.<a name="line.261"></a>
+<FONT color="green">262</FONT>         */<a name="line.262"></a>
+<FONT color="green">263</FONT>        public int getDayOfWeek() {<a name="line.263"></a>
+<FONT color="green">264</FONT>            return (this.serial + 6) % 7 + 1;<a name="line.264"></a>
+<FONT color="green">265</FONT>        }<a name="line.265"></a>
+<FONT color="green">266</FONT>    <a name="line.266"></a>
+<FONT color="green">267</FONT>        /**<a name="line.267"></a>
+<FONT color="green">268</FONT>         * Tests the equality of this date with an arbitrary object.<a name="line.268"></a>
+<FONT color="green">269</FONT>         * &lt;P&gt;<a name="line.269"></a>
+<FONT color="green">270</FONT>         * This method will return true ONLY if the object is an instance of the<a name="line.270"></a>
+<FONT color="green">271</FONT>         * {@link SerialDate} base class, and it represents the same day as this<a name="line.271"></a>
+<FONT color="green">272</FONT>         * {@link SpreadsheetDate}.<a name="line.272"></a>
+<FONT color="green">273</FONT>         *<a name="line.273"></a>
+<FONT color="green">274</FONT>         * @param object  the object to compare (&lt;code&gt;null&lt;/code&gt; permitted).<a name="line.274"></a>
+<FONT color="green">275</FONT>         *<a name="line.275"></a>
+<FONT color="green">276</FONT>         * @return A boolean.<a name="line.276"></a>
+<FONT color="green">277</FONT>         */<a name="line.277"></a>
+<FONT color="green">278</FONT>        public boolean equals(final Object object) {<a name="line.278"></a>
+<FONT color="green">279</FONT>    <a name="line.279"></a>
+<FONT color="green">280</FONT>            if (object instanceof SerialDate) {<a name="line.280"></a>
+<FONT color="green">281</FONT>                final SerialDate s = (SerialDate) object;<a name="line.281"></a>
+<FONT color="green">282</FONT>                return (s.toSerial() == this.toSerial());<a name="line.282"></a>
+<FONT color="green">283</FONT>            }<a name="line.283"></a>
+<FONT color="green">284</FONT>            else {<a name="line.284"></a>
+<FONT color="green">285</FONT>                return false;<a name="line.285"></a>
+<FONT color="green">286</FONT>            }<a name="line.286"></a>
+<FONT color="green">287</FONT>    <a name="line.287"></a>
+<FONT color="green">288</FONT>        }<a name="line.288"></a>
+<FONT color="green">289</FONT>    <a name="line.289"></a>
+<FONT color="green">290</FONT>        /**<a name="line.290"></a>
+<FONT color="green">291</FONT>         * Returns a hash code for this object instance.<a name="line.291"></a>
+<FONT color="green">292</FONT>         * <a name="line.292"></a>
+<FONT color="green">293</FONT>         * @return A hash code.<a name="line.293"></a>
+<FONT color="green">294</FONT>         */<a name="line.294"></a>
+<FONT color="green">295</FONT>        public int hashCode() {<a name="line.295"></a>
+<FONT color="green">296</FONT>            return toSerial();<a name="line.296"></a>
+<FONT color="green">297</FONT>        }<a name="line.297"></a>
+<FONT color="green">298</FONT>    <a name="line.298"></a>
+<FONT color="green">299</FONT>        /**<a name="line.299"></a>
+<FONT color="green">300</FONT>         * Returns the difference (in days) between this date and the specified <a name="line.300"></a>
+<FONT color="green">301</FONT>         * 'other' date.<a name="line.301"></a>
+<FONT color="green">302</FONT>         *<a name="line.302"></a>
+<FONT color="green">303</FONT>         * @param other  the date being compared to.<a name="line.303"></a>
+<FONT color="green">304</FONT>         *<a name="line.304"></a>
+<FONT color="green">305</FONT>         * @return The difference (in days) between this date and the specified <a name="line.305"></a>
+<FONT color="green">306</FONT>         *         'other' date.<a name="line.306"></a>
+<FONT color="green">307</FONT>         */<a name="line.307"></a>
+<FONT color="green">308</FONT>        public int compare(final SerialDate other) {<a name="line.308"></a>
+<FONT color="green">309</FONT>            return this.serial - other.toSerial();<a name="line.309"></a>
+<FONT color="green">310</FONT>        }<a name="line.310"></a>
+<FONT color="green">311</FONT>    <a name="line.311"></a>
+<FONT color="green">312</FONT>        /**<a name="line.312"></a>
+<FONT color="green">313</FONT>         * Implements the method required by the Comparable interface.<a name="line.313"></a>
+<FONT color="green">314</FONT>         * <a name="line.314"></a>
+<FONT color="green">315</FONT>         * @param other  the other object (usually another SerialDate).<a name="line.315"></a>
+<FONT color="green">316</FONT>         * <a name="line.316"></a>
+<FONT color="green">317</FONT>         * @return A negative integer, zero, or a positive integer as this object <a name="line.317"></a>
+<FONT color="green">318</FONT>         *         is less than, equal to, or greater than the specified object.<a name="line.318"></a>
+<FONT color="green">319</FONT>         */<a name="line.319"></a>
+<FONT color="green">320</FONT>        public int compareTo(final Object other) {<a name="line.320"></a>
+<FONT color="green">321</FONT>            return compare((SerialDate) other);    <a name="line.321"></a>
+<FONT color="green">322</FONT>        }<a name="line.322"></a>
+<FONT color="green">323</FONT>        <a name="line.323"></a>
+<FONT color="green">324</FONT>        /**<a name="line.324"></a>
+<FONT color="green">325</FONT>         * Returns true if this SerialDate represents the same date as the<a name="line.325"></a>
+<FONT color="green">326</FONT>         * specified SerialDate.<a name="line.326"></a>
+<FONT color="green">327</FONT>         *<a name="line.327"></a>
+<FONT color="green">328</FONT>         * @param other  the date being compared to.<a name="line.328"></a>
+<FONT color="green">329</FONT>         *<a name="line.329"></a>
+<FONT color="green">330</FONT>         * @return &lt;code&gt;true&lt;/code&gt; if this SerialDate represents the same date as<a name="line.330"></a>
+<FONT color="green">331</FONT>         *         the specified SerialDate.<a name="line.331"></a>
+<FONT color="green">332</FONT>         */<a name="line.332"></a>
+<FONT color="green">333</FONT>        public boolean isOn(final SerialDate other) {<a name="line.333"></a>
+<FONT color="green">334</FONT>            return (this.serial == other.toSerial());<a name="line.334"></a>
+<FONT color="green">335</FONT>        }<a name="line.335"></a>
+<FONT color="green">336</FONT>    <a name="line.336"></a>
+<FONT color="green">337</FONT>        /**<a name="line.337"></a>
+<FONT color="green">338</FONT>         * Returns true if this SerialDate represents an earlier date compared to<a name="line.338"></a>
+<FONT color="green">339</FONT>         * the specified SerialDate.<a name="line.339"></a>
+<FONT color="green">340</FONT>         *<a name="line.340"></a>
+<FONT color="green">341</FONT>         * @param other  the date being compared to.<a name="line.341"></a>
+<FONT color="green">342</FONT>         *<a name="line.342"></a>
+<FONT color="green">343</FONT>         * @return &lt;code&gt;true&lt;/code&gt; if this SerialDate represents an earlier date<a name="line.343"></a>
+<FONT color="green">344</FONT>         *         compared to the specified SerialDate.<a name="line.344"></a>
+<FONT color="green">345</FONT>         */<a name="line.345"></a>
+<FONT color="green">346</FONT>        public boolean isBefore(final SerialDate other) {<a name="line.346"></a>
+<FONT color="green">347</FONT>            return (this.serial &lt; other.toSerial());<a name="line.347"></a>
+<FONT color="green">348</FONT>        }<a name="line.348"></a>
+<FONT color="green">349</FONT>    <a name="line.349"></a>
+<FONT color="green">350</FONT>        /**<a name="line.350"></a>
+<FONT color="green">351</FONT>         * Returns true if this SerialDate represents the same date as the<a name="line.351"></a>
+<FONT color="green">352</FONT>         * specified SerialDate.<a name="line.352"></a>
+<FONT color="green">353</FONT>         *<a name="line.353"></a>
+<FONT color="green">354</FONT>         * @param other  the date being compared to.<a name="line.354"></a>
+<FONT color="green">355</FONT>         *<a name="line.355"></a>
+<FONT color="green">356</FONT>         * @return &lt;code&gt;true&lt;/code&gt; if this SerialDate represents the same date<a name="line.356"></a>
+<FONT color="green">357</FONT>         *         as the specified SerialDate.<a name="line.357"></a>
+<FONT color="green">358</FONT>         */<a name="line.358"></a>
+<FONT color="green">359</FONT>        public boolean isOnOrBefore(final SerialDate other) {<a name="line.359"></a>
+<FONT color="green">360</FONT>            return (this.serial &lt;= other.toSerial());<a name="line.360"></a>
+<FONT color="green">361</FONT>        }<a name="line.361"></a>
+<FONT color="green">362</FONT>    <a name="line.362"></a>
+<FONT color="green">363</FONT>        /**<a name="line.363"></a>
+<FONT color="green">364</FONT>         * Returns true if this SerialDate represents the same date as the<a name="line.364"></a>
+<FONT color="green">365</FONT>         * specified SerialDate.<a name="line.365"></a>
+<FONT color="green">366</FONT>         *<a name="line.366"></a>
+<FONT color="green">367</FONT>         * @param other  the date being compared to.<a name="line.367"></a>
+<FONT color="green">368</FONT>         *<a name="line.368"></a>
+<FONT color="green">369</FONT>         * @return &lt;code&gt;true&lt;/code&gt; if this SerialDate represents the same date<a name="line.369"></a>
+<FONT color="green">370</FONT>         *         as the specified SerialDate.<a name="line.370"></a>
+<FONT color="green">371</FONT>         */<a name="line.371"></a>
+<FONT color="green">372</FONT>        public boolean isAfter(final SerialDate other) {<a name="line.372"></a>
+<FONT color="green">373</FONT>            return (this.serial &gt; other.toSerial());<a name="line.373"></a>
+<FONT color="green">374</FONT>        }<a name="line.374"></a>
+<FONT color="green">375</FONT>    <a name="line.375"></a>
+<FONT color="green">376</FONT>        /**<a name="line.376"></a>
+<FONT color="green">377</FONT>         * Returns true if this SerialDate represents the same date as the<a name="line.377"></a>
+<FONT color="green">378</FONT>         * specified SerialDate.<a name="line.378"></a>
+<FONT color="green">379</FONT>         *<a name="line.379"></a>
+<FONT color="green">380</FONT>         * @param other  the date being compared to.<a name="line.380"></a>
+<FONT color="green">381</FONT>         *<a name="line.381"></a>
+<FONT color="green">382</FONT>         * @return &lt;code&gt;true&lt;/code&gt; if this SerialDate represents the same date as<a name="line.382"></a>
+<FONT color="green">383</FONT>         *         the specified SerialDate.<a name="line.383"></a>
+<FONT color="green">384</FONT>         */<a name="line.384"></a>
+<FONT color="green">385</FONT>        public boolean isOnOrAfter(final SerialDate other) {<a name="line.385"></a>
+<FONT color="green">386</FONT>            return (this.serial &gt;= other.toSerial());<a name="line.386"></a>
+<FONT color="green">387</FONT>        }<a name="line.387"></a>
+<FONT color="green">388</FONT>    <a name="line.388"></a>
+<FONT color="green">389</FONT>        /**<a name="line.389"></a>
+<FONT color="green">390</FONT>         * Returns &lt;code&gt;true&lt;/code&gt; if this {@link SerialDate} is within the <a name="line.390"></a>
+<FONT color="green">391</FONT>         * specified range (INCLUSIVE).  The date order of d1 and d2 is not <a name="line.391"></a>
+<FONT color="green">392</FONT>         * important.<a name="line.392"></a>
+<FONT color="green">393</FONT>         *<a name="line.393"></a>
+<FONT color="green">394</FONT>         * @param d1  a boundary date for the range.<a name="line.394"></a>
+<FONT color="green">395</FONT>         * @param d2  the other boundary date for the range.<a name="line.395"></a>
+<FONT color="green">396</FONT>         *<a name="line.396"></a>
+<FONT color="green">397</FONT>         * @return A boolean.<a name="line.397"></a>
+<FONT color="green">398</FONT>         */<a name="line.398"></a>
+<FONT color="green">399</FONT>        public boolean isInRange(final SerialDate d1, final SerialDate d2) {<a name="line.399"></a>
+<FONT color="green">400</FONT>            return isInRange(d1, d2, SerialDate.INCLUDE_BOTH);<a name="line.400"></a>
+<FONT color="green">401</FONT>        }<a name="line.401"></a>
+<FONT color="green">402</FONT>    <a name="line.402"></a>
+<FONT color="green">403</FONT>        /**<a name="line.403"></a>
+<FONT color="green">404</FONT>         * Returns true if this SerialDate is within the specified range (caller<a name="line.404"></a>
+<FONT color="green">405</FONT>         * specifies whether or not the end-points are included).  The order of d1<a name="line.405"></a>
+<FONT color="green">406</FONT>         * and d2 is not important.<a name="line.406"></a>
+<FONT color="green">407</FONT>         *<a name="line.407"></a>
+<FONT color="green">408</FONT>         * @param d1  one boundary date for the range.<a name="line.408"></a>
+<FONT color="green">409</FONT>         * @param d2  a second boundary date for the range.<a name="line.409"></a>
+<FONT color="green">410</FONT>         * @param include  a code that controls whether or not the start and end <a name="line.410"></a>
+<FONT color="green">411</FONT>         *                 dates are included in the range.<a name="line.411"></a>
+<FONT color="green">412</FONT>         *<a name="line.412"></a>
+<FONT color="green">413</FONT>         * @return &lt;code&gt;true&lt;/code&gt; if this SerialDate is within the specified <a name="line.413"></a>
+<FONT color="green">414</FONT>         *         range.<a name="line.414"></a>
+<FONT color="green">415</FONT>         */<a name="line.415"></a>
+<FONT color="green">416</FONT>        public boolean isInRange(final SerialDate d1, final SerialDate d2, <a name="line.416"></a>
+<FONT color="green">417</FONT>                                 final int include) {<a name="line.417"></a>
+<FONT color="green">418</FONT>            final int s1 = d1.toSerial();<a name="line.418"></a>
+<FONT color="green">419</FONT>            final int s2 = d2.toSerial();<a name="line.419"></a>
+<FONT color="green">420</FONT>            final int start = Math.min(s1, s2);<a name="line.420"></a>
+<FONT color="green">421</FONT>            final int end = Math.max(s1, s2);<a name="line.421"></a>
+<FONT color="green">422</FONT>            <a name="line.422"></a>
+<FONT color="green">423</FONT>            final int s = toSerial();<a name="line.423"></a>
+<FONT color="green">424</FONT>            if (include == SerialDate.INCLUDE_BOTH) {<a name="line.424"></a>
+<FONT color="green">425</FONT>                return (s &gt;= start &amp;&amp; s &lt;= end);<a name="line.425"></a>
+<FONT color="green">426</FONT>            }<a name="line.426"></a>
+<FONT color="green">427</FONT>            else if (include == SerialDate.INCLUDE_FIRST) {<a name="line.427"></a>
+<FONT color="green">428</FONT>                return (s &gt;= start &amp;&amp; s &lt; end);            <a name="line.428"></a>
+<FONT color="green">429</FONT>            }<a name="line.429"></a>
+<FONT color="green">430</FONT>            else if (include == SerialDate.INCLUDE_SECOND) {<a name="line.430"></a>
+<FONT color="green">431</FONT>                return (s &gt; start &amp;&amp; s &lt;= end);            <a name="line.431"></a>
+<FONT color="green">432</FONT>            }<a name="line.432"></a>
+<FONT color="green">433</FONT>            else {<a name="line.433"></a>
+<FONT color="green">434</FONT>                return (s &gt; start &amp;&amp; s &lt; end);            <a name="line.434"></a>
+<FONT color="green">435</FONT>            }    <a name="line.435"></a>
+<FONT color="green">436</FONT>        }<a name="line.436"></a>
+<FONT color="green">437</FONT>    <a name="line.437"></a>
+<FONT color="green">438</FONT>        /**<a name="line.438"></a>
+<FONT color="green">439</FONT>         * Calculate the serial number from the day, month and year.<a name="line.439"></a>
+<FONT color="green">440</FONT>         * &lt;P&gt;<a name="line.440"></a>
+<FONT color="green">441</FONT>         * 1-Jan-1900 = 2.<a name="line.441"></a>
+<FONT color="green">442</FONT>         *<a name="line.442"></a>
+<FONT color="green">443</FONT>         * @param d  the day.<a name="line.443"></a>
+<FONT color="green">444</FONT>         * @param m  the month.<a name="line.444"></a>
+<FONT color="green">445</FONT>         * @param y  the year.<a name="line.445"></a>
+<FONT color="green">446</FONT>         *<a name="line.446"></a>
+<FONT color="green">447</FONT>         * @return the serial number from the day, month and year.<a name="line.447"></a>
+<FONT color="green">448</FONT>         */<a name="line.448"></a>
+<FONT color="green">449</FONT>        private int calcSerial(final int d, final int m, final int y) {<a name="line.449"></a>
+<FONT color="green">450</FONT>            final int yy = ((y - 1900) * 365) + SerialDate.leapYearCount(y - 1);<a name="line.450"></a>
+<FONT color="green">451</FONT>            int mm = SerialDate.AGGREGATE_DAYS_TO_END_OF_PRECEDING_MONTH[m];<a name="line.451"></a>
+<FONT color="green">452</FONT>            if (m &gt; MonthConstants.FEBRUARY) {<a name="line.452"></a>
+<FONT color="green">453</FONT>                if (SerialDate.isLeapYear(y)) {<a name="line.453"></a>
+<FONT color="green">454</FONT>                    mm = mm + 1;<a name="line.454"></a>
+<FONT color="green">455</FONT>                }<a name="line.455"></a>
+<FONT color="green">456</FONT>            }<a name="line.456"></a>
+<FONT color="green">457</FONT>            final int dd = d;<a name="line.457"></a>
+<FONT color="green">458</FONT>            return yy + mm + dd + 1;<a name="line.458"></a>
+<FONT color="green">459</FONT>        }<a name="line.459"></a>
+<FONT color="green">460</FONT>    <a name="line.460"></a>
+<FONT color="green">461</FONT>    }<a name="line.461"></a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</PRE>
+</BODY>
+</HTML>

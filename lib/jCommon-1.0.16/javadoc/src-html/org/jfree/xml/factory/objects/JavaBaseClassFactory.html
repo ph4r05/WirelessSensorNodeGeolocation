@@ -1,0 +1,224 @@
+<HTML>
+<BODY BGCOLOR="white">
+<PRE>
+<FONT color="green">001</FONT>    /* ========================================================================<a name="line.1"></a>
+<FONT color="green">002</FONT>     * JCommon : a free general purpose class library for the Java(tm) platform<a name="line.2"></a>
+<FONT color="green">003</FONT>     * ========================================================================<a name="line.3"></a>
+<FONT color="green">004</FONT>     *<a name="line.4"></a>
+<FONT color="green">005</FONT>     * (C) Copyright 2000-2005, by Object Refinery Limited and Contributors.<a name="line.5"></a>
+<FONT color="green">006</FONT>     * <a name="line.6"></a>
+<FONT color="green">007</FONT>     * Project Info:  http://www.jfree.org/jcommon/index.html<a name="line.7"></a>
+<FONT color="green">008</FONT>     *<a name="line.8"></a>
+<FONT color="green">009</FONT>     * This library is free software; you can redistribute it and/or modify it <a name="line.9"></a>
+<FONT color="green">010</FONT>     * under the terms of the GNU Lesser General Public License as published by <a name="line.10"></a>
+<FONT color="green">011</FONT>     * the Free Software Foundation; either version 2.1 of the License, or <a name="line.11"></a>
+<FONT color="green">012</FONT>     * (at your option) any later version.<a name="line.12"></a>
+<FONT color="green">013</FONT>     *<a name="line.13"></a>
+<FONT color="green">014</FONT>     * This library is distributed in the hope that it will be useful, but <a name="line.14"></a>
+<FONT color="green">015</FONT>     * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY <a name="line.15"></a>
+<FONT color="green">016</FONT>     * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public <a name="line.16"></a>
+<FONT color="green">017</FONT>     * License for more details.<a name="line.17"></a>
+<FONT color="green">018</FONT>     *<a name="line.18"></a>
+<FONT color="green">019</FONT>     * You should have received a copy of the GNU Lesser General Public<a name="line.19"></a>
+<FONT color="green">020</FONT>     * License along with this library; if not, write to the Free Software<a name="line.20"></a>
+<FONT color="green">021</FONT>     * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, <a name="line.21"></a>
+<FONT color="green">022</FONT>     * USA.  <a name="line.22"></a>
+<FONT color="green">023</FONT>     *<a name="line.23"></a>
+<FONT color="green">024</FONT>     * [Java is a trademark or registered trademark of Sun Microsystems, Inc. <a name="line.24"></a>
+<FONT color="green">025</FONT>     * in the United States and other countries.]<a name="line.25"></a>
+<FONT color="green">026</FONT>     *<a name="line.26"></a>
+<FONT color="green">027</FONT>     * -------------------------<a name="line.27"></a>
+<FONT color="green">028</FONT>     * JavaBaseClassFactory.java<a name="line.28"></a>
+<FONT color="green">029</FONT>     * -------------------------<a name="line.29"></a>
+<FONT color="green">030</FONT>     * (C)opyright 2003, 2004, by Thomas Morgner and Contributors.<a name="line.30"></a>
+<FONT color="green">031</FONT>     *<a name="line.31"></a>
+<FONT color="green">032</FONT>     * Original Author:  Thomas Morgner (taquera@sherito.org);<a name="line.32"></a>
+<FONT color="green">033</FONT>     * Contributor(s):   David Gilbert (for Object Refinery Limited);<a name="line.33"></a>
+<FONT color="green">034</FONT>     *<a name="line.34"></a>
+<FONT color="green">035</FONT>     * $Id: JavaBaseClassFactory.java,v 1.3 2005/11/14 11:02:34 mungady Exp $<a name="line.35"></a>
+<FONT color="green">036</FONT>     *<a name="line.36"></a>
+<FONT color="green">037</FONT>     * Changes<a name="line.37"></a>
+<FONT color="green">038</FONT>     * -------<a name="line.38"></a>
+<FONT color="green">039</FONT>     * 14-Apr-2003 : Initial version<a name="line.39"></a>
+<FONT color="green">040</FONT>     * 29-Apr-2003 : Distilled from the JFreeReport project and moved into JCommon<a name="line.40"></a>
+<FONT color="green">041</FONT>     * 13-Jan-2004 : Did not handle java.awt.Dimension objects correctly.<a name="line.41"></a>
+<FONT color="green">042</FONT>     */<a name="line.42"></a>
+<FONT color="green">043</FONT>    package org.jfree.xml.factory.objects;<a name="line.43"></a>
+<FONT color="green">044</FONT>    <a name="line.44"></a>
+<FONT color="green">045</FONT>    import java.awt.BasicStroke;<a name="line.45"></a>
+<FONT color="green">046</FONT>    import java.awt.Color;<a name="line.46"></a>
+<FONT color="green">047</FONT>    import java.awt.Dimension;<a name="line.47"></a>
+<FONT color="green">048</FONT>    import java.awt.geom.Dimension2D;<a name="line.48"></a>
+<FONT color="green">049</FONT>    import java.awt.geom.Line2D;<a name="line.49"></a>
+<FONT color="green">050</FONT>    import java.awt.geom.Point2D;<a name="line.50"></a>
+<FONT color="green">051</FONT>    import java.awt.geom.Rectangle2D;<a name="line.51"></a>
+<FONT color="green">052</FONT>    import java.text.DateFormat;<a name="line.52"></a>
+<FONT color="green">053</FONT>    import java.text.DateFormatSymbols;<a name="line.53"></a>
+<FONT color="green">054</FONT>    import java.text.DecimalFormat;<a name="line.54"></a>
+<FONT color="green">055</FONT>    import java.text.DecimalFormatSymbols;<a name="line.55"></a>
+<FONT color="green">056</FONT>    import java.text.Format;<a name="line.56"></a>
+<FONT color="green">057</FONT>    import java.text.NumberFormat;<a name="line.57"></a>
+<FONT color="green">058</FONT>    import java.text.SimpleDateFormat;<a name="line.58"></a>
+<FONT color="green">059</FONT>    import java.util.ArrayList;<a name="line.59"></a>
+<FONT color="green">060</FONT>    import java.util.Collection;<a name="line.60"></a>
+<FONT color="green">061</FONT>    import java.util.Date;<a name="line.61"></a>
+<FONT color="green">062</FONT>    import java.util.HashSet;<a name="line.62"></a>
+<FONT color="green">063</FONT>    import java.util.List;<a name="line.63"></a>
+<FONT color="green">064</FONT>    import java.util.Set;<a name="line.64"></a>
+<FONT color="green">065</FONT>    import java.util.TreeSet;<a name="line.65"></a>
+<FONT color="green">066</FONT>    import java.util.Vector;<a name="line.66"></a>
+<FONT color="green">067</FONT>    <a name="line.67"></a>
+<FONT color="green">068</FONT>    import org.jfree.ui.FloatDimension;<a name="line.68"></a>
+<FONT color="green">069</FONT>    <a name="line.69"></a>
+<FONT color="green">070</FONT>    /**<a name="line.70"></a>
+<FONT color="green">071</FONT>     * A default factory for all commonly used java base classes from java.lang, java.awt<a name="line.71"></a>
+<FONT color="green">072</FONT>     * etc.<a name="line.72"></a>
+<FONT color="green">073</FONT>     *<a name="line.73"></a>
+<FONT color="green">074</FONT>     * @author Thomas Morgner<a name="line.74"></a>
+<FONT color="green">075</FONT>     */<a name="line.75"></a>
+<FONT color="green">076</FONT>    public class JavaBaseClassFactory extends ClassFactoryImpl {<a name="line.76"></a>
+<FONT color="green">077</FONT>    <a name="line.77"></a>
+<FONT color="green">078</FONT>        /**<a name="line.78"></a>
+<FONT color="green">079</FONT>         * DefaultConstructor. Creates the object factory for all java base classes.<a name="line.79"></a>
+<FONT color="green">080</FONT>         */<a name="line.80"></a>
+<FONT color="green">081</FONT>        public JavaBaseClassFactory() {<a name="line.81"></a>
+<FONT color="green">082</FONT>            registerClass(Dimension.class, new DimensionObjectDescription());<a name="line.82"></a>
+<FONT color="green">083</FONT>            registerClass(Dimension2D.class, new Dimension2DObjectDescription());<a name="line.83"></a>
+<FONT color="green">084</FONT>            registerClass(FloatDimension.class, new BeanObjectDescription(FloatDimension.class));<a name="line.84"></a>
+<FONT color="green">085</FONT>            registerClass(Date.class, new DateObjectDescription());<a name="line.85"></a>
+<FONT color="green">086</FONT>            registerClass(Boolean.TYPE, new BooleanObjectDescription());<a name="line.86"></a>
+<FONT color="green">087</FONT>            registerClass(Byte.TYPE, new ByteObjectDescription());<a name="line.87"></a>
+<FONT color="green">088</FONT>            registerClass(Double.TYPE, new DoubleObjectDescription());<a name="line.88"></a>
+<FONT color="green">089</FONT>            registerClass(Float.TYPE, new FloatObjectDescription());<a name="line.89"></a>
+<FONT color="green">090</FONT>            registerClass(Integer.TYPE, new IntegerObjectDescription());<a name="line.90"></a>
+<FONT color="green">091</FONT>            registerClass(Long.TYPE, new LongObjectDescription());<a name="line.91"></a>
+<FONT color="green">092</FONT>            registerClass(Short.TYPE, new ShortObjectDescription());<a name="line.92"></a>
+<FONT color="green">093</FONT>            registerClass(Character.TYPE, new CharacterObjectDescription());<a name="line.93"></a>
+<FONT color="green">094</FONT>            registerClass(Character.class, new CharacterObjectDescription());<a name="line.94"></a>
+<FONT color="green">095</FONT>            registerClass(Boolean.class, new BooleanObjectDescription());<a name="line.95"></a>
+<FONT color="green">096</FONT>            registerClass(Byte.class, new ByteObjectDescription());<a name="line.96"></a>
+<FONT color="green">097</FONT>            registerClass(Double.class, new DoubleObjectDescription());<a name="line.97"></a>
+<FONT color="green">098</FONT>            registerClass(Float.class, new FloatObjectDescription());<a name="line.98"></a>
+<FONT color="green">099</FONT>            registerClass(Integer.class, new IntegerObjectDescription());<a name="line.99"></a>
+<FONT color="green">100</FONT>            registerClass(Long.class, new LongObjectDescription());<a name="line.100"></a>
+<FONT color="green">101</FONT>            registerClass(Short.class, new ShortObjectDescription());<a name="line.101"></a>
+<FONT color="green">102</FONT>            registerClass(Line2D.class, new Line2DObjectDescription());<a name="line.102"></a>
+<FONT color="green">103</FONT>            registerClass(Point2D.class, new Point2DObjectDescription());<a name="line.103"></a>
+<FONT color="green">104</FONT>            registerClass(Rectangle2D.class, new Rectangle2DObjectDescription());<a name="line.104"></a>
+<FONT color="green">105</FONT>            registerClass(String.class, new StringObjectDescription());<a name="line.105"></a>
+<FONT color="green">106</FONT>            registerClass(Color.class, new ColorObjectDescription());<a name="line.106"></a>
+<FONT color="green">107</FONT>            registerClass(BasicStroke.class, new BasicStrokeObjectDescription());<a name="line.107"></a>
+<FONT color="green">108</FONT>            registerClass(Object.class, new ClassLoaderObjectDescription());<a name="line.108"></a>
+<FONT color="green">109</FONT>    <a name="line.109"></a>
+<FONT color="green">110</FONT>            registerClass(Format.class, new ClassLoaderObjectDescription());<a name="line.110"></a>
+<FONT color="green">111</FONT>            registerClass(NumberFormat.class, createNumberFormatDescription());<a name="line.111"></a>
+<FONT color="green">112</FONT>            registerClass(DecimalFormat.class, new DecimalFormatObjectDescription());<a name="line.112"></a>
+<FONT color="green">113</FONT>            registerClass(DecimalFormatSymbols.class, createDecimalFormatSymbols());<a name="line.113"></a>
+<FONT color="green">114</FONT>            registerClass(DateFormat.class, new ClassLoaderObjectDescription());<a name="line.114"></a>
+<FONT color="green">115</FONT>            registerClass(SimpleDateFormat.class, new SimpleDateFormatObjectDescription());<a name="line.115"></a>
+<FONT color="green">116</FONT>            registerClass(DateFormatSymbols.class, new ClassLoaderObjectDescription());<a name="line.116"></a>
+<FONT color="green">117</FONT>    <a name="line.117"></a>
+<FONT color="green">118</FONT>            registerClass(ArrayList.class, new CollectionObjectDescription(ArrayList.class));<a name="line.118"></a>
+<FONT color="green">119</FONT>            registerClass(Vector.class, new CollectionObjectDescription(Vector.class));<a name="line.119"></a>
+<FONT color="green">120</FONT>            registerClass(HashSet.class, new CollectionObjectDescription(HashSet.class));<a name="line.120"></a>
+<FONT color="green">121</FONT>            registerClass(TreeSet.class, new CollectionObjectDescription(TreeSet.class));<a name="line.121"></a>
+<FONT color="green">122</FONT>            registerClass(Set.class, new CollectionObjectDescription(HashSet.class));<a name="line.122"></a>
+<FONT color="green">123</FONT>            registerClass(List.class, new CollectionObjectDescription(ArrayList.class));<a name="line.123"></a>
+<FONT color="green">124</FONT>            registerClass(Collection.class, new CollectionObjectDescription(ArrayList.class));<a name="line.124"></a>
+<FONT color="green">125</FONT>        }<a name="line.125"></a>
+<FONT color="green">126</FONT>    <a name="line.126"></a>
+<FONT color="green">127</FONT>        private ObjectDescription createNumberFormatDescription () {<a name="line.127"></a>
+<FONT color="green">128</FONT>            final BeanObjectDescription nfDesc =<a name="line.128"></a>
+<FONT color="green">129</FONT>                new BeanObjectDescription(NumberFormat.class, false);<a name="line.129"></a>
+<FONT color="green">130</FONT>            nfDesc.setParameterDefinition("groupingUsed", Boolean.TYPE);<a name="line.130"></a>
+<FONT color="green">131</FONT>            nfDesc.setParameterDefinition("maximumFractionDigits", Integer.TYPE);<a name="line.131"></a>
+<FONT color="green">132</FONT>            nfDesc.setParameterDefinition("minimumFractionDigits", Integer.TYPE);<a name="line.132"></a>
+<FONT color="green">133</FONT>            nfDesc.setParameterDefinition("maximumIntegerDigits", Integer.TYPE);<a name="line.133"></a>
+<FONT color="green">134</FONT>            nfDesc.setParameterDefinition("minimumIntegerDigits", Integer.TYPE);<a name="line.134"></a>
+<FONT color="green">135</FONT>            nfDesc.setParameterDefinition("parseIntegerOnly", Boolean.TYPE);<a name="line.135"></a>
+<FONT color="green">136</FONT>            return nfDesc;<a name="line.136"></a>
+<FONT color="green">137</FONT>        }<a name="line.137"></a>
+<FONT color="green">138</FONT>    <a name="line.138"></a>
+<FONT color="green">139</FONT>        private ObjectDescription createDecimalFormatSymbols() {<a name="line.139"></a>
+<FONT color="green">140</FONT>            final BeanObjectDescription dfsDesc =<a name="line.140"></a>
+<FONT color="green">141</FONT>                new BeanObjectDescription(DecimalFormatSymbols.class, false);<a name="line.141"></a>
+<FONT color="green">142</FONT>            dfsDesc.setParameterDefinition("currencySymbol", String.class);<a name="line.142"></a>
+<FONT color="green">143</FONT>            dfsDesc.setParameterDefinition("decimalSeparator", Character.TYPE);<a name="line.143"></a>
+<FONT color="green">144</FONT>            dfsDesc.setParameterDefinition("digit", Character.TYPE);<a name="line.144"></a>
+<FONT color="green">145</FONT>            dfsDesc.setParameterDefinition("groupingSeparator", Character.TYPE);<a name="line.145"></a>
+<FONT color="green">146</FONT>            dfsDesc.setParameterDefinition("infinity", String.class);<a name="line.146"></a>
+<FONT color="green">147</FONT>            dfsDesc.setParameterDefinition("internationalCurrencySymbol", String.class);<a name="line.147"></a>
+<FONT color="green">148</FONT>            dfsDesc.setParameterDefinition("minusSign", Character.TYPE);<a name="line.148"></a>
+<FONT color="green">149</FONT>            dfsDesc.setParameterDefinition("monetaryDecimalSeparator", Character.TYPE);<a name="line.149"></a>
+<FONT color="green">150</FONT>            dfsDesc.setParameterDefinition("naN", String.class);<a name="line.150"></a>
+<FONT color="green">151</FONT>            dfsDesc.setParameterDefinition("patternSeparator", Character.TYPE);<a name="line.151"></a>
+<FONT color="green">152</FONT>            dfsDesc.setParameterDefinition("perMill", Character.TYPE);<a name="line.152"></a>
+<FONT color="green">153</FONT>            dfsDesc.setParameterDefinition("percent", Character.TYPE);<a name="line.153"></a>
+<FONT color="green">154</FONT>            dfsDesc.setParameterDefinition("zeroDigit", Character.TYPE);<a name="line.154"></a>
+<FONT color="green">155</FONT>            return dfsDesc;<a name="line.155"></a>
+<FONT color="green">156</FONT>    <a name="line.156"></a>
+<FONT color="green">157</FONT>        }<a name="line.157"></a>
+<FONT color="green">158</FONT>    }<a name="line.158"></a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</PRE>
+</BODY>
+</HTML>
