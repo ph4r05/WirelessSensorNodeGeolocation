@@ -653,6 +653,13 @@ public class RSSI_graphView extends FrameView {
         jLabel4 = new javax.swing.JLabel();
         jField_com_period = new javax.swing.JFormattedTextField();
         jRadio_com_humidity = new javax.swing.JRadioButton();
+        jPanel5 = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
+        jComboPinNumber = new javax.swing.JComboBox();
+        jLabel6 = new javax.swing.JLabel();
+        jRadioPinEnabled = new javax.swing.JRadioButton();
+        jRadioPinDisabled = new javax.swing.JRadioButton();
+        jButtonSetPin = new javax.swing.JButton();
         jPanelNodeRegisterMain1 = new rssi_graph.nodeRegister.JPanelNodeRegisterMain();
         jPanelGame1 = new rssi_graph.game.JPanelGame();
         jPanelLogger1 = new rssi_graph.JPanelLogger();
@@ -672,6 +679,7 @@ public class RSSI_graphView extends FrameView {
         buttonGroup_rssi2d_txpower = new javax.swing.ButtonGroup();
         buttonGroup_sensors = new javax.swing.ButtonGroup();
         buttonGroup_sensorSamplingFrequency = new javax.swing.ButtonGroup();
+        buttonGroup2 = new javax.swing.ButtonGroup();
 
         mainPanel.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         mainPanel.setMinimumSize(new java.awt.Dimension(400, 400));
@@ -1518,14 +1526,79 @@ public class RSSI_graphView extends FrameView {
                 .addContainerGap())
         );
 
+        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(resourceMap.getString("jPanel5.border.title"))); // NOI18N
+        jPanel5.setName("jPanel5"); // NOI18N
+
+        jLabel5.setText(resourceMap.getString("jLabel5.text")); // NOI18N
+        jLabel5.setName("jLabel5"); // NOI18N
+
+        jComboPinNumber.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "0", "1" }));
+        jComboPinNumber.setName("jComboPinNumber"); // NOI18N
+
+        jLabel6.setText(resourceMap.getString("jLabel6.text")); // NOI18N
+        jLabel6.setName("jLabel6"); // NOI18N
+
+        buttonGroup2.add(jRadioPinEnabled);
+        jRadioPinEnabled.setSelected(true);
+        jRadioPinEnabled.setText(resourceMap.getString("jRadioPinEnabled.text")); // NOI18N
+        jRadioPinEnabled.setName("jRadioPinEnabled"); // NOI18N
+
+        buttonGroup2.add(jRadioPinDisabled);
+        jRadioPinDisabled.setText(resourceMap.getString("jRadioPinDisabled.text")); // NOI18N
+        jRadioPinDisabled.setName("jRadioPinDisabled"); // NOI18N
+
+        jButtonSetPin.setText(resourceMap.getString("jButtonSetPin.text")); // NOI18N
+        jButtonSetPin.setActionCommand(resourceMap.getString("jButtonSetPin.actionCommand")); // NOI18N
+        jButtonSetPin.setName("jButtonSetPin"); // NOI18N
+        jButtonSetPin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSetPinActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel5)
+                    .addComponent(jComboPinNumber, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jRadioPinEnabled)
+                        .addComponent(jRadioPinDisabled))
+                    .addComponent(jButtonSetPin, javax.swing.GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jComboPinNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jRadioPinEnabled)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jRadioPinDisabled)
+                .addGap(18, 18, 18)
+                .addComponent(jButtonSetPin)
+                .addContainerGap(12, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout jPanelCommLayout = new javax.swing.GroupLayout(jPanelComm);
         jPanelComm.setLayout(jPanelCommLayout);
         jPanelCommLayout.setHorizontalGroup(
             jPanelCommLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelCommLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel_comm_NodeSelector1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(38, 38, 38)
+                .addGroup(jPanelCommLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel_comm_NodeSelector1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanelCommLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -1550,7 +1623,7 @@ public class RSSI_graphView extends FrameView {
                         .addGroup(jPanelCommLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jToggle_comm_on, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(600, 600, 600))
+                .addContainerGap(590, Short.MAX_VALUE))
         );
 
         jPanelCommLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jPanel1, jPanel2, jPanel3, jPanel4, jPanel8});
@@ -1561,10 +1634,6 @@ public class RSSI_graphView extends FrameView {
                 .addContainerGap()
                 .addGroup(jPanelCommLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelCommLayout.createSequentialGroup()
-                        .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, 363, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanelCommLayout.createSequentialGroup()
                         .addGroup(jPanelCommLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanelCommLayout.createSequentialGroup()
                                 .addGap(6, 6, 6)
@@ -1573,7 +1642,7 @@ public class RSSI_graphView extends FrameView {
                                 .addComponent(jButton_comm_sendReset, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jButton_comm_discover, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
                                 .addComponent(jCheck_comm_autoNodeDiscovery)
                                 .addGap(10, 10, 10))
                             .addGroup(jPanelCommLayout.createSequentialGroup()
@@ -1589,10 +1658,16 @@ public class RSSI_graphView extends FrameView {
                             .addGroup(jPanelCommLayout.createSequentialGroup()
                                 .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jToggle_comm_on, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(11, 11, 11))
-                    .addComponent(jPanel_comm_NodeSelector1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jToggle_comm_on, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(jPanelCommLayout.createSequentialGroup()
+                        .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, 363, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanelCommLayout.createSequentialGroup()
+                        .addComponent(jPanel_comm_NodeSelector1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
 
         jPanelCommLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jButton_comm_sendAbort, jButton_comm_sendReset});
@@ -1785,13 +1860,29 @@ public class RSSI_graphView extends FrameView {
         a.actionPerformed(evt);
     }//GEN-LAST:event_jCombo_R2D_mobileActionPerformed
 
+    /**
+     * 
+     * @param evt 
+     */
+    private void jButtonSetPinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSetPinActionPerformed
+        // TODO add your handling code here:
+        int pinnum = Integer.parseInt((String)this.jComboPinNumber.getSelectedItem());
+        boolean status = this.jRadioPinEnabled.isSelected();
+        
+         // call worker
+        WorkerCommands commands = (WorkerCommands) RSSI_graphApp.getApplication().getWorker(2);
+        commands.sendSetPin(pinnum, status);
+    }//GEN-LAST:event_jButtonSetPinActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.ButtonGroup buttonGroup_reportProtocol;
     private javax.swing.ButtonGroup buttonGroup_rssi2d_txpower;
     private javax.swing.ButtonGroup buttonGroup_sensorSamplingFrequency;
     private javax.swing.ButtonGroup buttonGroup_sensors;
     private javax.swing.JButton jButtonFinishTry;
+    private javax.swing.JButton jButtonSetPin;
     private javax.swing.JButton jButton_R2D_AddToGraph;
     private javax.swing.JButton jButton_R2D_MoveStep;
     private javax.swing.JButton jButton_R2D_prepMass;
@@ -1814,6 +1905,7 @@ public class RSSI_graphView extends FrameView {
     private javax.swing.JCheckBox jCheck_com_randomizedThresholding;
     private javax.swing.JCheckBox jCheck_comm_autoNodeDiscovery;
     private javax.swing.JCheckBox jCheck_comm_reportingStatus;
+    private javax.swing.JComboBox jComboPinNumber;
     private javax.swing.JComboBox jCombo_R2D_Parameter;
     private javax.swing.JComboBox jCombo_R2D_mobile;
     private javax.swing.JFormattedTextField jField_com_period;
@@ -1828,6 +1920,8 @@ public class RSSI_graphView extends FrameView {
     private javax.swing.JLabel jLabel36;
     private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
@@ -1844,6 +1938,7 @@ public class RSSI_graphView extends FrameView {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
@@ -1858,6 +1953,8 @@ public class RSSI_graphView extends FrameView {
     private rssi_graph.rssi.chart.JPannelRSSI2DistanceChart jPannelRSSI2DistanceChart1;
     private rssi_graph.rssi.jPannelRSSI2DistanceDataLoader jPannelRSSI2DistanceDataLoader2;
     private javax.swing.JProgressBar jProgress_R2D_progress;
+    private javax.swing.JRadioButton jRadioPinDisabled;
+    private javax.swing.JRadioButton jRadioPinEnabled;
     private javax.swing.JRadioButton jRadio_com_SensorPeriodic;
     private javax.swing.JRadioButton jRadio_com_humidity;
     private javax.swing.JRadioButton jRadio_com_light;

@@ -120,7 +120,9 @@ configuration SendingMoteAppC {
  // big queue for packet reports
  // components new BigQueueC(MultiPingResponseReportStruct, 2) as BigQueueA;
 
-// rssi readings wiring
+//
+// RSSI readings wiring
+//
 #ifdef __CC2420_H__
   components CC2420ActiveMessageC;  
   App.CC2420Packet -> CC2420ActiveMessageC.CC2420Packet;
@@ -140,12 +142,19 @@ configuration SendingMoteAppC {
   App -> Tda5250ActiveMessageC.Tda5250Packet;
 #endif
 
+//
 // platform specific sensors
+//
 #if defined(PLATFORM_TELOSB)
 	components new SensirionSht11C(), new HamamatsuS10871TsrC();
 	App.Temperature -> SensirionSht11C.Temperature;
 	App.Humidity -> SensirionSht11C.Humidity;
 	App.Light -> HamamatsuS10871TsrC;
+        
+        // General IO controll
+        components HplMsp430GeneralIOC;
+        App.Pin0 ->HplMsp430GeneralIOC.Port60;
+        App.Pin1 ->HplMsp430GeneralIOC.Port61;
 #elif defined(PLATFORM_TYNDALL25)
 	components new PhotoC() as Light;
 	components new TempC() as Temperature;
@@ -157,8 +166,7 @@ configuration SendingMoteAppC {
 #elif defined(PLATFORM_IRIS)
         // no sensors for IRIS platform
 #else
-
-        //#error "No SENSORS defined for this platform"
+        #error "No SENSORS defined for this platform"
 #endif
 
 
@@ -202,7 +210,6 @@ configuration SendingMoteAppC {
     
 // DEPRECATED below this line
 ///////////////////////////////////////////////////////////////////////////////
-
 
     /*
   App.RadioSend -> ActiveMessageC.AMSend;

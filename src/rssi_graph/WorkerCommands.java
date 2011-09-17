@@ -129,6 +129,45 @@ public class WorkerCommands extends WorkerBase implements MessageListener, Worke
     }
 
     /**
+     * Sets General Input Output pin
+     * 
+     * @param pinnum
+     * @param status 
+     */
+    public void sendSetPin(int pinnum, boolean status){
+        try {
+            int selectedNodes[] = getWindow().getjPanel_comm_NodeSelector().getSelectedNodes();
+            if (selectedNodes==null || selectedNodes.length<=0) return;
+
+            int command_code = MessageTypes.COMMAND_SETPIN;
+            CommandMsg payload = new CommandMsg();
+            payload.set_command_version((short) 0);
+            payload.set_command_code((short) command_code);
+            payload.set_command_data(status ? 1:0);
+            payload.set_command_data_next(new int[] {pinnum,0,0,0});
+                        
+            if (this.getMsgSender().canAdd()==false){
+                logToTextarea("Cannot add commands to send queue.", JPannelLoggerLogElement.SEVERITY_ERROR);
+            }
+
+            for(int i=0, cnI=selectedNodes.length; i<cnI; i++)
+            {
+                // increment send counter
+                counter+=1;
+                payload.set_command_id(counter);
+
+                // send packet
+                logToTextarea("Sending command msg=" + payload.toString());
+                this.getMsgSender().add(selectedNodes[i], payload, "CommandMsg for="+selectedNodes[i]+"; Command_code="+command_code);
+            }
+
+        }  catch (Exception ex) {
+            logToTextarea("NullPointer exception: " + ex.getMessage(), JPannelLoggerLogElement.SEVERITY_ERROR);
+            Logger.getLogger(RSSI_graphApp.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    /**
      * Send request for sensor reading
      * 
      * @param sensorType
@@ -286,6 +325,18 @@ public class WorkerCommands extends WorkerBase implements MessageListener, Worke
                     payload.set_command_data(1);
 
                     break;
+                    
+               case MessageTypes.COMMAND_SETPIN:
+                    int pinnum=0;
+                    boolean enabled=false;
+                    
+                    
+                   
+                    payload.set_command_code((short) command_code);
+                    payload.set_command_data(1);
+
+                    break;
+                    
 
                 default:
                     throw new UnsupportedOperationException("Command not implemented yet");
@@ -468,6 +519,10 @@ public class WorkerCommands extends WorkerBase implements MessageListener, Worke
         else if (e.getActionCommand().equals("SetReportGap")) {
             System.err.println("Command; SetReportGap");
             doSendCommand(MessageTypes.COMMAND_SETREPORTGAP);
+        }
+        else if (e.getActionCommand().equals("SetPin")) {
+            System.err.println("Command; SetPin");
+            doSendCommand(MessageTypes.COMMAND_SETPIN);
         }
 //        else if (e.getActionCommand().equals("moveNextTimer")){
 //            System.err.println("R2D; Move next timer fired");

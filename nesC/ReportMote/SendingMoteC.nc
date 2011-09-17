@@ -98,6 +98,10 @@ module SendingMoteC {
         uses interface Read<uint16_t> as Temperature; // sensor
         uses interface Read<uint16_t> as Humidity; // sensor
         uses interface Read<uint16_t> as Light;
+        
+        // general pins
+        uses interface HplMsp430GeneralIO as Pin0;
+        uses interface HplMsp430GeneralIO as Pin1;
 #elif defined(PLATFORM_TYNDALL25)
         //SENSORS
         uses interface Read<uint16_t> as Temperature; // sensor
@@ -285,6 +289,7 @@ module SendingMoteC {
   error_t readNoiseFloor();
   void task sendReading();
   void readSensors();
+  bool setGIO(uint8_t pin, bool enabled);
 
   /**
    * Queue management
@@ -1209,6 +1214,17 @@ module SendingMoteC {
                   signalize(2);
                   break;
 
+                  
+              // pin settings
+              // sets digital value on output pin
+              case COMMAND_SETPIN:                  
+                  if (setGIO((uint8_t) btrpkt->command_data_next[0], btrpkt->command_data==1 ? TRUE:FALSE)){
+                      btrpktresponse->command_code = COMMAND_ACK;
+                      post sendCommandACK();
+                      signalize(2);
+                  }
+                  break;
+                  
               // set request for sensor reading
               // request driven mode
               // can be specified to use timer-driven mode and its parameters
@@ -1606,6 +1622,38 @@ module SendingMoteC {
     }
 
 
+    /**
+     * 
+     * Pin setting
+     * 
+     */
+    bool setGIO(uint8_t pin, bool enabled){
+        #if defined(PLATFORM_MICA) || defined(PLATFORM_MICA2) || defined(PLATFORM_MICA2DOT) || defined(PLATFORM_MICAZ)
+                return FALSE;
+        #elif defined(PLATFORM_TELOS) || defined(PLATFORM_TELOSB) || defined(PLATFORM_EPIC)
+                // msp430
+                if (pin == 0 && enabled==TRUE){
+                    call Pin0.set();
+                } else if (pin==0 && enabled==FALSE){
+                    call Pin0.clr();
+                } else if (pin==1 && enabled==TRUE){
+                    call Pin1.set();
+                } else if (pin==1 && enabled==FALSE){
+                    call Pin1.clr();
+                } else {
+                    return FALSE;
+                }
+                
+                return TRUE;
+        #elif defined(PLATFORM_IRIS)
+                  return FALSE;
+        #else
+                  return FALSE;
+        #endif
+        return FALSE;
+    }
+    
+    
 /**
  * GetRssi multiplatform implementation
  * determines RSSI from incoming message

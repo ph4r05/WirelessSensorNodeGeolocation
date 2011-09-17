@@ -282,7 +282,11 @@ enum {
 
     // sensor readings
     COMMAND_GETSENSORREADING=20,
-    COMMAND_SENSORREADING=21
+    COMMAND_SENSORREADING=21,
+            
+    // pinning
+    COMMAND_SETPIN=22,
+    COMMAND_GETPIN=23
 };
 
 // node ID boudnary for mobile nodes
