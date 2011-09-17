@@ -39,6 +39,14 @@ public class JFrameScreen extends javax.swing.JFrame {
     }
 
     /**
+     * Generic initial method
+     */
+    public void initThis(){
+        this.energyMeter1.initMeter();
+        this.energyMeter2.initMeter();
+    }
+    
+    /**
      * Set player name for frames & labels
      * @param player 
      */
@@ -88,11 +96,16 @@ public class JFrameScreen extends javax.swing.JFrame {
      * @param player
      * @param energy 
      */
-    public void setEnergy(int player, String energy){
+    public void setEnergy(int player, double energy){
+        NumberFormat formatter = new DecimalFormat("#00.00");
+        String fEnergy = formatter.format(energy); 
+        
         if (player==1){
-            this.jLabelEnergy1.setText(energy);
+            this.jLabelEnergy1.setText(fEnergy);
+            this.energyMeter1.setCurrentValue(energy);
         } else if (player==2){
-            this.jLabelEnergy2.setText(energy);
+            this.jLabelEnergy2.setText(fEnergy);
+            this.energyMeter2.setCurrentValue(energy);
         }
     }
     
@@ -100,14 +113,12 @@ public class JFrameScreen extends javax.swing.JFrame {
      * Event fired - gui update
      */
     void updateGuiTimerFired() {
-        NumberFormat formatter = new DecimalFormat("#00.00");
-        
         double energy = this.gameWorker.getPlayer1().getEnergy();
-        this.setEnergy(1, formatter.format(energy));
+        this.setEnergy(1, energy);
         
         if (this.gameWorker.getPlayer2() instanceof Player){
             energy = this.gameWorker.getPlayer2().getEnergy();
-            this.setEnergy(2, formatter.format(energy));
+            this.setEnergy(2, energy);
         }
     }
     
@@ -160,10 +171,12 @@ public class JFrameScreen extends javax.swing.JFrame {
         jLabelPlayer1Name = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabelEnergy1 = new javax.swing.JLabel();
+        energyMeter1 = new rssi_graph.game.energyMeter();
         jPanelPlayer2 = new javax.swing.JPanel();
         jLabelPlayer2Name = new javax.swing.JLabel();
         jLabelEnergy2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        energyMeter2 = new rssi_graph.game.energyMeter();
 
         org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(rssi_graph.RSSI_graphApp.class).getContext().getResourceMap(JFrameScreen.class);
         jLabel1.setText(resourceMap.getString("jLabel1.text")); // NOI18N
@@ -175,7 +188,7 @@ public class JFrameScreen extends javax.swing.JFrame {
         jPanelPlayer1.setBorder(javax.swing.BorderFactory.createTitledBorder(resourceMap.getString("jPanelPlayer1.border.title"))); // NOI18N
         jPanelPlayer1.setName("jPanelPlayer1"); // NOI18N
 
-        jLabelPlayer1Name.setFont(new java.awt.Font("DejaVu Sans", 1, 24)); // NOI18N
+        jLabelPlayer1Name.setFont(new java.awt.Font("DejaVu Sans", 1, 24));
         jLabelPlayer1Name.setForeground(resourceMap.getColor("jLabelPlayer1Name.foreground")); // NOI18N
         jLabelPlayer1Name.setText(resourceMap.getString("jLabelPlayer1Name.text")); // NOI18N
         jLabelPlayer1Name.setName("jLabelPlayer1Name"); // NOI18N
@@ -189,6 +202,9 @@ public class JFrameScreen extends javax.swing.JFrame {
         jLabelEnergy1.setText(resourceMap.getString("jLabelEnergy1.text")); // NOI18N
         jLabelEnergy1.setName("jLabelEnergy1"); // NOI18N
 
+        energyMeter1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        energyMeter1.setName("energyMeter1"); // NOI18N
+
         javax.swing.GroupLayout jPanelPlayer1Layout = new javax.swing.GroupLayout(jPanelPlayer1);
         jPanelPlayer1.setLayout(jPanelPlayer1Layout);
         jPanelPlayer1Layout.setHorizontalGroup(
@@ -201,23 +217,28 @@ public class JFrameScreen extends javax.swing.JFrame {
                         .addComponent(jLabel2)
                         .addGap(18, 18, 18)
                         .addComponent(jLabelEnergy1)))
-                .addContainerGap(241, Short.MAX_VALUE))
+                .addGap(59, 59, 59)
+                .addComponent(energyMeter1, javax.swing.GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanelPlayer1Layout.setVerticalGroup(
             jPanelPlayer1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelPlayer1Layout.createSequentialGroup()
-                .addComponent(jLabelPlayer1Name)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanelPlayer1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabelEnergy1))
-                .addContainerGap(198, Short.MAX_VALUE))
+                .addGroup(jPanelPlayer1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelPlayer1Layout.createSequentialGroup()
+                        .addComponent(jLabelPlayer1Name)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanelPlayer1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabelEnergy1)))
+                    .addComponent(energyMeter1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(120, 120, 120))
         );
 
         jPanelPlayer2.setBorder(javax.swing.BorderFactory.createTitledBorder(resourceMap.getString("jPanelPlayer2.border.title"))); // NOI18N
         jPanelPlayer2.setName("jPanelPlayer2"); // NOI18N
 
-        jLabelPlayer2Name.setFont(new java.awt.Font("DejaVu Sans", 1, 24)); // NOI18N
+        jLabelPlayer2Name.setFont(new java.awt.Font("DejaVu Sans", 1, 24));
         jLabelPlayer2Name.setForeground(resourceMap.getColor("jLabelPlayer2Name.foreground")); // NOI18N
         jLabelPlayer2Name.setText(resourceMap.getString("jLabelPlayer2Name.text")); // NOI18N
         jLabelPlayer2Name.setName("jLabelPlayer2Name"); // NOI18N
@@ -231,6 +252,9 @@ public class JFrameScreen extends javax.swing.JFrame {
         jLabel3.setText(resourceMap.getString("jLabel3.text")); // NOI18N
         jLabel3.setName("jLabel3"); // NOI18N
 
+        energyMeter2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        energyMeter2.setName("energyMeter2"); // NOI18N
+
         javax.swing.GroupLayout jPanelPlayer2Layout = new javax.swing.GroupLayout(jPanelPlayer2);
         jPanelPlayer2.setLayout(jPanelPlayer2Layout);
         jPanelPlayer2Layout.setHorizontalGroup(
@@ -243,17 +267,22 @@ public class JFrameScreen extends javax.swing.JFrame {
                         .addComponent(jLabel3)
                         .addGap(18, 18, 18)
                         .addComponent(jLabelEnergy2)))
-                .addContainerGap(250, Short.MAX_VALUE))
+                .addGap(80, 80, 80)
+                .addComponent(energyMeter2, javax.swing.GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanelPlayer2Layout.setVerticalGroup(
             jPanelPlayer2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelPlayer2Layout.createSequentialGroup()
-                .addComponent(jLabelPlayer2Name)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanelPlayer2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabelEnergy2))
-                .addContainerGap(192, Short.MAX_VALUE))
+                .addGroup(jPanelPlayer2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelPlayer2Layout.createSequentialGroup()
+                        .addComponent(jLabelPlayer2Name)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanelPlayer2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabelEnergy2)))
+                    .addComponent(energyMeter2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(120, 120, 120))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -292,6 +321,8 @@ public class JFrameScreen extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private rssi_graph.game.energyMeter energyMeter1;
+    private rssi_graph.game.energyMeter energyMeter2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

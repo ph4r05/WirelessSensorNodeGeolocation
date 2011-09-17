@@ -153,6 +153,7 @@ public class GameWorker extends WorkerBase implements MessageListener, WorkerInt
             screen.setGameWorker(this);
             screen.setTitle("Závod");
             screen.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            screen.initThis();
             
             // set dispose window listener
             screen.addWindowListener(new WindowAdapter() {
@@ -583,6 +584,8 @@ public class GameWorker extends WorkerBase implements MessageListener, WorkerInt
      * @param visible 
      */
     public void setScreenVisible(boolean visible){
+        this.screen.repaint();
+        this.screen.validate();
         this.screen.setVisible(visible);
     }
 

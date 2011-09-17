@@ -1147,6 +1147,9 @@ public class JPanelNetworkMap extends javax.swing.JPanel implements NodeRegister
                 .addComponent(jPanelNetworkMapBack, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
+        
+        this.jPanelNetworkMapBack.repaint();;
+        this.jPanelNetworkMapBack.revalidate();
 
         this.repaint();
         this.revalidate();
