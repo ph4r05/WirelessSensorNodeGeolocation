@@ -53,6 +53,14 @@ public class GameWorker extends WorkerBase implements MessageListener, WorkerInt
     protected Timer guiSyncTimer = null;
     protected Timer energyCalcTimer = null;
     
+    
+    /**
+     * Static constants for energy warning
+     * (for meter thresholds, sounds play)
+     */
+    public static final double THRESHOLD_CRITICAL=10D;
+    public static final double THRESHOLD_WARNING=25D;
+    
     /**
      * Timeout between sensor reading from sensor
      */
@@ -66,12 +74,22 @@ public class GameWorker extends WorkerBase implements MessageListener, WorkerInt
     /**
      * Is watchdog enabled?
      */
-    protected boolean watchdogEnabled;
+    protected boolean watchdogEnabled=false;
     
     /**
      * Smoothing constant for light sensor averaging
      */
     protected double smoothingSensor=0.5;
+    
+    /**
+     * Should play sounds?
+     */
+    protected boolean soundEnabled=false;
+    
+    /**
+     * Game sounds handling object
+     */
+    protected GameSounds gameSounds = null;
     
 //    protected boolean[] playerDoGuiUpdate = { true, true };
 
@@ -163,6 +181,13 @@ public class GameWorker extends WorkerBase implements MessageListener, WorkerInt
                 }
             });
         }
+        
+        // init game sounds
+        if (this.gameSounds == null){
+            this.gameSounds = new GameSounds();
+            this.gameSounds.setGameWorker(this);
+            this.gameSounds.initThis();
+        }   
         
         // init timers
         this.energyCalcTimer = new Timer(250, new ActionListener() {
@@ -501,13 +526,17 @@ public class GameWorker extends WorkerBase implements MessageListener, WorkerInt
             Double newEnergy1 = this.player1.getNewEnergy();
             if (newEnergy1!=null){
                 this.player1.setEnergy(newEnergy1);
+                
+                // play sounds?
+                this.energySound(1, newEnergy1);
             }
             
             // now compute node latency
             this.player1.setLastResponse(currentTimeMillis - this.player1.getLastResponseTime());
             
             // watchdog event?
-            if (this.player1.getLastResponse() > this.watchdogThreshold 
+            if (this.isWatchdogEnabled()
+                    && this.player1.getLastResponse() > this.watchdogThreshold 
                     && (currentTimeMillis - this.player1.getLastWatchdogTime()) > this.watchdogThreshold ){
                 // save current time - when watchdog was "released"
                 this.player1.setLastWatchdogTime(currentTimeMillis);
@@ -521,13 +550,17 @@ public class GameWorker extends WorkerBase implements MessageListener, WorkerInt
             Double newEnergy2 = this.player2.getNewEnergy();
             if (newEnergy2!=null){
                 this.player2.setEnergy(newEnergy2);
+                                
+                // play sounds?
+                this.energySound(2, newEnergy2);
             }
             
             // now compute node latency
             this.player2.setLastResponse(currentTimeMillis - this.player2.getLastResponseTime());
             
             // watchdog event?
-            if (this.player2.getLastResponse() > this.watchdogThreshold 
+            if (this.isWatchdogEnabled()
+                    && this.player2.getLastResponse() > this.watchdogThreshold 
                     && (currentTimeMillis - this.player2.getLastWatchdogTime()) > this.watchdogThreshold ){
                 // save current time - when watchdog was "released"
                 this.player2.setLastWatchdogTime(currentTimeMillis);
@@ -587,6 +620,21 @@ public class GameWorker extends WorkerBase implements MessageListener, WorkerInt
         this.screen.repaint();
         this.screen.validate();
         this.screen.setVisible(visible);
+    }
+    
+    /**
+     * Play sounds on energy changed event
+     */
+    public void energySound(int player, double newEnergy){
+        // do not play sound when disabled
+        if (this.isSoundEnabled()==false) return;
+        
+        // pass this to sound object
+        // @TODO: this object should implement some general interface. There should be
+        // listeners hooked to energy changed event. Game sounds module would be registered
+        // as energy change listener. 
+        // Current design solution is good only for a few child objects
+        this.gameSounds.energyChanged(player, newEnergy);
     }
 
     public HashMap<Integer, LocalizationEstimate> getLocalizationHistory() {
@@ -673,8 +721,12 @@ public class GameWorker extends WorkerBase implements MessageListener, WorkerInt
     public void setSmoothingSensor(double smoothingSensor) {
         this.smoothingSensor = smoothingSensor;
     }
-    
-    
-    
-    
+
+    public boolean isSoundEnabled() {
+        return soundEnabled;
+    }
+
+    public void setSoundEnabled(boolean soundEnabled) {
+        this.soundEnabled = soundEnabled;
+    }
 }

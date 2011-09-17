@@ -290,6 +290,7 @@ public class JPanelGame extends javax.swing.JPanel {
         jToggleStarted = new javax.swing.JToggleButton();
         jToggleUpdateGUI = new javax.swing.JToggleButton();
         jToggleDoWatchdog = new javax.swing.JToggleButton();
+        jTogglePlaySounds = new javax.swing.JToggleButton();
         jButtonResetNodes = new javax.swing.JButton();
         jPanelPlayer1 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
@@ -472,6 +473,18 @@ public class JPanelGame extends javax.swing.JPanel {
             }
         });
         jToolBar1.add(jToggleDoWatchdog);
+
+        jTogglePlaySounds.setText(resourceMap.getString("jTogglePlaySounds.text")); // NOI18N
+        jTogglePlaySounds.setFocusable(false);
+        jTogglePlaySounds.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jTogglePlaySounds.setName("jTogglePlaySounds"); // NOI18N
+        jTogglePlaySounds.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jTogglePlaySounds.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jTogglePlaySoundsItemStateChanged(evt);
+            }
+        });
+        jToolBar1.add(jTogglePlaySounds);
 
         jButtonResetNodes.setText(resourceMap.getString("jButtonResetNodes.text")); // NOI18N
         jButtonResetNodes.setFocusable(false);
@@ -1124,6 +1137,15 @@ public class JPanelGame extends javax.swing.JPanel {
         this.gameWorker.sendReset(2);
     }//GEN-LAST:event_jButtonResetNodesActionPerformed
 
+    /**
+     * Play sounds ?
+     * @param evt 
+     */
+    private void jTogglePlaySoundsItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jTogglePlaySoundsItemStateChanged
+        // TODO add your handling code here:
+        this.gameWorker.setSoundEnabled(evt.getStateChange() == ItemEvent.SELECTED);
+    }//GEN-LAST:event_jTogglePlaySoundsItemStateChanged
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonOptionsApply;
     private javax.swing.JButton jButtonRecompute1;
@@ -1184,6 +1206,7 @@ public class JPanelGame extends javax.swing.JPanel {
     private javax.swing.JToggleButton jToggleDoWatchdog;
     private javax.swing.JToggleButton jToggleLoadLiveData1;
     private javax.swing.JToggleButton jToggleLoadLiveData2;
+    private javax.swing.JToggleButton jTogglePlaySounds;
     private javax.swing.JToggleButton jToggleStarted;
     private javax.swing.JToggleButton jToggleUpdateGUI;
     private javax.swing.JToolBar jToolBar1;

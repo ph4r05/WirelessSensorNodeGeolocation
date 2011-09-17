@@ -234,6 +234,18 @@
             <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="jToggleDoWatchdogItemStateChanged"/>
           </Events>
         </Component>
+        <Component class="javax.swing.JToggleButton" name="jTogglePlaySounds">
+          <Properties>
+            <Property name="text" type="java.lang.String" resourceKey="jTogglePlaySounds.text"/>
+            <Property name="focusable" type="boolean" value="false"/>
+            <Property name="horizontalTextPosition" type="int" value="0"/>
+            <Property name="name" type="java.lang.String" value="jTogglePlaySounds" noResource="true"/>
+            <Property name="verticalTextPosition" type="int" value="3"/>
+          </Properties>
+          <Events>
+            <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="jTogglePlaySoundsItemStateChanged"/>
+          </Events>
+        </Component>
         <Component class="javax.swing.JButton" name="jButtonResetNodes">
           <Properties>
             <Property name="text" type="java.lang.String" resourceKey="jButtonResetNodes.text"/>
