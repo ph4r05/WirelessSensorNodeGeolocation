@@ -52,6 +52,28 @@ public class JFrameScreen extends javax.swing.JFrame {
         this.jProgressLight2.setMaximum(700);
     }
     
+    
+    /**
+     * Massively enables/disabled this window
+     * @param enabled 
+     */
+    public void setEnabledWindows(boolean enabled){
+        GameWorker.enableTree(this.jPanelCommon, enabled);
+        GameWorker.enableTree(this.jPanelPlayer1, enabled);
+        GameWorker.enableTree(this.jPanelPlayer2, enabled);
+    }
+    
+    /**
+     * event trigered on game state change
+     */
+    public void setGameState(int newState){
+        if (newState==GameWorker.GAME_STATE_STOPPED){
+            this.setEnabledWindows(false);
+        } else if (newState==GameWorker.GAME_STATE_STARTED || newState==GameWorker.GAME_STATE_CLEAN){
+            this.setEnabledWindows(true);
+        }
+    }
+    
     /**
      * Set player name for frames & labels
      * @param player 
@@ -243,7 +265,7 @@ public class JFrameScreen extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 276, Short.MAX_VALUE)
+            .addGap(0, 316, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -261,16 +283,12 @@ public class JFrameScreen extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanelPlayer1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelPlayer1Layout.createSequentialGroup()
-                        .addGroup(jPanelPlayer1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanelPlayer1Layout.createSequentialGroup()
-                                .addComponent(jProgressLight1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(energyMeter1, javax.swing.GroupLayout.DEFAULT_SIZE, 244, Short.MAX_VALUE))
-                            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addContainerGap())
-                    .addGroup(jPanelPlayer1Layout.createSequentialGroup()
-                        .addComponent(jLabelPlayer1Name)
-                        .addContainerGap(179, Short.MAX_VALUE))))
+                        .addComponent(jProgressLight1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(energyMeter1, javax.swing.GroupLayout.DEFAULT_SIZE, 284, Short.MAX_VALUE))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabelPlayer1Name))
+                .addContainerGap())
         );
         jPanelPlayer1Layout.setVerticalGroup(
             jPanelPlayer1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -278,8 +296,8 @@ public class JFrameScreen extends javax.swing.JFrame {
                 .addComponent(jLabelPlayer1Name)
                 .addGap(6, 6, 6)
                 .addGroup(jPanelPlayer1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jProgressLight1, 0, 213, Short.MAX_VALUE)
-                    .addComponent(energyMeter1, javax.swing.GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE))
+                    .addComponent(jProgressLight1, 0, 236, Short.MAX_VALUE)
+                    .addComponent(energyMeter1, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -303,7 +321,7 @@ public class JFrameScreen extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 279, Short.MAX_VALUE)
+            .addGap(0, 318, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -329,7 +347,7 @@ public class JFrameScreen extends javax.swing.JFrame {
                             .addGroup(jPanelPlayer2Layout.createSequentialGroup()
                                 .addComponent(jProgressLight2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(energyMeter2, javax.swing.GroupLayout.DEFAULT_SIZE, 241, Short.MAX_VALUE)))))
+                                .addComponent(energyMeter2, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)))))
                 .addContainerGap())
         );
         jPanelPlayer2Layout.setVerticalGroup(
@@ -339,7 +357,7 @@ public class JFrameScreen extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelPlayer2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jProgressLight2, 0, 0, Short.MAX_VALUE)
-                    .addComponent(energyMeter2, javax.swing.GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE))
+                    .addComponent(energyMeter2, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -363,9 +381,9 @@ public class JFrameScreen extends javax.swing.JFrame {
             jPanelCommonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelCommonLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 278, Short.MAX_VALUE)
+                .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 318, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabelGameTime, javax.swing.GroupLayout.DEFAULT_SIZE, 325, Short.MAX_VALUE)
+                .addComponent(jLabelGameTime, javax.swing.GroupLayout.DEFAULT_SIZE, 364, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanelCommonLayout.setVerticalGroup(

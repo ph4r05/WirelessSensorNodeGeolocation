@@ -90,7 +90,9 @@ public class energyMeter extends javax.swing.JPanel {
      * @param val 
      */
     public void setCurrentValue(double val){
-        this.dataset.setValue(val);
+        // only 1 decimal place here
+        double newVal = Math.round(val*10) / 10;
+        this.dataset.setValue(newVal);
     }
    
     /**

@@ -4,11 +4,22 @@
  */
 package rssi_graph.game;
 
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.Insets;
+import java.awt.Point;
+import java.awt.Rectangle;
+import java.awt.Toolkit;
+import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -32,7 +43,7 @@ import rssi_graph.nodeRegister.MobileNodeManager;
 import rssi_graph.nodeRegister.NodeRegisterEvent;
 import rssi_graph.nodeRegister.NodeRegisterEventListener;
 import rssi_graph.utils.DataSmoother;
-
+import rssi_graph.utils.PlatformUtils;
 
 /**
  *
@@ -49,6 +60,7 @@ public class GameWorker extends WorkerBase implements MessageListener, WorkerInt
     private rssi_graph.game.Player player2=null;
     
     protected JFrameScreen screen = null;
+    protected JFrameFinish frameFinish = null;
     
     protected Timer guiSyncTimer = null;
     protected Timer energyCalcTimer = null;
@@ -190,6 +202,7 @@ public class GameWorker extends WorkerBase implements MessageListener, WorkerInt
             screen.setGameWorker(this);
             screen.setTitle("Závod");
             screen.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            screen.setExtendedState(JFrame.MAXIMIZED_BOTH);
             screen.initThis();
             
             // set dispose window listener
@@ -199,6 +212,62 @@ public class GameWorker extends WorkerBase implements MessageListener, WorkerInt
                     screenDisposed();
                 }
             });
+        }
+        
+        if (this.frameFinish == null){
+            JFrame mainFrame = RSSI_graphApp.getApplication().getMainFrame();
+            frameFinish = new JFrameFinish();
+            frameFinish.setLocationRelativeTo(this.screen);
+            frameFinish.setTitle("KONEC");
+            frameFinish.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            frameFinish.setBackground(new Color(1.0f, 1.0f, 1.0f, 0.50f));
+            
+            
+//            frameFinish.setParentPanel(this.screen.getParentPanel());            
+//            frameFinish.setExtendedState(JFrame.MAXIMIZED_BOTH);
+//            frameFinish.initThis();
+//            
+//            // set dispose window listener
+//            screen.addWindowListener(new WindowAdapter() {
+//                @Override
+//                public void windowClosing(WindowEvent e) {
+//                    screenDisposed();
+//                }
+//            });
+//            
+//            // Determine what the default GraphicsDevice can support.
+//            GraphicsEnvironment ge =
+//                GraphicsEnvironment.getLocalGraphicsEnvironment();
+//            GraphicsDevice gd = ge.getDefaultScreenDevice();
+//            boolean isUniformTranslucencySupported =
+//                gd.isWindowTranslucencySupported(TRANSLUCENT);
+//            boolean isPerPixelTranslucencySupported =
+//                gd.isWindowTranslucencySupported(PERPIXEL_TRANSLUCENT);
+//            boolean isShapedWindowSupported =
+//                gd.isWindowTranslucencySupported(PERPIXEL_TRANSPARENT);
+//            AWTUtilities.setWindowOpaque(this.frameFinish, false);
+            
+            /**
+             * Set window opacity
+             * @see http://java.sun.com/developer/technicalArticles/GUI/translucent_shaped_windows/
+             */
+            try {
+               Class<?> awtUtilitiesClass = Class.forName("com.sun.awt.AWTUtilities");
+               Method mSetWindowOpacity = awtUtilitiesClass.getMethod("setWindowOpacity", Window.class, float.class);
+               mSetWindowOpacity.invoke(null, this.frameFinish, Float.valueOf(0.85f));
+            } catch (NoSuchMethodException ex) {
+               ex.printStackTrace();
+            } catch (SecurityException ex) {
+               ex.printStackTrace();
+            } catch (ClassNotFoundException ex) {
+               ex.printStackTrace();
+            } catch (IllegalAccessException ex) {
+               ex.printStackTrace();
+            } catch (IllegalArgumentException ex) {
+               ex.printStackTrace();
+            } catch (InvocationTargetException ex) {
+               ex.printStackTrace();
+            }
         }
         
         // init game sounds
@@ -251,6 +320,69 @@ public class GameWorker extends WorkerBase implements MessageListener, WorkerInt
         return "Game module";
     }
 
+    public static void centerWindow(Window target, Component parent){
+        target.pack();
+
+        Dimension size = target.getSize();
+        Rectangle parentBounds = parent == null || !parent.isShowing() ? 
+          getUsableScreenBounds() :
+          new Rectangle(parent.getLocationOnScreen(), parent.getSize());
+
+        target.setLocation(parentBounds.x + (parentBounds.width - size.width)/2, parentBounds.y + (parentBounds.height - size.height)/2);
+      }
+    
+    /**
+   * Attempts to determine the usable screen bounds of the default screen
+   * device. If the require java.awt API is not available under the JVM we're
+   * running in, this will simply return the screen bounds obtained via
+   * <code>Toolkit.getScreenSize()</code>.
+   */
+  
+  public static Rectangle getUsableScreenBounds(){
+    if (PlatformUtils.isJavaBetterThan("1.4")){
+      try{
+        Class graphicsEnvironmentClass = Class.forName("java.awt.GraphicsEnvironment");
+        Class graphicsDeviceClass = Class.forName("java.awt.GraphicsDevice");
+        Class graphicsConfigurationClass = Class.forName("java.awt.GraphicsConfiguration");
+        
+        Class [] emptyClassArr = new Class[0];
+        Method getLocalGraphicsEnvironmentMethod = 
+          graphicsEnvironmentClass.getMethod("getLocalGraphicsEnvironment", emptyClassArr);
+        Method getDefaultScreenDeviceMethod = 
+          graphicsEnvironmentClass.getMethod("getDefaultScreenDevice", emptyClassArr);
+        Method getDefaultConfigurationMethod =
+          graphicsDeviceClass.getMethod("getDefaultConfiguration", emptyClassArr);
+        Method getBoundsMethod = 
+          graphicsConfigurationClass.getMethod("getBounds", emptyClassArr);
+        Method getScreenInsetsMethod = 
+          Toolkit.class.getMethod("getScreenInsets", new Class[]{graphicsConfigurationClass});
+        
+        Object [] emptyObjArr = new Object[0];
+        Object graphicsEnvironment = getLocalGraphicsEnvironmentMethod.invoke(null, emptyObjArr);
+        Object defaultScreenDevice = getDefaultScreenDeviceMethod.invoke(graphicsEnvironment, emptyObjArr);
+        Object defaultConfiguration = getDefaultConfigurationMethod.invoke(defaultScreenDevice, emptyObjArr);
+        Rectangle bounds = (Rectangle)getBoundsMethod.invoke(defaultConfiguration, emptyObjArr);
+        Insets insets = 
+          (Insets)getScreenInsetsMethod.invoke(Toolkit.getDefaultToolkit(), new Object[]{defaultConfiguration});
+        
+        bounds.x += insets.left;
+        bounds.y += insets.top;
+        bounds.width -= insets.left + insets.right;
+        bounds.height -= insets.top + insets.bottom;
+        
+        return bounds;
+      } catch (ClassNotFoundException e){e.printStackTrace();}
+        catch (SecurityException e){e.printStackTrace();}
+        catch (NoSuchMethodException e){e.printStackTrace();}
+        catch (IllegalArgumentException e){e.printStackTrace();}
+        catch (IllegalAccessException e){e.printStackTrace();}
+        catch (InvocationTargetException e){e.printStackTrace();}
+    }
+
+    return new Rectangle(new Point(0, 0), Toolkit.getDefaultToolkit().getScreenSize());
+  }
+  
+    
     /**
      * Refresh data from database
      */
@@ -481,12 +613,19 @@ public class GameWorker extends WorkerBase implements MessageListener, WorkerInt
                         
                         this.player1.setLight(DataSmoother.getSmoothed(light, lightSensorOutput, this.smoothingSensor));
                         this.player1.setLastResponseTime(currentTimeMillis);
+                                    
+                        // now compute node latency, 0 = now, message received
+                        this.player1.setLastResponse(0);
+                        
                     } else if (this.player2 instanceof Player && this.player2.getNode() == source) {
                         double light = this.player2.getLight();
                         
                         // set no need to do watchdog
                         this.player2.setLight(DataSmoother.getSmoothed(light, lightSensorOutput, this.smoothingSensor));
                         this.player2.setLastResponseTime(currentTimeMillis);
+                                    
+                        // now compute node latency, 0 = now, message received
+                        this.player2.setLastResponse(0);
                     }
                     
                     //logToTextarea("GAME Sensor reading received from: " + msg.getSerialPacket().get_header_src());
@@ -527,6 +666,7 @@ public class GameWorker extends WorkerBase implements MessageListener, WorkerInt
     public void energyCalcEvent(ActionEvent e){
         // get current time in milis
         long currentTimeMillis = System.currentTimeMillis();
+        int oldState = this.gameState;
         
         // game need to be running to move counters
         if (this.gameState != GameWorker.GAME_STATE_STARTED){
@@ -544,6 +684,7 @@ public class GameWorker extends WorkerBase implements MessageListener, WorkerInt
         if (this.gameTimeRemaining <= 0){
             // stop game here!
             this.gameState = GameWorker.GAME_STATE_STOPPED;
+            this.eventGameStateChanged(oldState, this.gameState, "timeout");
         }
         
         // compute new energy here
@@ -660,7 +801,9 @@ public class GameWorker extends WorkerBase implements MessageListener, WorkerInt
         // under limit?
         if (oldEnergy != newEnergy && newEnergy==0){
             // stop game here
+            int oldState = this.gameState;
             this.gameState = GameWorker.GAME_STATE_STOPPED;
+            this.eventGameStateChanged(oldState, this.gameState, "nullEnergy");
         }
         
         
@@ -691,6 +834,28 @@ public class GameWorker extends WorkerBase implements MessageListener, WorkerInt
      * @param newState 
      */
     public void eventGameStateChanged(int oldState, int newState){
+        this.eventGameStateChanged(oldState, newState, null);
+    }
+    
+    /**
+     * Event triggered on state change
+     * 
+     * @param oldState
+     * @param newState 
+     */
+    public void eventGameStateChanged(int oldState, int newState, String reason){
+        // is game stopped?
+        if (newState == GameWorker.GAME_STATE_STOPPED){
+            // show finis dialog, disable massively
+            this.frameFinish.setLocationRelativeTo(screen);
+            this.frameFinish.repaint();
+            this.frameFinish.validate();
+            this.frameFinish.setVisible(true);
+            this.frameFinish.setLocationRelativeTo(screen);
+            GameWorker.centerWindow(this.frameFinish, screen);
+        }
+        
+        this.screen.setGameState(newState);
         return;
     }
     
@@ -766,6 +931,25 @@ public class GameWorker extends WorkerBase implements MessageListener, WorkerInt
         return true;
     }
 
+     /**
+     * Used for enable/disable
+     * 
+     * @param root
+     * @param enable 
+     */
+    static void enableTree(Container root, boolean enable) {
+        Component children[] = root.getComponents();        
+        for (int i = 0; i < children.length; i++) {
+            if (children[i] instanceof Container) {
+                enableTree((Container) children[i], enable);
+            } else {
+                children[i].setEnabled(enable);
+            }
+        }
+        
+        root.setEnabled(enable);
+    }
+    
     public HashMap<Integer, LocalizationEstimate> getLocalizationHistory() {
         return localizationHistory;
     }
