@@ -66,9 +66,9 @@ public class EnergyCalculator {
                 newEnergy = 100.0;
             }
             
-            System.err.println("Comnputed " + finalExpression + " is " + output + "; Energy: " + newEnergy);
+            //System.err.println("Comnputed " + finalExpression + " is " + output + "; Energy: " + newEnergy);
         } catch (final Exception e) {
-          e.printStackTrace();
+          ;
         } finally {
           ;
         }

@@ -91,6 +91,25 @@ public class GameWorker extends WorkerBase implements MessageListener, WorkerInt
      */
     protected GameSounds gameSounds = null;
     
+    /**
+     * Game states constants & current state
+     */
+    public static final int GAME_STATE_CLEAN = 0;
+    public static final int GAME_STATE_STARTED = 1;
+    public static final int GAME_STATE_PAUSED = 2;
+    public static final int GAME_STATE_STOPPED = 3;
+    protected int gameState = GameWorker.GAME_STATE_CLEAN;
+    
+    /**
+     * Time when game started
+     */
+    protected long gameTimeRemaining = 0;
+    
+    /**
+     * Time when time counting was started
+     */
+    protected long gameTimeLastChange=0;
+    
 //    protected boolean[] playerDoGuiUpdate = { true, true };
 
     public GameWorker(MoteIF mi) {
@@ -392,6 +411,7 @@ public class GameWorker extends WorkerBase implements MessageListener, WorkerInt
      * Accept node register event change
      * @param evt 
      */
+    @Override
     public void accept(NodeRegisterEvent evt) {
         if (evt!=null && evt.getEventType() != NodeRegisterEvent.EVENT_TYPE_DATA_CHANGED) return;
         
@@ -492,19 +512,6 @@ public class GameWorker extends WorkerBase implements MessageListener, WorkerInt
         //super.messageSent(listenerKey, msg, destination);
     }
     
-    
-    
-    /**
-     * Recompute energy
-     * 
-     * @param player 
-     */
-    public void recomputeEnergy(int player){
-        
-    }
-    
-    
-    
     /**
      * event triggered when game screen is disposed
      */
@@ -521,14 +528,33 @@ public class GameWorker extends WorkerBase implements MessageListener, WorkerInt
         // get current time in milis
         long currentTimeMillis = System.currentTimeMillis();
         
+        // game need to be running to move counters
+        if (this.gameState != GameWorker.GAME_STATE_STARTED){
+            return;
+        }
+        
+        // change time remaining for game
+        if ((currentTimeMillis - this.gameTimeLastChange) >= 1000){
+            // do increment here
+            this.gameTimeLastChange += 1000;
+            this.gameTimeRemaining-=1;
+        }
+        
+        // is game timer == 0??
+        if (this.gameTimeRemaining <= 0){
+            // stop game here!
+            this.gameState = GameWorker.GAME_STATE_STOPPED;
+        }
+        
         // compute new energy here
         if (this.player1 instanceof Player){
+            double oldEnergy1 = this.player1.getEnergy();
             Double newEnergy1 = this.player1.getNewEnergy();
             if (newEnergy1!=null){
                 this.player1.setEnergy(newEnergy1);
                 
-                // play sounds?
-                this.energySound(1, newEnergy1);
+                // trigger event
+                this.eventEnergyChanged(1, oldEnergy1, newEnergy1);
             }
             
             // now compute node latency
@@ -547,12 +573,13 @@ public class GameWorker extends WorkerBase implements MessageListener, WorkerInt
         
         // do the same for 2nd player
         if (this.player2 instanceof Player){
+            double oldEnergy2 = this.player2.getEnergy();
             Double newEnergy2 = this.player2.getNewEnergy();
             if (newEnergy2!=null){
                 this.player2.setEnergy(newEnergy2);
                                 
-                // play sounds?
-                this.energySound(2, newEnergy2);
+                // trigger event
+                this.eventEnergyChanged(1, oldEnergy2, newEnergy2);
             }
             
             // now compute node latency
@@ -623,6 +650,25 @@ public class GameWorker extends WorkerBase implements MessageListener, WorkerInt
     }
     
     /**
+     * Event triggered when energy changed
+     * 
+     * @param player
+     * @param oldEnergy
+     * @param newEnergy 
+     */
+    public void eventEnergyChanged(int player, double oldEnergy, double newEnergy){
+        // under limit?
+        if (oldEnergy != newEnergy && newEnergy==0){
+            // stop game here
+            this.gameState = GameWorker.GAME_STATE_STOPPED;
+        }
+        
+        
+        // sound handler
+        this.energySound(player, newEnergy);
+    }
+    
+    /**
      * Play sounds on energy changed event
      */
     public void energySound(int player, double newEnergy){
@@ -635,6 +681,89 @@ public class GameWorker extends WorkerBase implements MessageListener, WorkerInt
         // as energy change listener. 
         // Current design solution is good only for a few child objects
         this.gameSounds.energyChanged(player, newEnergy);
+    }
+    
+    
+    /**
+     * Event triggered on state change
+     * 
+     * @param oldState
+     * @param newState 
+     */
+    public void eventGameStateChanged(int oldState, int newState){
+        return;
+    }
+    
+    /**
+     * public caller for game state change
+     * @param stateChange
+     * @return 
+     */
+    public boolean changeGameState(int stateChange){
+        // is valid state change?
+        // can be if new state is paused and current is paused as well (toggle)
+        if (this.gameState == stateChange && stateChange!=GameWorker.GAME_STATE_PAUSED) return false;
+        
+        // keep old state for game state changed event
+        int oldState = this.gameState;
+        
+        // if here => state is really changed
+        // paused?
+        if (stateChange == GameWorker.GAME_STATE_PAUSED){
+            // pausing started game?
+            if (this.gameState == GameWorker.GAME_STATE_STARTED){
+                // pause current timer
+                this.gameState = GameWorker.GAME_STATE_PAUSED;
+                this.eventGameStateChanged(oldState, this.gameState);
+                return true;
+            } else if (this.gameState == GameWorker.GAME_STATE_PAUSED){
+                // un-pausing 
+                this.gameState = GameWorker.GAME_STATE_STARTED;
+                this.gameTimeLastChange = System.currentTimeMillis();
+                this.eventGameStateChanged(oldState, this.gameState);
+                return true;
+            } else {
+                // otherwise another state transition is not allowed
+                return false;
+            }
+            
+        } else if (stateChange == GameWorker.GAME_STATE_STARTED){
+            // starting new game
+            if (this.gameState == GameWorker.GAME_STATE_CLEAN
+                    || this.gameState == GameWorker.GAME_STATE_STOPPED){
+                // clean game state, reset
+                this.initNewGame(); 
+                this.gameTimeLastChange = System.currentTimeMillis();
+                
+                this.gameState = GameWorker.GAME_STATE_STARTED;
+                this.eventGameStateChanged(oldState, this.gameState);
+                return true;
+            } else {
+                return false;
+            }
+        } else if (stateChange == GameWorker.GAME_STATE_STOPPED){
+            // stopping current game, it is not allowed to continue in stopped game
+            // when game is stopped, timers are not counting...
+            if (this.gameState == GameWorker.GAME_STATE_STARTED){
+                // allowed transition only if game is started
+                this.gameState = GameWorker.GAME_STATE_STOPPED;
+                this.eventGameStateChanged(oldState, this.gameState);
+                return true;
+            }
+        }
+             
+        return false;
+    }
+    
+    /**
+     * Initialize new game
+     * @return 
+     */
+    public boolean initNewGame(){
+        // reset game counter
+        this.gameTimeRemaining = this.mainPanel.getGameTime();
+        this.updateGuiEvent(null);
+        return true;
     }
 
     public HashMap<Integer, LocalizationEstimate> getLocalizationHistory() {
@@ -729,4 +858,34 @@ public class GameWorker extends WorkerBase implements MessageListener, WorkerInt
     public void setSoundEnabled(boolean soundEnabled) {
         this.soundEnabled = soundEnabled;
     }
+
+
+
+    public int getGameState() {
+        return gameState;
+    }
+
+    public void setGameState(int gameState) {
+        this.gameState = gameState;
+    }
+
+    public long getGameTimeRemaining() {
+        return gameTimeRemaining;
+    }
+
+    public void setGameTimeRemaining(long gameTimeRemaining) {
+        this.gameTimeRemaining = gameTimeRemaining;
+    }
+
+    public long getGameTimeLastChange() {
+        return gameTimeLastChange;
+    }
+
+    public void setGameTimeLastChange(long gameTimeLastChange) {
+        this.gameTimeLastChange = gameTimeLastChange;
+    }
+
+ 
+    
+    
 }

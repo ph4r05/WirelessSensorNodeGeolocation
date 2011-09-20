@@ -242,6 +242,31 @@ public class JPanelGame extends javax.swing.JPanel {
         root.setEnabled(enable);
     }
     
+    /**
+     * Returns game time in seconds
+     * 
+     * @return 
+     */
+    public int getGameTime(){
+       int gameTime = 0;
+       
+       try {
+           gameTime = Integer.parseInt(this.jTextGameTime.getText());
+       } catch(Exception e) {
+           ;
+       }
+       
+       return gameTime;
+    }
+    
+    /**
+     * Minimal time needed to do 1 round on ring
+     * @return 
+     */
+    public int getMinimalLapTime(){
+        return 0;
+    }
+    
     public GameWorker getGameWorker() {
         return gameWorker;
     }
@@ -307,10 +332,6 @@ public class JPanelGame extends javax.swing.JPanel {
         jLabel4 = new javax.swing.JLabel();
         jTextX1 = new javax.swing.JTextField();
         jTextY1 = new javax.swing.JTextField();
-        jLabel11 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jLabel12 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
         jTextEnergyExpression1 = new javax.swing.JTextField();
         jPanelPlayer2 = new javax.swing.JPanel();
@@ -328,10 +349,6 @@ public class JPanelGame extends javax.swing.JPanel {
         jLabel10 = new javax.swing.JLabel();
         jTextX2 = new javax.swing.JTextField();
         jTextY2 = new javax.swing.JTextField();
-        jLabel14 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
-        jLabel15 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
         jLabel16 = new javax.swing.JLabel();
         jTextEnergyExpression2 = new javax.swing.JTextField();
         jPanelOptions = new javax.swing.JPanel();
@@ -342,6 +359,17 @@ public class JPanelGame extends javax.swing.JPanel {
         jTextWatchdogThreshold = new javax.swing.JTextField();
         jLabel19 = new javax.swing.JLabel();
         jTextSmoothingSensor = new javax.swing.JTextField();
+        jPanel2 = new javax.swing.JPanel();
+        jToolBar4 = new javax.swing.JToolBar();
+        jButtonGameApply = new javax.swing.JButton();
+        jButtonGameStartNew = new javax.swing.JButton();
+        jButtonGamePause = new javax.swing.JButton();
+        jButtonGameStop = new javax.swing.JButton();
+        jButtonGameReset = new javax.swing.JButton();
+        jLabel11 = new javax.swing.JLabel();
+        jTextGameTime = new javax.swing.JTextField();
+        jLabel12 = new javax.swing.JLabel();
+        jTextLapTime = new javax.swing.JTextField();
 
         setName("Form"); // NOI18N
 
@@ -573,22 +601,11 @@ public class JPanelGame extends javax.swing.JPanel {
         jTextY1.setText(resourceMap.getString("jTextY1.text")); // NOI18N
         jTextY1.setName("jTextY1"); // NOI18N
 
-        jLabel11.setText(resourceMap.getString("jLabel11.text")); // NOI18N
-        jLabel11.setName("jLabel11"); // NOI18N
-
-        jTextField1.setText(resourceMap.getString("jTextField1.text")); // NOI18N
-        jTextField1.setName("jTextField1"); // NOI18N
-
-        jLabel12.setText(resourceMap.getString("jLabel12.text")); // NOI18N
-        jLabel12.setName("jLabel12"); // NOI18N
-
-        jTextField2.setText(resourceMap.getString("jTextField2.text")); // NOI18N
-        jTextField2.setName("jTextField2"); // NOI18N
-
         jLabel13.setText(resourceMap.getString("jLabel13.text")); // NOI18N
         jLabel13.setName("jLabel13"); // NOI18N
 
         jTextEnergyExpression1.setText(resourceMap.getString("jTextEnergyExpression1.text")); // NOI18N
+        jTextEnergyExpression1.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         jTextEnergyExpression1.setName("jTextEnergyExpression1"); // NOI18N
 
         javax.swing.GroupLayout jPanelPlayer1Layout = new javax.swing.GroupLayout(jPanelPlayer1);
@@ -621,18 +638,8 @@ public class JPanelGame extends javax.swing.JPanel {
                     .addGroup(jPanelPlayer1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(jPanelPlayer1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel11)
-                            .addComponent(jLabel12))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanelPlayer1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)))
-                    .addGroup(jPanelPlayer1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel13))
-                    .addGroup(jPanelPlayer1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jTextEnergyExpression1, javax.swing.GroupLayout.DEFAULT_SIZE, 348, Short.MAX_VALUE)))
+                            .addComponent(jLabel13)
+                            .addComponent(jTextEnergyExpression1, javax.swing.GroupLayout.DEFAULT_SIZE, 348, Short.MAX_VALUE))))
                 .addContainerGap())
         );
 
@@ -660,18 +667,10 @@ public class JPanelGame extends javax.swing.JPanel {
                     .addComponent(jTextY1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanelPlayer1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel11)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanelPlayer1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel12))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel13)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTextEnergyExpression1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 74, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 72, Short.MAX_VALUE)
                 .addComponent(jToolBar2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -750,18 +749,6 @@ public class JPanelGame extends javax.swing.JPanel {
         jTextY2.setText(resourceMap.getString("jTextY2.text")); // NOI18N
         jTextY2.setName("jTextY2"); // NOI18N
 
-        jLabel14.setText(resourceMap.getString("jLabel14.text")); // NOI18N
-        jLabel14.setName("jLabel14"); // NOI18N
-
-        jTextField3.setText(resourceMap.getString("jTextField3.text")); // NOI18N
-        jTextField3.setName("jTextField3"); // NOI18N
-
-        jLabel15.setText(resourceMap.getString("jLabel15.text")); // NOI18N
-        jLabel15.setName("jLabel15"); // NOI18N
-
-        jTextField4.setText(resourceMap.getString("jTextField4.text")); // NOI18N
-        jTextField4.setName("jTextField4"); // NOI18N
-
         jLabel16.setText(resourceMap.getString("jLabel16.text")); // NOI18N
         jLabel16.setName("jLabel16"); // NOI18N
 
@@ -795,21 +782,11 @@ public class JPanelGame extends javax.swing.JPanel {
                                 .addComponent(jTextX2, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jTextY2, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(jPanelPlayer2Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelPlayer2Layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(jPanelPlayer2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel14)
-                            .addComponent(jLabel15))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanelPlayer2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField4, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)))
-                    .addGroup(jPanelPlayer2Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel16))
-                    .addGroup(jPanelPlayer2Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jTextEnergyExpression2, javax.swing.GroupLayout.DEFAULT_SIZE, 348, Short.MAX_VALUE)))
+                            .addComponent(jLabel16)
+                            .addComponent(jTextEnergyExpression2, javax.swing.GroupLayout.DEFAULT_SIZE, 348, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         jPanelPlayer2Layout.setVerticalGroup(
@@ -832,18 +809,10 @@ public class JPanelGame extends javax.swing.JPanel {
                     .addComponent(jLabel10)
                     .addComponent(jTextX2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanelPlayer2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel14)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanelPlayer2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel15))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel16)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTextEnergyExpression2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 74, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 72, Short.MAX_VALUE)
                 .addComponent(jToolBar3, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -910,25 +879,138 @@ public class JPanelGame extends javax.swing.JPanel {
                 .addGroup(jPanelOptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextSmoothingSensor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel19))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 97, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButtonOptionsApply, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(resourceMap.getString("jPanel2.border.title"))); // NOI18N
+        jPanel2.setName("jPanel2"); // NOI18N
+
+        jToolBar4.setRollover(true);
+        jToolBar4.setName("jToolBar4"); // NOI18N
+
+        jButtonGameApply.setText(resourceMap.getString("jButtonGameApply.text")); // NOI18N
+        jButtonGameApply.setFocusable(false);
+        jButtonGameApply.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButtonGameApply.setName("jButtonGameApply"); // NOI18N
+        jButtonGameApply.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonGameApply.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonGameApplyActionPerformed(evt);
+            }
+        });
+        jToolBar4.add(jButtonGameApply);
+
+        jButtonGameStartNew.setText(resourceMap.getString("jButtonGameStartNew.text")); // NOI18N
+        jButtonGameStartNew.setFocusable(false);
+        jButtonGameStartNew.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButtonGameStartNew.setName("jButtonGameStartNew"); // NOI18N
+        jButtonGameStartNew.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonGameStartNew.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonGameStartNewActionPerformed(evt);
+            }
+        });
+        jToolBar4.add(jButtonGameStartNew);
+
+        jButtonGamePause.setText(resourceMap.getString("jButtonGamePause.text")); // NOI18N
+        jButtonGamePause.setEnabled(false);
+        jButtonGamePause.setFocusable(false);
+        jButtonGamePause.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButtonGamePause.setName("jButtonGamePause"); // NOI18N
+        jButtonGamePause.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonGamePause.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonGamePauseActionPerformed(evt);
+            }
+        });
+        jToolBar4.add(jButtonGamePause);
+
+        jButtonGameStop.setText(resourceMap.getString("jButtonGameStop.text")); // NOI18N
+        jButtonGameStop.setEnabled(false);
+        jButtonGameStop.setFocusable(false);
+        jButtonGameStop.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButtonGameStop.setName("jButtonGameStop"); // NOI18N
+        jButtonGameStop.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonGameStop.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonGameStopActionPerformed(evt);
+            }
+        });
+        jToolBar4.add(jButtonGameStop);
+
+        jButtonGameReset.setText(resourceMap.getString("jButtonGameReset.text")); // NOI18N
+        jButtonGameReset.setFocusable(false);
+        jButtonGameReset.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButtonGameReset.setName("jButtonGameReset"); // NOI18N
+        jButtonGameReset.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonGameReset.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonGameResetActionPerformed(evt);
+            }
+        });
+        jToolBar4.add(jButtonGameReset);
+
+        jLabel11.setText(resourceMap.getString("jLabel11.text")); // NOI18N
+        jLabel11.setName("jLabel11"); // NOI18N
+
+        jTextGameTime.setText(resourceMap.getString("jTextGameTime.text")); // NOI18N
+        jTextGameTime.setName("jTextGameTime"); // NOI18N
+
+        jLabel12.setText(resourceMap.getString("jLabel12.text")); // NOI18N
+        jLabel12.setName("jLabel12"); // NOI18N
+
+        jTextLapTime.setText(resourceMap.getString("jTextLapTime.text")); // NOI18N
+        jTextLapTime.setName("jTextLapTime"); // NOI18N
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jToolBar4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 728, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel11)
+                    .addComponent(jLabel12))
+                .addGap(127, 127, 127)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jTextLapTime, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTextGameTime, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 79, Short.MAX_VALUE))
+                .addContainerGap(403, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel11)
+                    .addComponent(jTextGameTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextLapTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel12))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
+                .addComponent(jToolBar4, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 1178, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
+            .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 1556, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanelOptions, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
-                .addComponent(jPanelPlayer1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPanelOptions, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanelPlayer1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanelPlayer2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addGap(414, 414, 414))
         );
 
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jPanel1, jPanelOptions});
@@ -940,15 +1022,14 @@ public class JPanelGame extends javax.swing.JPanel {
                 .addGap(6, 6, 6)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanelPlayer1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPanelPlayer2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(35, 35, 35))
-                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanelOptions, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())))
+                        .addComponent(jPanelOptions, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanelPlayer1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanelPlayer2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -1146,7 +1227,57 @@ public class JPanelGame extends javax.swing.JPanel {
         this.gameWorker.setSoundEnabled(evt.getStateChange() == ItemEvent.SELECTED);
     }//GEN-LAST:event_jTogglePlaySoundsItemStateChanged
 
+    private void jButtonGameApplyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGameApplyActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonGameApplyActionPerformed
+
+    private void jButtonGameStartNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGameStartNewActionPerformed
+        // we want to change game state
+        boolean result = this.gameWorker.changeGameState(GameWorker.GAME_STATE_STARTED);
+        if (result){
+            // change was sucessfull
+            this.jButtonGamePause.setEnabled(true);
+            this.jButtonGameStop.setEnabled(true);
+        }
+    }//GEN-LAST:event_jButtonGameStartNewActionPerformed
+
+    private void jButtonGamePauseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGamePauseActionPerformed
+        // we want to change game state
+        boolean result = this.gameWorker.changeGameState(GameWorker.GAME_STATE_PAUSED);
+        if (result){
+            // change was sucessfull
+            this.jButtonGamePause.setEnabled(true);
+            this.jButtonGameStop.setEnabled(true);
+        }
+    }//GEN-LAST:event_jButtonGamePauseActionPerformed
+
+    private void jButtonGameStopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGameStopActionPerformed
+        // TODO add your handling code here:
+        boolean result = this.gameWorker.changeGameState(GameWorker.GAME_STATE_STOPPED);
+        if (result){
+            // change was sucessfull
+            this.jButtonGamePause.setEnabled(false);
+        }
+    }//GEN-LAST:event_jButtonGameStopActionPerformed
+
+    private void jButtonGameResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGameResetActionPerformed
+        // TODO add your handling code here:
+        boolean result = this.gameWorker.changeGameState(GameWorker.GAME_STATE_STOPPED);
+        
+        // change was sucessfull
+        this.jButtonGamePause.setEnabled(false);
+
+        // clean timers, init new game, do not start now
+        this.gameWorker.initNewGame();
+        
+    }//GEN-LAST:event_jButtonGameResetActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonGameApply;
+    private javax.swing.JButton jButtonGamePause;
+    private javax.swing.JButton jButtonGameReset;
+    private javax.swing.JButton jButtonGameStartNew;
+    private javax.swing.JButton jButtonGameStop;
     private javax.swing.JButton jButtonOptionsApply;
     private javax.swing.JButton jButtonRecompute1;
     private javax.swing.JButton jButtonRecompute2;
@@ -1163,8 +1294,6 @@ public class JPanelGame extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
@@ -1178,6 +1307,7 @@ public class JPanelGame extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanelOptions;
     private javax.swing.JPanel jPanelPlayer1;
     private javax.swing.JPanel jPanelPlayer2;
@@ -1185,10 +1315,8 @@ public class JPanelGame extends javax.swing.JPanel {
     private javax.swing.JTextField jTextEnergy2;
     private javax.swing.JTextField jTextEnergyExpression1;
     private javax.swing.JTextField jTextEnergyExpression2;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
+    private javax.swing.JTextField jTextGameTime;
+    private javax.swing.JTextField jTextLapTime;
     private javax.swing.JTextField jTextLight1;
     private javax.swing.JTextField jTextLight2;
     private javax.swing.JTextField jTextPlayer1Name;
@@ -1212,5 +1340,6 @@ public class JPanelGame extends javax.swing.JPanel {
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JToolBar jToolBar2;
     private javax.swing.JToolBar jToolBar3;
+    private javax.swing.JToolBar jToolBar4;
     // End of variables declaration//GEN-END:variables
 }

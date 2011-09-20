@@ -53,7 +53,7 @@ public class GameSounds {
      * Initialization
      */
     void initThis() {
-        throw new UnsupportedOperationException("Not yet implemented");
+        ;
     }
     
     /**

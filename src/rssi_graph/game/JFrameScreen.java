@@ -44,6 +44,12 @@ public class JFrameScreen extends javax.swing.JFrame {
     public void initThis(){
         this.energyMeter1.initMeter();
         this.energyMeter2.initMeter();
+        
+        this.jProgressLight1.setMinimum(0);
+        this.jProgressLight1.setMaximum(700);
+        
+        this.jProgressLight2.setMinimum(0);
+        this.jProgressLight2.setMaximum(700);
     }
     
     /**
@@ -101,24 +107,55 @@ public class JFrameScreen extends javax.swing.JFrame {
         String fEnergy = formatter.format(energy); 
         
         if (player==1){
-            this.jLabelEnergy1.setText(fEnergy);
+            //this.jLabelEnergy1.setText(fEnergy);
             this.energyMeter1.setCurrentValue(energy);
         } else if (player==2){
-            this.jLabelEnergy2.setText(fEnergy);
+            //this.jLabelEnergy2.setText(fEnergy);
             this.energyMeter2.setCurrentValue(energy);
         }
+    }
+    
+    /**
+     * Update light indicator
+     */
+    public void setLight(int player, double light){
+        if (player==1){
+            light = this.jProgressLight1.getMaximum() < light ? this.jProgressLight1.getMaximum() : light;
+            this.jProgressLight1.setValue((int) light);
+        } else if (player==2){
+            light = this.jProgressLight2.getMaximum() < light ? this.jProgressLight2.getMaximum() : light;
+            this.jProgressLight2.setValue((int) light);
+        }
+    }
+    
+    /**
+     * Sets new displayed time
+     * 
+     * @param newTime 
+     */
+    public void setTime(long newTime){       
+        double minutes = Math.floor(newTime/60.0);
+        double seconds = newTime - minutes*60;
+        
+        NumberFormat formatter = new DecimalFormat("00");
+        this.jLabelGameTime.setText(formatter.format(minutes) + ":" + formatter.format(seconds));
     }
     
     /**
      * Event fired - gui update
      */
     void updateGuiTimerFired() {
+        // game time
+        this.setTime(this.gameWorker.getGameTimeRemaining());
+        
         double energy = this.gameWorker.getPlayer1().getEnergy();
         this.setEnergy(1, energy);
+        this.setLight(1, this.gameWorker.getPlayer1().getLight());
         
         if (this.gameWorker.getPlayer2() instanceof Player){
             energy = this.gameWorker.getPlayer2().getEnergy();
             this.setEnergy(2, energy);
+            this.setLight(2, this.gameWorker.getPlayer2().getLight());
         }
     }
     
@@ -169,14 +206,17 @@ public class JFrameScreen extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jPanelPlayer1 = new javax.swing.JPanel();
         jLabelPlayer1Name = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabelEnergy1 = new javax.swing.JLabel();
         energyMeter1 = new rssi_graph.game.energyMeter();
+        jPanel1 = new javax.swing.JPanel();
+        jProgressLight1 = new javax.swing.JProgressBar();
         jPanelPlayer2 = new javax.swing.JPanel();
         jLabelPlayer2Name = new javax.swing.JLabel();
-        jLabelEnergy2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         energyMeter2 = new rssi_graph.game.energyMeter();
+        jPanel2 = new javax.swing.JPanel();
+        jProgressLight2 = new javax.swing.JProgressBar();
+        jPanelCommon = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabelGameTime = new javax.swing.JLabel();
 
         org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(rssi_graph.RSSI_graphApp.class).getContext().getResourceMap(JFrameScreen.class);
         jLabel1.setText(resourceMap.getString("jLabel1.text")); // NOI18N
@@ -193,17 +233,25 @@ public class JFrameScreen extends javax.swing.JFrame {
         jLabelPlayer1Name.setText(resourceMap.getString("jLabelPlayer1Name.text")); // NOI18N
         jLabelPlayer1Name.setName("jLabelPlayer1Name"); // NOI18N
 
-        jLabel2.setFont(resourceMap.getFont("jLabel2.font")); // NOI18N
-        jLabel2.setText(resourceMap.getString("jLabel2.text")); // NOI18N
-        jLabel2.setName("jLabel2"); // NOI18N
-
-        jLabelEnergy1.setFont(resourceMap.getFont("jLabelEnergy1.font")); // NOI18N
-        jLabelEnergy1.setForeground(resourceMap.getColor("jLabelEnergy1.foreground")); // NOI18N
-        jLabelEnergy1.setText(resourceMap.getString("jLabelEnergy1.text")); // NOI18N
-        jLabelEnergy1.setName("jLabelEnergy1"); // NOI18N
-
-        energyMeter1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        energyMeter1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         energyMeter1.setName("energyMeter1"); // NOI18N
+
+        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel1.setName("jPanel1"); // NOI18N
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 276, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 117, Short.MAX_VALUE)
+        );
+
+        jProgressLight1.setOrientation(1);
+        jProgressLight1.setName("jProgressLight1"); // NOI18N
 
         javax.swing.GroupLayout jPanelPlayer1Layout = new javax.swing.GroupLayout(jPanelPlayer1);
         jPanelPlayer1.setLayout(jPanelPlayer1Layout);
@@ -212,27 +260,29 @@ public class JFrameScreen extends javax.swing.JFrame {
             .addGroup(jPanelPlayer1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanelPlayer1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabelPlayer1Name)
                     .addGroup(jPanelPlayer1Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabelEnergy1)))
-                .addGap(59, 59, 59)
-                .addComponent(energyMeter1, javax.swing.GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE)
-                .addContainerGap())
+                        .addGroup(jPanelPlayer1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanelPlayer1Layout.createSequentialGroup()
+                                .addComponent(jProgressLight1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(energyMeter1, javax.swing.GroupLayout.DEFAULT_SIZE, 244, Short.MAX_VALUE))
+                            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap())
+                    .addGroup(jPanelPlayer1Layout.createSequentialGroup()
+                        .addComponent(jLabelPlayer1Name)
+                        .addContainerGap(179, Short.MAX_VALUE))))
         );
         jPanelPlayer1Layout.setVerticalGroup(
             jPanelPlayer1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelPlayer1Layout.createSequentialGroup()
+                .addComponent(jLabelPlayer1Name)
+                .addGap(6, 6, 6)
                 .addGroup(jPanelPlayer1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanelPlayer1Layout.createSequentialGroup()
-                        .addComponent(jLabelPlayer1Name)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanelPlayer1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabelEnergy1)))
-                    .addComponent(energyMeter1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(120, 120, 120))
+                    .addComponent(jProgressLight1, 0, 213, Short.MAX_VALUE)
+                    .addComponent(energyMeter1, javax.swing.GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         jPanelPlayer2.setBorder(javax.swing.BorderFactory.createTitledBorder(resourceMap.getString("jPanelPlayer2.border.title"))); // NOI18N
@@ -243,66 +293,114 @@ public class JFrameScreen extends javax.swing.JFrame {
         jLabelPlayer2Name.setText(resourceMap.getString("jLabelPlayer2Name.text")); // NOI18N
         jLabelPlayer2Name.setName("jLabelPlayer2Name"); // NOI18N
 
-        jLabelEnergy2.setFont(resourceMap.getFont("jLabel3.font")); // NOI18N
-        jLabelEnergy2.setForeground(resourceMap.getColor("jLabelEnergy2.foreground")); // NOI18N
-        jLabelEnergy2.setText(resourceMap.getString("jLabelEnergy2.text")); // NOI18N
-        jLabelEnergy2.setName("jLabelEnergy2"); // NOI18N
-
-        jLabel3.setFont(resourceMap.getFont("jLabel3.font")); // NOI18N
-        jLabel3.setText(resourceMap.getString("jLabel3.text")); // NOI18N
-        jLabel3.setName("jLabel3"); // NOI18N
-
-        energyMeter2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        energyMeter2.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         energyMeter2.setName("energyMeter2"); // NOI18N
+
+        jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel2.setName("jPanel2"); // NOI18N
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 279, Short.MAX_VALUE)
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 117, Short.MAX_VALUE)
+        );
+
+        jProgressLight2.setOrientation(1);
+        jProgressLight2.setName("jProgressLight2"); // NOI18N
 
         javax.swing.GroupLayout jPanelPlayer2Layout = new javax.swing.GroupLayout(jPanelPlayer2);
         jPanelPlayer2.setLayout(jPanelPlayer2Layout);
         jPanelPlayer2Layout.setHorizontalGroup(
             jPanelPlayer2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelPlayer2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanelPlayer2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabelPlayer2Name)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelPlayer2Layout.createSequentialGroup()
+                .addGroup(jPanelPlayer2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanelPlayer2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanelPlayer2Layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabelEnergy2)))
-                .addGap(80, 80, 80)
-                .addComponent(energyMeter2, javax.swing.GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE)
+                        .addGap(16, 16, 16)
+                        .addGroup(jPanelPlayer2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabelPlayer2Name)
+                            .addGroup(jPanelPlayer2Layout.createSequentialGroup()
+                                .addComponent(jProgressLight2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(energyMeter2, javax.swing.GroupLayout.DEFAULT_SIZE, 241, Short.MAX_VALUE)))))
                 .addContainerGap())
         );
         jPanelPlayer2Layout.setVerticalGroup(
             jPanelPlayer2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelPlayer2Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelPlayer2Layout.createSequentialGroup()
+                .addComponent(jLabelPlayer2Name)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelPlayer2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanelPlayer2Layout.createSequentialGroup()
-                        .addComponent(jLabelPlayer2Name)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanelPlayer2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabelEnergy2)))
-                    .addComponent(energyMeter2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(120, 120, 120))
+                    .addComponent(jProgressLight2, 0, 0, Short.MAX_VALUE)
+                    .addComponent(energyMeter2, javax.swing.GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        jPanelCommon.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanelCommon.setName("jPanelCommon"); // NOI18N
+
+        jLabel4.setFont(resourceMap.getFont("jLabel4.font")); // NOI18N
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel4.setText(resourceMap.getString("jLabel4.text")); // NOI18N
+        jLabel4.setName("jLabel4"); // NOI18N
+
+        jLabelGameTime.setFont(resourceMap.getFont("jLabelGameTime.font")); // NOI18N
+        jLabelGameTime.setText(resourceMap.getString("jLabelGameTime.text")); // NOI18N
+        jLabelGameTime.setName("jLabelGameTime"); // NOI18N
+
+        javax.swing.GroupLayout jPanelCommonLayout = new javax.swing.GroupLayout(jPanelCommon);
+        jPanelCommon.setLayout(jPanelCommonLayout);
+        jPanelCommonLayout.setHorizontalGroup(
+            jPanelCommonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelCommonLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 278, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabelGameTime, javax.swing.GroupLayout.DEFAULT_SIZE, 325, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanelCommonLayout.setVerticalGroup(
+            jPanelCommonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelCommonLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanelCommonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jLabelGameTime)
+                    .addComponent(jLabel4))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanelPlayer1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanelPlayer2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanelCommon, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addComponent(jPanelPlayer1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanelPlayer2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanelPlayer2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanelPlayer1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanelCommon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanelPlayer1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanelPlayer2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -324,14 +422,17 @@ public class JFrameScreen extends javax.swing.JFrame {
     private rssi_graph.game.energyMeter energyMeter1;
     private rssi_graph.game.energyMeter energyMeter2;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabelEnergy1;
-    private javax.swing.JLabel jLabelEnergy2;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabelGameTime;
     private javax.swing.JLabel jLabelPlayer1Name;
     private javax.swing.JLabel jLabelPlayer2Name;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanelCommon;
     private javax.swing.JPanel jPanelPlayer1;
     private javax.swing.JPanel jPanelPlayer2;
+    private javax.swing.JProgressBar jProgressLight1;
+    private javax.swing.JProgressBar jProgressLight2;
     // End of variables declaration//GEN-END:variables
 
 }
