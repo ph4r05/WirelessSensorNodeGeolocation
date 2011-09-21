@@ -813,7 +813,6 @@ public class GameWorker extends WorkerBase implements MessageListener, WorkerInt
             this.eventGameStateChanged(oldState, this.gameState, "nullEnergy");
         }
         
-        
         // sound handler
         this.energySound(player, newEnergy);
     }
@@ -861,6 +860,7 @@ public class GameWorker extends WorkerBase implements MessageListener, WorkerInt
             this.frameFinish.setLocationRelativeTo(screen);
             GameWorker.centerWindow(this.frameFinish, screen);
             
+            // set game over text here
             if (reason!=null && this.winner>0){
                 if (!this.isMultiplayer()){
                     if (this.winner==1){
@@ -874,11 +874,20 @@ public class GameWorker extends WorkerBase implements MessageListener, WorkerInt
                     } else if (this.winner==2){
                         this.frameFinish.setText("Vyhrál " + this.player2.getName());
                     }
-                }                
+                }
+                
+                // decideable victory
+                if (this.isSoundEnabled()){
+                    this.gameSounds.playerFinished(winner, true);
+                }
             } else {
                 this.frameFinish.setText("");
             }
                   
+        } else {
+            if (this.isSoundEnabled()){
+                    this.gameSounds.gameStateChanged(newState);
+                }
         }
         
         this.screen.setGameState(newState);
@@ -958,11 +967,12 @@ public class GameWorker extends WorkerBase implements MessageListener, WorkerInt
         // show game over window
         this.frameFinish.setVisible(false);
         
-        // player default energy
+        // player default energy at game start - full energy
         if (this.player1 instanceof Player){
             this.player1.setEnergy(100.0);
         }
         
+        // player default energy at game start - full energy
         if (this.player2 instanceof Player){
             this.player2.setEnergy(100.0);
         }
