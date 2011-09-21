@@ -44,6 +44,7 @@ public class MessageTypes {
   public static final int COMMAND_SETREPORTGAP=19;
   public static final int COMMAND_GETSENSORREADING=20;
   public static final int COMMAND_SENSORREADING=21;
+  public static final int COMMAND_SETSAMPLESENSORREADING=24;
   
   // pinning
   public static final int COMMAND_SETPIN=22;

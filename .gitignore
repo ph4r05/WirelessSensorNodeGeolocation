@@ -7,4 +7,10 @@
 meassurements_sqlite_2
 meassurements_sqlite_2.ph4backup
 /libs/*/javadoc
+main.exe
+main.ihex
+build/micaz
+build/telosb
 
+/nesC/ReportMote/build/
+/nesC/RssiBase/build/

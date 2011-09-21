@@ -612,12 +612,10 @@ public class RSSI_graphView extends FrameView {
         jPannelRSSI2DistanceDataLoader2 = new rssi_graph.rssi.jPannelRSSI2DistanceDataLoader();
         jPannelRSSI2DistanceChart1 = new rssi_graph.rssi.chart.JPannelRSSI2DistanceChart();
         jPanelLocalizationMain1 = new rssi_graph.localization.JPanelLocalizationMain();
+        jPanelNodeRegisterMain1 = new rssi_graph.nodeRegister.JPanelNodeRegisterMain();
         jPanelComm = new javax.swing.JPanel();
         jToggle_comm_on = new javax.swing.JToggleButton();
-        jButton_comm_sendAbort = new javax.swing.JButton();
-        jButton_comm_sendReset = new javax.swing.JButton();
         jPanel_comm_NodeSelector1 = new rssi_graph.JPanelNodeSelector();
-        jButton_comm_discover = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jCheck_com_randomizedThresholding = new javax.swing.JCheckBox();
         jButton_comm_sendRT = new javax.swing.JButton();
@@ -635,7 +633,6 @@ public class RSSI_graphView extends FrameView {
         jRadio_comm_report_mass = new javax.swing.JRadioButton();
         jRadio_comm_report_medium = new javax.swing.JRadioButton();
         jButton_comm_sendTinyReports = new javax.swing.JButton();
-        jCheck_comm_autoNodeDiscovery = new javax.swing.JCheckBox();
         jPanel10 = new javax.swing.JPanel();
         jText_comm_reportGap = new javax.swing.JTextField();
         jButton_comm_setReportGap = new javax.swing.JButton();
@@ -653,6 +650,8 @@ public class RSSI_graphView extends FrameView {
         jLabel4 = new javax.swing.JLabel();
         jField_com_period = new javax.swing.JFormattedTextField();
         jRadio_com_humidity = new javax.swing.JRadioButton();
+        jSeparator2 = new javax.swing.JSeparator();
+        jCheckSensorReadingBroadcast = new javax.swing.JCheckBox();
         jPanel5 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jComboPinNumber = new javax.swing.JComboBox();
@@ -660,7 +659,14 @@ public class RSSI_graphView extends FrameView {
         jRadioPinEnabled = new javax.swing.JRadioButton();
         jRadioPinDisabled = new javax.swing.JRadioButton();
         jButtonSetPin = new javax.swing.JButton();
-        jPanelNodeRegisterMain1 = new rssi_graph.nodeRegister.JPanelNodeRegisterMain();
+        jPanel9 = new javax.swing.JPanel();
+        jButton_comm_sendReset = new javax.swing.JButton();
+        jButton_comm_discover = new javax.swing.JButton();
+        jCheck_comm_autoNodeDiscovery = new javax.swing.JCheckBox();
+        jButton_comm_sendAbort = new javax.swing.JButton();
+        jPanel14 = new javax.swing.JPanel();
+        jCheckSampleSensorDataReadings = new javax.swing.JCheckBox();
+        jButtonSensorSamplingSendCommand = new javax.swing.JButton();
         jPanelGame1 = new rssi_graph.game.JPanelGame();
         jPanelLogger1 = new rssi_graph.JPanelLogger();
         menuBar = new javax.swing.JMenuBar();
@@ -1129,17 +1135,20 @@ public class RSSI_graphView extends FrameView {
         jPanelR2DLayout.setVerticalGroup(
             jPanelR2DLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelR2DLayout.createSequentialGroup()
-                .addComponent(jPannelRSSI2DistanceChart1, javax.swing.GroupLayout.DEFAULT_SIZE, 516, Short.MAX_VALUE)
+                .addComponent(jPannelRSSI2DistanceChart1, javax.swing.GroupLayout.DEFAULT_SIZE, 537, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(jPanelR2DLayout.createSequentialGroup()
                 .addGap(12, 12, 12)
-                .addComponent(jTabbedPane_R2D, javax.swing.GroupLayout.PREFERRED_SIZE, 516, Short.MAX_VALUE))
+                .addComponent(jTabbedPane_R2D, javax.swing.GroupLayout.DEFAULT_SIZE, 537, Short.MAX_VALUE))
         );
 
         jTabbedPaneMain.addTab(resourceMap.getString("jPanelR2D.TabConstraints.tabTitle"), jPanelR2D); // NOI18N
 
         jPanelLocalizationMain1.setName("jPanelLocalizationMain1"); // NOI18N
         jTabbedPaneMain.addTab(resourceMap.getString("jPanelLocalizationMain1.TabConstraints.tabTitle"), jPanelLocalizationMain1); // NOI18N
+
+        jPanelNodeRegisterMain1.setName("jPanelNodeRegisterMain1"); // NOI18N
+        jTabbedPaneMain.addTab(resourceMap.getString("jPanelNodeRegisterMain1.TabConstraints.tabTitle"), jPanelNodeRegisterMain1); // NOI18N
 
         jPanelComm.setName("jPanelComm"); // NOI18N
 
@@ -1148,22 +1157,7 @@ public class RSSI_graphView extends FrameView {
         jToggle_comm_on.setActionCommand(resourceMap.getString("jToggle_comm_on.actionCommand")); // NOI18N
         jToggle_comm_on.setName("jToggle_comm_on"); // NOI18N
 
-        jButton_comm_sendAbort.setMnemonic('A');
-        jButton_comm_sendAbort.setText(resourceMap.getString("jButton_comm_sendAbort.text")); // NOI18N
-        jButton_comm_sendAbort.setActionCommand(resourceMap.getString("jButton_comm_sendAbort.actionCommand")); // NOI18N
-        jButton_comm_sendAbort.setName("jButton_comm_sendAbort"); // NOI18N
-
-        jButton_comm_sendReset.setMnemonic('e');
-        jButton_comm_sendReset.setText(resourceMap.getString("jButton_comm_sendReset.text")); // NOI18N
-        jButton_comm_sendReset.setActionCommand(resourceMap.getString("jButton_comm_sendReset.actionCommand")); // NOI18N
-        jButton_comm_sendReset.setName("jButton_comm_sendReset"); // NOI18N
-
         jPanel_comm_NodeSelector1.setName("jPanel_comm_NodeSelector1"); // NOI18N
-
-        jButton_comm_discover.setMnemonic('D');
-        jButton_comm_discover.setText(resourceMap.getString("jButton_comm_discover.text")); // NOI18N
-        jButton_comm_discover.setActionCommand(resourceMap.getString("jButton_comm_discover.actionCommand")); // NOI18N
-        jButton_comm_discover.setName("jButton_comm_discover"); // NOI18N
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(resourceMap.getString("jPanel1.border.title"))); // NOI18N
         jPanel1.setName("jPanel1"); // NOI18N
@@ -1357,12 +1351,6 @@ public class RSSI_graphView extends FrameView {
                 .addContainerGap())
         );
 
-        jCheck_comm_autoNodeDiscovery.setMnemonic('t');
-        jCheck_comm_autoNodeDiscovery.setSelected(true);
-        jCheck_comm_autoNodeDiscovery.setText(resourceMap.getString("jCheck_comm_autoNodeDiscovery.text")); // NOI18N
-        jCheck_comm_autoNodeDiscovery.setActionCommand(resourceMap.getString("jCheck_comm_autoNodeDiscovery.actionCommand")); // NOI18N
-        jCheck_comm_autoNodeDiscovery.setName("jCheck_comm_autoNodeDiscovery"); // NOI18N
-
         jPanel10.setBorder(javax.swing.BorderFactory.createTitledBorder(resourceMap.getString("jPanel10.border.title"))); // NOI18N
         jPanel10.setToolTipText(resourceMap.getString("jPanel10.toolTipText")); // NOI18N
         jPanel10.setName("jPanel10"); // NOI18N
@@ -1384,7 +1372,7 @@ public class RSSI_graphView extends FrameView {
         jPanel10Layout.setHorizontalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
-                .addContainerGap(49, Short.MAX_VALUE)
+                .addContainerGap(79, Short.MAX_VALUE)
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jText_comm_reportGap, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton_comm_setReportGap, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -1396,7 +1384,7 @@ public class RSSI_graphView extends FrameView {
                 .addComponent(jText_comm_reportGap, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton_comm_setReportGap)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
         jPanel11.setBorder(javax.swing.BorderFactory.createTitledBorder(resourceMap.getString("jPanel11.border.title"))); // NOI18N
@@ -1463,14 +1451,22 @@ public class RSSI_graphView extends FrameView {
         jRadio_com_humidity.setActionCommand(resourceMap.getString("jRadio_com_humidity.actionCommand")); // NOI18N
         jRadio_com_humidity.setName("jRadio_com_humidity"); // NOI18N
 
+        jSeparator2.setName("jSeparator2"); // NOI18N
+
+        jCheckSensorReadingBroadcast.setText(resourceMap.getString("jCheckSensorReadingBroadcast.text")); // NOI18N
+        jCheckSensorReadingBroadcast.setName("jCheckSensorReadingBroadcast"); // NOI18N
+
         javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
         jPanel11.setLayout(jPanel11Layout);
         jPanel11Layout.setHorizontalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel11Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
                 .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel11Layout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addComponent(jCheckSensorReadingBroadcast))
+                    .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE)
                     .addGroup(jPanel11Layout.createSequentialGroup()
                         .addGap(12, 12, 12)
                         .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1491,10 +1487,9 @@ public class RSSI_graphView extends FrameView {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addComponent(jLabel2)
-                    .addGroup(jPanel11Layout.createSequentialGroup()
-                        .addGap(36, 36, 36)
-                        .addComponent(jButton_comm_sensorReading)))
-                .addGap(8, 8, 8))
+                    .addComponent(jButton_comm_sensorReading, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jSeparator2, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel11Layout.setVerticalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1522,6 +1517,10 @@ public class RSSI_graphView extends FrameView {
                     .addComponent(jField_com_period, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jCheckSensorReadingBroadcast)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 86, Short.MAX_VALUE)
                 .addComponent(jButton_comm_sensorReading)
                 .addContainerGap())
         );
@@ -1565,11 +1564,11 @@ public class RSSI_graphView extends FrameView {
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel5)
                     .addComponent(jComboPinNumber, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jRadioPinEnabled)
                         .addComponent(jRadioPinDisabled))
-                    .addComponent(jButtonSetPin, javax.swing.GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE))
+                    .addComponent(jButtonSetPin, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
@@ -1586,7 +1585,101 @@ public class RSSI_graphView extends FrameView {
                 .addComponent(jRadioPinDisabled)
                 .addGap(18, 18, 18)
                 .addComponent(jButtonSetPin)
+                .addContainerGap(18, Short.MAX_VALUE))
+        );
+
+        jPanel9.setBorder(javax.swing.BorderFactory.createTitledBorder(resourceMap.getString("jPanel9.border.title"))); // NOI18N
+        jPanel9.setName("jPanel9"); // NOI18N
+
+        jButton_comm_sendReset.setMnemonic('e');
+        jButton_comm_sendReset.setText(resourceMap.getString("jButton_comm_sendReset.text")); // NOI18N
+        jButton_comm_sendReset.setActionCommand(resourceMap.getString("jButton_comm_sendReset.actionCommand")); // NOI18N
+        jButton_comm_sendReset.setName("jButton_comm_sendReset"); // NOI18N
+
+        jButton_comm_discover.setMnemonic('D');
+        jButton_comm_discover.setText(resourceMap.getString("jButton_comm_discover.text")); // NOI18N
+        jButton_comm_discover.setActionCommand(resourceMap.getString("jButton_comm_discover.actionCommand")); // NOI18N
+        jButton_comm_discover.setName("jButton_comm_discover"); // NOI18N
+
+        jCheck_comm_autoNodeDiscovery.setMnemonic('t');
+        jCheck_comm_autoNodeDiscovery.setSelected(true);
+        jCheck_comm_autoNodeDiscovery.setText(resourceMap.getString("jCheck_comm_autoNodeDiscovery.text")); // NOI18N
+        jCheck_comm_autoNodeDiscovery.setActionCommand(resourceMap.getString("jCheck_comm_autoNodeDiscovery.actionCommand")); // NOI18N
+        jCheck_comm_autoNodeDiscovery.setName("jCheck_comm_autoNodeDiscovery"); // NOI18N
+
+        jButton_comm_sendAbort.setMnemonic('A');
+        jButton_comm_sendAbort.setText(resourceMap.getString("jButton_comm_sendAbort.text")); // NOI18N
+        jButton_comm_sendAbort.setActionCommand(resourceMap.getString("jButton_comm_sendAbort.actionCommand")); // NOI18N
+        jButton_comm_sendAbort.setName("jButton_comm_sendAbort"); // NOI18N
+
+        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
+        jPanel9.setLayout(jPanel9Layout);
+        jPanel9Layout.setHorizontalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel9Layout.createSequentialGroup()
+                        .addComponent(jCheck_comm_autoNodeDiscovery)
+                        .addGap(20, 20, 20))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
+                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jButton_comm_sendAbort, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE)
+                            .addComponent(jButton_comm_sendReset, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE)
+                            .addComponent(jButton_comm_discover, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE))
+                        .addContainerGap())))
+        );
+        jPanel9Layout.setVerticalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jButton_comm_sendAbort, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton_comm_sendReset, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton_comm_discover, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jCheck_comm_autoNodeDiscovery)
                 .addContainerGap(12, Short.MAX_VALUE))
+        );
+
+        jPanel9Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jButton_comm_sendAbort, jButton_comm_sendReset});
+
+        jPanel14.setBorder(javax.swing.BorderFactory.createTitledBorder(resourceMap.getString("jPanel14.border.title"))); // NOI18N
+        jPanel14.setName("jPanel14"); // NOI18N
+
+        jCheckSampleSensorDataReadings.setText(resourceMap.getString("jCheckSampleSensorDataReadings.text")); // NOI18N
+        jCheckSampleSensorDataReadings.setName("jCheckSampleSensorDataReadings"); // NOI18N
+
+        jButtonSensorSamplingSendCommand.setText(resourceMap.getString("jButtonSensorSamplingSendCommand.text")); // NOI18N
+        jButtonSensorSamplingSendCommand.setName("jButtonSensorSamplingSendCommand"); // NOI18N
+        jButtonSensorSamplingSendCommand.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSensorSamplingSendCommandActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
+        jPanel14.setLayout(jPanel14Layout);
+        jPanel14Layout.setHorizontalGroup(
+            jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel14Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jCheckSampleSensorDataReadings)
+                .addContainerGap(45, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel14Layout.createSequentialGroup()
+                .addContainerGap(82, Short.MAX_VALUE)
+                .addComponent(jButtonSensorSamplingSendCommand)
+                .addContainerGap())
+        );
+        jPanel14Layout.setVerticalGroup(
+            jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel14Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jCheckSampleSensorDataReadings)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButtonSensorSamplingSendCommand)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanelCommLayout = new javax.swing.GroupLayout(jPanelComm);
@@ -1595,89 +1688,70 @@ public class RSSI_graphView extends FrameView {
             jPanelCommLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelCommLayout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(jPanel_comm_NodeSelector1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(13, 13, 13)
+                .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelCommLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel_comm_NodeSelector1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addGroup(jPanelCommLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelCommLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelCommLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelCommLayout.createSequentialGroup()
-                        .addGroup(jPanelCommLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanelCommLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jCheck_comm_autoNodeDiscovery)
-                            .addGroup(jPanelCommLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jButton_comm_discover, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButton_comm_sendReset, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButton_comm_sendAbort, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(403, 403, 403))
                     .addGroup(jPanelCommLayout.createSequentialGroup()
-                        .addGroup(jPanelCommLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanelCommLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jToggle_comm_on, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(590, Short.MAX_VALUE))
+                        .addComponent(jToggle_comm_on, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
 
-        jPanelCommLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jPanel1, jPanel2, jPanel3, jPanel4, jPanel8});
+        jPanelCommLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jPanel1, jPanel10, jPanel11, jPanel14, jPanel2, jPanel3, jPanel4, jPanel5, jPanel8, jPanel9, jToggle_comm_on});
 
         jPanelCommLayout.setVerticalGroup(
             jPanelCommLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelCommLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanelCommLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel_comm_NodeSelector1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanelCommLayout.createSequentialGroup()
-                        .addGroup(jPanelCommLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanelCommLayout.createSequentialGroup()
-                                .addGap(6, 6, 6)
-                                .addComponent(jButton_comm_sendAbort, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton_comm_sendReset, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton_comm_discover, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
-                                .addComponent(jCheck_comm_autoNodeDiscovery)
-                                .addGap(10, 10, 10))
-                            .addGroup(jPanelCommLayout.createSequentialGroup()
-                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanelCommLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanelCommLayout.createSequentialGroup()
-                                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanelCommLayout.createSequentialGroup()
-                                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jToggle_comm_on, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(jPanelCommLayout.createSequentialGroup()
-                        .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, 363, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanelCommLayout.createSequentialGroup()
-                        .addComponent(jPanel_comm_NodeSelector1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                        .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jToggle_comm_on, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanelCommLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jPanel11, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanelCommLayout.createSequentialGroup()
+                            .addGroup(jPanelCommLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jPanel14, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(jPanelCommLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanelCommLayout.createSequentialGroup()
+                                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(jPanelCommLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                .addContainerGap(48, Short.MAX_VALUE))
         );
-
-        jPanelCommLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jButton_comm_sendAbort, jButton_comm_sendReset});
 
         jPanel11.getAccessibleContext().setAccessibleDescription(resourceMap.getString("jPanel11.AccessibleContext.accessibleDescription")); // NOI18N
 
         jTabbedPaneMain.addTab(resourceMap.getString("jPanelComm.TabConstraints.tabTitle"), jPanelComm); // NOI18N
-
-        jPanelNodeRegisterMain1.setName("jPanelNodeRegisterMain1"); // NOI18N
-        jTabbedPaneMain.addTab(resourceMap.getString("jPanelNodeRegisterMain1.TabConstraints.tabTitle"), jPanelNodeRegisterMain1); // NOI18N
 
         jPanelGame1.setName("jPanelGame1"); // NOI18N
         jTabbedPaneMain.addTab(resourceMap.getString("jPanelGame1.TabConstraints.tabTitle"), jPanelGame1); // NOI18N
@@ -1693,13 +1767,13 @@ public class RSSI_graphView extends FrameView {
                     .addGroup(mainPanelLayout.createSequentialGroup()
                         .addGap(12, 12, 12)
                         .addComponent(jPanelLogger1, javax.swing.GroupLayout.DEFAULT_SIZE, 1418, Short.MAX_VALUE))
-                    .addComponent(jTabbedPaneMain, javax.swing.GroupLayout.DEFAULT_SIZE, 1430, Short.MAX_VALUE))
+                    .addComponent(jTabbedPaneMain, javax.swing.GroupLayout.PREFERRED_SIZE, 1430, Short.MAX_VALUE))
                 .addContainerGap())
         );
         mainPanelLayout.setVerticalGroup(
             mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(mainPanelLayout.createSequentialGroup()
-                .addComponent(jTabbedPaneMain, javax.swing.GroupLayout.DEFAULT_SIZE, 571, Short.MAX_VALUE)
+                .addComponent(jTabbedPaneMain, javax.swing.GroupLayout.DEFAULT_SIZE, 592, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanelLogger1, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -1819,9 +1893,12 @@ public class RSSI_graphView extends FrameView {
         // get delay
         int periodDelay = Integer.parseInt(this.jField_com_period.getText());
         
+        // broadcast answer?
+        boolean broadcastAnswer = this.jCheckSensorReadingBroadcast.isSelected();
+        
         // call worker
         WorkerCommands commands = (WorkerCommands) RSSI_graphApp.getApplication().getWorker(2);
-        commands.sendSensorReadingRequest(sensorType, isPeriodical, periodDelay);
+        commands.sendSensorReadingRequest(sensorType, isPeriodical, periodDelay, broadcastAnswer);
     }//GEN-LAST:event_jButton_comm_sensorReadingActionPerformed
 
     /**
@@ -1874,6 +1951,21 @@ public class RSSI_graphView extends FrameView {
         commands.sendSetPin(pinnum, status);
     }//GEN-LAST:event_jButtonSetPinActionPerformed
 
+    /**
+     * Set sensor variable "doSensorReadingSampling"
+     * If TRUE, sensors having "doReporting" == TRUE will sample RSSI data from sensor 
+     * readings sent to broadcast.
+     * 
+     * @param evt 
+     */
+    private void jButtonSensorSamplingSendCommandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSensorSamplingSendCommandActionPerformed
+        // TODO add your handling code here:
+        boolean doSampleSensorReadings = this.jCheckSampleSensorDataReadings.isSelected();
+        
+        WorkerCommands commands = (WorkerCommands) RSSI_graphApp.getApplication().getWorker(2);
+        commands.sendDoSensorSampling(doSampleSensorReadings);
+    }//GEN-LAST:event_jButtonSensorSamplingSendCommandActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
@@ -1882,6 +1974,7 @@ public class RSSI_graphView extends FrameView {
     private javax.swing.ButtonGroup buttonGroup_sensorSamplingFrequency;
     private javax.swing.ButtonGroup buttonGroup_sensors;
     private javax.swing.JButton jButtonFinishTry;
+    private javax.swing.JButton jButtonSensorSamplingSendCommand;
     private javax.swing.JButton jButtonSetPin;
     private javax.swing.JButton jButton_R2D_AddToGraph;
     private javax.swing.JButton jButton_R2D_MoveStep;
@@ -1901,6 +1994,8 @@ public class RSSI_graphView extends FrameView {
     private javax.swing.JButton jButton_drop;
     private javax.swing.JButton jButton_save;
     private javax.swing.JCheckBoxMenuItem jCheckExternalLog;
+    private javax.swing.JCheckBox jCheckSampleSensorDataReadings;
+    private javax.swing.JCheckBox jCheckSensorReadingBroadcast;
     private javax.swing.JCheckBox jCheck_R2D_resetBeforeRound;
     private javax.swing.JCheckBox jCheck_com_randomizedThresholding;
     private javax.swing.JCheckBox jCheck_comm_autoNodeDiscovery;
@@ -1935,6 +2030,7 @@ public class RSSI_graphView extends FrameView {
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel13;
+    private javax.swing.JPanel jPanel14;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
@@ -1942,6 +2038,7 @@ public class RSSI_graphView extends FrameView {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel jPanel9;
     private javax.swing.JPanel jPanelComm;
     private rssi_graph.game.JPanelGame jPanelGame1;
     private rssi_graph.localization.JPanelLocalizationMain jPanelLocalizationMain1;
@@ -1966,6 +2063,7 @@ public class RSSI_graphView extends FrameView {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSlider jSlider_comm_txpower;
     private javax.swing.JTabbedPane jTabbedPaneMain;
     private javax.swing.JTabbedPane jTabbedPane_R2D;

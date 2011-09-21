@@ -181,6 +181,11 @@ module SendingMoteC {
   // where I should send next command?
   // node_id, destination
   uint16_t command_dest=1;
+  
+  // where to send sensor reading data?
+  // can be broadcast when are rssi-sampled sensor reading data
+  // or base station or asking station
+  uint16_t sensorReadingDest=1;
 
   // radio busy flag
   // main variable controlling radio access
@@ -227,6 +232,9 @@ module SendingMoteC {
   // since some protocol are stateful we need to know what are we supposed to do
   uint8_t operationMode=NODE_REPORTING;
 
+  // flag determining whether do rssi-sampling of sensor reading data
+  bool doSensorReadingSampling = FALSE;
+          
   // which reporting protocol should be used
   // - randomized medium reports
   // - tiny reports
@@ -290,7 +298,8 @@ module SendingMoteC {
   void task sendReading();
   void readSensors();
   bool setGIO(uint8_t pin, bool enabled);
-
+  bool message2sampleReceived(uint16_t rssi, uint16_t cn, uint16_t source);
+  
   /**
    * Queue management
    */
@@ -902,6 +911,8 @@ module SendingMoteC {
       noiseFloorMeasured=0;
       reportingGap=REPORT_SEND_GAP;
       readMode = 1;
+      
+      doSensorReadingSampling = FALSE;
   }
 
   /** 
@@ -1023,10 +1034,16 @@ module SendingMoteC {
         }
   }
 
+  /**
+   * Command message sent event.
+   * Can react on it according to error level
+   */
   event void CommandMsgSend.sendDone(message_t *m, error_t error){
-    CommandMsg* btrpktresponse = (CommandMsg *) (call Packet.getPayload(m, 0));
+    // CommandMsg* btrpktresponse = (CommandMsg *) (call Packet.getPayload(m, 0));
+      
+    // busy = false, we sent packet, now it is free
     busy = FALSE;
-    }
+  }
   
 /**
  * Radio Receive
@@ -1037,6 +1054,11 @@ module SendingMoteC {
   }
 */
 
+  //
+  //
+  // COMMAND RECEIVED
+  //
+  //
   event message_t *CommandReceive.receive(message_t *msg, void *payload,  uint8_t len) {
       if (len == sizeof(CommandMsg)){
           // get received message
@@ -1250,6 +1272,16 @@ module SendingMoteC {
                           // start periodic timer with defined timeout (in ms)
                           call SensorReadingTimer.startPeriodic(btrpkt->command_data_next[1]);
                       }
+
+                      // flags here
+                      // sensor reading destination is broadcast?
+                      if ((btrpkt->command_data_next[2]&1)>0){
+                          // broadcast destination (probably rssi-sampled on anchor nodes)
+                          sensorReadingDest = 65535U;
+                      } else {
+                          // no broadcast destination, answer -> base station
+                          sensorReadingDest = command_dest;
+                      }
                   }
 
                   // read appropriate sensors
@@ -1257,6 +1289,30 @@ module SendingMoteC {
 
                   // signalize command received as ussual
                   //signalize(2);
+                  break;
+                  
+                  
+              // changing variable doSensorReadingSampling
+              // If true then sensor readings from another nodes will be sampled for RSSI signal
+              case COMMAND_SETSAMPLESENSORREADING:
+                  doSensorReadingSampling = btrpkt->command_data > 0 ? TRUE : FALSE;
+
+                  btrpktresponse->command_code = COMMAND_ACK;
+                  post sendCommandACK();
+                  signalize(2);
+                  break;
+                  
+              // another sensor reading packet.
+              // if is sampling enabled, do rssi sample of this packet and add to queue   
+              case COMMAND_SENSORREADING:
+                  if (doSensorReadingSampling){
+                      // do sample this message for rssi, is it possible now?
+                      message2sampleReceived(getRssi(msg), btrpkt->command_id, call AMPacket.source(msg));
+                  } else {
+                      // else ignore this packet, not interested in reading sensors 
+                      // of foreign nodes
+                      ;
+                  }
                   break;
 
               default:
@@ -1278,7 +1334,9 @@ module SendingMoteC {
         return receive(msg, payload, len, AM_MULTIPINGMSG);
   }
 
-  // sending reply
+  /**
+   * Send reply on request with given TX power
+   */
   void task sendEchoReply() {
     if (!busy) {
         RssiMsg* btrpkt = (RssiMsg*)(call Packet.getPayload(&pkt, 0));
@@ -1365,7 +1423,6 @@ module SendingMoteC {
 
   // global message receivings
   message_t* receive(message_t* msg, void* payload, uint8_t len, am_id_t id){
-
       // message AM_MULTIPINGMSG received
       // node is expected to answer on ping request
        if (id == AM_MULTIPINGMSG && len == sizeof(MultiPingMsg)){
@@ -1409,14 +1466,14 @@ module SendingMoteC {
 
        // response from another node arrived
        // if we are in reporting mode, report this
-       else if (id ==  AM_MULTIPINGRESPONSEMSG && len == sizeof(MultiPingResponseMsg)){
+       else if (id == AM_MULTIPINGRESPONSEMSG && len == sizeof(MultiPingResponseMsg)) {
             // multiping message
             // reportMote needs queue for incomming MultiPingResponse messages!!!
             
             MultiPingResponseMsg* btrpkt = (MultiPingResponseMsg*) payload;
             
             if (!busy) {
-                uint16_t qsize=queueSize();
+                bool added2queue = FALSE;
 
                 // do some logic with counter
                 rcvBlink();
@@ -1424,64 +1481,8 @@ module SendingMoteC {
                 // disable autoACK
                 setAutoAck(FALSE, FALSE);
 
-                atomic
-                if (!radioFull) {
-
-                    // init storage structure, fill meassured data in
-                    radioBuff[radioIn].nodeid = call AMPacket.source(msg);
-                    radioBuff[radioIn].nodecounter = btrpkt->counter;
-                    radioBuff[radioIn].rssi = getRssi(msg);
-
-                    // sending queue counter management
-                    if (++radioIn >= RADIO_QUEUE_LEN)
-                        radioIn = 0;
-                    if (radioIn == radioOut)
-                        radioFull = TRUE;
-
-                    // turn timeout timer flag off. New packet received, timer has to be restarted
-                    queueTimeout = FALSE;
-
-                    // set timeout timer
-                    // if is waiting window too long, flush sending queue
-                    // according to http://www.tinyos.net/dist-2.0.0/tinyos-2.0.0beta1/doc/html/tep102.html
-                    // start will cancel any running timer and start over again, we want oneShot timer
-                    call FlushTimer.startOneShot(QUEUE_TIMEOUT);
-
-                    // if is radio free try to send messages from queue
-                    if (!radioBusy) {
-                        post sendReport();
-                        radioBusy = TRUE;
-                    }
-
-                    // manage mass queue here
-                    // if is queue filled to the threshold, perform queue flush
-                    qsize=queueSize();
-                    if (reportProtocol == REPORTING_MASS && qsize >= massReportQueueThreshold){
-                            // get local command message, prepare it to send queueFlush
-                            CommandMsg* btrpktresponse = (CommandMsg *) (call Packet.getPayload(&pkt_priv, 0));
-                        
-                            // set mass trigering to true
-                            reportMassTrigered=TRUE;
-
-                            // send flush queue command
-                            btrpktresponse->reply_on_command = 0;
-                            btrpktresponse->reply_on_command_id = 0;
-                            btrpktresponse->command_code = COMMAND_FLUSHREPORTQUEUE;
-                            command_dest=65535;
-
-                            // send it on broadcast address
-                            post sendCommandACK();
-
-                        // trigger flushing, delayed
-                            call GapTimer.startOneShot(REPORT_SEND_THRESH);
-                    }
-                } else {
-                    failBlink();
-                    dbg("RadioQueue full!");
-                        }
-
-                // now simply post packet
-                post sendReport();
+                // process message
+                added2queue = message2sampleReceived(getRssi(msg), btrpkt->counter, call AMPacket.source(msg));
             }
         }
 
@@ -1492,6 +1493,85 @@ module SendingMoteC {
             dbg("Dont know such message!");
         }
         return msg;
+  }
+  
+  /**
+   * Message to sample received.
+   * Add given data to queue and process queue if needed.
+   */
+  bool message2sampleReceived(uint16_t rssi, uint16_t cn, uint16_t source){
+      bool returnValue=FALSE;
+      
+      // if reporting is disabled do nothing
+      if (doReporting==FALSE){
+          return FALSE;
+      }
+      
+    atomic
+    if (!radioFull) {
+        uint16_t qsize=queueSize();
+        
+        // init storage structure, fill meassured data in
+        radioBuff[radioIn].nodeid = source;
+        radioBuff[radioIn].nodecounter = cn;
+        radioBuff[radioIn].rssi = rssi;
+
+        // sending queue counter management
+        if (++radioIn >= RADIO_QUEUE_LEN)
+            radioIn = 0;
+        if (radioIn == radioOut)
+            radioFull = TRUE;
+
+        // turn timeout timer flag off. New packet received, timer has to be restarted
+        queueTimeout = FALSE;
+
+        // set timeout timer
+        // if is waiting window too long, flush sending queue
+        // according to http://www.tinyos.net/dist-2.0.0/tinyos-2.0.0beta1/doc/html/tep102.html
+        // start will cancel any running timer and start over again, we want oneShot timer
+        call FlushTimer.startOneShot(QUEUE_TIMEOUT);
+
+        // if is radio free try to send messages from queue
+        if (!radioBusy) {
+            post sendReport();
+            radioBusy = TRUE;
+        }
+
+        // manage mass queue here
+        // if is queue filled to the threshold, perform queue flush
+        qsize=queueSize();
+        if (reportProtocol == REPORTING_MASS && qsize >= massReportQueueThreshold){
+                // get local command message, prepare it to send queueFlush
+                CommandMsg* btrpktresponse = (CommandMsg *) (call Packet.getPayload(&pkt_priv, 0));
+
+                // set mass trigering to true
+                reportMassTrigered=TRUE;
+
+                // send flush queue command
+                btrpktresponse->reply_on_command = 0;
+                btrpktresponse->reply_on_command_id = 0;
+                btrpktresponse->command_code = COMMAND_FLUSHREPORTQUEUE;
+                command_dest=65535U;
+
+                // send it on broadcast address
+                post sendCommandACK();
+
+                // trigger flushing, delayed
+                call GapTimer.startOneShot(REPORT_SEND_THRESH);
+        }
+        
+        returnValue = TRUE;
+    } else {
+        failBlink();
+        dbg("RadioQueue full!");
+        
+        returnValue = FALSE;
+    }
+
+    // now simply post packet
+    post sendReport();
+    
+    return returnValue;
   }
 
   /**
@@ -1510,7 +1590,7 @@ module SendingMoteC {
             btrpktresponse->reply_on_command = 0;
             btrpktresponse->reply_on_command_id = 0;
             btrpktresponse->command_code = COMMAND_FLUSHREPORTQUEUE;
-            command_dest=65535;
+            command_dest=65535U;
 
             // send it on broadcast address
             post sendCommandACK();
@@ -1580,8 +1660,8 @@ module SendingMoteC {
                             msgReadingLong = numConditionValide + 3*SCALE_TYPE_READ; //read Humidity
                     } else if ((readMode & 15) == 4){
                         // temperature compensated humidity
-                        uint8_t temperature = tmpReading/10;
-                        tmpReading = (temperature - 25) * (0.01 + 0.00008*val) + (-4 + 0.0405*val + (-2.8 * 1e-6)*(val*val)) ;
+                        uint8_t temperatureTmp = tmpReading/10;
+                        tmpReading = (temperatureTmp - 25) * (0.01 + 0.00008*val) + (-4 + 0.0405*val + (-2.8 * 1e-6)*(val*val)) ;
                         msgReadingLong = numConditionValide + 3*SCALE_TYPE_READ; //read Humidity
                     }
             }
@@ -1604,20 +1684,18 @@ module SendingMoteC {
             // send to base directly
             // sometimes node refuses to send too large packet. it will always end with fail
             // depends of buffers size.
-            if (call CommandMsgSend.send(command_dest, &pkt_priv, sizeof(CommandMsg)) == SUCCESS) {
+            if (call CommandMsgSend.send(sensorReadingDest, &pkt_priv, sizeof(CommandMsg)) == SUCCESS) {
                 busy = TRUE;
-            }
-            else
-            {
-                    failBlink();
-                    dbg("Cannot send message");
-                    post sendReading();
+            } else {
+                failBlink();
+                dbg("Cannot send message");
+                post sendReading();
             }
         }
         else
         {
-                failBlink();
-                post sendReading();
+            failBlink();
+            post sendReading();
         }
     }
 
@@ -1625,6 +1703,7 @@ module SendingMoteC {
     /**
      * 
      * Pin setting
+     * Set digital output on specified pin as specified
      * 
      */
     bool setGIO(uint8_t pin, bool enabled){

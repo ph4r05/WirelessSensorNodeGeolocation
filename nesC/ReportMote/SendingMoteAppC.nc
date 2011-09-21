@@ -166,7 +166,7 @@ configuration SendingMoteAppC {
 #elif defined(PLATFORM_IRIS)
         // no sensors for IRIS platform
 #else
-        #error "No SENSORS defined for this platform"
+        //#error "No SENSORS defined for this platform"
 #endif
 
 

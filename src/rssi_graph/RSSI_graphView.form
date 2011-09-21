@@ -33,7 +33,7 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
-                  <Component id="jTabbedPaneMain" pref="571" max="32767" attributes="0"/>
+                  <Component id="jTabbedPaneMain" pref="592" max="32767" attributes="0"/>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Component id="jPanelLogger1" min="-2" pref="134" max="-2" attributes="0"/>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
@@ -74,12 +74,12 @@
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <Component id="jPannelRSSI2DistanceChart1" pref="516" max="32767" attributes="0"/>
+                          <Component id="jPannelRSSI2DistanceChart1" pref="537" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" attributes="0">
                           <EmptySpace min="12" pref="12" max="12" attributes="0"/>
-                          <Component id="jTabbedPane_R2D" pref="516" max="32767" attributes="0"/>
+                          <Component id="jTabbedPane_R2D" pref="537" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -774,6 +774,18 @@
                 </Constraint>
               </Constraints>
             </Component>
+            <Component class="rssi_graph.nodeRegister.JPanelNodeRegisterMain" name="jPanelNodeRegisterMain1">
+              <Properties>
+                <Property name="name" type="java.lang.String" value="jPanelNodeRegisterMain1" noResource="true"/>
+              </Properties>
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
+                  <JTabbedPaneConstraints tabName="Node Register Management">
+                    <Property name="tabTitle" type="java.lang.String" resourceKey="jPanelNodeRegisterMain1.TabConstraints.tabTitle"/>
+                  </JTabbedPaneConstraints>
+                </Constraint>
+              </Constraints>
+            </Component>
             <Container class="javax.swing.JPanel" name="jPanelComm">
               <Properties>
                 <Property name="name" type="java.lang.String" value="jPanelComm" noResource="true"/>
@@ -791,45 +803,38 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" max="-2" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jPanel_comm_NodeSelector1" min="-2" max="-2" attributes="1"/>
+                          <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
+                          <Component id="jPanel11" linkSize="10" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jPanel_comm_NodeSelector1" min="-2" max="-2" attributes="1"/>
-                              <Component id="jPanel5" max="32767" attributes="1"/>
-                          </Group>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jPanel11" min="-2" max="-2" attributes="0"/>
-                              <Component id="jPanel10" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="jPanel2" linkSize="10" alignment="0" max="32767" attributes="1"/>
+                                  <Component id="jPanel1" linkSize="10" alignment="0" min="-2" pref="222" max="-2" attributes="1"/>
+                              </Group>
+                              <Component id="jPanel3" linkSize="10" alignment="1" max="32767" attributes="1"/>
+                              <Component id="jPanel4" linkSize="10" alignment="1" max="32767" attributes="1"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="jPanel2" linkSize="10" alignment="0" max="32767" attributes="1"/>
-                                      <Component id="jPanel1" linkSize="10" alignment="0" min="-2" pref="222" max="-2" attributes="1"/>
-                                  </Group>
-                                  <EmptySpace min="-2" max="-2" attributes="0"/>
+                              <Component id="jPanel5" linkSize="10" max="32767" attributes="1"/>
+                              <Component id="jPanel14" linkSize="10" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="jPanel10" linkSize="10" max="32767" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jCheck_comm_autoNodeDiscovery" min="-2" max="-2" attributes="0"/>
-                                      <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="jButton_comm_discover" max="32767" attributes="1"/>
-                                          <Component id="jButton_comm_sendReset" alignment="0" max="32767" attributes="1"/>
-                                          <Component id="jButton_comm_sendAbort" alignment="0" min="-2" pref="223" max="-2" attributes="1"/>
-                                      </Group>
+                                      <Component id="jPanel8" linkSize="10" alignment="0" max="32767" attributes="1"/>
+                                      <Component id="jPanel9" linkSize="10" alignment="0" min="-2" max="-2" attributes="1"/>
                                   </Group>
+                                  <EmptySpace min="-2" pref="403" max="-2" attributes="0"/>
                               </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Group type="103" groupAlignment="1" attributes="0">
-                                      <Component id="jPanel3" linkSize="10" alignment="1" max="32767" attributes="1"/>
-                                      <Component id="jPanel4" linkSize="10" alignment="1" max="32767" attributes="1"/>
-                                  </Group>
+                              <Group type="102" attributes="0">
+                                  <Component id="jToggle_comm_on" linkSize="10" min="-2" pref="217" max="-2" attributes="1"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jPanel8" linkSize="10" min="-2" max="-2" attributes="1"/>
-                                      <Component id="jToggle_comm_on" min="-2" pref="223" max="-2" attributes="1"/>
-                                  </Group>
                               </Group>
                           </Group>
-                          <EmptySpace pref="590" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -838,51 +843,39 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="jPanel_comm_NodeSelector1" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Group type="102" alignment="0" attributes="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
-                                          <Component id="jButton_comm_sendAbort" linkSize="8" min="-2" pref="51" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="jButton_comm_sendReset" linkSize="8" min="-2" pref="61" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="jButton_comm_discover" min="-2" pref="61" max="-2" attributes="0"/>
-                                          <EmptySpace pref="43" max="32767" attributes="0"/>
-                                          <Component id="jCheck_comm_autoNodeDiscovery" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                  </Group>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Component id="jPanel3" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="jPanel4" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Component id="jPanel8" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="jToggle_comm_on" min="-2" pref="57" max="-2" attributes="0"/>
-                                      </Group>
-                                  </Group>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="jPanel11" min="-2" pref="363" max="-2" attributes="0"/>
+                                  <Component id="jPanel9" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jPanel10" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jPanel8" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="jToggle_comm_on" min="-2" pref="57" max="-2" attributes="0"/>
                               </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="jPanel_comm_NodeSelector1" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="jPanel5" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                                  <Component id="jPanel11" alignment="0" max="32767" attributes="1"/>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                          <Component id="jPanel14" alignment="0" max="32767" attributes="1"/>
+                                          <Component id="jPanel1" alignment="0" pref="114" max="32767" attributes="1"/>
+                                      </Group>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Group type="102" attributes="0">
+                                              <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                              <Component id="jPanel3" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                          <Component id="jPanel5" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                          <Component id="jPanel10" max="32767" attributes="1"/>
+                                          <Component id="jPanel4" alignment="0" max="32767" attributes="1"/>
+                                      </Group>
+                                  </Group>
                               </Group>
                           </Group>
-                          <EmptySpace max="-2" attributes="0"/>
+                          <EmptySpace pref="48" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -896,33 +889,9 @@
                     <Property name="name" type="java.lang.String" value="jToggle_comm_on" noResource="true"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JButton" name="jButton_comm_sendAbort">
-                  <Properties>
-                    <Property name="mnemonic" type="int" value="65"/>
-                    <Property name="text" type="java.lang.String" resourceKey="jButton_comm_sendAbort.text"/>
-                    <Property name="actionCommand" type="java.lang.String" resourceKey="jButton_comm_sendAbort.actionCommand"/>
-                    <Property name="name" type="java.lang.String" value="jButton_comm_sendAbort" noResource="true"/>
-                  </Properties>
-                </Component>
-                <Component class="javax.swing.JButton" name="jButton_comm_sendReset">
-                  <Properties>
-                    <Property name="mnemonic" type="int" value="101"/>
-                    <Property name="text" type="java.lang.String" resourceKey="jButton_comm_sendReset.text"/>
-                    <Property name="actionCommand" type="java.lang.String" resourceKey="jButton_comm_sendReset.actionCommand"/>
-                    <Property name="name" type="java.lang.String" value="jButton_comm_sendReset" noResource="true"/>
-                  </Properties>
-                </Component>
                 <Component class="rssi_graph.JPanelNodeSelector" name="jPanel_comm_NodeSelector1">
                   <Properties>
                     <Property name="name" type="java.lang.String" value="jPanel_comm_NodeSelector1" noResource="true"/>
-                  </Properties>
-                </Component>
-                <Component class="javax.swing.JButton" name="jButton_comm_discover">
-                  <Properties>
-                    <Property name="mnemonic" type="int" value="68"/>
-                    <Property name="text" type="java.lang.String" resourceKey="jButton_comm_discover.text"/>
-                    <Property name="actionCommand" type="java.lang.String" resourceKey="jButton_comm_discover.actionCommand"/>
-                    <Property name="name" type="java.lang.String" value="jButton_comm_discover" noResource="true"/>
                   </Properties>
                 </Component>
                 <Container class="javax.swing.JPanel" name="jPanel1">
@@ -1235,15 +1204,6 @@
                     </Component>
                   </SubComponents>
                 </Container>
-                <Component class="javax.swing.JCheckBox" name="jCheck_comm_autoNodeDiscovery">
-                  <Properties>
-                    <Property name="mnemonic" type="int" value="116"/>
-                    <Property name="selected" type="boolean" value="true"/>
-                    <Property name="text" type="java.lang.String" resourceKey="jCheck_comm_autoNodeDiscovery.text"/>
-                    <Property name="actionCommand" type="java.lang.String" resourceKey="jCheck_comm_autoNodeDiscovery.actionCommand"/>
-                    <Property name="name" type="java.lang.String" value="jCheck_comm_autoNodeDiscovery" noResource="true"/>
-                  </Properties>
-                </Component>
                 <Container class="javax.swing.JPanel" name="jPanel10">
                   <Properties>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -1261,7 +1221,7 @@
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="1" attributes="0">
-                              <EmptySpace pref="49" max="32767" attributes="0"/>
+                              <EmptySpace pref="79" max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="1" attributes="0">
                                   <Component id="jText_comm_reportGap" alignment="1" min="-2" pref="53" max="-2" attributes="0"/>
                                   <Component id="jButton_comm_setReportGap" alignment="1" min="-2" pref="119" max="-2" attributes="0"/>
@@ -1276,7 +1236,7 @@
                               <Component id="jText_comm_reportGap" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jButton_comm_setReportGap" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="32767" attributes="0"/>
+                              <EmptySpace pref="25" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -1320,9 +1280,13 @@
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace max="32767" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jSeparator1" alignment="0" min="-2" pref="166" max="-2" attributes="0"/>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <EmptySpace min="12" pref="12" max="12" attributes="0"/>
+                                      <Component id="jCheckSensorReadingBroadcast" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Component id="jSeparator1" alignment="0" pref="186" max="32767" attributes="0"/>
                                   <Group type="102" alignment="0" attributes="0">
                                       <EmptySpace min="12" pref="12" max="12" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
@@ -1348,12 +1312,10 @@
                                       </Group>
                                   </Group>
                                   <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
-                                      <Component id="jButton_comm_sensorReading" min="-2" max="-2" attributes="0"/>
-                                  </Group>
+                                  <Component id="jButton_comm_sensorReading" alignment="1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jSeparator2" alignment="0" pref="186" max="32767" attributes="0"/>
                               </Group>
-                              <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -1384,6 +1346,10 @@
                                   <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="jSeparator2" min="-2" pref="10" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="jCheckSensorReadingBroadcast" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace pref="86" max="32767" attributes="0"/>
                               <Component id="jButton_comm_sensorReading" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
@@ -1502,6 +1468,17 @@
                         <Property name="name" type="java.lang.String" value="jRadio_com_humidity" noResource="true"/>
                       </Properties>
                     </Component>
+                    <Component class="javax.swing.JSeparator" name="jSeparator2">
+                      <Properties>
+                        <Property name="name" type="java.lang.String" value="jSeparator2" noResource="true"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JCheckBox" name="jCheckSensorReadingBroadcast">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" resourceKey="jCheckSensorReadingBroadcast.text"/>
+                        <Property name="name" type="java.lang.String" value="jCheckSensorReadingBroadcast" noResource="true"/>
+                      </Properties>
+                    </Component>
                   </SubComponents>
                 </Container>
                 <Container class="javax.swing.JPanel" name="jPanel5">
@@ -1524,12 +1501,12 @@
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="jLabel5" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="jComboPinNumber" alignment="1" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel6" alignment="0" pref="113" max="32767" attributes="0"/>
+                                  <Component id="jLabel6" alignment="0" pref="186" max="32767" attributes="0"/>
                                   <Group type="103" alignment="1" groupAlignment="0" attributes="0">
                                       <Component id="jRadioPinEnabled" alignment="0" min="-2" max="-2" attributes="0"/>
                                       <Component id="jRadioPinDisabled" alignment="0" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <Component id="jButtonSetPin" alignment="0" pref="113" max="32767" attributes="0"/>
+                                  <Component id="jButtonSetPin" alignment="0" pref="186" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
@@ -1549,7 +1526,7 @@
                               <Component id="jRadioPinDisabled" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="jButtonSetPin" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="12" max="32767" attributes="0"/>
+                              <EmptySpace pref="18" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -1609,20 +1586,151 @@
                     </Component>
                   </SubComponents>
                 </Container>
+                <Container class="javax.swing.JPanel" name="jPanel9">
+                  <Properties>
+                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                      <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+                        <TitledBorder title="Main actions">
+                          <Property name="titleX" resourceKey="jPanel9.border.title"/>
+                        </TitledBorder>
+                      </Border>
+                    </Property>
+                    <Property name="name" type="java.lang.String" value="jPanel9" noResource="true"/>
+                  </Properties>
+
+                  <Layout>
+                    <DimensionLayout dim="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="jCheck_comm_autoNodeDiscovery" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <Group type="103" groupAlignment="1" attributes="0">
+                                          <Component id="jButton_comm_sendAbort" alignment="0" pref="186" max="32767" attributes="1"/>
+                                          <Component id="jButton_comm_sendReset" alignment="0" pref="186" max="32767" attributes="1"/>
+                                          <Component id="jButton_comm_discover" alignment="1" pref="186" max="32767" attributes="1"/>
+                                      </Group>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                          </Group>
+                      </Group>
+                    </DimensionLayout>
+                    <DimensionLayout dim="1">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="jButton_comm_sendAbort" linkSize="8" min="-2" pref="51" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="jButton_comm_sendReset" linkSize="8" min="-2" pref="61" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="jButton_comm_discover" min="-2" pref="61" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="jCheck_comm_autoNodeDiscovery" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace pref="12" max="32767" attributes="0"/>
+                          </Group>
+                      </Group>
+                    </DimensionLayout>
+                  </Layout>
+                  <SubComponents>
+                    <Component class="javax.swing.JButton" name="jButton_comm_sendReset">
+                      <Properties>
+                        <Property name="mnemonic" type="int" value="101"/>
+                        <Property name="text" type="java.lang.String" resourceKey="jButton_comm_sendReset.text"/>
+                        <Property name="actionCommand" type="java.lang.String" resourceKey="jButton_comm_sendReset.actionCommand"/>
+                        <Property name="name" type="java.lang.String" value="jButton_comm_sendReset" noResource="true"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JButton" name="jButton_comm_discover">
+                      <Properties>
+                        <Property name="mnemonic" type="int" value="68"/>
+                        <Property name="text" type="java.lang.String" resourceKey="jButton_comm_discover.text"/>
+                        <Property name="actionCommand" type="java.lang.String" resourceKey="jButton_comm_discover.actionCommand"/>
+                        <Property name="name" type="java.lang.String" value="jButton_comm_discover" noResource="true"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JCheckBox" name="jCheck_comm_autoNodeDiscovery">
+                      <Properties>
+                        <Property name="mnemonic" type="int" value="116"/>
+                        <Property name="selected" type="boolean" value="true"/>
+                        <Property name="text" type="java.lang.String" resourceKey="jCheck_comm_autoNodeDiscovery.text"/>
+                        <Property name="actionCommand" type="java.lang.String" resourceKey="jCheck_comm_autoNodeDiscovery.actionCommand"/>
+                        <Property name="name" type="java.lang.String" value="jCheck_comm_autoNodeDiscovery" noResource="true"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JButton" name="jButton_comm_sendAbort">
+                      <Properties>
+                        <Property name="mnemonic" type="int" value="65"/>
+                        <Property name="text" type="java.lang.String" resourceKey="jButton_comm_sendAbort.text"/>
+                        <Property name="actionCommand" type="java.lang.String" resourceKey="jButton_comm_sendAbort.actionCommand"/>
+                        <Property name="name" type="java.lang.String" value="jButton_comm_sendAbort" noResource="true"/>
+                      </Properties>
+                    </Component>
+                  </SubComponents>
+                </Container>
+                <Container class="javax.swing.JPanel" name="jPanel14">
+                  <Properties>
+                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                      <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+                        <TitledBorder title="Sensor sampling">
+                          <Property name="titleX" resourceKey="jPanel14.border.title"/>
+                        </TitledBorder>
+                      </Border>
+                    </Property>
+                    <Property name="name" type="java.lang.String" value="jPanel14" noResource="true"/>
+                  </Properties>
+
+                  <Layout>
+                    <DimensionLayout dim="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="jCheckSampleSensorDataReadings" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace pref="45" max="32767" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="1" attributes="0">
+                              <EmptySpace pref="82" max="32767" attributes="0"/>
+                              <Component id="jButtonSensorSamplingSendCommand" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                    </DimensionLayout>
+                    <DimensionLayout dim="1">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="jCheckSampleSensorDataReadings" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="jButtonSensorSamplingSendCommand" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
+                          </Group>
+                      </Group>
+                    </DimensionLayout>
+                  </Layout>
+                  <SubComponents>
+                    <Component class="javax.swing.JCheckBox" name="jCheckSampleSensorDataReadings">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" resourceKey="jCheckSampleSensorDataReadings.text"/>
+                        <Property name="name" type="java.lang.String" value="jCheckSampleSensorDataReadings" noResource="true"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JButton" name="jButtonSensorSamplingSendCommand">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" resourceKey="jButtonSensorSamplingSendCommand.text"/>
+                        <Property name="name" type="java.lang.String" value="jButtonSensorSamplingSendCommand" noResource="true"/>
+                      </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonSensorSamplingSendCommandActionPerformed"/>
+                      </Events>
+                    </Component>
+                  </SubComponents>
+                </Container>
               </SubComponents>
             </Container>
-            <Component class="rssi_graph.nodeRegister.JPanelNodeRegisterMain" name="jPanelNodeRegisterMain1">
-              <Properties>
-                <Property name="name" type="java.lang.String" value="jPanelNodeRegisterMain1" noResource="true"/>
-              </Properties>
-              <Constraints>
-                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                  <JTabbedPaneConstraints tabName="Node Register Management">
-                    <Property name="tabTitle" type="java.lang.String" resourceKey="jPanelNodeRegisterMain1.TabConstraints.tabTitle"/>
-                  </JTabbedPaneConstraints>
-                </Constraint>
-              </Constraints>
-            </Component>
             <Component class="rssi_graph.game.JPanelGame" name="jPanelGame1">
               <Properties>
                 <Property name="name" type="java.lang.String" value="jPanelGame1" noResource="true"/>
