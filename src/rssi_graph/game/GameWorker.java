@@ -122,6 +122,11 @@ public class GameWorker extends WorkerBase implements MessageListener, WorkerInt
      */
     protected long gameTimeLastChange=0;
     
+    /**
+     * Winner of game
+     */
+    protected int winner=-1;
+    
 //    protected boolean[] playerDoGuiUpdate = { true, true };
 
     public GameWorker(MoteIF mi) {
@@ -248,7 +253,7 @@ public class GameWorker extends WorkerBase implements MessageListener, WorkerInt
 //            AWTUtilities.setWindowOpaque(this.frameFinish, false);
             
             /**
-             * Set window opacity
+             * Set window opacity via java reflection API (opacity was added in JDK6 10)
              * @see http://java.sun.com/developer/technicalArticles/GUI/translucent_shaped_windows/
              */
             try {
@@ -684,6 +689,7 @@ public class GameWorker extends WorkerBase implements MessageListener, WorkerInt
         if (this.gameTimeRemaining <= 0){
             // stop game here!
             this.gameState = GameWorker.GAME_STATE_STOPPED;
+            this.setWinner(-1);
             this.eventGameStateChanged(oldState, this.gameState, "timeout");
         }
         
@@ -803,6 +809,7 @@ public class GameWorker extends WorkerBase implements MessageListener, WorkerInt
             // stop game here
             int oldState = this.gameState;
             this.gameState = GameWorker.GAME_STATE_STOPPED;
+            this.setWinner(player==1 ? 2:1);
             this.eventGameStateChanged(oldState, this.gameState, "nullEnergy");
         }
         
@@ -853,6 +860,25 @@ public class GameWorker extends WorkerBase implements MessageListener, WorkerInt
             this.frameFinish.setVisible(true);
             this.frameFinish.setLocationRelativeTo(screen);
             GameWorker.centerWindow(this.frameFinish, screen);
+            
+            if (reason!=null && this.winner>0){
+                if (!this.isMultiplayer()){
+                    if (this.winner==1){
+                        this.frameFinish.setText("Vyhrál jsi");
+                    } else {
+                        this.frameFinish.setText("Prohál jsi");
+                    }
+                } else {
+                    if (this.winner==1){
+                        this.frameFinish.setText("Vyhrál " + this.player1.getName());
+                    } else if (this.winner==2){
+                        this.frameFinish.setText("Vyhrál " + this.player2.getName());
+                    }
+                }                
+            } else {
+                this.frameFinish.setText("");
+            }
+                  
         }
         
         this.screen.setGameState(newState);
@@ -928,6 +954,19 @@ public class GameWorker extends WorkerBase implements MessageListener, WorkerInt
         // reset game counter
         this.gameTimeRemaining = this.mainPanel.getGameTime();
         this.updateGuiEvent(null);
+        
+        // show game over window
+        this.frameFinish.setVisible(false);
+        
+        // player default energy
+        if (this.player1 instanceof Player){
+            this.player1.setEnergy(100.0);
+        }
+        
+        if (this.player2 instanceof Player){
+            this.player2.setEnergy(100.0);
+        }
+        
         return true;
     }
 
@@ -1069,7 +1108,12 @@ public class GameWorker extends WorkerBase implements MessageListener, WorkerInt
         this.gameTimeLastChange = gameTimeLastChange;
     }
 
- 
-    
+    public int getWinner() {
+        return winner;
+    }
+
+    public void setWinner(int winner) {
+        this.winner = winner;
+    }   
     
 }

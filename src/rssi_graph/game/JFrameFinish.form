@@ -27,7 +27,7 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jLabel2" alignment="0" pref="489" max="32767" attributes="0"/>
+                  <Component id="jLabelText" alignment="0" pref="489" max="32767" attributes="0"/>
                   <Component id="jLabel1" alignment="0" pref="489" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -40,7 +40,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
-              <Component id="jLabel2" pref="84" max="32767" attributes="0"/>
+              <Component id="jLabelText" pref="84" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -55,12 +55,12 @@
         <Property name="name" type="java.lang.String" value="jLabel1" noResource="true"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel2">
+    <Component class="javax.swing.JLabel" name="jLabelText">
       <Properties>
-        <Property name="font" type="java.awt.Font" resourceKey="jLabel2.font"/>
+        <Property name="font" type="java.awt.Font" resourceKey="jLabelText.font"/>
         <Property name="horizontalAlignment" type="int" value="0"/>
-        <Property name="text" type="java.lang.String" resourceKey="jLabel2.text"/>
-        <Property name="name" type="java.lang.String" value="jLabel2" noResource="true"/>
+        <Property name="text" type="java.lang.String" resourceKey="jLabelText.text"/>
+        <Property name="name" type="java.lang.String" value="jLabelText" noResource="true"/>
       </Properties>
     </Component>
   </SubComponents>

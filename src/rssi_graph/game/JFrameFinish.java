@@ -20,6 +20,20 @@ public class JFrameFinish extends javax.swing.JFrame {
     public JFrameFinish() {
         initComponents();
     }
+    
+    /**
+     * Init procedure
+     */
+    public void initThis(){
+        
+    }
+    
+    /**
+     * Set label text
+     */
+    public void setText(String text){
+        this.jLabelText.setText(text);
+    }
 
     /** This method is called from within the constructor to
      * initialize the form.
@@ -31,7 +45,7 @@ public class JFrameFinish extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        jLabelText = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(rssi_graph.RSSI_graphApp.class).getContext().getResourceMap(JFrameFinish.class);
@@ -43,10 +57,10 @@ public class JFrameFinish extends javax.swing.JFrame {
         jLabel1.setText(resourceMap.getString("jLabel1.text")); // NOI18N
         jLabel1.setName("jLabel1"); // NOI18N
 
-        jLabel2.setFont(resourceMap.getFont("jLabel2.font")); // NOI18N
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText(resourceMap.getString("jLabel2.text")); // NOI18N
-        jLabel2.setName("jLabel2"); // NOI18N
+        jLabelText.setFont(resourceMap.getFont("jLabelText.font")); // NOI18N
+        jLabelText.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelText.setText(resourceMap.getString("jLabelText.text")); // NOI18N
+        jLabelText.setName("jLabelText"); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -55,7 +69,7 @@ public class JFrameFinish extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 489, Short.MAX_VALUE)
+                    .addComponent(jLabelText, javax.swing.GroupLayout.DEFAULT_SIZE, 489, Short.MAX_VALUE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 489, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -65,7 +79,7 @@ public class JFrameFinish extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addGap(44, 44, 44)
-                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 84, Short.MAX_VALUE)
+                .addComponent(jLabelText, javax.swing.GroupLayout.DEFAULT_SIZE, 84, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -85,6 +99,6 @@ public class JFrameFinish extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabelText;
     // End of variables declaration//GEN-END:variables
 }
