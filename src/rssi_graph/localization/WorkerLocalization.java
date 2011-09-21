@@ -278,14 +278,23 @@ public class WorkerLocalization extends WorkerBase implements MessageListener, W
     public void messageReceived(int to, Message message) {
         try{
             
+            long curMilis = System.currentTimeMillis();
+            
             // determine source
             int source = message.getSerialPacket().get_header_src();
             MobileNode mn = null;
         
+            // get corresponding node from node register
+            // set last seen counter for this node (sender of message)
+            if (this.nodeRegister.existsNode(source)){
+                GenericNode curNode = this.nodeRegister.getNode(source);
+                curNode.setLastSeen(curMilis);
+            }
+            
             // need to be changed, categorizing with amType does not work
             // sometime throws exception - cannot cast class
             if (message instanceof CommandMsg){
-                // nothing to do for now
+                // nothing to do for now                
                 return;
             }
 
@@ -339,6 +348,9 @@ public class WorkerLocalization extends WorkerBase implements MessageListener, W
                             // add observed rssi value to floating/moving mean
                             mn.addToFloatingMean(source, normalizedRssi , this.smoothingAlpha);
                             mobileNodeManager.incReportFreshnessFor(mn.getMobile_nodeID());
+                            
+                            // send freshness to reported mobile nodes (they are alive probably too)
+                            mn.getGenericNode().setLastSeen(curMilis);
 
                             // old code used windowed mean
     //////                        // if is able to insert new element, do it

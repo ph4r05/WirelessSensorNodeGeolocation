@@ -384,18 +384,33 @@ public class WorkerCommands extends WorkerBase implements MessageListener, Worke
     @Override
     public void messageReceived(int to, Message msg) {
         System.err.println("Comm: msgReceived");
+        
+        // get message source here
+        // (in multihop setting this will be probably problem)
+        int source = msg.getSerialPacket().get_header_src();
+        
+        // get node for sender 
+        GenericNode node = null;
+        if (this.nodeRegister.existsNode(source)){
+            node = this.nodeRegister.getNode(source);
+            
+            // automatically set lastSeen indicator
+            node.setLastSeen(System.currentTimeMillis());
+        }
+        
+        // if commmand message => it will be probably ACK or command answer, process it here
         if (msg instanceof CommandMsg){
             final CommandMsg Message = (CommandMsg) msg;
-            int source = Message.getSerialPacket().get_header_src();
-
             // is sensor reading?
             // if so update record in node register and trigger update
             if (Message.get_command_code() == (short) MessageTypes.COMMAND_SENSORREADING
                     && this.nodeRegister != null
-                    && this.nodeRegister.existsNode(source)){
-                GenericNode node = this.nodeRegister.getNode(source);
+                    && node!=null){
+                
                 if (Message.get_command_data_next() != null
-                        && Message.get_command_data_next()[0] == 1){
+                        && Message.get_command_data_next()[0] == 1){                    
+                    
+                    // set sensor
                     node.setTemperature(Message.get_command_data()/10.0);
 
                     Map<Integer, String> changeMap = new HashMap<Integer, String>();

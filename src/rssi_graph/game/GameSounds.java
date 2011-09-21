@@ -105,6 +105,9 @@ public class GameSounds {
             }
         } else if (energy>=GameWorker.THRESHOLD_WARNING){
             // ok
+            if (this.playerLastEnergyNotif[player]==null || this.playerLastEnergyNotif[player]!=GameSounds.ENERGY_OK){
+                this.playerLastEnergyNotif[player]=Integer.valueOf(GameSounds.ENERGY_OK);
+            }
             return;
         } else if (energy>=GameWorker.THRESHOLD_CRITICAL){ 
             // warning
