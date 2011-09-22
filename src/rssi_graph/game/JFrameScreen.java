@@ -10,6 +10,7 @@
  */
 package rssi_graph.game;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Rectangle;
 import java.text.DecimalFormat;
@@ -164,6 +165,25 @@ public class JFrameScreen extends javax.swing.JFrame {
     }
     
     /**
+     * event triggered when current checkpoint was changed
+     */
+    public void curCheckpointChanged(int player, int oldCheckpoint, int newCheckpoint){
+        Player curPlayer = this.gameWorker.getPlayerById(player);
+        if (curPlayer==null) return;
+        
+        String message = "Last: " + oldCheckpoint + "; New: " + newCheckpoint;
+        
+        int randNum = (int) (Math.random() % 2);
+        if (player == 1){
+            this.jLabelCurCheckpoint1.setText(message);
+            this.jLabelCurCheckpoint1.setForeground(new Color(0, 0, randNum==0 ? 255 : 0));
+        } else if (player == 2){
+            this.jLabelCurCheckpoint2.setText(message);
+            this.jLabelCurCheckpoint1.setForeground(new Color(0, 0, randNum==0 ? 255 : 0));
+        }
+    }
+    
+    /**
      * Event fired - gui update
      */
     void updateGuiTimerFired() {
@@ -230,11 +250,13 @@ public class JFrameScreen extends javax.swing.JFrame {
         jLabelPlayer1Name = new javax.swing.JLabel();
         energyMeter1 = new rssi_graph.game.energyMeter();
         jPanel1 = new javax.swing.JPanel();
+        jLabelCurCheckpoint1 = new javax.swing.JLabel();
         jProgressLight1 = new javax.swing.JProgressBar();
         jPanelPlayer2 = new javax.swing.JPanel();
         jLabelPlayer2Name = new javax.swing.JLabel();
         energyMeter2 = new rssi_graph.game.energyMeter();
         jPanel2 = new javax.swing.JPanel();
+        jLabelCurCheckpoint2 = new javax.swing.JLabel();
         jProgressLight2 = new javax.swing.JProgressBar();
         jPanelCommon = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
@@ -261,15 +283,26 @@ public class JFrameScreen extends javax.swing.JFrame {
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel1.setName("jPanel1"); // NOI18N
 
+        jLabelCurCheckpoint1.setFont(resourceMap.getFont("jLabelCurCheckpoint1.font")); // NOI18N
+        jLabelCurCheckpoint1.setForeground(resourceMap.getColor("jLabelCurCheckpoint1.foreground")); // NOI18N
+        jLabelCurCheckpoint1.setText(resourceMap.getString("jLabelCurCheckpoint1.text")); // NOI18N
+        jLabelCurCheckpoint1.setName("jLabelCurCheckpoint1"); // NOI18N
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 316, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabelCurCheckpoint1, javax.swing.GroupLayout.DEFAULT_SIZE, 292, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 117, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(51, 51, 51)
+                .addComponent(jLabelCurCheckpoint1)
+                .addContainerGap(49, Short.MAX_VALUE))
         );
 
         jProgressLight1.setOrientation(1);
@@ -296,8 +329,8 @@ public class JFrameScreen extends javax.swing.JFrame {
                 .addComponent(jLabelPlayer1Name)
                 .addGap(6, 6, 6)
                 .addGroup(jPanelPlayer1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jProgressLight1, 0, 236, Short.MAX_VALUE)
-                    .addComponent(energyMeter1, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE))
+                    .addComponent(jProgressLight1, 0, 224, Short.MAX_VALUE)
+                    .addComponent(energyMeter1, javax.swing.GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -317,15 +350,25 @@ public class JFrameScreen extends javax.swing.JFrame {
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel2.setName("jPanel2"); // NOI18N
 
+        jLabelCurCheckpoint2.setFont(resourceMap.getFont("jLabelCurCheckpoint2.font")); // NOI18N
+        jLabelCurCheckpoint2.setText(resourceMap.getString("jLabelCurCheckpoint2.text")); // NOI18N
+        jLabelCurCheckpoint2.setName("jLabelCurCheckpoint2"); // NOI18N
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 318, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabelCurCheckpoint2, javax.swing.GroupLayout.DEFAULT_SIZE, 294, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 117, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(47, 47, 47)
+                .addComponent(jLabelCurCheckpoint2)
+                .addContainerGap(53, Short.MAX_VALUE))
         );
 
         jProgressLight2.setOrientation(1);
@@ -357,7 +400,7 @@ public class JFrameScreen extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelPlayer2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jProgressLight2, 0, 0, Short.MAX_VALUE)
-                    .addComponent(energyMeter2, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE))
+                    .addComponent(energyMeter2, javax.swing.GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -441,6 +484,8 @@ public class JFrameScreen extends javax.swing.JFrame {
     private rssi_graph.game.energyMeter energyMeter2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabelCurCheckpoint1;
+    private javax.swing.JLabel jLabelCurCheckpoint2;
     private javax.swing.JLabel jLabelGameTime;
     private javax.swing.JLabel jLabelPlayer1Name;
     private javax.swing.JLabel jLabelPlayer2Name;

@@ -35,10 +35,12 @@ import rssi_graph.JPannelLoggerLogElement;
 import rssi_graph.MessageTypes;
 import rssi_graph.RSSI_graphApp;
 import rssi_graph.WorkerBase;
+import rssi_graph.WorkerCommands;
 import rssi_graph.WorkerInterface;
 import rssi_graph.localization.LocalizationEstimate;
 import rssi_graph.messages.CommandMsg;
 import rssi_graph.nodeRegister.GenericNode;
+import rssi_graph.nodeRegister.MobileNode;
 import rssi_graph.nodeRegister.MobileNodeManager;
 import rssi_graph.nodeRegister.NodeRegisterEvent;
 import rssi_graph.nodeRegister.NodeRegisterEventListener;
@@ -127,7 +129,10 @@ public class GameWorker extends WorkerBase implements MessageListener, WorkerInt
      */
     protected int winner=-1;
     
-//    protected boolean[] playerDoGuiUpdate = { true, true };
+    /**
+     * Checkpoint register
+     */
+    protected GameCheckpointRegister checkpointRegister = null;
 
     public GameWorker(MoteIF mi) {
         // init mote interface
@@ -281,6 +286,12 @@ public class GameWorker extends WorkerBase implements MessageListener, WorkerInt
             this.gameSounds.setGameWorker(this);
             this.gameSounds.initThis();
         }   
+        
+        // init game checkpoints
+        if (this.checkpointRegister == null){
+            this.checkpointRegister = new GameCheckpointRegister();
+            this.checkpointRegister.initThis();
+        }
         
         // init timers
         this.energyCalcTimer = new Timer(250, new ActionListener() {
@@ -490,11 +501,8 @@ public class GameWorker extends WorkerBase implements MessageListener, WorkerInt
             payload.set_command_code((short) command_code);
             payload.set_command_data(sensorType);
             
-            if (periodic){
-                payload.set_command_data_next(new int[] {1, period,0,0});
-            } else {
-                payload.set_command_data_next(new int[] {0, period,0,0});
-            }
+            // broadcast sensor reading in order to sample RSSI from this data
+            payload.set_command_data_next(new int[] {periodic ? 1:0, period,1,0});
             
             if (this.getMsgSender().canAdd()==false){
                 logToTextarea("Cannot add commands to send queue.", JPannelLoggerLogElement.SEVERITY_ERROR);
@@ -585,16 +593,25 @@ public class GameWorker extends WorkerBase implements MessageListener, WorkerInt
         //super.messageReceived(i, msg);
         if (msg instanceof CommandMsg){
             final CommandMsg Message = (CommandMsg) msg;
+
+            // get system miliseconds
+            long currentTimeMillis = System.currentTimeMillis();
+            
+            // determine source of message (node id of sender)
             int source = Message.getSerialPacket().get_header_src();
+
+            // get corresponding node from node register
+            // set last seen counter for this node (sender of message)
+            GenericNode curNode = null;
+            if (this.nodeRegister != null && this.nodeRegister.existsNode(source)){
+                curNode = this.nodeRegister.getNode(source);
+                curNode.setLastSeen(currentTimeMillis);
+            }
 
             // is sensor reading?
             // if so update record in node register and trigger update
             if (Message.get_command_code() == (short) MessageTypes.COMMAND_SENSORREADING
-                    && this.nodeRegister != null
-                    && this.nodeRegister.existsNode(source)){
-                
-                // get system miliseconds
-                long currentTimeMillis = System.currentTimeMillis();
+                    && curNode!=null){
                 
                 GenericNode node = this.nodeRegister.getNode(source);
                 if (Message.get_command_data_next() != null
@@ -634,6 +651,32 @@ public class GameWorker extends WorkerBase implements MessageListener, WorkerInt
                     }
                     
                     //logToTextarea("GAME Sensor reading received from: " + msg.getSerialPacket().get_header_src());
+                }
+            } else if (Message.get_command_code() == (short) MessageTypes.COMMAND_ACK
+                    && Message.get_reply_on_command() == (short) MessageTypes.COMMAND_IDENTIFY
+                    && curNode!=null) {
+                // sent identification from remote node?
+                // tabula rasa settings? If yes, set immediately new settings to mote
+                boolean tabulaRasa = Message.get_command_data_next()[2] == 1;
+                if (tabulaRasa && this.isWatchdogEnabled()){
+                    // source = src of message
+                    
+                    // is current player??? 
+                    if (this.player1 instanceof Player && this.player1.getNode() == source){
+                        // mobile node crashed send settings again
+                        this.sendRequest(1);
+                        this.logToTextarea("Player 1 was restarted suddenly, setting request again", JPannelLoggerLogElement.SEVERITY_WARNING);
+                    } else if (this.player2 instanceof Player && this.player2.getNode() == source){
+                        // mobile node crashed send settings again
+                        this.sendRequest(2);
+                        this.logToTextarea("Player 2 was restarted suddenly, setting request again", JPannelLoggerLogElement.SEVERITY_WARNING);
+                    } else if (source < 100) {
+                        // probably mobile node? send settings
+                        WorkerCommands commands = (WorkerCommands) RSSI_graphApp.getApplication().getWorker(2);
+                        commands.sendSimpleCommand(MessageTypes.COMMAND_SETSAMPLESENSORREADING, 1, null, source);
+                        
+                        this.logToTextarea("Static node [" + source + "] was restarted suddenly, setting request again", JPannelLoggerLogElement.SEVERITY_WARNING);
+                    }
                 }
             }
             
@@ -742,6 +785,9 @@ public class GameWorker extends WorkerBase implements MessageListener, WorkerInt
                 this.sendRequest(2);
             }
         }
+        
+        this.checkCheckpoints(1);
+        this.checkCheckpoints(2);
     }
     
     /**
@@ -979,7 +1025,88 @@ public class GameWorker extends WorkerBase implements MessageListener, WorkerInt
         
         return true;
     }
+    
+    /**
+     * get corresponding player instance according to its id
+     * @param playerId
+     * @return 
+     */
+    public Player getPlayerById(int playerId){
+        Player curPlayer = null;
+        if (playerId==1 && this.player1 instanceof Player){
+            curPlayer = this.player1;
+        } else if (playerId==2 && this.player2 instanceof Player){
+            curPlayer = this.player2;
+        } 
+        
+        return curPlayer;
+    }
+    
+    /**
+     * check checkpoint presence
+     */
+    public void checkCheckpoints(int playerId){
+        // check database
+        Player curPlayer = this.getPlayerById(playerId);
+        if (curPlayer==null) return;
+        
+        // palyer1
+        int nodeId = curPlayer.getNode();
+        MobileNode mobileNode = this.mobileNodeManager.getMobileNode(nodeId);
 
+        // remember maximal active score here
+        int curCheckpoint = -1;
+        double maxActiveScore = -1;
+
+        // store current checkpoint for further event trigering
+        int oldCheckpoint = curPlayer.getCurrentCheckpoint();
+
+        // iterate checkpoints
+        Iterator<Integer> keyIterator = this.checkpointRegister.getKeyIterator();
+        while(keyIterator.hasNext()){
+            GameCheckpoint checkpoint = this.checkpointRegister.getCheckpoint(keyIterator.next());
+
+            // get current RSSI for this checkpoint
+            double floatingMean = mobileNode.getFloatingMean(checkpoint.nodeId);
+
+//            // DEBUG
+//            this.logToTextarea("Floating mean for player: " + playerId + "; checkpoint id: " + checkpoint.getCheckpointId() + "; mean: " + floatingMean);
+            
+            // is over threshold?
+            if (checkpoint.isActive(floatingMean)){
+                double activeScore = checkpoint.getActiveScore(floatingMean);
+
+                if (activeScore>maxActiveScore){
+                    maxActiveScore = activeScore;
+                    curCheckpoint = checkpoint.getCheckpointId();
+                }
+            }
+        }
+
+        // is there any active checkpoint?
+        if (curCheckpoint != -1 && curCheckpoint != oldCheckpoint){
+            // triger something here, active checkpoint changed
+            curPlayer.setCurrentCheckpoint(curCheckpoint);
+            this.activeCheckpointChangedEvent(playerId, oldCheckpoint, curCheckpoint);
+        }
+    }
+
+    /**
+     * Event when active checkpoint was changed
+     */
+    public void activeCheckpointChangedEvent(int player, int lastCheckpoint, int newCheckpoint){
+        Player curPlayer = this.getPlayerById(player);
+        if (curPlayer==null) return;
+        
+        // notify screen
+        this.screen.curCheckpointChanged(player, lastCheckpoint, newCheckpoint);
+        
+        // write info
+        String message = "Active checkpoint changed for player: " + player + "; lastCheckpoint: " + lastCheckpoint + "; newCheckpoint: " + newCheckpoint;
+        this.logToTextarea(message);
+        System.err.println(message);
+    }
+    
      /**
      * Used for enable/disable
      * 
@@ -1124,6 +1251,13 @@ public class GameWorker extends WorkerBase implements MessageListener, WorkerInt
 
     public void setWinner(int winner) {
         this.winner = winner;
-    }   
-    
+    }
+
+    public GameCheckpointRegister getCheckpointRegister() {
+        return checkpointRegister;
+    }
+
+    public void setCheckpointRegister(GameCheckpointRegister checkpointRegister) {
+        this.checkpointRegister = checkpointRegister;
+    }    
 }

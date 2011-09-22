@@ -46,9 +46,21 @@ public class MessageTypes {
   public static final int COMMAND_SENSORREADING=21;
   public static final int COMMAND_SETSAMPLESENSORREADING=24;
   
+  //
   // pinning
+  //
   public static final int COMMAND_SETPIN=22;
   public static final int COMMAND_GETPIN=23;
+  
+  //
+  // settings
+  //
+  /**
+   * Fetching is request sent to base station after booting node up. 
+   * Base station will then re-send node settings from node register to 
+   * booted node (can be after reset already)
+   */
+  public static final int COMMAND_FETCHSETTINGS=25;
 
   // identity types
   public static final int NODE_STATIC=1;

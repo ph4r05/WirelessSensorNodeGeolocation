@@ -23,6 +23,11 @@ public class Player {
     public EnergyCalculator energyCalculator;
     
     /**
+     * Currently passed checkpoint on ring
+     */
+    protected int currentCheckpoint;
+    
+    /**
      * Computes new energy
      * @return Double null on error
      */
@@ -104,7 +109,12 @@ public class Player {
     public void setLastWatchdogTime(long lastWatchdogTime) {
         this.lastWatchdogTime = lastWatchdogTime;
     }
-    
-    
-   
+
+    public int getCurrentCheckpoint() {
+        return currentCheckpoint;
+    }
+
+    public void setCurrentCheckpoint(int currentCheckpoint) {
+        this.currentCheckpoint = currentCheckpoint;
+    }
 }

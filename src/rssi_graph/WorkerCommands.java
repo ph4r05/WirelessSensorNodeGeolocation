@@ -142,17 +142,36 @@ public class WorkerCommands extends WorkerBase implements MessageListener, Worke
                 logToTextarea("Cannot add commands to send queue.", JPannelLoggerLogElement.SEVERITY_ERROR);
             }
 
-            for(int i=0, cnI=selectedNodes.length; i<cnI; i++)
-            {
-                // increment send counter
-                counter+=1;
-                payload.set_command_id(counter);
-
-                // send packet
-                logToTextarea("Sending command msg=" + payload.toString());
-                this.getMsgSender().add(selectedNodes[i], payload, "CommandMsg for="+selectedNodes[i]+"; Command_code="+payload.get_command_code());
+            for(int i=0, cnI=selectedNodes.length; i<cnI; i++) {
+                this.sendMyCommandToNode(payload, selectedNodes[i]);
             }
 
+        }  catch (Exception ex) {
+            logToTextarea("NullPointer exception: " + ex.getMessage(), JPannelLoggerLogElement.SEVERITY_ERROR);
+            Logger.getLogger(RSSI_graphApp.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    /**
+     * Send selected defined packet to node.
+     * Another methods may build custom command packet, it is then passed to this method
+     * which sends it to all selected nodes
+     * 
+     * @param CommandMsg payload    data packet to send. Is CommandMessage
+     */
+    public void sendMyCommandToNode(CommandMsg payload, int nodeId){
+        try {                        
+            if (this.getMsgSender().canAdd()==false){
+                logToTextarea("Cannot add commands to send queue.", JPannelLoggerLogElement.SEVERITY_ERROR);
+            }
+            
+            // increment send counter
+            counter+=1;
+            payload.set_command_id(counter);
+
+            // send packet
+            logToTextarea("Sending command msg=" + payload.toString());
+            this.getMsgSender().add(nodeId, payload, "CommandMsg for="+nodeId+"; Command_code="+payload.get_command_code());
         }  catch (Exception ex) {
             logToTextarea("NullPointer exception: " + ex.getMessage(), JPannelLoggerLogElement.SEVERITY_ERROR);
             Logger.getLogger(RSSI_graphApp.class.getName()).log(Level.SEVERE, null, ex);
@@ -174,6 +193,24 @@ public class WorkerCommands extends WorkerBase implements MessageListener, Worke
         payload.set_command_data(commandData);
         payload.set_command_data_next(auxData != null ? auxData : new int[] {0,0,0,0});
         this.sendMyCommandToSelectedNodes(payload);
+    }
+    
+    /**
+     * Sends simple commands to destination nodes.
+     * Simple command consist of command code and single command data.
+     * 
+     * @param commandCode   command code.
+     * @param commandData   command data to send
+     * @param auxData       auxiliary data to send
+     * @param destination   node id to send command
+     */
+    public void sendSimpleCommand(int commandCode, int commandData, int[] auxData, int destination){
+        CommandMsg payload = new CommandMsg();
+        payload.set_command_version((short) 0);
+        payload.set_command_code((short) commandCode);
+        payload.set_command_data(commandData);
+        payload.set_command_data_next(auxData != null ? auxData : new int[] {0,0,0,0});
+        this.sendMyCommandToNode(payload, destination);
     }
     
     /**
@@ -391,7 +428,7 @@ public class WorkerCommands extends WorkerBase implements MessageListener, Worke
         
         // get node for sender 
         GenericNode node = null;
-        if (this.nodeRegister.existsNode(source)){
+        if (this.nodeRegister != null && this.nodeRegister.existsNode(source)){
             node = this.nodeRegister.getNode(source);
             
             // automatically set lastSeen indicator
@@ -404,7 +441,6 @@ public class WorkerCommands extends WorkerBase implements MessageListener, Worke
             // is sensor reading?
             // if so update record in node register and trigger update
             if (Message.get_command_code() == (short) MessageTypes.COMMAND_SENSORREADING
-                    && this.nodeRegister != null
                     && node!=null){
                 
                 if (Message.get_command_data_next() != null

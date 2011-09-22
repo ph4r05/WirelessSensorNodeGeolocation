@@ -286,8 +286,9 @@ public class WorkerLocalization extends WorkerBase implements MessageListener, W
         
             // get corresponding node from node register
             // set last seen counter for this node (sender of message)
+            GenericNode curNode = null;
             if (this.nodeRegister.existsNode(source)){
-                GenericNode curNode = this.nodeRegister.getNode(source);
+                curNode = this.nodeRegister.getNode(source);
                 curNode.setLastSeen(curMilis);
             }
             
@@ -301,7 +302,7 @@ public class WorkerLocalization extends WorkerBase implements MessageListener, W
             else if(message instanceof MultiPingResponseMsg){
                     MultiPingResponseMsg responseMsg = (MultiPingResponseMsg) message;
                     // simple ping response received
-                    // can happen only when message comes from base station
+                    // can happen only when message comes from Base Station
                     int sourceNodeId = responseMsg.getSerialPacket().get_header_src();
 
                     // mobile manager for handling mobile nodes

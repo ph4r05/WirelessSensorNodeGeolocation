@@ -170,6 +170,7 @@ public class SimpleGenericNode implements GenericNode {
     /**
      * prepare object for serialization
      */
+    @Override
     public void sleep(){
         // sleep
         
@@ -181,6 +182,7 @@ public class SimpleGenericNode implements GenericNode {
     /**
      * prepare object recovered from serialization
      */
+    @Override
     public void wakeup(){
         // wakeup
         
@@ -189,26 +191,32 @@ public class SimpleGenericNode implements GenericNode {
             this.mobileExtension.wakeup();
     }
 
+    @Override
     public boolean isAnchor() {
         return anchor;
     }
 
+    @Override
     public void setAnchor(boolean anchor) {
         this.anchor = anchor;
     }
 
+    @Override
     public RSSI2DistFunctionInterface getDistanceFunction() {
         return distanceFunction;
     }
 
+    @Override
     public void setDistanceFunction(RSSI2DistFunctionInterface distanceFunction) {
         this.distanceFunction = distanceFunction;
     }
 
+    @Override
     public CoordinateRecord getPosition() {
         return position;
     }
 
+    @Override
     public void setPosition(CoordinateRecord position) {
         this.position = position;
     }
@@ -233,6 +241,7 @@ public class SimpleGenericNode implements GenericNode {
         this.nodeId = nodeId;
     }
 
+    @Override
     public int getNodeId() {
         return this.nodeId;
     }
@@ -245,18 +254,22 @@ public class SimpleGenericNode implements GenericNode {
         this.description = description;
     }
 
+    @Override
     public long getFirstSeen() {
         return firstSeen;
     }
 
+    @Override
     public void setFirstSeen(long firstSeen) {
         this.firstSeen = firstSeen;
     }
 
+    @Override
     public long getLastSeen() {
         return lastSeen;
     }
 
+    @Override
     public void setLastSeen(long lastSeen) {
         this.lastSeen = lastSeen;
     }
@@ -317,26 +330,32 @@ public class SimpleGenericNode implements GenericNode {
         this.extensions = extensions;
     }
 
+    @Override
     public MobileNode getMobileExtension() {
         return mobileExtension;
     }
 
+    @Override
     public void setMobileExtension(MobileNode mobileExtension) {
         this.mobileExtension = mobileExtension;
     }
 
+    @Override
     public double getTemperature() {
         return temperature;
     }
 
+    @Override
     public void setTemperature(double  temperature) {
         this.temperature = temperature;
     }
 
+    @Override
     public NodePlatform getPlatform() {
         return platform;
     }
 
+    @Override
     public void setPlatform(NodePlatform platform) {
         this.platform = platform;
     }
@@ -354,22 +373,27 @@ public class SimpleGenericNode implements GenericNode {
      * @param rssi
      * @return 
      */
+    @Override
     public double getNormalizedRssi(double rssi, int txlevel) {
         return rssi + this.getRssiNormalizingConstant();
     }
 
+    @Override
     public double getHumidity() {
         return humidity;
     }
 
+    @Override
     public void setHumidity(double humidity) {
         this.humidity = humidity;
     }
 
+    @Override
     public double getLightIntensity() {
         return lightIntensity;
     }
 
+    @Override
     public void setLightIntensity(double lightIntensity) {
         this.lightIntensity = lightIntensity;
     }
