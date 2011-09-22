@@ -132,6 +132,10 @@ typedef nx_struct MultiPingResponseReportStruct {
 // otherwise no packet will be send
 #define MULTIPINGRESPONSEREPORT_MAXDATA 4
 
+// boot up timer request
+#define BOOTUPTIMER_FIRST 500
+#define BOOTUPTIMER_NEXT 5000
+
 // used by static nodes to report RSSI values of mobile node
 typedef nx_struct MultiPingResponseReportMsg{
     // SEQ number
@@ -287,7 +291,13 @@ enum {
             
     // pinning
     COMMAND_SETPIN=22,
-    COMMAND_GETPIN=23
+    COMMAND_GETPIN=23,
+            
+    // settings
+    // Fetching is request sent to base station after booting node up. 
+    // Base station will then re-send node settings from node register to 
+    // booted node (can be after reset already)
+    COMMAND_FETCHSETTINGS=25
 };
 
 // node ID boudnary for mobile nodes

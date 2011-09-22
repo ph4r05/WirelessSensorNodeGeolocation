@@ -62,6 +62,7 @@ module SendingMoteC {
   uses interface Timer<TMilli> as SignalTimer;
   uses interface Timer<TMilli> as NoiseFloorTimer;
   uses interface Timer<TMilli> as SensorReadingTimer;
+  uses interface Timer<TMilli> as BootupTimer;
 
 // sender
   uses interface AMSend as RssiMsgSend;
@@ -261,6 +262,14 @@ module SendingMoteC {
 
   // time gap between reports
   uint8_t reportingGap=REPORT_SEND_GAP;
+  
+  // is this mote freshly booted?
+  // if TRUE, sendIdentification will request settings from base station.
+  // this option is automatically set to FALSE after first command from base station received
+  bool tabulaRasa=TRUE;
+  
+  // number of sent identification messages
+  uint8_t bootupCounter=0;
 
   // node sensor reading mode
   // 1 = temperature
@@ -398,7 +407,7 @@ module SendingMoteC {
 
         // send identification to base station
         // when booted up
-        post sendIdentification();
+        call BootupTimer.startOneShot(BOOTUPTIMER_FIRST);
     }
     else {
       call RadioControl.start();
@@ -408,6 +417,13 @@ module SendingMoteC {
   event void RadioControl.stopDone(error_t result){
   }
 
+  /**
+   * Timer fired right after bootup to setup nodes correctly
+   */
+  event void BootupTimer.fired(){
+      post sendIdentification();
+  }
+  
   /**
    * Timeout timer event handler
    * should be oneShot timer firing on queue timeout
@@ -730,7 +746,7 @@ module SendingMoteC {
             post sendCommandACK();
     }
   }
-
+  
   /**
    * Set my identification to base station
    */
@@ -763,6 +779,18 @@ module SendingMoteC {
 
         // fill node ID
         btrpkt->command_data_next[1] = TOS_NODE_ID;
+        
+        // tabula rasa?
+        if (tabulaRasa){
+            btrpkt->command_data_next[2] = 1;
+            
+            // send message again until there is no tabulaRasa settings (until is 
+            // some command sent by BS)
+            call BootupTimer.startOneShot(bootupCounter < 1 ? BOOTUPTIMER_FIRST : BOOTUPTIMER_NEXT);
+            bootupCounter+=1;
+        } else {
+            btrpkt->command_data_next[2] = 0;
+        }
 
         // send to base directly
         // sometimes node refuses to send too large packet. it will always end with fail
@@ -805,6 +833,7 @@ module SendingMoteC {
       call FlushTimer.stop();
       call SignalTimer.stop();
       call SensorReadingTimer.stop();
+      call BootupTimer.stop();
       
       packets2send = 0;
       signalCounter=0;
@@ -913,6 +942,9 @@ module SendingMoteC {
       readMode = 1;
       
       doSensorReadingSampling = FALSE;
+      
+      tabulaRasa = TRUE;
+      bootupCounter = 0;
   }
 
   /** 
@@ -1039,7 +1071,7 @@ module SendingMoteC {
    * Can react on it according to error level
    */
   event void CommandMsgSend.sendDone(message_t *m, error_t error){
-    // CommandMsg* btrpktresponse = (CommandMsg *) (call Packet.getPayload(m, 0));
+    // CommandMsg* btrpktresponse = (CommandMsg *) (call Packet.getPayload(m, 0));      
       
     // busy = false, we sent packet, now it is free
     busy = FALSE;
@@ -1073,6 +1105,10 @@ module SendingMoteC {
           btrpktresponse->command_code = COMMAND_ACK;
           command_dest=baseid;
           
+          // this is probably new setting from base station -> tabulaRasa option 
+          // to false
+          tabulaRasa = FALSE;
+          
           // decision based on type of command
           switch(btrpkt->command_code){
               case COMMAND_IDENTIFY:
@@ -1096,7 +1132,7 @@ module SendingMoteC {
                   // signalize 1 = HW reset was not successful. To bea able to distinguish
                   // between HW and SW reset.
                   signalize(1);
-                  post sendCommandACK();
+                  //post sendCommandACK();
                   break;
 
               case COMMAND_ABORT:

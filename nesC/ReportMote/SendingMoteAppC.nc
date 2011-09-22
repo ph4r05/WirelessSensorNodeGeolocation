@@ -78,6 +78,9 @@ configuration SendingMoteAppC {
 
   // sensor reading timer
   components new TimerMilliC() as SensorReadingTimer;
+  
+  // sensor reading timer
+  components new TimerMilliC() as BootupTimer;
 
 
 // sender
@@ -185,6 +188,7 @@ configuration SendingMoteAppC {
   App.SignalTimer -> SignalTimer;
   App.NoiseFloorTimer -> NoiseFloorTimer;
   App.SensorReadingTimer -> SensorReadingTimer;
+  App.BootupTimer -> BootupTimer;
 
 // sender wiring
   App.MultiPingResponseSend -> MultiPingResponseSender;
