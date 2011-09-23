@@ -157,6 +157,8 @@ public class JPanelDistanceInTime extends javax.swing.JPanel implements ActionLi
                     ts = this.timeSeries.get(curTimeSerieKey);
                 }
 
+                // age items in time series
+                ts.removeAgedItems(300000, false);
                 ts.add(now, distanceFunction.getDistanceFromRSSI(floatingMean.get(curAnchor)));
                 this.timeSeries.put(curTimeSerieKey, ts);
             }

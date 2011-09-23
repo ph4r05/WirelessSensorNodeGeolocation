@@ -51,6 +51,8 @@ import rssi_graph.RSSI_graphApp;
  */
 public class JPanelRSSIInTime extends javax.swing.JPanel implements ActionListener {
 
+    public static final int MAX_MEMORY_ELEMENTS=10000;
+    
     private Timer grabTimer = null;
     private WorkerLocalization worker = null;
     private Map<String, TimeSeries> timeSeries = null;
@@ -147,7 +149,7 @@ public class JPanelRSSIInTime extends javax.swing.JPanel implements ActionListen
                     // generate key for time serie
                     String curTimeSerieKey = "T"+mn.getMobile_nodeID()+";R"+curAnchor;
                     TimeSeries ts = null;
-
+                    
                     // does time serie exist?
                     if (!this.timeSeries.containsKey(curTimeSerieKey)){
                         redrawGraphNeeded=true;
@@ -161,6 +163,8 @@ public class JPanelRSSIInTime extends javax.swing.JPanel implements ActionListen
                         ts = this.timeSeries.get(curTimeSerieKey);
                     }
 
+                    // age items in time series
+                    ts.removeAgedItems(300000, false);
                     ts.add(now, floatingMean.get(curAnchor));
                     this.timeSeries.put(curTimeSerieKey, ts);
                 }
@@ -287,7 +291,7 @@ public class JPanelRSSIInTime extends javax.swing.JPanel implements ActionListen
         this.revalidate();
     }
 
-    public void actionPerformed(ActionEvent e) {
+    public synchronized void actionPerformed(ActionEvent e) {
         if ("grabTimer".equals(e.getActionCommand())){
             this.updateValues();
         }
