@@ -75,7 +75,7 @@ public class MobileNodeManager implements Serializable {
             try{
                 pool.get(itKey.next()).decReportFreshness();
             } catch(Exception e){
-                ;
+                e.printStackTrace(System.err);
             } 
         }
     }
@@ -99,7 +99,7 @@ public class MobileNodeManager implements Serializable {
                     freshNodes.add(tmpNnode);
                 }
             } catch(Exception e){
-                ;
+                e.printStackTrace(System.err);
             }
         }
 

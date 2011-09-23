@@ -174,7 +174,7 @@ public class MessageSender extends Thread {
             try{
                 this.messageDeliveryGuarantor.timerTick();
              } catch(Exception e){
-                 ;
+                 e.printStackTrace(System.err);
              }
 
             // test queue to send

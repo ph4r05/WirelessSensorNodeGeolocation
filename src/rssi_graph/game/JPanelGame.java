@@ -253,7 +253,7 @@ public class JPanelGame extends javax.swing.JPanel {
        try {
            gameTime = Integer.parseInt(this.jTextGameTime.getText());
        } catch(Exception e) {
-           ;
+           e.printStackTrace(System.err);
        }
        
        return gameTime;

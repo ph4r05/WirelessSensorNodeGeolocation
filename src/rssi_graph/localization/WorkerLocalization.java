@@ -354,7 +354,7 @@ public class WorkerLocalization extends WorkerBase implements MessageListener, W
                             try {
                                 mn.getGenericNode().setLastSeen(curMilis);
                             } catch(Exception e){
-                                ;
+                                e.printStackTrace(System.err);
                             }
 
                             // old code used windowed mean
@@ -993,6 +993,7 @@ public class WorkerLocalization extends WorkerBase implements MessageListener, W
                     // set anchor status
                     this.nodeRegister.getNode(curNode).setAnchor(anchorNodes.contains(curNode));
                 } catch(Exception ex){
+                    ex.printStackTrace(System.err);
                 }
             }
 

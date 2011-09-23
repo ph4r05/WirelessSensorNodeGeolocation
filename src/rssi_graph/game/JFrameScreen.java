@@ -172,7 +172,6 @@ public class JFrameScreen extends javax.swing.JFrame {
         if (curPlayer==null) return;
         
         String message = "Last: " + oldCheckpoint + "; New: " + newCheckpoint;
-        
         int randNum = (int) (Math.random() % 2);
         if (player == 1){
             this.jLabelCurCheckpoint1.setText(message);
@@ -190,12 +189,14 @@ public class JFrameScreen extends javax.swing.JFrame {
         // game time
         this.setTime(this.gameWorker.getGameTimeRemaining());
         
-        double energy = this.gameWorker.getPlayer1().getEnergy();
-        this.setEnergy(1, energy);
-        this.setLight(1, this.gameWorker.getPlayer1().getLight());
+        if (this.gameWorker.getPlayer1() instanceof Player){
+            double energy = this.gameWorker.getPlayer1().getEnergy();
+            this.setEnergy(1, energy);
+            this.setLight(1, this.gameWorker.getPlayer1().getLight());
+        }
         
         if (this.gameWorker.getPlayer2() instanceof Player){
-            energy = this.gameWorker.getPlayer2().getEnergy();
+            double energy = this.gameWorker.getPlayer2().getEnergy();
             this.setEnergy(2, energy);
             this.setLight(2, this.gameWorker.getPlayer2().getLight());
         }

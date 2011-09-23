@@ -26,9 +26,9 @@ public class GameSounds {
     /**
      * Starting/stopping game
      */
-    public static final String GameStart = "./soundFinished.wav";
+    public static final String GameStart = "./sounds/Air Horn-SoundBible.com-964603082.wav";
     public static final String GameStartCountdown = null;
-    public static final String GameFinish = "./soundFinished.wav";
+    public static final String GameFinish = "./sounds/Buzzer-SoundBible.com-188422102.wav";
     public static final String GameFinishCountdown = null;
     
     /**
@@ -39,10 +39,10 @@ public class GameSounds {
     /**
      * Player states during play
      */
-    public static final String[] PlayerEnergyFull = {"./soundFinished.wav", "./soundFinished.wav"};
+    public static final String[] PlayerEnergyFull = {"./sounds/Power_Up_Ray-Mike_Koenig-800933783.wav", "./sounds/Power_Up_Ray-Mike_Koenig-800933783.wav"};
     public static final String[] PlayerEnergyWarning = {"./soundFinished.wav","./soundFinished.wav"};
     public static final String[] PlayerEnergyCritical = {"./soundFinished.wav","./soundFinished.wav"};
-    public static final String[] PlayerEnergyEmpty = {"./soundFinished.wav","./soundFinished.wav"};
+    public static final String[] PlayerEnergyEmpty = {"./sounds/Buzzer-SoundBible.com-188422102.wav","./sounds/Buzzer-SoundBible.com-188422102.wav"};
     
     /**
      * Game finished
@@ -50,8 +50,8 @@ public class GameSounds {
      * 1 = player 1
      * 2 = player 2
      */
-    public static final String[] PlayerWon = {"./soundFinished.wav","./soundFinished.wav","./soundFinished.wav"};
-    public static final String[] PlayerLoose = {"./soundFinished.wav","./soundFinished.wav","./soundFinished.wav"};
+    public static final String[] PlayerWon = {"./sounds/Buzzer-SoundBible.com-188422102.wav","./sounds/Buzzer-SoundBible.com-188422102.wav","./sounds/Buzzer-SoundBible.com-188422102.wav"};
+    public static final String[] PlayerLoose = {"./sounds/Buzzer-SoundBible.com-188422102.wav","./sounds/Buzzer-SoundBible.com-188422102.wav","./sounds/Buzzer-SoundBible.com-188422102.wav"};
     
     /**
      * Energy notifications
