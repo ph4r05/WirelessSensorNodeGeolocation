@@ -352,7 +352,9 @@ public class WorkerLocalization extends WorkerBase implements MessageListener, W
                             
                             // send freshness to reported mobile nodes (they are alive probably too)
                             try {
-                                mn.getGenericNode().setLastSeen(curMilis);
+                                if (mn != null && mn.getGenericNode() != null){
+                                    mn.getGenericNode().setLastSeen(curMilis);
+                                }
                             } catch(Exception e){
                                 e.printStackTrace(System.err);
                             }

@@ -31,14 +31,14 @@ public class GameCheckpointRegister {
         checkpointDbByNodeId = new HashMap<Integer, GameCheckpoint>(24);
         
         // manualy inserting checkpoints to source code (and thresholds)
-        this.checkpointDb.put(Integer.valueOf(1), new GameCheckpoint(1, 12, -25.0));
-        this.checkpointDb.put(Integer.valueOf(2), new GameCheckpoint(2, 13, -25.0));
-        this.checkpointDb.put(Integer.valueOf(3), new GameCheckpoint(3, 14, -25.0));
-        this.checkpointDb.put(Integer.valueOf(4), new GameCheckpoint(4, 15, -25.0));
-        this.checkpointDb.put(Integer.valueOf(5), new GameCheckpoint(5, 16, -25.0));
-        this.checkpointDb.put(Integer.valueOf(6), new GameCheckpoint(6, 17, -25.0));
-        this.checkpointDb.put(Integer.valueOf(7), new GameCheckpoint(7, 18, -25.0));
-        this.checkpointDb.put(Integer.valueOf(8), new GameCheckpoint(8, 19, -25.0));
+        this.checkpointDb.put(Integer.valueOf(1), new GameCheckpoint(1, 17, -25.0));
+        this.checkpointDb.put(Integer.valueOf(2), new GameCheckpoint(2, 18, -25.0));
+        this.checkpointDb.put(Integer.valueOf(3), new GameCheckpoint(3, 19, -25.0));
+//        this.checkpointDb.put(Integer.valueOf(4), new GameCheckpoint(4, 15, -25.0));
+//        this.checkpointDb.put(Integer.valueOf(5), new GameCheckpoint(5, 16, -25.0));
+//        this.checkpointDb.put(Integer.valueOf(6), new GameCheckpoint(6, 17, -25.0));
+//        this.checkpointDb.put(Integer.valueOf(7), new GameCheckpoint(7, 18, -25.0));
+//        this.checkpointDb.put(Integer.valueOf(8), new GameCheckpoint(8, 19, -25.0));
         
         // sync maps
         this.syncMaps();

@@ -171,7 +171,7 @@ public class JFrameScreen extends javax.swing.JFrame {
         Player curPlayer = this.gameWorker.getPlayerById(player);
         if (curPlayer==null) return;
         
-        String message = "Last: " + oldCheckpoint + "; New: " + newCheckpoint;
+        String message = "Checkpoint před: " + oldCheckpoint + "; aktuální: " + newCheckpoint;
         int randNum = (int) (Math.random() % 2);
         if (player == 1){
             this.jLabelCurCheckpoint1.setText(message);
