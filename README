@@ -1,21 +1,15 @@
-README dodument
-=======================
+@author ph4r05
 
-TinyOS instalation: according to web manual
-http://docs.tinyos.net/index.php/Installing_TinyOS_2.1.1#Manual_installation_on_your_host_OS_with_RPMs
+Description:
+Project uses wireless sensor networks.
 
-You need to install msp430 compilers
-working configuration:
-- nesC 1.3.1 from source
-- deputy RPM
-- tinyos-tools-1.4.0-3
-- tinyOS 2.1.1
+License:
+All source codes are globally available for educative purposes, but is forbidden to use/copy/distribute
+source codes or any piece of this software without explicit written permission from author.
 
-Compilation
-sudo chmod 666 /dev/ttyUSB0 && make telosb install,1 bsl,/dev/ttyUSB0
+Thank you for respecting that.
 
-Troubleshooting:
-On fedora OS disable GPSD during flashing sensor node, udev problem, sensor is recognized as gps device. Use 
-udev script in install/98-sensornode.rules
+Copyright 2011
+
 
 
