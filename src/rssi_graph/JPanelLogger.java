@@ -26,6 +26,9 @@ import javax.swing.JTextArea;
  */
 public class JPanelLogger extends javax.swing.JPanel implements Cloneable {
 
+    public static final int MAX_LINES=2000;
+    public static final int MAX_LINES_THRESHOLD=3000;
+    
     /**
      * Do auto scroll?
      */
@@ -62,6 +65,11 @@ public class JPanelLogger extends javax.swing.JPanel implements Cloneable {
      * Log window to mirror sent log messages
      */
     protected JPanelLogger logMirror = null;
+    
+    /**
+     * log debug messages?
+     */
+    protected boolean logDebugMessages = true;
 
     /** Creates new form JPanelLogger */
     public JPanelLogger() {
@@ -125,6 +133,29 @@ public class JPanelLogger extends javax.swing.JPanel implements Cloneable {
             this.logMirror.clearArea();
         }
     }
+    
+    /**
+     * Removes messages with given severity from log
+     * @param severity 
+     */
+    public void removeSeverityFromLog(int severity){
+        Iterator<JPannelLoggerLogElement> iterator = this.lines.iterator();
+        while(iterator.hasNext()){
+            JPannelLoggerLogElement curElem = iterator.next();
+            
+            // null
+            if (curElem==null || curElem.getSeverity() == severity){
+                iterator.remove();
+                continue;
+            }
+        }
+        
+        this.rewrite();
+        
+        if (this.logMirror!=null){
+            this.logMirror.removeSeverityFromLog(severity);
+        }
+    }
 
     /**
      * Rewrites log window according to parameters
@@ -154,6 +185,13 @@ public class JPanelLogger extends javax.swing.JPanel implements Cloneable {
         // get date string from time
         // this could call jPannelLoggerLogElement method to be polymorphic
         // adding this class to linked list should be allowed
+        
+        // add to buffer?
+        if (this.isLogDebugMessages()==false && a.getSeverity() == JPannelLoggerLogElement.SEVERITY_DEBUG){
+            // debug messages forbiden, skip this message
+            return;
+        }
+        
         this.date.setTime(a.getTime());
         this.append("[" + this.dateFormat.format(this.date) + "; " + a.getSeverityLabel() + " ;" + a.getTypeString() + "]: " + a.getText());
     }
@@ -163,7 +201,26 @@ public class JPanelLogger extends javax.swing.JPanel implements Cloneable {
      * Add specified log entry to log window and to linked list
      * @param a
      */
-    public void addLogEntry(JPannelLoggerLogElement a){
+    public synchronized void addLogEntry(JPannelLoggerLogElement a){
+        // add to buffer?
+        if (this.isLogDebugMessages()==false && a.getSeverity() == JPannelLoggerLogElement.SEVERITY_DEBUG){
+            // debug messages forbiden, skip this message
+            return;
+        }
+        
+        // size check
+        int curSize = this.lines.size();
+        if (curSize > MAX_LINES_THRESHOLD){
+            // prune list
+            for(int i=curSize - MAX_LINES; i>0; i--){
+                this.lines.removeFirst();
+            }
+            
+            // force to rewrite log window
+            this.rewrite();
+        }
+        
+        
         this.lines.offer(a);
         this.appendLog(a);
         this.jTextArea1.repaint();
@@ -244,6 +301,10 @@ public class JPanelLogger extends javax.swing.JPanel implements Cloneable {
 
     public synchronized void setAutoscroll(boolean autoscroll) {
         this.autoscroll = autoscroll;
+        
+        if (this.logMirror!=null){
+            this.logMirror.setAutoscroll(autoscroll);
+        }
     }
 
     public String getDateFormatString() {
@@ -298,6 +359,20 @@ public class JPanelLogger extends javax.swing.JPanel implements Cloneable {
         this.logMirror = logMirror;
     }
 
+    public boolean isLogDebugMessages() {
+        return logDebugMessages;
+    }
+
+    public void setLogDebugMessages(boolean logDebugMessages) {
+        this.logDebugMessages = logDebugMessages;
+        
+        if (this.logMirror!=null){
+            this.logMirror.setLogDebugMessages(logDebugMessages);
+        }
+    }
+    
+    
+
     /**
      * =========================================================================
      *
@@ -315,8 +390,11 @@ public class JPanelLogger extends javax.swing.JPanel implements Cloneable {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPopupMenu1 = new javax.swing.JPopupMenu();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
+
+        jPopupMenu1.setName("jPopupMenu1"); // NOI18N
 
         org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(rssi_graph.RSSI_graphApp.class).getContext().getResourceMap(JPanelLogger.class);
         setBorder(javax.swing.BorderFactory.createTitledBorder(resourceMap.getString("Form.border.title"))); // NOI18N
@@ -345,6 +423,7 @@ public class JPanelLogger extends javax.swing.JPanel implements Cloneable {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextArea1;
     // End of variables declaration//GEN-END:variables

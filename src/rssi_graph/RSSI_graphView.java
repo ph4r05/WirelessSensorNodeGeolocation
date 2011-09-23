@@ -35,6 +35,7 @@ import org.jdesktop.application.FrameView;
 import org.jdesktop.application.TaskMonitor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -679,6 +680,11 @@ public class RSSI_graphView extends FrameView {
         javax.swing.JMenu fileMenu = new javax.swing.JMenu();
         javax.swing.JMenuItem exitMenuItem = new javax.swing.JMenuItem();
         jCheckExternalLog = new javax.swing.JCheckBoxMenuItem();
+        jMenu1 = new javax.swing.JMenu();
+        jCheckBoxLogDebugMessages = new javax.swing.JCheckBoxMenuItem();
+        jCheckBoxLogAutoScroll = new javax.swing.JCheckBoxMenuItem();
+        jMenuItemLogDeleteDebug = new javax.swing.JMenuItem();
+        jMenuItemLogClear = new javax.swing.JMenuItem();
         javax.swing.JMenu helpMenu = new javax.swing.JMenu();
         javax.swing.JMenuItem aboutMenuItem = new javax.swing.JMenuItem();
         statusPanel = new javax.swing.JPanel();
@@ -1857,6 +1863,49 @@ public class RSSI_graphView extends FrameView {
 
         menuBar.add(fileMenu);
 
+        jMenu1.setText(resourceMap.getString("jMenu1.text")); // NOI18N
+        jMenu1.setName("jMenu1"); // NOI18N
+
+        jCheckBoxLogDebugMessages.setSelected(true);
+        jCheckBoxLogDebugMessages.setText(resourceMap.getString("jCheckBoxLogDebugMessages.text")); // NOI18N
+        jCheckBoxLogDebugMessages.setName("jCheckBoxLogDebugMessages"); // NOI18N
+        jCheckBoxLogDebugMessages.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jCheckBoxLogDebugMessagesItemStateChanged(evt);
+            }
+        });
+        jMenu1.add(jCheckBoxLogDebugMessages);
+
+        jCheckBoxLogAutoScroll.setSelected(true);
+        jCheckBoxLogAutoScroll.setText(resourceMap.getString("jCheckBoxLogAutoScroll.text")); // NOI18N
+        jCheckBoxLogAutoScroll.setName("jCheckBoxLogAutoScroll"); // NOI18N
+        jCheckBoxLogAutoScroll.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jCheckBoxLogAutoScrollItemStateChanged(evt);
+            }
+        });
+        jMenu1.add(jCheckBoxLogAutoScroll);
+
+        jMenuItemLogDeleteDebug.setText(resourceMap.getString("jMenuItemLogDeleteDebug.text")); // NOI18N
+        jMenuItemLogDeleteDebug.setName("jMenuItemLogDeleteDebug"); // NOI18N
+        jMenuItemLogDeleteDebug.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemLogDeleteDebugActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItemLogDeleteDebug);
+
+        jMenuItemLogClear.setText(resourceMap.getString("jMenuItemLogClear.text")); // NOI18N
+        jMenuItemLogClear.setName("jMenuItemLogClear"); // NOI18N
+        jMenuItemLogClear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemLogClearActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItemLogClear);
+
+        menuBar.add(jMenu1);
+
         helpMenu.setText(resourceMap.getString("helpMenu.text")); // NOI18N
         helpMenu.setName("helpMenu"); // NOI18N
 
@@ -2051,6 +2100,28 @@ public class RSSI_graphView extends FrameView {
         RSSI_graphApp.getApplication().show(packetSource);
     }//GEN-LAST:event_jButtonChangePacketSourceActionPerformed
 
+    private void jCheckBoxLogDebugMessagesItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBoxLogDebugMessagesItemStateChanged
+        boolean logDebugMessages = evt.getStateChange() == ItemEvent.SELECTED;
+        this.jPanelLogger1.setLogDebugMessages(logDebugMessages);
+    }//GEN-LAST:event_jCheckBoxLogDebugMessagesItemStateChanged
+
+    private void jCheckBoxLogAutoScrollItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBoxLogAutoScrollItemStateChanged
+        // TODO add your handling code here:
+        boolean autoScroll = evt.getStateChange() == ItemEvent.SELECTED;
+        this.jPanelLogger1.setAutoscroll(autoScroll);
+    }//GEN-LAST:event_jCheckBoxLogAutoScrollItemStateChanged
+
+    private void jMenuItemLogDeleteDebugActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemLogDeleteDebugActionPerformed
+        // TODO add your handling code here:
+        this.jPanelLogger1.removeSeverityFromLog(JPannelLoggerLogElement.SEVERITY_DEBUG);
+    }//GEN-LAST:event_jMenuItemLogDeleteDebugActionPerformed
+
+    private void jMenuItemLogClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemLogClearActionPerformed
+        // TODO add your handling code here:
+        this.jPanelLogger1.clearData();
+        this.jPanelLogger1.rewrite();
+    }//GEN-LAST:event_jMenuItemLogClearActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
@@ -2082,6 +2153,8 @@ public class RSSI_graphView extends FrameView {
     private javax.swing.JButton jButton_comm_setReportGap;
     private javax.swing.JButton jButton_drop;
     private javax.swing.JButton jButton_save;
+    private javax.swing.JCheckBoxMenuItem jCheckBoxLogAutoScroll;
+    private javax.swing.JCheckBoxMenuItem jCheckBoxLogDebugMessages;
     private javax.swing.JCheckBoxMenuItem jCheckExternalLog;
     private javax.swing.JCheckBox jCheckSampleSensorDataReadings;
     private javax.swing.JCheckBox jCheckSensorReadingBroadcast;
@@ -2114,6 +2187,9 @@ public class RSSI_graphView extends FrameView {
     private javax.swing.JLabel jMarkerParameter;
     private javax.swing.JLabel jMarkerSaveNext;
     private javax.swing.JLabel jMarkerStart;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenuItem jMenuItemLogClear;
+    private javax.swing.JMenuItem jMenuItemLogDeleteDebug;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;

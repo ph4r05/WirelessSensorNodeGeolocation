@@ -164,7 +164,7 @@ public class JPanelRSSIInTime extends javax.swing.JPanel implements ActionListen
                     }
 
                     // age items in time series
-                    ts.removeAgedItems(300000, false);
+                    ts.removeAgedItems(300, true);
                     ts.add(now, floatingMean.get(curAnchor));
                     this.timeSeries.put(curTimeSerieKey, ts);
                 }
