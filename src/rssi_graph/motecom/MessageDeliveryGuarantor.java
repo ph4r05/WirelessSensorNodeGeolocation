@@ -93,7 +93,10 @@ public class MessageDeliveryGuarantor implements MessageSentListener, net.tinyos
 
     public void registerListeners(){
         if (this.msgSender.getGateway()==null) return;
-        this.msgSender.getGateway().registerListener(new CommandMsg(), this);
+        
+        // @TODO refactor this crap!
+        if (rssi_graph.RSSI_graphApp.getApplication().getMsgListener()==null) return;
+        rssi_graph.RSSI_graphApp.getApplication().getMsgListener().registerListener(new CommandMsg(), this);
     }
 
     /**
@@ -216,6 +219,7 @@ public class MessageDeliveryGuarantor implements MessageSentListener, net.tinyos
         }
     }
 
+    @Override
     public synchronized void messageReceived(int i, Message msg) {
          synchronized(messagesToWatch){
              this.setMutex(true);

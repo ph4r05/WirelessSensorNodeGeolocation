@@ -5,7 +5,7 @@
 package rssi_graph.game;
 
 import java.util.LinkedList;
-import rssi_graph.utils.AePlayWave;
+import rssi_graph.utils.ExternalSoundPlayer;
 
 /**
  * Handling sounds in game
@@ -56,7 +56,7 @@ public class GameSounds {
     /**
      * Energy notifications
      */
-    public static final int ENERGY_EMPTY=0;
+    public static final int ENERGY_EMPTY= 0;
     public static final int ENERGY_CRITICAL=1;
     public static final int ENERGY_WARNING=2;
     public static final int ENERGY_OK=3;
@@ -65,12 +65,17 @@ public class GameSounds {
     /**
      * Last energy level notified to user
      */
-    protected Integer[] playerLastEnergyNotif = {null,null};
+    protected int[] playerLastEnergyNotif = {ENERGY_FULL,ENERGY_FULL};
     
     /**
      * Play queue
      */
     protected LinkedList<String> playQueue = null;
+    
+    /**
+     * Time when last sound was played (not to overflow)
+     */
+    protected long lastSoundPlayed = 0;
 
     /**
      * Initialization
@@ -83,8 +88,8 @@ public class GameSounds {
      * reset state on game reset
      */
     public void resetInternalState(){
-        this.playerLastEnergyNotif[0]=null;
-        this.playerLastEnergyNotif[1]=null;
+        this.playerLastEnergyNotif[0]=ENERGY_FULL;
+        this.playerLastEnergyNotif[1]=ENERGY_FULL;
     }
     
     /**
@@ -99,27 +104,27 @@ public class GameSounds {
         if (energy>=100){
             // full
             //get last detection
-            if (this.playerLastEnergyNotif[player]==null || this.playerLastEnergyNotif[player]!=GameSounds.ENERGY_FULL){
-                this.playerLastEnergyNotif[player]=Integer.valueOf(GameSounds.ENERGY_FULL);
-                GameSounds.playSound(GameSounds.PlayerEnergyFull[player-1]);
+            if (this.playerLastEnergyNotif[player-1]!=GameSounds.ENERGY_FULL){
+                this.playerLastEnergyNotif[player-1]=GameSounds.ENERGY_FULL;
+                this.playSound(GameSounds.PlayerEnergyFull[player-1]);
             }
         } else if (energy>=GameWorker.THRESHOLD_WARNING){
             // ok
-            if (this.playerLastEnergyNotif[player]==null || this.playerLastEnergyNotif[player]!=GameSounds.ENERGY_OK){
-                this.playerLastEnergyNotif[player]=Integer.valueOf(GameSounds.ENERGY_OK);
+            if (this.playerLastEnergyNotif[player-1]!=GameSounds.ENERGY_OK){
+                this.playerLastEnergyNotif[player-1]=GameSounds.ENERGY_OK;
             }
             return;
         } else if (energy>=GameWorker.THRESHOLD_CRITICAL){ 
             // warning
-            if (this.playerLastEnergyNotif[player]==null || this.playerLastEnergyNotif[player]!=GameSounds.ENERGY_WARNING){
-                this.playerLastEnergyNotif[player]=Integer.valueOf(GameSounds.ENERGY_WARNING);
-                GameSounds.playSound(GameSounds.PlayerEnergyWarning[player-1]);
+            if (this.playerLastEnergyNotif[player-1]!=GameSounds.ENERGY_WARNING){
+                this.playerLastEnergyNotif[player-1]=GameSounds.ENERGY_WARNING;
+                this.playSound(GameSounds.PlayerEnergyWarning[player-1]);
             }
         } else if (energy > 0){
             // critical
-            if (this.playerLastEnergyNotif[player]==null || this.playerLastEnergyNotif[player]!=GameSounds.ENERGY_CRITICAL){
-                this.playerLastEnergyNotif[player]=Integer.valueOf(GameSounds.ENERGY_CRITICAL);
-                GameSounds.playSound(GameSounds.PlayerEnergyCritical[player-1]);
+            if (this.playerLastEnergyNotif[player-1]!=GameSounds.ENERGY_CRITICAL){
+                this.playerLastEnergyNotif[player-1]=GameSounds.ENERGY_CRITICAL;
+                this.playSound(GameSounds.PlayerEnergyCritical[player-1]);
             }
         }
     }
@@ -132,12 +137,12 @@ public class GameSounds {
         switch(newState){
             case GameEvent.STARTED:
                 // fire at start
-                GameSounds.playSound(GameSounds.GameStart);
+                this.playSound(GameSounds.GameStart);
                 break;
                 
             case GameEvent.GAMEOVER:
                 // fire at end
-                GameSounds.playSound(GameSounds.GameFinish);
+                this.playSound(GameSounds.GameFinish);
                 break;
         }
     }
@@ -153,10 +158,10 @@ public class GameSounds {
         // who won?
         if (this.gameWorker.isMultiplayer()){
             // who won?
-            GameSounds.playSound(GameSounds.PlayerWon[player]);
+            this.playSound(GameSounds.PlayerWon[player]);
         } else {
             // you win / you loose
-            GameSounds.playSound(GameSounds.PlayerWon[0]);
+            this.playSound(GameSounds.PlayerWon[0]);
         }
     }
     
@@ -164,10 +169,16 @@ public class GameSounds {
      * Play sound if exists
      * @param path 
      */
-    public static void playSound(String path){
+    public void playSound(String path){
         if (path!=null){
+            long curMili = System.currentTimeMillis();
+            
+            // do not play 2 sounds closer that 1500 ms
+            if ((curMili - this.lastSoundPlayed) < 1500) return;
+            
             // play that sound
-            new AePlayWave(path).start();
+            new ExternalSoundPlayer(path).start();
+            this.lastSoundPlayed = curMili;
         }
         
         return;

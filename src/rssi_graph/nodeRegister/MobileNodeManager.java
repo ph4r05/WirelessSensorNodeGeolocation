@@ -178,7 +178,7 @@ public class MobileNodeManager implements Serializable {
      */
     public synchronized MobileNodeManager addMobileNode(MobileNode mn){
         if (mn==null) throw new NullPointerException("Passed mobile node is null, null is not permited");
-        if (this.existsMobileNode(mn.getNodeId())) throw new IllegalArgumentException("Node already in manager");
+        if (this.existsMobileNode(mn.getNodeId())) return null; //throw new IllegalArgumentException("Node already in manager");
 
         pool.put(Integer.valueOf(mn.getNodeId()), mn);
         return this;

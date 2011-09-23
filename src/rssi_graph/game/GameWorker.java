@@ -78,12 +78,12 @@ public class GameWorker extends WorkerBase implements MessageListener, WorkerInt
     /**
      * Timeout between sensor reading from sensor
      */
-    protected int requestTimeout=500;
+    protected int requestTimeout=200;
     
     /**
      * Threshold of node unresponsivity to watchdog reaction (HW reset, send request)
      */
-    protected int watchdogThreshold=10000;
+    protected int watchdogThreshold=3000;
     
     /**
      * Is watchdog enabled?
@@ -164,7 +164,7 @@ public class GameWorker extends WorkerBase implements MessageListener, WorkerInt
     public void turnOff(){
         // deregister listeners for response, report
         if (moteIF != null){
-            moteIF.deregisterListener(new CommandMsg(), this);
+            this.getMsgListener().deregisterListener(new CommandMsg(), this);
         }
 
         // log
@@ -180,7 +180,7 @@ public class GameWorker extends WorkerBase implements MessageListener, WorkerInt
     public void turnOn() {
          // register listeners for response, report
         if (moteIF != null){
-            moteIF.registerListener(new CommandMsg(), this);
+            this.getMsgListener().registerListener(new CommandMsg(), this);
         }
         
         // node register
@@ -557,7 +557,7 @@ public class GameWorker extends WorkerBase implements MessageListener, WorkerInt
      * @param evt 
      */
     @Override
-    public void accept(NodeRegisterEvent evt) {
+    public synchronized void accept(NodeRegisterEvent evt) {
         if (evt!=null && evt.getEventType() != NodeRegisterEvent.EVENT_TYPE_DATA_CHANGED) return;
         
         // no changes - do it
@@ -589,7 +589,7 @@ public class GameWorker extends WorkerBase implements MessageListener, WorkerInt
      * @param msg 
      */
     @Override
-    public void messageReceived(int i, Message msg) {
+    public synchronized void messageReceived(int i, Message msg) {
         //super.messageReceived(i, msg);
         if (msg instanceof CommandMsg){
             final CommandMsg Message = (CommandMsg) msg;
@@ -695,7 +695,7 @@ public class GameWorker extends WorkerBase implements MessageListener, WorkerInt
     }
 
     @Override
-    public void messageSent(String listenerKey, Message msg, int destination) {
+    public synchronized void messageSent(String listenerKey, Message msg, int destination) {
         //super.messageSent(listenerKey, msg, destination);
     }
     
@@ -769,7 +769,7 @@ public class GameWorker extends WorkerBase implements MessageListener, WorkerInt
                 this.player2.setEnergy(newEnergy2);
                                 
                 // trigger event
-                this.eventEnergyChanged(1, oldEnergy2, newEnergy2);
+                this.eventEnergyChanged(2, oldEnergy2, newEnergy2);
             }
             
             // now compute node latency
@@ -919,6 +919,8 @@ public class GameWorker extends WorkerBase implements MessageListener, WorkerInt
                         this.frameFinish.setText("Vyhrál " + this.player1.getName());
                     } else if (this.winner==2){
                         this.frameFinish.setText("Vyhrál " + this.player2.getName());
+                    } else {
+                        this.frameFinish.setText("Nerozhodně");
                     }
                 }
                 
@@ -1008,21 +1010,22 @@ public class GameWorker extends WorkerBase implements MessageListener, WorkerInt
     public boolean initNewGame(){
         // reset game counter
         this.gameTimeRemaining = this.mainPanel.getGameTime();
-        this.updateGuiEvent(null);
         
         // show game over window
         this.frameFinish.setVisible(false);
         
         // player default energy at game start - full energy
         if (this.player1 instanceof Player){
-            this.player1.setEnergy(100.0);
+            this.player1.setEnergy(100.0D);
         }
         
         // player default energy at game start - full energy
         if (this.player2 instanceof Player){
-            this.player2.setEnergy(100.0);
+            this.player2.setEnergy(100.0D);
         }
         
+        // update gui
+        this.updateGuiEvent(null);
         return true;
     }
     
@@ -1055,8 +1058,8 @@ public class GameWorker extends WorkerBase implements MessageListener, WorkerInt
         MobileNode mobileNode = this.mobileNodeManager.getMobileNode(nodeId);
 
         // remember maximal active score here
-        int curCheckpoint = -1;
-        double maxActiveScore = -1;
+        int curCheckpoint = 0;
+        double maxActiveScore = -10000;
 
         // store current checkpoint for further event trigering
         int oldCheckpoint = curPlayer.getCurrentCheckpoint();

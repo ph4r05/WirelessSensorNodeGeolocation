@@ -20,6 +20,10 @@ import javax.swing.JOptionPane;
 import net.tinyos.message.Message;
 import net.tinyos.message.MessageListener;
 import net.tinyos.message.MoteIF;
+import rssi_graph.JPannelLoggerLogElement;
+import rssi_graph.NodeSelectionChangedListener;
+import rssi_graph.WorkerBase;
+import rssi_graph.WorkerInterface;
 import rssi_graph.nodeRegister.GenericNode;
 import rssi_graph.nodeRegister.NodePlatform;
 
@@ -359,7 +363,7 @@ public class WorkerCommands extends WorkerBase implements MessageListener, Worke
         }
 
         // write to error log
-        System.err.println("Command packet received: " + msg.toString());
+        //System.err.println("Command packet received: " + msg.toString());
     }
 
     /**

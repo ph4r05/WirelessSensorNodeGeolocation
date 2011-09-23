@@ -18,6 +18,7 @@ import net.tinyos.message.Message;
 import net.tinyos.message.MessageListener;
 import net.tinyos.message.MoteIF;
 import rssi_graph.motecom.MessageSender;
+import rssi_graph.motecom.MyMessageListener;
 import rssi_graph.nodeRegister.NodeRegister;
 
 /**
@@ -42,6 +43,7 @@ public class WorkerBase implements MessageListener, WorkerInterface, ActionListe
         this.moteIF = moteIF;
     }
 
+    @Override
     public void itemStateChanged(ItemEvent e) {
         System.err.println("");
         System.err.println("itemStateChanged to unrecognized object");
@@ -56,15 +58,18 @@ public class WorkerBase implements MessageListener, WorkerInterface, ActionListe
         System.err.println("JToggle to string: " + javax.swing.JToggleButton.class.toString());
     }
 
-    public void messageReceived(int i, Message msg) {
+    @Override
+    public synchronized void messageReceived(int i, Message msg) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
+    @Override
     public void actionPerformed(ActionEvent e) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    public void messageSent(String listenerKey, net.tinyos.message.Message msg, int destination) {
+    @Override
+    public synchronized void messageSent(String listenerKey, net.tinyos.message.Message msg, int destination) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
@@ -87,6 +92,15 @@ public class WorkerBase implements MessageListener, WorkerInterface, ActionListe
      */
     public MessageSender getMsgSender(){
         return RSSI_graphApp.getApplication().getMsgSender();
+    }
+    
+    /**
+     * Message listener
+     * 
+     * @return 
+     */
+    public MyMessageListener getMsgListener(){
+        return RSSI_graphApp.getApplication().getMsgListener();
     }
 
     /**

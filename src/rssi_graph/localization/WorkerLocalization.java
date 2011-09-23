@@ -186,10 +186,10 @@ public class WorkerLocalization extends WorkerBase implements MessageListener, W
     public void turnOn(){
         // register listeners for response, report
         if (moteIF != null){
-            moteIF.registerListener(new CommandMsg(), this);
-            moteIF.registerListener(new MultiPingResponseMsg(), this);
-            moteIF.registerListener(new MultiPingResponseReportMsg(), this);
-            moteIF.registerListener(new MultiPingResponseTinyReportMsg(), this);
+            this.getMsgListener().registerListener(new CommandMsg(), this);
+            this.getMsgListener().registerListener(new MultiPingResponseMsg(), this);
+            this.getMsgListener().registerListener(new MultiPingResponseReportMsg(), this);
+            this.getMsgListener().registerListener(new MultiPingResponseTinyReportMsg(), this);
         }
 
         // node register
@@ -239,10 +239,10 @@ public class WorkerLocalization extends WorkerBase implements MessageListener, W
     public void turnOff(){
         // deregister listeners for response, report
         if (moteIF != null){
-            // moteIF.deregisterListener(new CommandMsg(), this);
-            moteIF.deregisterListener(new MultiPingResponseMsg(), this);
-            moteIF.deregisterListener(new MultiPingResponseReportMsg(), this);
-            moteIF.deregisterListener(new MultiPingResponseTinyReportMsg(), this);
+            this.getMsgListener().deregisterListener(new CommandMsg(), this);
+            this.getMsgListener().deregisterListener(new MultiPingResponseMsg(), this);
+            this.getMsgListener().deregisterListener(new MultiPingResponseReportMsg(), this);
+            this.getMsgListener().deregisterListener(new MultiPingResponseTinyReportMsg(), this);
         }
 
         this.sampleDataTimer.stop();
@@ -275,7 +275,7 @@ public class WorkerLocalization extends WorkerBase implements MessageListener, W
      * @param msg
      */
     @Override
-    public void messageReceived(int to, Message message) {
+    public synchronized void messageReceived(int to, Message message) {
         try{
             
             long curMilis = System.currentTimeMillis();
@@ -351,7 +351,11 @@ public class WorkerLocalization extends WorkerBase implements MessageListener, W
                             mobileNodeManager.incReportFreshnessFor(mn.getMobile_nodeID());
                             
                             // send freshness to reported mobile nodes (they are alive probably too)
-                            mn.getGenericNode().setLastSeen(curMilis);
+                            try {
+                                mn.getGenericNode().setLastSeen(curMilis);
+                            } catch(Exception e){
+                                ;
+                            }
 
                             // old code used windowed mean
     //////                        // if is able to insert new element, do it

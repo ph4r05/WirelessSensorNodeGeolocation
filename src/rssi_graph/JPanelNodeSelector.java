@@ -158,7 +158,8 @@ public class JPanelNodeSelector extends javax.swing.JPanel implements NodeRegist
      * React on node discovery
      * @param evt
      */
-    public void accept(NodeRegisterEvent evt) {
+    @Override
+    public synchronized void accept(NodeRegisterEvent evt) {
         Map<Integer, String> changes = evt.getChanges();
         if (changes==null){
             this.loadNodes();

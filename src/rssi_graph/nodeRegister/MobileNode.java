@@ -160,7 +160,7 @@ public class MobileNode implements Serializable, Cloneable {
 
 
     public double getFloatingMean(int source){
-        if (!floatingMeanRssi.containsKey(Integer.valueOf(source))) return 0;
+        if (!floatingMeanRssi.containsKey(Integer.valueOf(source))) return -100;
         return floatingMeanRssi.get(Integer.valueOf(source));
     }
 

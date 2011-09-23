@@ -922,6 +922,7 @@ module SendingMoteC {
       }
       else {
           operationMode = NODE_REPORTING;
+          doSensorReadingSampling = TRUE;
       }
 
       // default report type is medium
@@ -1716,6 +1717,9 @@ module SendingMoteC {
             btrpkt->command_data = tmpReading;
             btrpkt->command_code = COMMAND_SENSORREADING;
             btrpkt->command_data_next[0] = readMode;
+            
+            // set transmit power for each packet
+            setPower(&pkt_priv, tx_power);
 
             // send to base directly
             // sometimes node refuses to send too large packet. it will always end with fail

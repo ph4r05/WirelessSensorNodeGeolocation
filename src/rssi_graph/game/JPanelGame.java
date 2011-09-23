@@ -72,12 +72,12 @@ public class JPanelGame extends javax.swing.JPanel {
      * @param curplayer 
      */
     public void playerModel2View(int player, Player curplayer){
-        if (player == 1){
+        if (player == 1 && curplayer!=null){
             this.jTextEnergy1.setText(String.valueOf(curplayer.getEnergy()));
             //this.jTextEnergyExpression1.setText(curplayer.getEnergyExpression());
             this.jTextLight1.setText(String.valueOf(curplayer.getLight()));
             this.jTextResponse1.setText(String.valueOf(curplayer.getLastResponse()));
-        } else if (player == 2){
+        } else if (player == 2 && curplayer!=null){
             this.jTextEnergy2.setText(String.valueOf(curplayer.getEnergy()));
             //this.jTextEnergyExpression2.setText(curplayer.getEnergyExpression());
             this.jTextLight2.setText(String.valueOf(curplayer.getLight()));
@@ -214,11 +214,11 @@ public class JPanelGame extends javax.swing.JPanel {
      * Update gui timer fired event
      */
     public void updateGuiTimerFired(){
-        if (this.updatePlayer1Gui){
+        if (this.updatePlayer1Gui && this.gameWorker.getPlayer1() instanceof Player){
             this.playerModel2View(1, this.gameWorker.getPlayer1());
         }
         
-        if (this.updatePlayer2Gui){
+        if (this.updatePlayer2Gui && this.gameWorker.getPlayer2() instanceof Player){
             this.playerModel2View(2, this.gameWorker.getPlayer2());
         }
     }
@@ -361,7 +361,6 @@ public class JPanelGame extends javax.swing.JPanel {
         jTextSmoothingSensor = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jToolBar4 = new javax.swing.JToolBar();
-        jButtonGameApply = new javax.swing.JButton();
         jButtonGameStartNew = new javax.swing.JButton();
         jButtonGamePause = new javax.swing.JButton();
         jButtonGameStop = new javax.swing.JButton();
@@ -889,18 +888,6 @@ public class JPanelGame extends javax.swing.JPanel {
         jToolBar4.setRollover(true);
         jToolBar4.setName("jToolBar4"); // NOI18N
 
-        jButtonGameApply.setText(resourceMap.getString("jButtonGameApply.text")); // NOI18N
-        jButtonGameApply.setFocusable(false);
-        jButtonGameApply.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButtonGameApply.setName("jButtonGameApply"); // NOI18N
-        jButtonGameApply.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButtonGameApply.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonGameApplyActionPerformed(evt);
-            }
-        });
-        jToolBar4.add(jButtonGameApply);
-
         jButtonGameStartNew.setText(resourceMap.getString("jButtonGameStartNew.text")); // NOI18N
         jButtonGameStartNew.setFocusable(false);
         jButtonGameStartNew.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -1227,10 +1214,6 @@ public class JPanelGame extends javax.swing.JPanel {
         this.gameWorker.setSoundEnabled(evt.getStateChange() == ItemEvent.SELECTED);
     }//GEN-LAST:event_jTogglePlaySoundsItemStateChanged
 
-    private void jButtonGameApplyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGameApplyActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonGameApplyActionPerformed
-
     private void jButtonGameStartNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGameStartNewActionPerformed
         // we want to change game state
         boolean result = this.gameWorker.changeGameState(GameWorker.GAME_STATE_STARTED);
@@ -1238,6 +1221,7 @@ public class JPanelGame extends javax.swing.JPanel {
             // change was sucessfull
             this.jButtonGamePause.setEnabled(true);
             this.jButtonGameStop.setEnabled(true);
+            this.updateGuiTimerFired();
         }
     }//GEN-LAST:event_jButtonGameStartNewActionPerformed
 
@@ -1248,6 +1232,7 @@ public class JPanelGame extends javax.swing.JPanel {
             // change was sucessfull
             this.jButtonGamePause.setEnabled(true);
             this.jButtonGameStop.setEnabled(true);
+            this.updateGuiTimerFired();
         }
     }//GEN-LAST:event_jButtonGamePauseActionPerformed
 
@@ -1257,6 +1242,7 @@ public class JPanelGame extends javax.swing.JPanel {
         if (result){
             // change was sucessfull
             this.jButtonGamePause.setEnabled(false);
+            this.updateGuiTimerFired();
         }
     }//GEN-LAST:event_jButtonGameStopActionPerformed
 
@@ -1269,11 +1255,10 @@ public class JPanelGame extends javax.swing.JPanel {
 
         // clean timers, init new game, do not start now
         this.gameWorker.initNewGame();
-        
+        this.updateGuiTimerFired();
     }//GEN-LAST:event_jButtonGameResetActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButtonGameApply;
     private javax.swing.JButton jButtonGamePause;
     private javax.swing.JButton jButtonGameReset;
     private javax.swing.JButton jButtonGameStartNew;

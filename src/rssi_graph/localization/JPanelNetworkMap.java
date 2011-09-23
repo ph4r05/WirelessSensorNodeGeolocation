@@ -1102,7 +1102,8 @@ public class JPanelNetworkMap extends javax.swing.JPanel implements NodeRegister
      * Accept data change and reflect it to current view
      * @param evt
      */
-    public void accept(NodeRegisterEvent evt) {
+    @Override
+    public synchronized void accept(NodeRegisterEvent evt) {
         if (evt.getEventType() != NodeRegisterEvent.EVENT_TYPE_DATA_CHANGED) return;
         
         // flush history ?

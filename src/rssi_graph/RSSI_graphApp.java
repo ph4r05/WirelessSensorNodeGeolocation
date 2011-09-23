@@ -37,6 +37,7 @@ import net.tinyos.packet.*;
 import net.tinyos.util.*;
 import rssi_graph.game.GameWorker;
 import rssi_graph.motecom.MessageSender;
+import rssi_graph.motecom.MyMessageListener;
 import rssi_graph.motecom.NodeDiscovery;
 
 /**
@@ -70,6 +71,11 @@ public class RSSI_graphApp extends SingleFrameApplication {
      * Message sender thread
      */
     protected MessageSender msgSender = null;
+    
+    /**
+     * My message listener to listen messages to queue
+     */
+    protected MyMessageListener msgListener = null;
 
     /**
      * Node discovery thread
@@ -104,6 +110,11 @@ public class RSSI_graphApp extends SingleFrameApplication {
     protected SplashScreen splash;
     protected Graphics2D splashGraphics;
     protected Double splashProgressArea;
+    
+    /**
+     * Packet source
+     */
+    protected String source=null;
 
     /**
      * Main constructor
@@ -164,7 +175,7 @@ public class RSSI_graphApp extends SingleFrameApplication {
      */
     @Override protected void initialize(String[] args) {
         PhoenixSource phoenix=null;
-        String source = null;
+        source = null;
 
         // update splash window
         this.updateSplash("Base station initialization",  10);
@@ -269,6 +280,9 @@ public class RSSI_graphApp extends SingleFrameApplication {
             
             // new message sender
             this.msgSender = new MessageSender(moteInterface, null);
+            
+            // message listener
+            this.msgListener = new MyMessageListener(moteInterface, null);
 
             // node register
             this.nodeRegister = new NodeRegister();
@@ -314,6 +328,7 @@ public class RSSI_graphApp extends SingleFrameApplication {
         // start msgSender thread
         this.msgSender.start();
         this.nodeDiscovery.start();
+        this.msgListener.start();
     }
 
     /**
@@ -363,6 +378,50 @@ public class RSSI_graphApp extends SingleFrameApplication {
 //            splash.close();
 //        }
         System.err.println("Initialization done");
+        
+        // now allow receiving packets
+        this.msgListener.setDropingPackets(false);
+    }
+    
+    /**
+     * reset packet source
+     */
+    public synchronized boolean resetPacketSource(){
+        PhoenixSource phoenix;
+        // can connect to base station?
+        // in try block
+        try {            
+            // only if some source is defined
+            if (source != null) {
+                phoenix = BuildSource.makePhoenix(source, PrintStreamMessenger.err);
+
+                // phoenix is not null, can create packet source and mote interface
+                if (phoenix != null) {
+                    this.updateSplash("Registering base station", 20);
+
+                    // loading phoenix
+                    this.moteInterface = new MoteIF(phoenix);
+                    
+                    // reset listeners and set new message interfaces
+                    this.msgSender.setGateway(moteInterface);
+                    this.msgListener.setGateway(moteInterface);
+                    return true;
+                } else {
+                    // phoenix is null, cannot connect to base station
+                    this.moteInterface = null;
+                    return false;
+                }
+            }
+        } catch(Exception e){
+            System.err.println("Cannot create default packet source; Is basestation connected? Exception: " + e.getMessage());
+            
+            // reset phoenix to indicate error/non-detected base station
+            phoenix=null;
+            this.moteInterface = null;
+            return false;
+        }
+        
+        return false;
     }
 
     /**
@@ -432,39 +491,85 @@ public class RSSI_graphApp extends SingleFrameApplication {
         System.err.println("usage: RSSI_graphApp [-comm <source>]");
      }
 
+    /**
+     * Shutdown application, close threads
+     */
     @Override
     protected void shutdown() {
-        System.err.println("Application shutdown called");
         super.shutdown();
+        System.err.println("Application shutdown called");
 
         // shutdown thread node discovery
         if (this.nodeDiscovery!=null && this.nodeDiscovery.isAlive()){
-            this.nodeDiscovery.setDoDiscovery(false);
-            this.nodeDiscovery.setShutdown(true);
-            this.nodeDiscovery.interrupt();
+            try {
+                this.nodeDiscovery.setDoDiscovery(false);
+                this.nodeDiscovery.setShutdown(true);
+                this.nodeDiscovery.interrupt();
+            } catch(Exception e){
+                e.printStackTrace(System.err);
+            }
         }
 
+        // shutdown message sender
         if (this.msgSender!=null && this.msgSender.isAlive()){
-            this.msgSender.setShutdown(true);
-            this.msgSender.interrupt();
+            try {
+                this.msgSender.setShutdown(true);
+                this.msgSender.interrupt();
+            } catch(Exception e){
+                e.printStackTrace(System.err);
+            }
+        }
+        
+        // shutdown message listener
+        if (this.msgListener!=null && this.msgListener.isAlive()){
+            try {
+                this.msgListener.setDropingPackets(true);
+                this.msgListener.setShutdown(true);
+                this.msgListener.interrupt();
+            } catch(Exception e){
+                e.printStackTrace(System.err);
+            }
         }
     }
 
+    /**
+     * End application
+     */
     @Override
     protected void end() {
-        System.err.println("Application ending");
         super.end();
+        System.err.println("Application ending");
 
          // shutdown thread node discovery
         if (this.nodeDiscovery!=null && this.nodeDiscovery.isAlive()){
-            this.nodeDiscovery.setDoDiscovery(false);
-            this.nodeDiscovery.setShutdown(true);
-            this.nodeDiscovery.interrupt();
+            try {
+                this.nodeDiscovery.setDoDiscovery(false);
+                this.nodeDiscovery.setShutdown(true);
+                this.nodeDiscovery.interrupt();
+            } catch(Exception e){
+                e.printStackTrace(System.err);
+            }
         }
 
+        // shutdown message sender
         if (this.msgSender!=null && this.msgSender.isAlive()){
-            this.msgSender.setShutdown(true);
-            this.msgSender.interrupt();
+            try {
+                this.msgSender.setShutdown(true);
+                this.msgSender.interrupt();
+            } catch(Exception e){
+                e.printStackTrace(System.err);
+            }
+        }
+        
+        // shutdown message listener
+        if (this.msgListener!=null && this.msgListener.isAlive()){
+            try {
+                this.msgListener.setDropingPackets(true);
+                this.msgListener.setShutdown(true);
+                this.msgListener.interrupt();
+            } catch(Exception e){
+                e.printStackTrace(System.err);
+            }
         }
     }
 
@@ -503,6 +608,10 @@ public class RSSI_graphApp extends SingleFrameApplication {
         return msgSender;
     }
 
+    public MyMessageListener getMsgListener() {
+        return msgListener;
+    }
+
     public NodeRegister getNodeRegister() {
         return nodeRegister;
     }
@@ -537,5 +646,29 @@ public class RSSI_graphApp extends SingleFrameApplication {
 
     public static MessageSender sGetMessageSender(){
         return RSSI_graphApp.getApplication().getMsgSender();
+    }
+
+    public MoteIF getMoteInterface() {
+        return moteInterface;
+    }
+
+    public void setMoteInterface(MoteIF moteInterface) {
+        this.moteInterface = moteInterface;
+    }
+
+    public String getSource() {
+        return source;
+    }
+
+    public void setSource(String source) {
+        this.source = source;
+    }
+
+    public SplashScreen getSplash() {
+        return splash;
+    }
+
+    public void setSplash(SplashScreen splash) {
+        this.splash = splash;
     }
 }

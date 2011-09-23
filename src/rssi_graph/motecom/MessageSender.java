@@ -138,6 +138,17 @@ public class MessageSender extends Thread {
         } catch (InterruptedException ie) {
         }
     }
+    
+    /**
+     * perform hard reset to this object = clears entire memory
+     */
+    public synchronized void reset(){
+        this.queue.clear();
+        this.msgToSend = null;
+        this.toNotify.clear();
+        
+        System.err.println("MesageSender queues was flushed");
+    }
 
     /*
     The thread either executes tasks or sleep.
@@ -176,55 +187,56 @@ public class MessageSender extends Thread {
                 }
             }
 
-            // if message was null, continue to sleep
-            if (msgToSend==null) continue;
+            synchronized(this){
+                // if message was null, continue to sleep
+                if (msgToSend==null) continue;
 
-           
-            try {
-                // send message
-                gateway.send(msgToSend.getDestination(), msgToSend.getsMsg());
+                try {
+                    // send message
+                    gateway.send(msgToSend.getDestination(), msgToSend.getsMsg());
 
-                // message was sent here, notify listener if exists
-                // QUESTION to think about: When I now call listener, how does it
-                // affect current thread?
-                // Pos. 1: execution will execute eventhandler, execution could take some time
-                // so sending will be blocked, in worst scenario this thread crashes and no more
-                // sending will occur
-                //
-                // Solution: fork another thread which will execute this particular
-                // messageSent method
-                // DarkSide of this idea: too many threads after some time?
-                // Solution2: add fixed size pool for threads
-                // If pool full, then a) ignore sending notifications; b) wait => back on the beginning
-                // main thread starvation
-                //
-                // Solution3, best: fixedThreadPool with notificators in loop, checking toNotify queue and execute
-                // notifications to listeners; notificator = define subclass in this class, to be able to access queue toNotify
-//
-//                // now dummy solution, just call
-//                if (msgToSend.listener != null){
-//                    msgToSend.listener.messageSent(msgToSend.getListenerKey(), msgToSend.getsMsg(), msgToSend.getDestination());
-//                }
+                    // message was sent here, notify listener if exists
+                    // QUESTION to think about: When I now call listener, how does it
+                    // affect current thread?
+                    // Pos. 1: execution will execute eventhandler, execution could take some time
+                    // so sending will be blocked, in worst scenario this thread crashes and no more
+                    // sending will occur
+                    //
+                    // Solution: fork another thread which will execute this particular
+                    // messageSent method
+                    // DarkSide of this idea: too many threads after some time?
+                    // Solution2: add fixed size pool for threads
+                    // If pool full, then a) ignore sending notifications; b) wait => back on the beginning
+                    // main thread starvation
+                    //
+                    // Solution3, best: fixedThreadPool with notificators in loop, checking toNotify queue and execute
+                    // notifications to listeners; notificator = define subclass in this class, to be able to access queue toNotify
+    //
+    //                // now dummy solution, just call
+    //                if (msgToSend.listener != null){
+    //                    msgToSend.listener.messageSent(msgToSend.getListenerKey(), msgToSend.getsMsg(), msgToSend.getDestination());
+    //                }
 
-                // add message to tonotify queue if needed
-                if (msgToSend.listener != null && msgToSend.listener.isEmpty()==false){
-                    // do it in sycnhronized block not to interfere with reading
-                    // threads
-                    synchronized(this.toNotify){
-                        this.toNotify.add(msgToSend);
+                    // add message to tonotify queue if needed
+                    if (msgToSend.listener != null && msgToSend.listener.isEmpty()==false){
+                        // do it in sycnhronized block not to interfere with reading
+                        // threads
+                        synchronized(this.toNotify){
+                            this.toNotify.add(msgToSend);
+                        }
                     }
+
+                    if (this.logger!=null && msgToSend.string!=null){
+                        this.logger.addLogEntry(msgToSend.string, 56, "MsgSender", 0, 1, JPannelLoggerLogElement.SEVERITY_INFO);
+                    }
+
+                    // store last sent messages
+                    this.timeLastMessageSent = System.currentTimeMillis();
+
+                    Thread.sleep(SENT_SLEEP_TIME);
+                } catch (Exception e) {
+                    e.printStackTrace(System.err);
                 }
-
-                if (this.logger!=null && msgToSend.string!=null){
-                    this.logger.addLogEntry(msgToSend.string, 56, "MsgSender", 0, 1, JPannelLoggerLogElement.SEVERITY_INFO);
-                }
-
-                // store last sent messages
-                this.timeLastMessageSent = System.currentTimeMillis();
-
-                Thread.sleep(SENT_SLEEP_TIME);
-            } catch (Exception e) {
-                e.printStackTrace();
             }
         }
     }
@@ -419,9 +431,12 @@ public class MessageSender extends Thread {
         return gateway;
     }
 
-    public void setGateway(MoteIF gateway) {
+    public synchronized void setGateway(MoteIF gateway) {
         this.gateway = gateway;
+        this.reset();
         this.messageDeliveryGuarantor.registerListeners();
+        
+        System.err.println("Gateway changed for MessageSender");
     }
 
     public ConcurrentLinkedQueue<MessageToSend> getQueue() {

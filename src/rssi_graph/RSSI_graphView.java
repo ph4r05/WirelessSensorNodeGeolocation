@@ -155,6 +155,7 @@ public class RSSI_graphView extends FrameView {
         //
         RSSI_graphApp.getApplication().getMsgSender().setConsolePanel(jPanelLogger1);
         RSSI_graphApp.getApplication().getNodeDiscovery().setLogWindow(jPanelLogger1);
+        RSSI_graphApp.getApplication().getMsgListener().setConsolePanel(jPanelLogger1);
 
         // mnemonics to JTabbedPane
         this.jTabbedPaneMain.setMnemonicAt(0, KeyEvent.VK_R);
@@ -667,6 +668,11 @@ public class RSSI_graphView extends FrameView {
         jPanel14 = new javax.swing.JPanel();
         jCheckSampleSensorDataReadings = new javax.swing.JCheckBox();
         jButtonSensorSamplingSendCommand = new javax.swing.JButton();
+        jToolBar1 = new javax.swing.JToolBar();
+        jButtonResetListener = new javax.swing.JButton();
+        jButtonResetSender = new javax.swing.JButton();
+        jButtonResetPacketSource = new javax.swing.JButton();
+        jButtonChangePacketSource = new javax.swing.JButton();
         jPanelGame1 = new rssi_graph.game.JPanelGame();
         jPanelLogger1 = new rssi_graph.JPanelLogger();
         menuBar = new javax.swing.JMenuBar();
@@ -1682,22 +1688,76 @@ public class RSSI_graphView extends FrameView {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jToolBar1.setRollover(true);
+        jToolBar1.setName("jToolBar1"); // NOI18N
+
+        jButtonResetListener.setText(resourceMap.getString("jButtonResetListener.text")); // NOI18N
+        jButtonResetListener.setFocusable(false);
+        jButtonResetListener.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButtonResetListener.setName("jButtonResetListener"); // NOI18N
+        jButtonResetListener.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonResetListener.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonResetListenerActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(jButtonResetListener);
+
+        jButtonResetSender.setText(resourceMap.getString("jButtonResetSender.text")); // NOI18N
+        jButtonResetSender.setFocusable(false);
+        jButtonResetSender.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButtonResetSender.setName("jButtonResetSender"); // NOI18N
+        jButtonResetSender.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonResetSender.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonResetSenderActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(jButtonResetSender);
+
+        jButtonResetPacketSource.setText(resourceMap.getString("jButtonResetPacketSource.text")); // NOI18N
+        jButtonResetPacketSource.setFocusable(false);
+        jButtonResetPacketSource.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButtonResetPacketSource.setName("jButtonResetPacketSource"); // NOI18N
+        jButtonResetPacketSource.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonResetPacketSource.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonResetPacketSourceActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(jButtonResetPacketSource);
+
+        jButtonChangePacketSource.setText(resourceMap.getString("jButtonChangePacketSource.text")); // NOI18N
+        jButtonChangePacketSource.setFocusable(false);
+        jButtonChangePacketSource.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButtonChangePacketSource.setName("jButtonChangePacketSource"); // NOI18N
+        jButtonChangePacketSource.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonChangePacketSource.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonChangePacketSourceActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(jButtonChangePacketSource);
+
         javax.swing.GroupLayout jPanelCommLayout = new javax.swing.GroupLayout(jPanelComm);
         jPanelComm.setLayout(jPanelCommLayout);
         jPanelCommLayout.setHorizontalGroup(
             jPanelCommLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelCommLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel_comm_NodeSelector1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(13, 13, 13)
-                .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanelCommLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanelCommLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanelCommLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jToolBar1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanelCommLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPanel_comm_NodeSelector1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(13, 13, 13)
+                        .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanelCommLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanelCommLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelCommLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -1746,7 +1806,8 @@ public class RSSI_graphView extends FrameView {
                             .addGroup(jPanelCommLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
-                .addContainerGap(48, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
+                .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         jPanel11.getAccessibleContext().setAccessibleDescription(resourceMap.getString("jPanel11.AccessibleContext.accessibleDescription")); // NOI18N
@@ -1966,6 +2027,30 @@ public class RSSI_graphView extends FrameView {
         commands.sendDoSensorSampling(doSampleSensorReadings);
     }//GEN-LAST:event_jButtonSensorSamplingSendCommandActionPerformed
 
+    private void jButtonResetPacketSourceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonResetPacketSourceActionPerformed
+        // TODO add your handling code here:
+        RSSI_graphApp.getApplication().resetPacketSource();
+    }//GEN-LAST:event_jButtonResetPacketSourceActionPerformed
+
+    private void jButtonResetSenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonResetSenderActionPerformed
+        // TODO add your handling code here:
+        RSSI_graphApp.getApplication().msgSender.reset();
+    }//GEN-LAST:event_jButtonResetSenderActionPerformed
+
+    private void jButtonResetListenerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonResetListenerActionPerformed
+        // TODO add your handling code here:
+        RSSI_graphApp.getApplication().msgListener.reset();
+    }//GEN-LAST:event_jButtonResetListenerActionPerformed
+
+    private void jButtonChangePacketSourceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonChangePacketSourceActionPerformed
+        // TODO add your handling code here:
+        // @TODO refactor this crap!
+        JDialogSetPacketSource packetSource = new JDialogSetPacketSource(this.getFrame(), true);
+        packetSource.setApp(RSSI_graphApp.getApplication());
+        packetSource.setLocationRelativeTo(this.getFrame());
+        RSSI_graphApp.getApplication().show(packetSource);
+    }//GEN-LAST:event_jButtonChangePacketSourceActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
@@ -1973,7 +2058,11 @@ public class RSSI_graphView extends FrameView {
     private javax.swing.ButtonGroup buttonGroup_rssi2d_txpower;
     private javax.swing.ButtonGroup buttonGroup_sensorSamplingFrequency;
     private javax.swing.ButtonGroup buttonGroup_sensors;
+    private javax.swing.JButton jButtonChangePacketSource;
     private javax.swing.JButton jButtonFinishTry;
+    private javax.swing.JButton jButtonResetListener;
+    private javax.swing.JButton jButtonResetPacketSource;
+    private javax.swing.JButton jButtonResetSender;
     private javax.swing.JButton jButtonSensorSamplingSendCommand;
     private javax.swing.JButton jButtonSetPin;
     private javax.swing.JButton jButton_R2D_AddToGraph;
@@ -2081,6 +2170,7 @@ public class RSSI_graphView extends FrameView {
     private javax.swing.JToggleButton jToggle_R2D_ON;
     private javax.swing.JToggleButton jToggle_R2D_Timer;
     private javax.swing.JToggleButton jToggle_comm_on;
+    private javax.swing.JToolBar jToolBar1;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JLabel statusAnimationLabel;

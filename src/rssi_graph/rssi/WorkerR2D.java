@@ -248,10 +248,10 @@ public class WorkerR2D extends WorkerBase implements MessageListener,
 
         // register listeners for response, report
         if (moteIF != null){
-            moteIF.registerListener(new CommandMsg(), this);
-            moteIF.registerListener(new MultiPingResponseMsg(), this);
-            moteIF.registerListener(new MultiPingResponseReportMsg(), this);
-            moteIF.registerListener(new MultiPingResponseTinyReportMsg(), this);
+            this.getMsgListener().registerListener(new CommandMsg(), this);
+            this.getMsgListener().registerListener(new MultiPingResponseMsg(), this);
+            this.getMsgListener().registerListener(new MultiPingResponseReportMsg(), this);
+            this.getMsgListener().registerListener(new MultiPingResponseTinyReportMsg(), this);
         }
 
         // open sqlite database
@@ -319,10 +319,10 @@ public class WorkerR2D extends WorkerBase implements MessageListener,
     public void turnOff(){
         // deregister listeners for response, report
         if (moteIF != null){
-            moteIF.deregisterListener(new CommandMsg(), this);
-            moteIF.deregisterListener(new MultiPingResponseMsg(), this);
-            moteIF.deregisterListener(new MultiPingResponseReportMsg(), this);
-            moteIF.deregisterListener(new MultiPingResponseTinyReportMsg(), this);
+            this.getMsgListener().deregisterListener(new CommandMsg(), this);
+            this.getMsgListener().deregisterListener(new MultiPingResponseMsg(), this);
+            this.getMsgListener().deregisterListener(new MultiPingResponseReportMsg(), this);
+            this.getMsgListener().deregisterListener(new MultiPingResponseTinyReportMsg(), this);
         }
 
         // close sqlite database
@@ -1078,7 +1078,7 @@ public class WorkerR2D extends WorkerBase implements MessageListener,
      * @param msg
      */
     @Override
-    public void messageReceived(int to, Message msg) {
+    public synchronized void messageReceived(int to, Message msg) {
         try {
 //        if (isDoingTestNow()==false){
 //            System.err.println("R2D received unexpected packet");
@@ -1212,7 +1212,7 @@ public class WorkerR2D extends WorkerBase implements MessageListener,
      * @param destination
      */
     @Override
-    public void messageSent(String listenerKey, Message msg, int destination) {
+    public synchronized void messageSent(String listenerKey, Message msg, int destination) {
         // since we are sending only ping requests, start timer now
         if ("ping".equals(listenerKey)){
             synchronized(moveNextTimer){
@@ -1361,7 +1361,7 @@ public class WorkerR2D extends WorkerBase implements MessageListener,
             doPrepareMass();
         }
         else if ("R2DSelectedNode".equals(e.getActionCommand())){
-            System.err.println("R2D; R2DSelectedNode");
+            //System.err.println("R2D; R2DSelectedNode");
             this.nodeSelectionChanged();
         }        
         else {
@@ -1713,8 +1713,30 @@ public class WorkerR2D extends WorkerBase implements MessageListener,
         }
     }
 
-    public void accept(NodeRegisterEvent evt) {
+    @Override
+    public synchronized void accept(NodeRegisterEvent evt) {
         // node register change, reload node list
-        updateNodeSelector();
+         if (evt!=null && evt.getEventType() != NodeRegisterEvent.EVENT_TYPE_DATA_CHANGED) return;
+        
+        // no changes - do it
+        if (evt.changes==null){
+            updateNodeSelector();
+            return;
+        }
+        
+        // do not refresh on each data change - light intensity is not interesting for us for instance
+        boolean doRefresh = false;
+        Iterator<Integer> iterator = evt.changes.keySet().iterator();
+        while(iterator.hasNext()){
+            String curChange = evt.changes.get(iterator.next());
+            if (curChange==null){
+                doRefresh=true;
+                break;
+            }
+        }
+        
+        if (doRefresh){
+            updateNodeSelector();
+        }
     }
 }

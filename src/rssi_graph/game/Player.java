@@ -12,11 +12,11 @@ public class Player {
     public String name;
     public int node;
     
-    public long lastResponse;
-    public long lastResponseTime;
-    public long lastWatchdogTime;
+    public long lastResponse=0;
+    public long lastResponseTime=0;
+    public long lastWatchdogTime=0;
     
-    public double energy;
+    public double energy=100.0;
     public double light;
     
     public String energyExpression=null;
@@ -25,7 +25,7 @@ public class Player {
     /**
      * Currently passed checkpoint on ring
      */
-    protected int currentCheckpoint;
+    protected int currentCheckpoint=0;
     
     /**
      * Computes new energy

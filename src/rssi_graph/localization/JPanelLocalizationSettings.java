@@ -75,7 +75,8 @@ public class JPanelLocalizationSettings extends javax.swing.JPanel implements No
      * Node register data changed (data model)
      * @param evt
      */
-    public void accept(NodeRegisterEvent evt) {
+    @Override
+    public synchronized void accept(NodeRegisterEvent evt) {
         Map<Integer, String> changes = evt.getChanges();
         if (changes==null){
             this.loadPositionsData();

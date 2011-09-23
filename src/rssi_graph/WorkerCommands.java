@@ -83,7 +83,8 @@ public class WorkerCommands extends WorkerBase implements MessageListener, Worke
 
         // register listeners for response, report
         if (moteIF != null){
-            moteIF.registerListener(new CommandMsg(), this);
+            // register my own listener here!
+            this.getMsgListener().registerListener(new CommandMsg(), this);
         }
 
         // make sure that toggle button is pressed now
@@ -103,7 +104,7 @@ public class WorkerCommands extends WorkerBase implements MessageListener, Worke
     public void turnOff(){
         // deregister listeners for response, report
         if (moteIF != null){
-            moteIF.deregisterListener(new CommandMsg(), this);
+            this.getMsgListener().deregisterListener(new CommandMsg(), this);
         }
         
         // remove me as node selector change listener
@@ -419,8 +420,8 @@ public class WorkerCommands extends WorkerBase implements MessageListener, Worke
      * @param msg
      */
     @Override
-    public void messageReceived(int to, Message msg) {
-        System.err.println("Comm: msgReceived");
+    public synchronized void messageReceived(int to, Message msg) {
+        //System.err.println("Comm: msgReceived");
         
         // get message source here
         // (in multihop setting this will be probably problem)
@@ -469,7 +470,7 @@ public class WorkerCommands extends WorkerBase implements MessageListener, Worke
         }
 
         // write to error log
-        System.err.println("Command packet received: " + msg.toString());
+        //System.err.println("Command packet received: " + msg.toString());
     }
 
     /**
