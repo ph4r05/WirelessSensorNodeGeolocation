@@ -14,6 +14,21 @@
         </df>
         <in>RssiDemoMessages.h</in>
       </df>
+      <df name="AttackerMote">
+        <df name="build">
+          <df name="telosb">
+            <in>app.c</in>
+            <in>ident_flags.txt</in>
+          </df>
+        </df>
+        <in>ApplicationDefinitions.h</in>
+        <in>AttackerMoteAppC.nc</in>
+        <in>AttackerMoteC.nc</in>
+        <in>Reset.h</in>
+        <in>Reset.nc</in>
+        <in>ResetC.nc</in>
+        <in>platform.h</in>
+      </df>
       <df name="InterceptBase">
         <in>BaseStationC.nc</in>
         <in>BaseStationP.nc</in>

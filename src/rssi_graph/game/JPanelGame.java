@@ -34,6 +34,8 @@ public class JPanelGame extends javax.swing.JPanel {
     boolean updatePlayer1Gui=false;
     boolean updatePlayer2Gui=false;
     
+    // jdialog
+    protected JDialogCheckpoints checkpointsDialog = null;
     
     /** Creates new form JPanelGame */
     public JPanelGame() {
@@ -47,6 +49,12 @@ public class JPanelGame extends javax.swing.JPanel {
         System.err.println("Init this - panel");
         JPanelGame.enableTree(this.jPanelPlayer1, false);
         JPanelGame.enableTree(this.jPanelPlayer2, false);
+        
+        // dialog
+        if (this.checkpointsDialog == null){
+//            this.checkpointsDialog = new JDialogCheckpoints(this, true);
+//            this.checkpointsDialog.setLocationRelativeTo(this);
+        }
     }
     
     /**
@@ -365,6 +373,7 @@ public class JPanelGame extends javax.swing.JPanel {
         jButtonGamePause = new javax.swing.JButton();
         jButtonGameStop = new javax.swing.JButton();
         jButtonGameReset = new javax.swing.JButton();
+        jButtonCheckpoints = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
         jTextGameTime = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
@@ -938,6 +947,13 @@ public class JPanelGame extends javax.swing.JPanel {
         });
         jToolBar4.add(jButtonGameReset);
 
+        jButtonCheckpoints.setText(resourceMap.getString("jButtonCheckpoints.text")); // NOI18N
+        jButtonCheckpoints.setFocusable(false);
+        jButtonCheckpoints.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButtonCheckpoints.setName("jButtonCheckpoints"); // NOI18N
+        jButtonCheckpoints.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToolBar4.add(jButtonCheckpoints);
+
         jLabel11.setText(resourceMap.getString("jLabel11.text")); // NOI18N
         jLabel11.setName("jLabel11"); // NOI18N
 
@@ -1259,6 +1275,7 @@ public class JPanelGame extends javax.swing.JPanel {
     }//GEN-LAST:event_jButtonGameResetActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonCheckpoints;
     private javax.swing.JButton jButtonGamePause;
     private javax.swing.JButton jButtonGameReset;
     private javax.swing.JButton jButtonGameStartNew;
